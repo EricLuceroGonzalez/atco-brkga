@@ -16,6 +16,7 @@ mejor individuo de SA).
 """
 
 from __future__ import annotations
+
 import json
 import pickle
 from pathlib import Path
@@ -68,9 +69,7 @@ def write_solution_json(path: Path, solution: Solucion) -> None:
             for c in solution.getControladores()
         ],
     }
-    Path(path).write_text(
-        json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8"
-    )
+    Path(path).write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
 
 
 def load_solution_json(path: Path) -> Solucion:

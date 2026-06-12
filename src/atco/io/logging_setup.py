@@ -1,6 +1,5 @@
 import logging
 import sys
-import os
 
 
 def setup_logging(log_name="abaco.log", level="INFO"):

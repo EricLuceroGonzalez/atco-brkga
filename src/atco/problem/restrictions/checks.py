@@ -145,9 +145,7 @@ def _checks(individuo, entrada, parametros) -> list[float]:
     return [
         comprobar_nucleo_trabajo(individuo, entrada),
         comprobar_tipo_sector(individuo, entrada),
-        comprobar_porcentaje_descanso(
-            individuo, entrada, entrada.getTurno(), parametros
-        ),
+        comprobar_porcentaje_descanso(individuo, entrada, entrada.getTurno(), parametros),
         comprobar_sectores_abiertos_noche(individuo, entrada),
         comprobar_trabajo_maximo_consecutivo(individuo.getTurnos(), parametros),
         comprobar_controlador_turno_corto(individuo, entrada),
@@ -157,9 +155,7 @@ def _checks(individuo, entrada, parametros) -> list[float]:
         ),
         comprobar_trabajo_minimo_consecutivo(individuo.getTurnos(), parametros),
         comprobar_descanso_minimo_consecutivo(individuo.getTurnos(), parametros),
-        comprobar_trabajo_posicion_minimo_consecutivo_no_regex(
-            individuo.getTurnos(), parametros
-        ),
+        comprobar_trabajo_posicion_minimo_consecutivo_no_regex(individuo.getTurnos(), parametros),
         comprobar_num_maximo_sectores(individuo.getTurnos(), entrada, parametros),
         comprobar_controlador_asignado(individuo),
         comprobar_turno_vacio(individuo),
@@ -259,9 +255,7 @@ def calculate(sectors: list, volumes: dict) -> int:
     return counter
 
 
-def count_hits_per_sector(
-    volume: str, sectors: list, volumes: dict[str, list[str]]
-) -> int:
+def count_hits_per_sector(volume: str, sectors: list, volumes: dict[str, list[str]]) -> int:
     hits = 0
     volume_l = volume.lower()
     for sector in sectors:
@@ -271,9 +265,7 @@ def count_hits_per_sector(
     return hits
 
 
-def comprobar_trabajo_posicion_minimo_consecutivo_no_regex(
-    turnos: list[str], parametros
-) -> float:
+def comprobar_trabajo_posicion_minimo_consecutivo_no_regex(turnos: list[str], parametros) -> float:
     p = 0.0
     p_min = parametros.getTiempoPosMin() // parametros.getTamanoSlots()
     for turno in turnos:
@@ -290,11 +282,7 @@ def comprobar_trabajo_posicion_minimo_consecutivo_no_regex(
             elif is_rest and cnt >= p_min:
                 cnt = 0
             elif not is_rest:
-                if prev is None:
-                    cnt += 1
-                elif slot == prev:
-                    cnt += 1
-                elif cnt == 0:
+                if prev is None or slot == prev or cnt == 0:
                     cnt += 1
                 elif cnt < p_min:
                     p += 1 if t1 == 0 else 0.05
@@ -550,9 +538,12 @@ def comprobar_porcentaje_descanso(individuo, entrada, turno, parametros) -> int:
         if num_turno != -1:
             assigned = individuo.getTurnos()[num_turno]
             cnt = sum(1 for slot in _slots(assigned) if slot in REST_SLOTS)
-            if controlador.turno.upper() in {"TL", "ML", "N"} and slots_des_tl > cnt:
-                ok = False
-            elif controlador.turno.upper() in {"TC", "MC"} and slots_des_tc > cnt:
+            if (
+                controlador.turno.upper() in {"TL", "ML", "N"}
+                and slots_des_tl > cnt
+                or controlador.turno.upper() in {"TC", "MC"}
+                and slots_des_tc > cnt
+            ):
                 ok = False
         if not ok or num_turno == -1:
             p += 1

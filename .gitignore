@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+*.egg-info/
+*py_cache
+
+# uv
+.uv/
+
+# IDE
+.vscode/
+.idea/
+.DS_Store
+
+# Logs y outputs
+*.log
+results/*
+!results/.gitkeep
+
+# Notebooks
+.ipynb_checkpoints/
+
+# LaTeX outputs
+*.aux
+*.log
+*.out
+*.pdf
+!docs/**/*.pdf

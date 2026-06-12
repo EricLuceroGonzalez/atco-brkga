@@ -11,6 +11,7 @@ from pathlib import Path
 # Usado por: parameters.py (Parametros, ParametrosAlgoritmo, PesosObjetivos)
 # =============================================================================
 
+
 def load_properties(path: str | Path) -> dict[str, str]:
     """Load a Java .properties file using the subset used by ABACO."""
 
@@ -68,4 +69,3 @@ def _unescape_property(value: str) -> str:
     for src, dst in replacements.items():
         value = value.replace(src, dst)
     return value
-

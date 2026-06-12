@@ -38,7 +38,7 @@ class Controlador:
     turno_asignado: int = -1
     turno_noche: int = 0
 
-    def clone(self) -> "Controlador":
+    def clone(self) -> Controlador:
         return Controlador(
             self.id,
             self.turno,
@@ -225,11 +225,17 @@ class Turno:
             if self.nombre.lower() == "noche"
             else self.parametros.getPorcentDescansoDia()
         )
-        self.slots_des_tc = ceil((self.tc[1] - self.tc[0]) * descanso) + self.tc[0] + (self.tl[1] - self.tc[1])
+        self.slots_des_tc = (
+            ceil((self.tc[1] - self.tc[0]) * descanso)
+            + self.tc[0]
+            + (self.tl[1] - self.tc[1])
+        )
         self.slots_des_tl = ceil((self.tl[1] - self.tl[0]) * descanso)
 
     @staticmethod
-    def turnos_slots(inicio_tl: str, fin_tl: str, inicio_tc: str, fin_tc: str, parametros: Any) -> list[int]:
+    def turnos_slots(
+        inicio_tl: str, fin_tl: str, inicio_tc: str, fin_tc: str, parametros: Any
+    ) -> list[int]:
         i_tch, i_tcm = _hour_minute(inicio_tc)
         f_tch, f_tcm = _hour_minute(fin_tc)
         i_tlh, i_tlm = _hour_minute(inicio_tl)
@@ -262,12 +268,16 @@ class Turno:
         if i_tlh <= f_tlh:
             turnos[1] = ((f_tlh - inicio_h) * 60 + (f_tlm - inicio_m)) // slot_size
         else:
-            turnos[1] = (((24 - inicio_h) * 60 - inicio_m) // slot_size) + ((f_tlh * 60 + f_tlm) // slot_size)
+            turnos[1] = (((24 - inicio_h) * 60 - inicio_m) // slot_size) + (
+                (f_tlh * 60 + f_tlm) // slot_size
+            )
 
         if i_tch <= f_tch:
             turnos[3] = ((f_tch - inicio_h) * 60 + (f_tcm - inicio_m)) // slot_size
         else:
-            turnos[3] = (((24 - inicio_h) * 60 - inicio_m) // slot_size) + ((f_tch * 60 + f_tcm) // slot_size)
+            turnos[3] = (((24 - inicio_h) * 60 - inicio_m) // slot_size) + (
+                (f_tch * 60 + f_tcm) // slot_size
+            )
 
         return turnos
 
@@ -305,10 +315,14 @@ class Solucion:
     controladores: list[Controlador]
     longdescansos: int = 0
 
-    def clone(self) -> "Solucion":
-        return Solucion(list(self.turnos), [controlador.clone() for controlador in self.controladores], self.longdescansos)
+    def clone(self) -> Solucion:
+        return Solucion(
+            list(self.turnos),
+            [controlador.clone() for controlador in self.controladores],
+            self.longdescansos,
+        )
 
-    def shallowClone(self) -> "Solucion":
+    def shallowClone(self) -> Solucion:
         return Solucion(self.turnos, self.controladores, self.longdescansos)
 
     def getLongdescansos(self) -> int:

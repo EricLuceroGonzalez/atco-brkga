@@ -41,7 +41,7 @@ class PesosObjetivos:
     peso_obj3_sub2: float = 0.0
 
     @classmethod
-    def from_properties_file(cls, path: str | Path) -> "PesosObjetivos":
+    def from_properties_file(cls, path: str | Path) -> PesosObjetivos:
         props = load_properties(path)
         return cls(
             _float(props, "Obj1"),
@@ -86,7 +86,7 @@ class Parametros:
     pesos_objetivos: PesosObjetivos
 
     @classmethod
-    def from_files(cls, problem_parameters: str | Path, options: str | Path) -> "Parametros":
+    def from_files(cls, problem_parameters: str | Path, options: str | Path) -> Parametros:
         props = load_properties(problem_parameters)
         opts = load_properties(options)
         return cls(
@@ -171,7 +171,7 @@ class SAParameters:
     ciclo_refinar_grid: int
 
     @classmethod
-    def from_properties(cls, props: dict[str, str]) -> "SAParameters":
+    def from_properties(cls, props: dict[str, str]) -> SAParameters:
         return cls(
             props["Metodo_De_Temperatura_Inicial"],
             props["Metodo_De_Calculo_Del_Descenso"],
@@ -250,7 +250,7 @@ class VNSParameters:
     neighbor_structures_string: str
 
     @classmethod
-    def from_properties(cls, props: dict[str, str]) -> "VNSParameters":
+    def from_properties(cls, props: dict[str, str]) -> VNSParameters:
         porcentaje = props["porcentajeMinimoMejoria"]
         return cls(
             _int(props, "numMaxIteracionesSinMejoraBusquedaLocal"),
@@ -295,7 +295,7 @@ class ParametrosAlgoritmo:
     VNS: VNSParameters
 
     @classmethod
-    def from_file(cls, path: str | Path) -> "ParametrosAlgoritmo":
+    def from_file(cls, path: str | Path) -> ParametrosAlgoritmo:
         props = load_properties(path)
         return cls(
             props["algoritmo"],

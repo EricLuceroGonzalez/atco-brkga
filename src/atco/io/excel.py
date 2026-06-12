@@ -1,6 +1,7 @@
 import hashlib
+
 import openpyxl
-from openpyxl.styles import Font, PatternFill, Alignment
+from openpyxl.styles import Alignment, Font, PatternFill
 
 
 def _write_solution_xlsx_Gantt(path, solution) -> None:
@@ -58,9 +59,7 @@ def _write_solution_xlsx_Gantt(path, solution) -> None:
     ws.append(headers)
 
     # Estilos de cabecera
-    fill_header = PatternFill(
-        start_color="1F4E78", end_color="1F4E78", fill_type="solid"
-    )
+    fill_header = PatternFill(start_color="1F4E78", end_color="1F4E78", fill_type="solid")
     font_header = Font(bold=True, color="FFFFFF")
     for col in range(1, len(headers) + 1):
         cell = ws.cell(row=1, column=col)

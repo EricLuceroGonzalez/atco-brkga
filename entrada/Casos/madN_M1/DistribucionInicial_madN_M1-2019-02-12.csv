@@ -1,0 +1,27 @@
+Momento actual;06:30:00
+-;50;50;50;50;50;50;50;50;50;;;;;;;;;;;;;;;
+C1;lecmsan;LECMSAN;111;lecmsan;LECMSAN;111;lecmsan;LECMSAN;111;;;;;;;;;;;;;;;
+C2;111;lecmsan;LECMSAN;111;lecmsan;LECMSAN;111;lecmsan;LECMSAN;;;;;;;;;;;;;;;
+C3;LECMSAN;111;lecmsan;LECMSAN;111;lecmsan;LECMSAN;111;lecmsan;;;;;;;;;;;;;;;
+-;55;55;55;55;55;55;55;55;55;;;;;;;;;;;;;;;
+C4;lecmasi;LECMASI;111;lecmasi;LECMASI;111;lecmasi;LECMASI;111;;;;;;;;;;;;;;;
+C5;111;lecmasi;LECMASI;111;lecmasi;LECMASI;111;lecmasi;LECMASI;;;;;;;;;;;;;;;
+C6;LECMASI;111;lecmasi;LECMASI;111;lecmasi;LECMASI;111;lecmasi;;;;;;;;;;;;;;;
+-;40;35;40;35;40;35;40;35;40;35;40;35;;;;;;;;;;;;
+C7;lecmpau;lecmpau;LECMPAU;111;lecmblu;lecmblu;LECMBLU;111;lecmpau;LECMPAU;LECMPAU;111;;;;;;;;;;;;
+C8;LECMPAU;LECMPAU;111;lecmpau;lecmpau;LECMPAU;111;lecmdgu;LECMDGU;LECMDGU;111;lecmpau;;;;;;;;;;;;
+C9;LECMDGU;111;lecmdgu;lecmdgu;LECMDGU;111;lecmpau;lecmpau;LECMPAU;111;lecmdgu;LECMDGU;;;;;;;;;;;;
+C10;111;lecmdgu;LECMDGU;LECMDGU;111;lecmdgu;lecmdgu;LECMDGU;111;lecmblu;LECMBLU;LECMBLU;;;;;;;;;;;;
+C11;lecmdgu;LECMDGU;111;lecmblu;LECMBLU;LECMBLU;111;lecmblu;lecmblu;LECMBLU;111;lecmdgu;;;;;;;;;;;;
+C12;111;lecmblu;lecmblu;LECMBLU;111;lecmpau;LECMPAU;LECMPAU;111;lecmpau;lecmpau;LECMPAU;;;;;;;;;;;;
+C13;lecmblu;LECMBLU;LECMBLU;111;lecmdgu;LECMDGU;LECMDGU;111;lecmdgu;lecmdgu;LECMDGU;111;;;;;;;;;;;;
+C14;LECMBLU;111;lecmpau;LECMPAU;LECMPAU;111;lecmblu;LECMBLU;LECMBLU;111;lecmblu;lecmblu;;;;;;;;;;;;
+-;40;35;40;35;40;35;40;35;40;35;40;35;;;;;;;;;;;;
+C15;lecmpal;lecmpal;LECMPAL;111;lecmbll;lecmbll;LECMBLL;111;lecmpal;LECMPAL;LECMPAL;111;;;;;;;;;;;;
+C16;LECMPAL;LECMPAL;111;lecmpal;lecmpal;LECMPAL;111;lecmdgl;LECMDGL;LECMDGL;111;lecmpal;;;;;;;;;;;;
+C17;LECMDGL;111;lecmdgl;lecmdgl;LECMDGL;111;lecmpal;lecmpal;LECMPAL;111;lecmdgl;LECMDGL;;;;;;;;;;;;
+C18;111;lecmdgl;LECMDGL;LECMDGL;111;lecmdgl;lecmdgl;LECMDGL;111;lecmbll;LECMBLL;LECMBLL;;;;;;;;;;;;
+C19;lecmdgl;LECMDGL;111;lecmbll;LECMBLL;LECMBLL;111;lecmbll;lecmbll;LECMBLL;111;lecmdgl;;;;;;;;;;;;
+C20;111;lecmbll;lecmbll;LECMBLL;111;lecmpal;LECMPAL;LECMPAL;111;lecmpal;lecmpal;LECMPAL;;;;;;;;;;;;
+C21;lecmbll;LECMBLL;LECMBLL;111;lecmdgl;LECMDGL;LECMDGL;111;lecmdgl;lecmdgl;LECMDGL;111;;;;;;;;;;;;
+C22;LECMBLL;111;lecmpal;LECMPAL;LECMPAL;111;lecmbll;LECMBLL;LECMBLL;111;lecmbll;lecmbll;;;;;;;;;;;;

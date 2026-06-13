@@ -21,7 +21,7 @@ import json
 import pickle
 from pathlib import Path
 
-from ..models import Controlador, Propiedades, Solucion
+from atco.domain.models import Controlador, Propiedades, Solucion
 
 # =============================================================================
 # Pickle (round-trip exacto, formato binario)
@@ -59,17 +59,19 @@ def write_solution_json(path: Path, solution: Solucion) -> None:
                 "nucleo": c.nucleo,
                 "ptd": c.ptd,
                 "con": c.con,
-                "imaginario": c.imaginario,
                 "baja_alta": c.baja_alta.value,
                 "slot_alta": c.slot_alta,
                 "slot_baja": c.slot_baja,
                 "turno_asignado": c.turno_asignado,
                 "turno_noche": c.turno_noche,
+                "slots_trabajados": c.slots_trabajados,
             }
             for c in solution.getControladores()
         ],
     }
-    Path(path).write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
+    Path(path).write_text(
+        json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8"
+    )
 
 
 def load_solution_json(path: Path) -> Solucion:
@@ -82,12 +84,12 @@ def load_solution_json(path: Path) -> Solucion:
             d["nucleo"],
             d["ptd"],
             d["con"],
-            d["imaginario"],
             Propiedades(d["baja_alta"]),
             d["slot_alta"],
             d["slot_baja"],
             d["turno_asignado"],
             d["turno_noche"],
+            d["slots_trabajados"],
         )
         for d in data["controladores"]
     ]

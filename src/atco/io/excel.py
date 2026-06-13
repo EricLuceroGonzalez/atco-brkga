@@ -1,14 +1,17 @@
 import hashlib
 
 import openpyxl
+from pathlib import Path
 from openpyxl.styles import Alignment, Font, PatternFill
+
+from ..domain.models import Solucion
 
 COLORES_FIJOS = {
     "111": "aaadad",  # Rojo claro si 111 representa alguna penalización o retén
 }
 
 
-def _write_solution_xlsx_gantt(path, solution) -> None:
+def _write_solution_xlsx_gantt(path: Path, solution: Solucion) -> None:
     # try:
     #     import openpyxl
     #     from openpyxl.styles import Font, PatternFill, Alignment
@@ -49,8 +52,8 @@ def _write_solution_xlsx_gantt(path, solution) -> None:
         "Slot_Baja",
     ]
 
-    turnos = solution.getTurnos()
-    controladores = solution.getControladores()
+    turnos = solution.get_turnos()
+    controladores = solution.get_controladores()
 
     if turnos:
         num_slots = len(turnos[0]) // 3
@@ -59,7 +62,9 @@ def _write_solution_xlsx_gantt(path, solution) -> None:
     ws.append(headers)
 
     # Estilos de cabecera
-    fill_header = PatternFill(start_color="1F4E78", end_color="1F4E78", fill_type="solid")
+    fill_header = PatternFill(
+        start_color="1F4E78", end_color="1F4E78", fill_type="solid"
+    )
     font_header = Font(bold=True, color="FFFFFF")
     for col in range(1, len(headers) + 1):
         cell = ws.cell(row=1, column=col)
@@ -76,7 +81,6 @@ def _write_solution_xlsx_gantt(path, solution) -> None:
             controlador.ptd,
             controlador.con,
             controlador.turno_asignado,
-            controlador.imaginario,
             (
                 controlador.baja_alta.value
                 if hasattr(controlador.baja_alta, "value")
@@ -129,20 +133,20 @@ def _generar_color_pastel(texto: str) -> str:
     return f"{r:02X}{g:02X}{b:02X}"
 
 
-def _write_solution_txt(path, solution) -> None:
+def _write_solution_txt(path: Path, solution: Solucion) -> None:
     lines = ["# turnos"]
-    lines.extend(solution.getTurnos())
+    lines.extend(solution.get_turnos())
     lines.append("# controladores")
-    for controlador in solution.getControladores():
+    for controlador in solution.get_controladores():
         lines.append(
             f"id={controlador.id};turno={controlador.turno};nucleo={controlador.nucleo};"
             f"PTD={controlador.ptd};CON={controlador.con};turnoAsignado={controlador.turno_asignado};"
-            f"imaginario={controlador.imaginario}"
+            f"slots_trabajados={controlador.slots_trabajados}"
         )
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
-def _write_solution_xlsx(path, solution) -> None:
+def _write_solution_xlsx(path: Path, solution: Solucion) -> None:
     try:
         from openpyxl import Workbook
     except ImportError:
@@ -152,7 +156,7 @@ def _write_solution_xlsx(path, solution) -> None:
     ws = wb.active
     ws.title = "Turnos"
     ws.append(["turno_index", "slot_index", "valor"])
-    for turno_idx, turno in enumerate(solution.getTurnos()):
+    for turno_idx, turno in enumerate(solution.get_turnos()):
         for slot_idx in range(0, len(turno), 3):
             ws.append([turno_idx, slot_idx // 3, turno[slot_idx : slot_idx + 3]])
 
@@ -165,13 +169,13 @@ def _write_solution_xlsx(path, solution) -> None:
             "PTD",
             "CON",
             "turnoAsignado",
-            "imaginario",
             "bajaAlta",
             "slotAlta",
             "slotBaja",
+            "slots_trabajados",
         ]
     )
-    for controlador in solution.getControladores():
+    for controlador in solution.get_controladores():
         ws_ctrl.append(
             [
                 controlador.id,
@@ -180,10 +184,10 @@ def _write_solution_xlsx(path, solution) -> None:
                 controlador.ptd,
                 controlador.con,
                 controlador.turno_asignado,
-                controlador.imaginario,
                 controlador.baja_alta.value,
                 controlador.slot_alta,
                 controlador.slot_baja,
+                controlador.slots_trabajados,
             ]
         )
     wb.save(path)

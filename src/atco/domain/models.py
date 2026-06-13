@@ -4,6 +4,7 @@ from dataclasses import dataclass, field
 from enum import Enum
 from math import ceil
 from typing import Any
+from atco.problem.parameters import Parametros
 
 
 class Propiedades(Enum):
@@ -19,12 +20,12 @@ class Controlador:
     nucleo: str
     ptd: bool
     con: bool
-    imaginario: bool
     baja_alta: Propiedades
     slot_alta: int
     slot_baja: int
     turno_asignado: int = -1
     turno_noche: int = 0
+    slots_trabajados: int = 0
 
     def clone(self) -> Controlador:
         return Controlador(
@@ -33,19 +34,13 @@ class Controlador:
             self.nucleo,
             self.ptd,
             self.con,
-            self.imaginario,
             self.baja_alta,
             self.slot_alta,
             self.slot_baja,
             self.turno_asignado,
             self.turno_noche,
+            self.slots_trabajados,
         )
-
-    def is_imaginario(self) -> bool:
-        return self.imaginario
-
-    def set_imaginario(self, value: bool) -> None:
-        self.imaginario = value
 
     def get_slot_baja(self) -> int:
         return self.slot_baja
@@ -192,7 +187,7 @@ class Turno:
     fin_tl: str
     inicio_tc: str
     fin_tc: str
-    parametros: Any
+    parametros: Parametros
     tc: list[int] = field(init=False)
     tl: list[int] = field(init=False)
     slots_des_tc: int = field(init=False)
@@ -209,24 +204,26 @@ class Turno:
         self.tl = [slots[0], slots[1]]
         self.tc = [slots[2], slots[3]]
         descanso = (
-            self.parametros.getPorcentDescansoNoche()
+            self.parametros.get_porcent_descanso_noche()
             if self.nombre.lower() == "noche"
-            else self.parametros.getPorcentDescansoDia()
+            else self.parametros.get_porcent_descanso_dia()
         )
         self.slots_des_tc = (
-            ceil((self.tc[1] - self.tc[0]) * descanso) + self.tc[0] + (self.tl[1] - self.tc[1])
+            ceil((self.tc[1] - self.tc[0]) * descanso)
+            + self.tc[0]
+            + (self.tl[1] - self.tc[1])
         )
         self.slots_des_tl = ceil((self.tl[1] - self.tl[0]) * descanso)
 
     @staticmethod
     def turnos_slots(
-        inicio_tl: str, fin_tl: str, inicio_tc: str, fin_tc: str, parametros: Any
+        inicio_tl: str, fin_tl: str, inicio_tc: str, fin_tc: str, parametros: Parametros
     ) -> list[int]:
         i_tch, i_tcm = _hour_minute(inicio_tc)
         f_tch, f_tcm = _hour_minute(fin_tc)
         i_tlh, i_tlm = _hour_minute(inicio_tl)
         f_tlh, f_tlm = _hour_minute(fin_tl)
-        slot_size = parametros.getTamanoSlots()
+        slot_size = parametros.get_tamano_slots()
         turnos = [-1, -1, -1, -1]
 
         if i_tch == i_tlh:

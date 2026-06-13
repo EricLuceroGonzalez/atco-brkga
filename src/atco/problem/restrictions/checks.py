@@ -1,8 +1,19 @@
 from __future__ import annotations
 
 from functools import lru_cache
+from typing import Any
+from itertools import pairwise
 
 from atco.domain.constants import STRING_DESCANSO, STRING_NO_TURNO
+from ...domain.models import Solucion, Turno, Sector
+from ...problem.instance import Entrada
+from ...problem.parameters import Parametros
+from ...problem.restrictions.weights import (
+    PESO_POR_RESTRICCION,
+    PENALIZACION,
+    REST_SLOTS,
+    restricciones_no_cumplidas,
+)
 
 # =============================================================================
 # CORRESPONDENCIA CON CÓDIGO JAVA
@@ -19,26 +30,22 @@ from atco.domain.constants import STRING_DESCANSO, STRING_NO_TURNO
 #   [1] comprobar_tipo_sector             → R2: acreditación de tipo (CON/PTD)
 #   [2] comprobar_porcentaje_descanso     → R3: descanso mínimo diurno
 #   [3] comprobar_sectores_abiertos_noche → R4: cobertura nocturna
-#   [4] comprobar_trabajo_maximo_consecutivo → R5: trabajo continuo máximo
-#   [5] comprobar_controlador_turno_corto → R6: tipo de turno (TC/TL)
-#   [6] comprobar_ventana_trabajo_descanso → R7: ventana 2h30m
-#   [7] comprobar_cambio_posicion         → R8: cambio de posición ejecutiva
-#   [8] comprobar_trabajo_minimo_consecutivo → R9: trabajo continuo mínimo
-#   [9] comprobar_descanso_minimo_consecutivo → R10: descanso mínimo
-#  [10] comprobar_trabajo_posicion_minimo_consecutivo_no_regex → R11: permanencia en posición
-#  [11] comprobar_num_maximo_sectores     → R12: límite de sectores distintos
-#  [12] comprobar_controlador_asignado    → R13: asignación completa
-#  [13] comprobar_turno_vacio             → R14: trabajo mínimo
+# ?  [4] comprobar_trabajo_maximo_consecutivo → R4 primera - R5: trabajo continuo máximo
+# ! [5] comprobar_controlador_turno_corto → R6: tipo de turno (TC/TL)
+# ! [6] comprobar_ventana_trabajo_descanso → (R5) R7: ventana 2h30m
+# ! [7] comprobar_cambio_posicion         → (R6) R8: cambio de posición ejecutiva
+# ! [8] comprobar_trabajo_minimo_consecutivo → (R7) R9: trabajo continuo mínimo
+# ! [9] comprobar_descanso_minimo_consecutivo → (R8) R10: descanso mínimo
+# ! [10] comprobar_trabajo_posicion_minimo_consecutivo_no_regex → (R9) R11: permanencia en posición
+# ! [11] comprobar_num_maximo_sectores     → (R10) R12: límite de sectores distintos
+# ! [12] comprobar_controlador_asignado    → (R11) R13: asignación completa
+# ! [13] comprobar_turno_vacio             → (R12) R14: trabajo mínimo
 # =============================================================================
 
 
-PESO_POR_RESTRICCION = [2, 2, 3, 2, 3, 2, 3, 0.9, 3, 2, 0.85, 0.5, 5, 5]
-PENALIZACION = 0.001
-REST_SLOTS = {STRING_DESCANSO, STRING_NO_TURNO}
-restricciones_no_cumplidas = [0.0] * 14
-
-
-def penalizacion_por_restricciones(individuo, entrada, parametros) -> float:
+def penalizacion_por_restricciones(
+    individuo: Solucion, entrada: Entrada, parametros: Parametros
+) -> float:
     """Penalización ponderada con publicación del vector de violaciones.
 
     Idéntica a :func:`comprobar_restricciones_en_paralelo` salvo dos
@@ -76,7 +83,9 @@ def penalizacion_por_restricciones(individuo, entrada, parametros) -> float:
     return total
 
 
-def comprobar_restricciones_en_paralelo(individuo, entrada, parametros) -> float:
+def comprobar_restricciones_en_paralelo(
+    individuo: Solucion, entrada: Entrada, parametros: Parametros
+) -> float:
     """Suma ponderada de violaciones (versión "oficial" usada por F2).
 
     Recoge el vector de 14 violaciones devuelto por :func:`_checks` y
@@ -99,7 +108,9 @@ def comprobar_restricciones_en_paralelo(individuo, entrada, parametros) -> float
     return total
 
 
-def restricciones_sin_pesos(individuo, entrada, parametros) -> float:
+def restricciones_sin_pesos(
+    individuo: Solucion, entrada: Entrada, parametros: Parametros
+) -> float:
     """Suma directa de violaciones, sin aplicar ``PESO_POR_RESTRICCION``.
 
     Pensada para diagnóstico (`logs, dashboards`): da una visión
@@ -120,7 +131,9 @@ def restricciones_sin_pesos(individuo, entrada, parametros) -> float:
     return total
 
 
-def _checks(individuo, entrada, parametros) -> list[float]:
+def _checks(
+    individuo: Solucion, entrada: Entrada, parametros: Parametros
+) -> list[float]:
     """Ejecuta las 14 comprobaciones de restricciones y devuelve el vector.
 
     Es el corazón del módulo: encadena las 14 funciones ``comprobar_*`` en
@@ -141,11 +154,13 @@ def _checks(individuo, entrada, parametros) -> list[float]:
         ver módulo). El índice ``i`` corresponde a la restricción
         ``R(i+1)`` de la tabla del módulo.
     """
-    _ensure_fast_cache(entrada)
+    ensure_fast_cache(entrada)
     return [
         comprobar_nucleo_trabajo(individuo, entrada),
         comprobar_tipo_sector(individuo, entrada),
-        comprobar_porcentaje_descanso(individuo, entrada, entrada.get_turno(), parametros),
+        comprobar_porcentaje_descanso(
+            individuo, entrada, entrada.get_turno(), parametros
+        ),
         comprobar_sectores_abiertos_noche(individuo, entrada),
         comprobar_trabajo_maximo_consecutivo(individuo.get_turnos(), parametros),
         comprobar_controlador_turno_corto(individuo, entrada),
@@ -157,7 +172,9 @@ def _checks(individuo, entrada, parametros) -> list[float]:
         ),
         comprobar_trabajo_minimo_consecutivo(individuo.get_turnos(), parametros),
         comprobar_descanso_minimo_consecutivo(individuo.get_turnos(), parametros),
-        comprobar_trabajo_posicion_minimo_consecutivo_no_regex(individuo.get_turnos(), parametros),
+        comprobar_trabajo_posicion_minimo_consecutivo_no_regex(
+            individuo.get_turnos(), parametros
+        ),
         comprobar_num_maximo_sectores(individuo.get_turnos(), entrada, parametros),
         comprobar_controlador_asignado(individuo),
         comprobar_turno_vacio(individuo),
@@ -197,8 +214,13 @@ def _slots(turno: str) -> tuple[str, ...]:
     return tuple(turno[idx : idx + 3] for idx in range(0, len(turno), 3))
 
 
-def comprobar_num_maximo_sectores(turnos: list[str], entrada, parametros) -> int:
+def comprobar_num_maximo_sectores(
+    turnos: list[str], entrada: Entrada, parametros: Parametros
+) -> int:
+    # R10 Los controladores aéreos no pueden trabajar en más de tres sectores no anes en un
+    # único turno.
     p = 0
+    # TODO: Verificar estos metodos en Entrada
     volumes = entrada._fast_volumes_by_id
     sector_by_id = entrada._fast_sector_by_id
     cache = entrada._fast_num_max_sectores_cache
@@ -214,7 +236,9 @@ def comprobar_num_maximo_sectores(turnos: list[str], entrada, parametros) -> int
     return p
 
 
-def lista_de_sectores_turno(turno: str, sector_by_id: dict) -> list:
+def lista_de_sectores_turno(
+    turno: str, sector_by_id: dict[str, Sector]
+) -> list[Sector]:
     result = []
     result_ids = set()
     prev_l = ""
@@ -229,7 +253,7 @@ def lista_de_sectores_turno(turno: str, sector_by_id: dict) -> list:
     return result
 
 
-def calculate(sectors: list, volumes: dict) -> int:
+def calculate(sectors: list[Any], volumes: dict[Any, Any]) -> int:
     counter = 0
     rest = list(sectors)
     to_delete = set()
@@ -257,7 +281,9 @@ def calculate(sectors: list, volumes: dict) -> int:
     return counter
 
 
-def count_hits_per_sector(volume: str, sectors: list, volumes: dict[str, list[str]]) -> int:
+def count_hits_per_sector(
+    volume: str, sectors: list[Any], volumes: dict[str, list[str]]
+) -> int:
     hits = 0
     volume_l = volume.lower()
     for sector in sectors:
@@ -267,7 +293,12 @@ def count_hits_per_sector(volume: str, sectors: list, volumes: dict[str, list[st
     return hits
 
 
-def comprobar_trabajo_posicion_minimo_consecutivo_no_regex(turnos: list[str], parametros) -> float:
+def comprobar_trabajo_posicion_minimo_consecutivo_no_regex(
+    turnos: list[str], parametros: Parametros
+) -> float:
+    # R9: 15 min en sector/posición
+    # Los controladores aéreos deben permanecer en el mismo sector y posición, un mínimo
+    # de quince minutos, antes de poder cambiar a otro sector o posición.
     p = 0.0
     p_min = parametros.get_tiempo_pos_min() // parametros.get_tamano_slots()
     for turno in turnos:
@@ -296,7 +327,10 @@ def comprobar_trabajo_posicion_minimo_consecutivo_no_regex(turnos: list[str], pa
     return p
 
 
-def comprobar_descanso_minimo_consecutivo(turnos: list[str], parametros) -> float:
+def comprobar_descanso_minimo_consecutivo(
+    turnos: list[str], parametros: Parametros
+) -> float:
+    # R8: ≥15 min descanso
     p = 0.0
     d_min = parametros.get_tiempo_des_min() // parametros.get_tamano_slots()
     for turno in turnos:
@@ -313,7 +347,10 @@ def comprobar_descanso_minimo_consecutivo(turnos: list[str], parametros) -> floa
     return p
 
 
-def comprobar_trabajo_minimo_consecutivo(turnos: list[str], parametros) -> float:
+def comprobar_trabajo_minimo_consecutivo(
+    turnos: list[str], parametros: Parametros
+) -> float:
+    # R7
     p = 0.0
     t_min = parametros.get_tiempo_trab_min() // parametros.get_tamano_slots()
     for turno in turnos:
@@ -332,9 +369,11 @@ def comprobar_trabajo_minimo_consecutivo(turnos: list[str], parametros) -> float
     return p
 
 
-def comprobar_turno_vacio(individuo) -> int:
+def comprobar_turno_vacio(individuo: Solucion) -> int:
     p = 0
     for turno in individuo.get_turnos():
+        # R12 Ningún controlador aéreo puede descansar durante el turno completo, por lo que
+        # como mínimo trabajará quince minutos.
         work = 0
         rest = 0
         for slot in _slots(turno):
@@ -349,14 +388,24 @@ def comprobar_turno_vacio(individuo) -> int:
     return p
 
 
-def comprobar_controlador_asignado(individuo) -> int:
+def comprobar_controlador_asignado(individuo: Solucion) -> int:
+    # R11
+    # Los controladores aéreos (todos) deben tener un turno de trabajo asignado y todos
+    # los turnos de trabajo deben estar asignados a un controlador.
     p = sum(1 for c in individuo.get_controladores() if c.turno_asignado == -1)
     assigned = {c.turno_asignado for c in individuo.get_controladores()}
     p += sum(1 for idx in range(len(individuo.get_turnos())) if idx not in assigned)
     return p
 
 
-def comprobar_ventana_trabajo_descanso(turnos: list[str], parametros) -> float:
+def comprobar_ventana_trabajo_descanso(
+    turnos: list[str], parametros: Parametros
+) -> float:
+    # R5
+    # Los controladores aéreos deben descansar un mínimo de treinta minutos cada dos
+    # horas de trabajo. Estas no tienen porqué ser consecutivas, lo que quiere decir que, en
+    # una ventana de trabajo de dos horas y media, se tiene que descansar como mínimo
+    # media hora.
     p = 0.0
     ventana = (
         (parametros.get_tiempo_trab_max() + parametros.get_tiempo_des_por_trabajo())
@@ -389,13 +438,17 @@ def comprobar_ventana_trabajo_descanso(turnos: list[str], parametros) -> float:
 
 
 def comprobar_cambio_posicion(
-    turnos: list[str], mapa_afinidad: dict[str, set[str]], lista_sec
+    turnos: list[str], mapa_afinidad: dict[str, set[str]], lista_sec: list[Sector]
 ) -> float:
+    # R6
+    # Los cambios de los controladores entre sectores cuando se encuentran trabajando en
+    # posición de ejecutivo, no están permitidos sin un descanso excepto que se produzca
+    # un cambio de conguración y los sectores sean afines
     p = 0.0
     for turno in turnos:
         x = 0.0
         slots = list(_slots(turno))
-        for current, nxt in zip(slots, slots[1:], strict=True):
+        for current, nxt in pairwise(slots):  # ← era zip(slots, slots[1:], strict=True)
             if (
                 current not in REST_SLOTS
                 and nxt not in REST_SLOTS
@@ -416,7 +469,10 @@ def comprobar_afinidad(a: str, b: str, mapa_afinidad: dict[str, set[str]]) -> bo
     return b in mapa_afinidad.get(a, set())
 
 
-def comprobar_tipo_sector(individuo, entrada) -> float:
+def comprobar_tipo_sector(individuo: Solucion, entrada: Entrada) -> float:
+    # R2
+    # Los controladores aéreos con acreditación CON solo pueden operar en sectores de
+    # tipo ruta.
     p = 0.0
     ruta_ids = entrada._fast_ruta_ids
     for controlador in individuo.get_controladores():
@@ -433,7 +489,10 @@ def comprobar_tipo_sector(individuo, entrada) -> float:
     return p
 
 
-def comprobar_nucleo_trabajo(individuo, entrada) -> float:
+def comprobar_nucleo_trabajo(individuo: Solucion, entrada: Entrada) -> float:
+    # R1
+    # Los controladores aéreos solo pueden operar en sectores que pertenezcan al núcleo
+    # en el que estén acreditados.
     if len(entrada.get_nucleos_abiertos()) == 1:
         return 0.0
     p = 0.0
@@ -455,7 +514,9 @@ def comprobar_nucleo_trabajo(individuo, entrada) -> float:
     return p
 
 
-def comprobar_controlador_turno_corto(individuo, entrada) -> float:
+def comprobar_controlador_turno_corto(individuo: Solucion, entrada: Entrada) -> float:
+    # R?
+
     p = 0.0
     resto = entrada.get_turno().get_tl()[1] - entrada.get_turno().get_tc()[1]
     inicio_corto = entrada.get_turno().get_tc()[0]
@@ -473,7 +534,10 @@ def comprobar_controlador_turno_corto(individuo, entrada) -> float:
     return p
 
 
-def comprobar_trabajo_maximo_consecutivo(turnos: list[str], parametros) -> float:
+def comprobar_trabajo_maximo_consecutivo(
+    turnos: list[str], parametros: Parametros
+) -> float:
+    # R4 de primera aprox (pag. 27)
     p = 0.0
     t_max = parametros.get_tiempo_trab_max() // parametros.get_tamano_slots()
     for turno in turnos:
@@ -485,6 +549,7 @@ def comprobar_trabajo_maximo_consecutivo(turnos: list[str], parametros) -> float
             else:
                 if cnt > t_max:
                     if t == 0:
+                        # TODO Verificar esto
                         p += 1
                         p += (cnt - t_max) * 0.025
                         t = 1
@@ -500,14 +565,16 @@ def comprobar_trabajo_maximo_consecutivo(turnos: list[str], parametros) -> float
     return p
 
 
-def comprobar_sectores_abiertos_noche(individuo, entrada) -> int:
+def comprobar_sectores_abiertos_noche(individuo: Solucion, entrada: Entrada) -> int:
+    # R4
     p = 0
     controladores = individuo.get_controladores()
+    # TODO: Ver esto de _fast en Entrada
     sector_ids = entrada._fast_sector_ids
     for controlador in controladores:
         if controlador.turno_noche != 0 and controlador.turno_asignado != -1:
             turno = individuo.get_turnos()[controlador.turno_asignado]
-            x = 0
+            x: float = 0.0
             for slot in _slots(turno):
                 if slot.lower() not in sector_ids:
                     x += PENALIZACION
@@ -522,7 +589,7 @@ def comprobar_sectores_abiertos_noche(individuo, entrada) -> int:
     return p
 
 
-def _ensure_fast_cache(entrada) -> None:
+def ensure_fast_cache(entrada: Entrada) -> None:
     if hasattr(entrada, "_fast_sector_ids"):
         return
     sectores = entrada.get_lista_sectores_abiertos()
@@ -536,7 +603,13 @@ def _ensure_fast_cache(entrada) -> None:
     entrada._fast_num_max_sectores_cache = {}
 
 
-def comprobar_porcentaje_descanso(individuo, entrada, turno, parametros) -> int:
+def comprobar_porcentaje_descanso(
+    individuo: Solucion, entrada: Entrada, turno: Turno, parametros: Parametros
+) -> int:
+    # R3
+    # Los controladores aéreos deben descansar un 25 % de su turno cuando este es un
+    # turno de día (TT, TTL, TM, TML). En el turno de noche estos deben descansar
+    # un 33 %.
     p = 0
     slots_des_tl = turno.get_slots_des_tl()
     slots_des_tc = turno.get_slots_des_tc()

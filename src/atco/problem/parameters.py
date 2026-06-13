@@ -86,7 +86,9 @@ class Parametros:
     pesos_objetivos: PesosObjetivos
 
     @classmethod
-    def from_files(cls, problem_parameters: str | Path, options: str | Path) -> Parametros:
+    def from_files(
+        cls, problem_parameters: str | Path, options: str | Path
+    ) -> Parametros:
         props = load_properties(problem_parameters)
         opts = load_properties(options)
         return cls(

@@ -2,11 +2,17 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Any
 
+from atco.problem.parameters import Parametros
 from atco.domain.constants import STRING_DESCANSO
 from atco.domain.models import Controlador, Nucleo, Propiedades, Sector, Solucion, Turno
 
-IDS = [f"a{b}{c}" for b in "abcdefghijklmnopqrstuvwxyz" for c in "abcdefghijklmnopqrstuvwxyz"]
+IDS = [
+    f"a{b}{c}"
+    for b in "abcdefghijklmnopqrstuvwxyz"
+    for c in "abcdefghijklmnopqrstuvwxyz"
+]
 
 
 @dataclass
@@ -16,11 +22,9 @@ class Entrada:
     turno: Turno
     lista_sectores: list[Sector]
     lista_sectores_abiertos: list[Sector]
-    lista_nuevos_sectores_abiertos_tras_momento_actual: list[Sector] | None
     sectorizacion: list[set[str]]
     mapa_afinidad: dict[str, set[str]]
     volumes_of_sectors: dict[str, list[str]]
-    sectorizacion_modificada: list[set[str]] | None
     distribucion_inicial: Solucion
     slot_momento_actual: int
     nucleos_abiertos: list[Nucleo]
@@ -30,71 +34,86 @@ class Entrada:
     def leer_entrada(
         cls,
         repo: str | Path,
-        parametros,
+        parametros: Parametros,
         path: str,
         entrada_id: str,
         entorno: str,
-        estudio_estadillos: bool = True,
+        estudio_estadillos: bool = False,
     ) -> Entrada:
         repo = Path(repo)
         case_dir = repo / "entrada" / "Casos" / path
         f_apertura = _listar(case_dir / f"AperturaSectorizaciones_{entrada_id}.csv")
         f_recursos = _listar(case_dir / f"RecursosDisponibles_{entrada_id}.csv")
         f_turno = _listar(case_dir / f"Turno_{entrada_id}.csv")
-        f_mod_sectores = _listar(case_dir / f"ModificacionSectorizaciones_{entrada_id}.csv", True)
-        f_mod_recursos = _listar(case_dir / f"ModificacionRecursos_{entrada_id}.csv", True)
+        f_mod_sectores = _listar(
+            case_dir / f"ModificacionSectorizaciones_{entrada_id}.csv", True
+        )
+        # f_mod_recursos = _listar(
+        #     case_dir / f"ModificacionRecursos_{entrada_id}.csv", True
+        # )
         f_distribucion = _listar(case_dir / f"DistribucionInicial_{entrada_id}.csv")
         # TODO: Probar los otros casos Barcelona, Canarias, etc
         if estudio_estadillos:
             fecha = entrada_id.replace("-", "")[-8:]
-            f_elementales = _listar(case_dir / f"ListaSectoresElementales_{entrada_id}.csv")
-            f_afinidad = _listar(
-                repo / "entrada" / "Matrices de afinidad" / f"MatrizAfinidad_{entorno}_{fecha}.csv"
+            f_elementales = _listar(
+                case_dir / f"ListaSectoresElementales_{entrada_id}.csv"
             )
-            f_sectores_nucleos = _listar(case_dir / f"SectoresNucleos{entorno}_{entrada_id}.csv")
-            f_sector_vol = _listar(case_dir / f"SectorizacionesSectoresVolumenes_{entrada_id}.csv")
+            f_afinidad = _listar(
+                repo
+                / "entrada"
+                / "Matrices de afinidad"
+                / f"MatrizAfinidad_{entorno}_{fecha}.csv"
+            )
+            f_sectores_nucleos = _listar(
+                case_dir / f"SectoresNucleos{entorno}_{entrada_id}.csv"
+            )
+            f_sector_vol = _listar(
+                case_dir / f"SectorizacionesSectoresVolumenes_{entrada_id}.csv"
+            )
         else:
             env_dir = repo / "entrada" / entorno
             f_elementales = _listar(env_dir / f"ListaSectoresElementales_{entorno}.csv")
             f_afinidad = _listar(env_dir / f"MatrizAfinidad_{entorno}.csv")
             f_sectores_nucleos = _listar(env_dir / f"SectoresNucleos_{entorno}.csv")
-            f_sector_vol = _listar(env_dir / f"SectorizacionesSectoresVolumenes_{entorno}.csv")
+            f_sector_vol = _listar(
+                env_dir / f"SectorizacionesSectoresVolumenes_{entorno}.csv"
+            )
 
         controladores = crear_controladores(f_recursos)
         lista_sectores = crear_lista_sectores(f_sectores_nucleos, f_elementales)
         nucleos = crear_nucleos(f_sectores_nucleos, lista_sectores)
         mapa_afinidad = crear_mapa_afinidad(f_afinidad, lista_sectores)
         turno = crear_turno(f_turno, parametros)
-        sectorizacion = crear_sectorizacion(f_apertura, f_sector_vol, turno, lista_sectores)
+        sectorizacion = crear_sectorizacion(
+            f_apertura, f_sector_vol, turno, lista_sectores
+        )
         print(f"tipo sctori: {type(sectorizacion)} con len: {len(sectorizacion)}")
         # for i, sec in enumerate(sectorizacion):
         #     print(f"slot {i+1}: {sec}")
         slot_momento_actual = crear_momento_actual(turno, f_distribucion, parametros)
 
-        sectorizacion_modificada = None
-        nuevos = None
-        print(f"f_mod_sectores({len(f_mod_sectores)}) = {f_mod_sectores}")
-        if len(f_mod_sectores) <= 1:
-            sectorizacion_modificada = crear_sectorizacion(
-                f_mod_sectores, f_sector_vol, turno, lista_sectores
-            )
-            nuevos = crear_lista_nuevos_sectores_abiertos(
-                slot_momento_actual,
-                sectorizacion,
-                sectorizacion_modificada,
-                lista_sectores,
-            )
-        if f_mod_recursos:
-            modificar_controladores(controladores, f_mod_recursos, turno, parametros)
+        # sectorizacion_modificada = None
+        # nuevos = None
+        # print(f"f_mod_sectores({len(f_mod_sectores)}) = {f_mod_sectores}")
+        # if len(f_mod_sectores) <= 1:
+        #     sectorizacion_modificada = crear_sectorizacion(
+        #         f_mod_sectores, f_sector_vol, turno, lista_sectores
+        #     )
+        #     nuevos = crear_lista_nuevos_sectores_abiertos(
+        #         slot_momento_actual,
+        #         sectorizacion,
+        #         sectorizacion_modificada,
+        #         lista_sectores,
+        #     )
+        # if f_mod_recursos:
+        #     modificar_controladores(controladores, f_mod_recursos, turno, parametros)
 
-        abiertos = crear_lista_sectores_abiertos(
-            slot_momento_actual, sectorizacion, sectorizacion_modificada, lista_sectores
-        )
-        volumes = crear_hashmap_sectores_volumenes(abiertos, f_sector_vol)
+        abiertos = crear_lista_sectores_abiertos(sectorizacion, lista_sectores)
+        volumenes = crear_hashmap_sectores_volumenes(abiertos, f_sector_vol)
         distribucion = crear_solucion_inicial(
             f_distribucion, lista_sectores, controladores, parametros
         )
-        calcular_carga_trabajo(sectorizacion_modificada or sectorizacion)
+        calcular_carga_trabajo(sectorizacion)
         nucleos_abiertos = calculo_nuc_lista_sectores(nucleos, controladores)
         nocturnos = calculo_lista_sectores_nocturnos(abiertos)
         return cls(
@@ -103,11 +122,9 @@ class Entrada:
             turno,
             lista_sectores,
             abiertos,
-            nuevos,
             sectorizacion,
             mapa_afinidad,
-            volumes,
-            sectorizacion_modificada,
+            volumenes,
             distribucion,
             slot_momento_actual,
             nucleos_abiertos,
@@ -117,8 +134,8 @@ class Entrada:
     def get_distribucion_inicial(self) -> Solucion:
         return self.distribucion_inicial
 
-    def get_sectorizacion_modificada(self) -> list[set[str]] | None:
-        return self.sectorizacion_modificada
+    # def get_sectorizacion_modificada(self) -> list[set[str]] | None:
+    #     return self.sectorizacion_modificada
 
     def get_controladores(self) -> list[Controlador]:
         return self.controladores
@@ -139,10 +156,9 @@ class Entrada:
         """Sectorización efectiva: original hasta slot_momento_actual,
         modificada a partir de ahí. Coherente con cómo se cubren los slots
         en tiempo real."""
-        if not self.sectorizacion_modificada:
-            return self.sectorizacion
-        t0 = self.slot_momento_actual
-        return self.sectorizacion[:t0] + self.sectorizacion_modificada[t0:]
+        return self.sectorizacion
+        # t0 = self.slot_momento_actual
+        # return self.sectorizacion[:t0] + self.sectorizacion_modificada[t0:]
 
     def get_lista_sectores_abiertos(self) -> list[Sector]:
         return self.lista_sectores_abiertos
@@ -202,7 +218,9 @@ def crear_controladores(lines: list[str]) -> list[Controlador]:
     return controladores
 
 
-def crear_lista_sectores(lines: list[str], elementales_lines: list[str]) -> list[Sector]:
+def crear_lista_sectores(
+    lines: list[str], elementales_lines: list[str]
+) -> list[Sector]:
     """Recorre la lista de sectores y compara con la lista de sectores y sus sectores elementales
 
     Crea el Array de sectores elementales.
@@ -246,9 +264,10 @@ def crear_lista_sectores(lines: list[str], elementales_lines: list[str]) -> list
             sectores.append(Sector(cols[0], IDS[idx], False, True, 0, elems))
         elif kind == "app":
             sectores.append(Sector(cols[0], IDS[idx], True, False, 0, elems))
-    from .fitness import Fitness
+    # TODO:  Ver esto
+    # from .fitness import Fitness
 
-    Fitness.sectores_elementales_totales = len(elementales_totales)
+    # Fitness.sectores_elementales_totales = len(elementales_totales)
     # Devuelve un objeto <Sector> con sus atributos
     # P.ej: Sector{nombre='LECMASI', id='aaa', pDT=false, ruta=true,
     # noche=0, sectoresElementales=[ASL, ASU]}
@@ -272,7 +291,9 @@ def crear_nucleos(lines: list[str], sectores: list[Sector]) -> list[Nucleo]:
     return nucleos
 
 
-def crear_mapa_afinidad(lines: list[str], sectores: list[Sector]) -> dict[str, set[str]]:
+def crear_mapa_afinidad(
+    lines: list[str], sectores: list[Sector]
+) -> dict[str, set[str]]:
     names = lines[0].replace("'", "").split(";")
     result: dict[str, set[str]] = {}
     for line in lines[1:]:
@@ -288,7 +309,7 @@ def crear_mapa_afinidad(lines: list[str], sectores: list[Sector]) -> dict[str, s
     return result
 
 
-def crear_turno(lines: list[str], parametros) -> Turno:
+def crear_turno(lines: list[str], parametros: Parametros) -> Turno:
     first = lines[1].split(";")
     tipo = first[1].upper()
     if tipo == "N":
@@ -355,11 +376,15 @@ def introducir_lista_sectores(
     length = obtener_longitud(line[4], line[5])
     print(f"Inicio de turno: {ini_tl}, Len = {length} slots de 5 min")
     if length < 0:
-        length = obtener_longitud(line[4], "24:00:00") + obtener_longitud("00:00:00", line[5])
+        length = obtener_longitud(line[4], "24:00:00") + obtener_longitud(
+            "00:00:00", line[5]
+        )
     offset = obtener_longitud(ini_tl, line[4])
     print(f"Offset = {offset}")
     if offset < 0:
-        offset = obtener_longitud(ini_tl, "24:00:00") + obtener_longitud("00:00:00", line[4])
+        offset = obtener_longitud(ini_tl, "24:00:00") + obtener_longitud(
+            "00:00:00", line[4]
+        )
     for i in range(offset, offset + length):
         if i == len(sectorizacion):
             sectorizacion.append(list(ids))
@@ -389,10 +414,14 @@ def introducir_sector(
     ini_tl = turno.get_inicio_tl()
     length = obtener_longitud(line[4], line[5])
     if length < 0:
-        length = obtener_longitud(line[4], "24:00:00") + obtener_longitud("00:00:00", line[5])
+        length = obtener_longitud(line[4], "24:00:00") + obtener_longitud(
+            "00:00:00", line[5]
+        )
     offset = obtener_longitud(ini_tl, line[4])
     if offset < 0:
-        offset = obtener_longitud(ini_tl, "24:00:00") + obtener_longitud("00:00:00", line[4])
+        offset = obtener_longitud(ini_tl, "24:00:00") + obtener_longitud(
+            "00:00:00", line[4]
+        )
     for i in range(offset, offset + length):
         if i == len(sectorizacion):
             sectorizacion.append([sector_id])
@@ -430,12 +459,14 @@ def obtener_longitud(start: str, end: str) -> int:
     return ((eh - sh) * 60 + (em - sm)) // 5
 
 
-def crear_momento_actual(turno: Turno, distribucion_lines: list[str], parametros) -> int:
+def crear_momento_actual(
+    turno: Turno, distribucion_lines: list[str], parametros: Parametros
+) -> int:
     momento = distribucion_lines[0].split(";")[1]
     return calcular_slot(turno, momento, parametros)
 
 
-def calcular_slot(turno: Turno, momento: str, parametros) -> int:
+def calcular_slot(turno: Turno, momento: str, parametros: Parametros) -> int:
     return Turno.turnos_slots(
         turno.get_inicio_tl(), turno.get_fin_tl(), momento, momento, parametros
     )[2]
@@ -445,7 +476,7 @@ def crear_solucion_inicial(
     lines: list[str],
     sectores: list[Sector],
     controladores: list[Controlador],
-    parametros,
+    parametros: Parametros,
 ) -> Solucion:
     turnos: list[str] = []
     intervalos: list[int] = []
@@ -460,7 +491,9 @@ def crear_solucion_inicial(
         if cols[0].find("-") >= 0:
             intervalos = actualizar_intervalos(cols)
         elif cols[0]:
-            turno = crear_distribucion_del_turno(intervalos, cols, sectores, parametros, long_max)
+            turno = crear_distribucion_del_turno(
+                intervalos, cols, sectores, parametros, long_max
+            )
             asignar_controlador(int(cols[0][1:]), len(turnos), controladores)
             turnos.append(turno)
     return Solucion(turnos, controladores, 0)
@@ -474,7 +507,7 @@ def crear_distribucion_del_turno(
     intervalos: list[int],
     cols: list[str],
     sectores: list[Sector],
-    parametros,
+    parametros: Parametros,
     long_max: int,
 ) -> str:
     result = []
@@ -492,7 +525,9 @@ def crear_distribucion_del_turno(
                 id_sector = id_sector.upper()
         result.append(id_sector * (intervalo // parametros.get_tamano_slots()))
     if long_actual < long_max:
-        result.append(id_sector * ((long_max - long_actual) // parametros.get_tamano_slots()))
+        result.append(
+            id_sector * ((long_max - long_actual) // parametros.get_tamano_slots())
+        )
     return "".join(result)
 
 
@@ -500,70 +535,33 @@ def obtener_id_sector(nombre: str, sectores: list[Sector]) -> str:
     return find_sector_by_name(nombre, sectores).id
 
 
-def asignar_controlador(id_controlador: int, indice: int, controladores: list[Controlador]) -> None:
+def asignar_controlador(
+    id_controlador: int, indice: int, controladores: list[Controlador]
+) -> None:
     for controlador in controladores:
         if controlador.id == id_controlador:
             controlador.turno_asignado = indice
             return
 
 
-def modificar_controladores(
-    controladores: list[Controlador], lines: list[str], turno: Turno, parametros
-) -> None:
-    for raw in lines[1:]:
-        cols = raw.split(";")
-        if len(cols) < 4:
-            continue
-        linea_id = int(cols[1][1:])
-        found = next((c for c in controladores if c.id == linea_id), None)
-        if found:
-            if cols[0] == "ALTA":
-                found.baja_alta = Propiedades.ALTA
-                found.slot_alta = calcular_slot(turno, cols[2], parametros)
-                found.slot_baja = -1
-            elif cols[0] == "BAJA":
-                found.baja_alta = Propiedades.BAJA
-                found.slot_alta = 0
-                found.slot_baja = calcular_slot(turno, cols[2], parametros)
-            elif cols[0] == "ALTABAJA":
-                found.baja_alta = Propiedades.ALTABAJA
-                found.slot_alta = calcular_slot(turno, cols[2], parametros)
-                found.slot_baja = calcular_slot(turno, cols[3], parametros)
-
-
 def crear_lista_sectores_abiertos(
-    slot_momento_actual: int,
     sectorizacion: list[set[str]],
-    sectorizacion_modificada: list[set[str]] | None,
     sectores: list[Sector],
 ) -> list[Sector]:
-    source = sectorizacion_modificada or sectorizacion
     abiertos: list[Sector] = []
-    for slot in source:
+    seen: set[str] = set()
+    for slot in sectorizacion:
         for sid in java_hashset_order(slot):
-            if not any(s.id == sid for s in abiertos):
+            if sid not in seen:
                 abiertos.append(find_sector_by_id(sectores, sid))
-    return abiertos
-
-
-def crear_lista_nuevos_sectores_abiertos(
-    slot_momento_actual: int,
-    sectorizacion: list[set[str]],
-    sectorizacion_modificada: list[set[str]],
-    sectores: list[Sector],
-) -> list[Sector]:
-    abiertos: list[Sector] = []
-    for slot in range(slot_momento_actual, len(sectorizacion)):
-        for sid in java_hashset_order(sectorizacion_modificada[slot]):
-            if sid not in sectorizacion[slot] and not any(s.id == sid for s in abiertos):
-                abiertos.append(find_sector_by_id(sectores, sid))
+                seen.add(sid)
     return abiertos
 
 
 def crear_hashmap_sectores_volumenes(
     abiertos: list[Sector], lines: list[str]
 ) -> dict[str, list[str]]:
-    result = {sector.id: [] for sector in abiertos}
+    result: dict[str, list[str]] = {sector.id: [] for sector in abiertos}
     for sector in abiertos:
         for raw in lines[1:]:
             cols = raw.split(";")
@@ -580,7 +578,9 @@ def calculo_nuc_lista_sectores(
     nucleos: list[Nucleo], controladores: list[Controlador]
 ) -> list[Nucleo]:
     return [
-        nuc for nuc in nucleos if any(c.nucleo.lower() == nuc.nombre.lower() for c in controladores)
+        nuc
+        for nuc in nucleos
+        if any(c.nucleo.lower() == nuc.nombre.lower() for c in controladores)
     ]
 
 
@@ -594,10 +594,11 @@ def calculo_lista_sectores_nocturnos(abiertos: list[Sector]) -> list[list[Sector
 
 
 def calcular_carga_trabajo(sectorizacion: list[set[str]]) -> int:
-    from .fitness import Fitness
+    # TODO: Ver esto n
+    # from .fitness import Fitness
 
     c = sum(len(slot) for slot in sectorizacion)
-    Fitness.ctrls_completos = (c * 2) / len(sectorizacion) if sectorizacion else 0
+    # Fitness.ctrls_completos = (c * 2) / len(sectorizacion) if sectorizacion else 0
     return c * 2
 
 
@@ -616,18 +617,20 @@ def find_sector_by_id(sectores: list[Sector], sid: str) -> Sector:
 
 
 def es_afin(sector_a: str, sector_b: str, mapa: dict[str, set[str]]) -> bool:
-    return sector_b in mapa.get(sector_a.lower(), set()) or sector_b.lower() in mapa.get(
+    return sector_b in mapa.get(
         sector_a.lower(), set()
-    )
+    ) or sector_b.lower() in mapa.get(sector_a.lower(), set())
 
 
-def java_hashset_order(values) -> list[str]:
+def java_hashset_order(values: Any) -> list[str]:
     items = list(values)
     capacity = 16
     while capacity * 0.75 < len(items):
         capacity *= 2
     positions = {value: idx for idx, value in enumerate(items)}
-    return sorted(items, key=lambda value: (_java_hash_bucket(value, capacity), positions[value]))
+    return sorted(
+        items, key=lambda value: (_java_hash_bucket(value, capacity), positions[value])
+    )
 
 
 def _java_hash_bucket(value: str, capacity: int) -> int:

@@ -1,0 +1,2118 @@
+
+===== 2026-06-13 18:06:36 — pytest tests/integration/test_instance.py =====
+============================= test session starts ==============================
+platform darwin -- Python 3.11.15, pytest-9.0.3, pluggy-1.6.0 -- /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga
+configfile: pyproject.toml
+plugins: cov-7.1.0, anyio-4.13.0
+collecting ... collected 1 item
+
+tests/integration/test_instance.py::test_leer_entrada_caso_carga_sin_errores PASSED [100%]
+
+============================== 1 passed in 0.01s ===============================
+
+===== 2026-06-13 18:38:22 — pytest tests/unit/test_models.py =====
+============================= test session starts ==============================
+platform darwin -- Python 3.11.15, pytest-9.0.3, pluggy-1.6.0 -- /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga
+configfile: pyproject.toml
+plugins: cov-7.1.0, anyio-4.13.0
+collecting ... collected 11 items
+
+tests/unit/test_models.py::test_propiedades_tiene_tres_valores PASSED    [  9%]
+tests/unit/test_models.py::test_controlador_constructor_minimo PASSED    [ 18%]
+tests/unit/test_models.py::test_controlador_clone_es_independiente PASSED [ 27%]
+tests/unit/test_models.py::test_controlador_getters_setters_round_trip PASSED [ 36%]
+tests/unit/test_models.py::test_sector_constructor PASSED                [ 45%]
+tests/unit/test_models.py::test_sector_igualdad_y_hash_por_id PASSED     [ 54%]
+tests/unit/test_models.py::test_nucleo_constructor_sectores_default_vacio PASSED [ 63%]
+tests/unit/test_models.py::test_turno_turnos_slots[10:30-18:30-12:30-18:30-esperado0] PASSED [ 72%]
+tests/unit/test_models.py::test_solucion_constructor PASSED              [ 81%]
+tests/unit/test_models.py::test_solucion_clone_es_deep_en_controladores PASSED [ 90%]
+tests/unit/test_models.py::test_solucion_shallowClone_comparte_controladores PASSED [100%]
+
+============================== 11 passed in 0.01s ==============================
+
+===== 2026-06-13 19:11:23 — pytest tests/unit/test_models.py =====
+============================= test session starts ==============================
+platform darwin -- Python 3.11.15, pytest-9.0.3, pluggy-1.6.0 -- /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga
+configfile: pyproject.toml
+plugins: cov-7.1.0, anyio-4.13.0
+collecting ... collected 13 items
+
+tests/unit/test_models.py::test_propiedades_tiene_tres_valores PASSED    [  7%]
+tests/unit/test_models.py::test_controlador_constructor_minimo PASSED    [ 15%]
+tests/unit/test_models.py::test_controlador_clone_es_independiente PASSED [ 23%]
+tests/unit/test_models.py::test_controlador_getters_setters_round_trip PASSED [ 30%]
+tests/unit/test_models.py::test_controlador_slots_trabajados_default_cero PASSED [ 38%]
+tests/unit/test_models.py::test_controlador_slots_trabajados_se_clona PASSED [ 46%]
+tests/unit/test_models.py::test_sector_constructor PASSED                [ 53%]
+tests/unit/test_models.py::test_sector_igualdad_y_hash_por_id PASSED     [ 61%]
+tests/unit/test_models.py::test_nucleo_constructor_sectores_default_vacio PASSED [ 69%]
+tests/unit/test_models.py::test_turno_turnos_slots[10:30-18:30-12:30-18:30-esperado0] PASSED [ 76%]
+tests/unit/test_models.py::test_solucion_constructor PASSED              [ 84%]
+tests/unit/test_models.py::test_solucion_clone_es_deep_en_controladores PASSED [ 92%]
+tests/unit/test_models.py::test_solucion_shallowClone_comparte_controladores PASSED [100%]
+
+============================== 13 passed in 0.01s ==============================
+
+===== 2026-06-13 19:11:31 — pytest tests/integration/test_instance.py =====
+============================= test session starts ==============================
+platform darwin -- Python 3.11.15, pytest-9.0.3, pluggy-1.6.0 -- /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga
+configfile: pyproject.toml
+plugins: cov-7.1.0, anyio-4.13.0
+collecting ... collected 1 item
+
+tests/integration/test_instance.py::test_leer_entrada_caso_carga_sin_errores ERROR [100%]
+
+==================================== ERRORS ====================================
+__________ ERROR at setup of test_leer_entrada_caso_carga_sin_errores __________
+
+repo_root = PosixPath('/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga')
+parametros_reales = Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des...o_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5))
+
+    @pytest.fixture(scope="module")
+    def entrada_caso(repo_root: Path, parametros_reales: Parametros) -> Entrada:
+>       return Entrada.leer_entrada(
+            repo_root,
+            parametros_reales,
+            "madN_M1",
+            "madN_M1-2019-02-12",
+            "Madrid",
+            estudio_estadillos=True,
+        )
+
+tests/integration/test_instance.py:29: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+cls = <class 'atco.problem.instance.Entrada'>
+repo = PosixPath('/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga')
+parametros = Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des...o_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5))
+path = 'madN_M1', entrada_id = 'madN_M1-2019-02-12', entorno = 'Madrid'
+estudio_estadillos = True
+
+    @classmethod
+    def leer_entrada(
+        cls,
+        repo: str | Path,
+        parametros: Parametros,
+        path: str,
+        entrada_id: str,
+        entorno: str,
+        estudio_estadillos: bool = True,
+    ) -> Entrada:
+        repo = Path(repo)
+        case_dir = repo / "entrada" / "Casos" / path
+        f_apertura = _listar(case_dir / f"AperturaSectorizaciones_{entrada_id}.csv")
+        f_recursos = _listar(case_dir / f"RecursosDisponibles_{entrada_id}.csv")
+        f_turno = _listar(case_dir / f"Turno_{entrada_id}.csv")
+        f_mod_sectores = _listar(
+            case_dir / f"ModificacionSectorizaciones_{entrada_id}.csv", True
+        )
+        # f_mod_recursos = _listar(
+        #     case_dir / f"ModificacionRecursos_{entrada_id}.csv", True
+        # )
+        f_distribucion = _listar(case_dir / f"DistribucionInicial_{entrada_id}.csv")
+        # TODO: Probar los otros casos Barcelona, Canarias, etc
+        if estudio_estadillos:
+            fecha = entrada_id.replace("-", "")[-8:]
+            f_elementales = _listar(
+                case_dir / f"ListaSectoresElementales_{entrada_id}.csv"
+            )
+            f_afinidad = _listar(
+                repo
+                / "entrada"
+                / "Matrices de afinidad"
+                / f"MatrizAfinidad_{entorno}_{fecha}.csv"
+            )
+            f_sectores_nucleos = _listar(
+                case_dir / f"SectoresNucleos{entorno}_{entrada_id}.csv"
+            )
+            f_sector_vol = _listar(
+                case_dir / f"SectorizacionesSectoresVolumenes_{entrada_id}.csv"
+            )
+        else:
+            env_dir = repo / "entrada" / entorno
+            f_elementales = _listar(env_dir / f"ListaSectoresElementales_{entorno}.csv")
+            f_afinidad = _listar(env_dir / f"MatrizAfinidad_{entorno}.csv")
+            f_sectores_nucleos = _listar(env_dir / f"SectoresNucleos_{entorno}.csv")
+            f_sector_vol = _listar(
+                env_dir / f"SectorizacionesSectoresVolumenes_{entorno}.csv"
+            )
+    
+        controladores = crear_controladores(f_recursos)
+        lista_sectores = crear_lista_sectores(f_sectores_nucleos, f_elementales)
+        nucleos = crear_nucleos(f_sectores_nucleos, lista_sectores)
+        mapa_afinidad = crear_mapa_afinidad(f_afinidad, lista_sectores)
+        turno = crear_turno(f_turno, parametros)
+        sectorizacion = crear_sectorizacion(
+            f_apertura, f_sector_vol, turno, lista_sectores
+        )
+        print(f"tipo sctori: {type(sectorizacion)} con len: {len(sectorizacion)}")
+        # for i, sec in enumerate(sectorizacion):
+        #     print(f"slot {i+1}: {sec}")
+        slot_momento_actual = crear_momento_actual(turno, f_distribucion, parametros)
+    
+        # sectorizacion_modificada = None
+        # nuevos = None
+        # print(f"f_mod_sectores({len(f_mod_sectores)}) = {f_mod_sectores}")
+        # if len(f_mod_sectores) <= 1:
+        #     sectorizacion_modificada = crear_sectorizacion(
+        #         f_mod_sectores, f_sector_vol, turno, lista_sectores
+        #     )
+        #     nuevos = crear_lista_nuevos_sectores_abiertos(
+        #         slot_momento_actual,
+        #         sectorizacion,
+        #         sectorizacion_modificada,
+        #         lista_sectores,
+        #     )
+        # if f_mod_recursos:
+        #     modificar_controladores(controladores, f_mod_recursos, turno, parametros)
+    
+        abiertos = crear_lista_sectores_abiertos(
+            slot_momento_actual, sectorizacion, lista_sectores
+        )
+        volumes = crear_hashmap_sectores_volumenes(abiertos, f_sector_vol)
+        distribucion = crear_solucion_inicial(
+            f_distribucion, lista_sectores, controladores, parametros
+        )
+        calcular_carga_trabajo(sectorizacion)
+        nucleos_abiertos = calculo_nuc_lista_sectores(nucleos, controladores)
+        nocturnos = calculo_lista_sectores_nocturnos(abiertos)
+>       return cls(
+            controladores,
+            nucleos,
+            turno,
+            lista_sectores,
+            abiertos,
+            # nuevos,
+            sectorizacion,
+            mapa_afinidad,
+            volumes,
+            # sectorizacion_modificada,
+            distribucion,
+            slot_momento_actual,
+            nucleos_abiertos,
+            nocturnos,
+        )
+E       TypeError: Entrada.__init__() missing 2 required positional arguments: 'nucleos_abiertos' and 'sectores_nocturnos'
+
+src/atco/problem/instance.py:123: TypeError
+---------------------------- Captured stdout setup -----------------------------
+0: LECMASI;RUTA;;X;
+IDS[idx]: aaa
+1: LECMASL;RUTA;;X;
+IDS[idx]: aab
+2: LECMASU;RUTA;;X;
+IDS[idx]: aac
+3: LECMBDI;RUTA;;X;
+IDS[idx]: aad
+4: LECMBDP;RUTA;;X;
+IDS[idx]: aae
+5: LECMBLI;RUTA;;X;
+IDS[idx]: aaf
+6: LECMBLL;RUTA;;X;
+IDS[idx]: aag
+7: LECMBLU;RUTA;;X;
+IDS[idx]: aah
+8: LECMCJI;RUTA;;;X
+IDS[idx]: aai
+9: LECMCJL;RUTA;;;X
+IDS[idx]: aaj
+10: LECMCJU;RUTA;;;X
+IDS[idx]: aak
+11: LECMCZI;RUTA;;;X
+IDS[idx]: aal
+12: LECMDGI;RUTA;;X;
+IDS[idx]: aam
+13: LECMDGL;RUTA;;X;
+IDS[idx]: aan
+14: LECMDGU;RUTA;;X;
+IDS[idx]: aao
+15: LECMDPI;RUTA;;X;
+IDS[idx]: aap
+16: LECMNWL;RUTA;;X;
+IDS[idx]: aaq
+17: LECMPAI;RUTA;;X;
+IDS[idx]: aar
+18: LECMPAL;RUTA;;X;
+IDS[idx]: aas
+19: LECMPAU;RUTA;;X;
+IDS[idx]: aat
+20: LECMR1I;RUTA;;X;
+IDS[idx]: aau
+21: LECMR2I;RUTA;;;X
+IDS[idx]: aav
+22: LECMSAB;RUTA;;X;
+IDS[idx]: aaw
+23: LECMSAI;RUTA;;X;
+IDS[idx]: aax
+24: LECMSAN;RUTA;;X;
+IDS[idx]: aay
+25: LECMSAU;RUTA;;X;
+IDS[idx]: aaz
+26: LECMSEI;RUTA;;;X
+IDS[idx]: aba
+27: LECMSWI;RUTA;;;X
+IDS[idx]: abb
+28: LECMTCI;RUTA;;;X
+IDS[idx]: abc
+29: LECMTER;RUTA;;;X
+IDS[idx]: abd
+30: LECMTLI;RUTA;;;X
+IDS[idx]: abe
+31: LECMTLL;RUTA;;;X
+IDS[idx]: abf
+32: LECMTLU;RUTA;;;X
+IDS[idx]: abg
+33: LECMTZI;RUTA;;;X
+IDS[idx]: abh
+34: LECMZGZ;RUTA;;;X
+IDS[idx]: abi
+35: LECMZLM;RUTA;;;X
+IDS[idx]: abj
+36: LECMZMI;RUTA;;;X
+IDS[idx]: abk
+37: LECMZML;RUTA;;;X
+IDS[idx]: abl
+38: LECMZMU;RUTA;;;X
+IDS[idx]: abm
+39: LECMZTI;RUTA;;;X
+IDS[idx]: abn
+40: LECMZUM;RUTA;;;X
+IDS[idx]: abo
+41: LEMDAFN;APP;X;;
+42: LEMDAFS;APP;X;;
+43: LEMDAIN;APP;X;;
+44: LEMDAIS;APP;X;;
+45: LEMDALN;APP;X;;
+46: LEMDALS;APP;X;;
+47: LEMDAPN;APP;X;;
+48: LEMDAPS;APP;X;;
+49: LEMDARN;APP;X;;
+50: LEMDARS;APP;X;;
+51: LEMDATN;APP;X;;
+52: LEMDATS;APP;X;;
+53: LEMDDEN;APP;X;;
+54: LEMDDES;APP;X;;
+55: LEMDDIN;APP;X;;
+56: LEMDDIS;APP;X;;
+57: LEMDDNS;APP;X;;
+58: LEMDDWN;APP;X;;
+59: LEMDDWS;APP;X;;
+60: LEMDEAN;APP;X;;
+61: LEMDEAS;APP;X;;
+62: LEMDEDN;APP;X;;
+63: LEMDEDS;APP;X;;
+64: LEMDEIN;APP;X;;
+65: LEMDEIS;APP;X;;
+66: LEMDENN;APP;X;;
+67: LEMDENS;APP;X;;
+68: LEMDERN;APP;X;;
+69: LEMDERS;APP;X;;
+70: LEMDESN;APP;X;;
+71: LEMDESS;APP;X;;
+72: LEMDETN;APP;X;;
+73: LEMDEXN;APP;X;;
+74: LEMDEXS;APP;X;;
+75: LEMDREN;APP;X;;
+76: LEMDRES;APP;X;;
+77: LEMDRNN;APP;X;;
+78: LEMDRNS;APP;X;;
+79: LEMDRSN;APP;X;;
+80: LEMDRSS;APP;X;;
+81: LEMDRWN;APP;X;;
+82: LEMDRWS;APP;X;;
+83: LEMDTEN;APP;X;;
+84: LEMDTES;APP;X;;
+85: LEMDTNN;APP;X;;
+86: LEMDTNS;APP;X;;
+87: LEMDTSN;APP;X;;
+88: LEMDTSS;APP;X;;
+89: LEMDTWN;APP;X;;
+90: LEMDTWS;APP;X;;
+91: LEMDWAN;APP;X;;
+92: LEMDWAS;APP;X;;
+93: LEMDWDN;APP;X;;
+94: LEMDWDS;APP;X;;
+95: LEMDWIN;APP;X;;
+96: LEMDWIS;APP;X;;
+97: LEMDWNN;APP;X;;
+98: LEMDWNS;APP;X;;
+99: LEMDWRN;APP;X;;
+100: LEMDWRS;APP;X;;
+101: LEMDWSN;APP;X;;
+102: LEMDWSS;APP;X;;
+103: LEMDXWN;APP;X;;
+
+
+
+crear_sectorizacion() con 99, [0, 99]
+Turno: Turno(nombre='Manana', inicio_tl='06:30:00', fin_tl='14:45:00', inicio_tc='06:30:00', fin_tc='14:45:00', parametros=Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des_min=15, tiempo_des_por_trabajo=30, tiempo_pos_min=15, tiempo_pos_opt=45, tiempo_trab_opt=90, num_sctrs_max=3, porcent_pos_max=0.6, porcent_pos_min=0.4, tamano_slots=5, pesos_objetivos=PesosObjetivos(peso_obj1=0.52, peso_obj2=0.27, peso_obj3=0.15, peso_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5)), tc=[0, 99], tl=[0, 99], slots_des_tc=25, slots_des_tl=25)
+cols=['Madrid Ruta 1', 'CONF', '0', '8A', '06:30:00', '14:45:00']
+====================================================================================================
+introducir_lista_sectores()
+nucleo = Madrid Ruta 1
+conf = 8A
+LECMASI is aaa
+LECMASI is aaa
+LECMBLL is aag
+LECMBLU is aah
+LECMDGL is aan
+LECMDGU is aao
+LECMPAL is aas
+LECMPAU is aat
+LECMSAN is aay
+LECMSAN is aay
+ids = <class 'list'>
+horas: 8, min: 480
+minutos: 15
+Inicio de turno: 06:30:00, Len = 99 slots de 5 min
+horas: 0, min: 0
+minutos: 0
+Offset = 0
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tipo sctori: <class 'list'> con len: 99
+=========================== short test summary info ============================
+ERROR tests/integration/test_instance.py::test_leer_entrada_caso_carga_sin_errores
+=============================== 1 error in 0.02s ===============================
+
+===== 2026-06-13 19:20:30 — pytest tests/integration/test_instance.py =====
+============================= test session starts ==============================
+platform darwin -- Python 3.11.15, pytest-9.0.3, pluggy-1.6.0 -- /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga
+configfile: pyproject.toml
+plugins: cov-7.1.0, anyio-4.13.0
+collecting ... collected 1 item
+
+tests/integration/test_instance.py::test_leer_entrada_caso_carga_sin_errores ERROR [100%]
+
+==================================== ERRORS ====================================
+__________ ERROR at setup of test_leer_entrada_caso_carga_sin_errores __________
+
+repo_root = PosixPath('/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga')
+parametros_reales = Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des...o_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5))
+
+    @pytest.fixture(scope="module")
+    def entrada_caso(repo_root: Path, parametros_reales: Parametros) -> Entrada:
+>       return Entrada.leer_entrada(
+            repo_root,
+            parametros_reales,
+            "madN_M1",
+            "madN_M1-2019-02-12",
+            "Madrid",
+            estudio_estadillos=False,
+        )
+
+tests/integration/test_instance.py:29: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+cls = <class 'atco.problem.instance.Entrada'>
+repo = PosixPath('/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga')
+parametros = Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des...o_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5))
+path = 'madN_M1', entrada_id = 'madN_M1-2019-02-12', entorno = 'Madrid'
+estudio_estadillos = False
+
+    @classmethod
+    def leer_entrada(
+        cls,
+        repo: str | Path,
+        parametros: Parametros,
+        path: str,
+        entrada_id: str,
+        entorno: str,
+        estudio_estadillos: bool = True,
+    ) -> Entrada:
+        repo = Path(repo)
+        case_dir = repo / "entrada" / "Casos" / path
+        f_apertura = _listar(case_dir / f"AperturaSectorizaciones_{entrada_id}.csv")
+        f_recursos = _listar(case_dir / f"RecursosDisponibles_{entrada_id}.csv")
+        f_turno = _listar(case_dir / f"Turno_{entrada_id}.csv")
+        f_mod_sectores = _listar(
+            case_dir / f"ModificacionSectorizaciones_{entrada_id}.csv", True
+        )
+        # f_mod_recursos = _listar(
+        #     case_dir / f"ModificacionRecursos_{entrada_id}.csv", True
+        # )
+        f_distribucion = _listar(case_dir / f"DistribucionInicial_{entrada_id}.csv")
+        # TODO: Probar los otros casos Barcelona, Canarias, etc
+        if estudio_estadillos:
+            fecha = entrada_id.replace("-", "")[-8:]
+            f_elementales = _listar(
+                case_dir / f"ListaSectoresElementales_{entrada_id}.csv"
+            )
+            f_afinidad = _listar(
+                repo
+                / "entrada"
+                / "Matrices de afinidad"
+                / f"MatrizAfinidad_{entorno}_{fecha}.csv"
+            )
+            f_sectores_nucleos = _listar(
+                case_dir / f"SectoresNucleos{entorno}_{entrada_id}.csv"
+            )
+            f_sector_vol = _listar(
+                case_dir / f"SectorizacionesSectoresVolumenes_{entrada_id}.csv"
+            )
+        else:
+            env_dir = repo / "entrada" / entorno
+            f_elementales = _listar(env_dir / f"ListaSectoresElementales_{entorno}.csv")
+            f_afinidad = _listar(env_dir / f"MatrizAfinidad_{entorno}.csv")
+            f_sectores_nucleos = _listar(env_dir / f"SectoresNucleos_{entorno}.csv")
+            f_sector_vol = _listar(
+                env_dir / f"SectorizacionesSectoresVolumenes_{entorno}.csv"
+            )
+    
+        controladores = crear_controladores(f_recursos)
+        lista_sectores = crear_lista_sectores(f_sectores_nucleos, f_elementales)
+        nucleos = crear_nucleos(f_sectores_nucleos, lista_sectores)
+        mapa_afinidad = crear_mapa_afinidad(f_afinidad, lista_sectores)
+        turno = crear_turno(f_turno, parametros)
+        sectorizacion = crear_sectorizacion(
+            f_apertura, f_sector_vol, turno, lista_sectores
+        )
+        print(f"tipo sctori: {type(sectorizacion)} con len: {len(sectorizacion)}")
+        # for i, sec in enumerate(sectorizacion):
+        #     print(f"slot {i+1}: {sec}")
+        slot_momento_actual = crear_momento_actual(turno, f_distribucion, parametros)
+    
+        # sectorizacion_modificada = None
+        # nuevos = None
+        # print(f"f_mod_sectores({len(f_mod_sectores)}) = {f_mod_sectores}")
+        # if len(f_mod_sectores) <= 1:
+        #     sectorizacion_modificada = crear_sectorizacion(
+        #         f_mod_sectores, f_sector_vol, turno, lista_sectores
+        #     )
+        #     nuevos = crear_lista_nuevos_sectores_abiertos(
+        #         slot_momento_actual,
+        #         sectorizacion,
+        #         sectorizacion_modificada,
+        #         lista_sectores,
+        #     )
+        # if f_mod_recursos:
+        #     modificar_controladores(controladores, f_mod_recursos, turno, parametros)
+    
+        abiertos = crear_lista_sectores_abiertos(
+            slot_momento_actual, sectorizacion, lista_sectores
+        )
+        volumes = crear_hashmap_sectores_volumenes(abiertos, f_sector_vol)
+        distribucion = crear_solucion_inicial(
+            f_distribucion, lista_sectores, controladores, parametros
+        )
+        calcular_carga_trabajo(sectorizacion)
+        nucleos_abiertos = calculo_nuc_lista_sectores(nucleos, controladores)
+        nocturnos = calculo_lista_sectores_nocturnos(abiertos)
+>       return cls(
+            controladores,
+            nucleos,
+            turno,
+            lista_sectores,
+            abiertos,
+            sectorizacion,
+            mapa_afinidad,
+            volumes,
+            distribucion,
+            slot_momento_actual,
+            nucleos_abiertos,
+            nocturnos,
+        )
+E       TypeError: Entrada.__init__() missing 2 required positional arguments: 'nucleos_abiertos' and 'sectores_nocturnos'
+
+src/atco/problem/instance.py:123: TypeError
+---------------------------- Captured stdout setup -----------------------------
+0: LECMASI;RUTA;;X;
+IDS[idx]: aaa
+1: LECMASL;RUTA;;X;
+IDS[idx]: aab
+2: LECMASU;RUTA;;X;
+IDS[idx]: aac
+3: LECMBDI;RUTA;;X;
+IDS[idx]: aad
+4: LECMBDP;RUTA;;X;
+IDS[idx]: aae
+5: LECMBLI;RUTA;;X;
+IDS[idx]: aaf
+6: LECMBLL;RUTA;;X;
+IDS[idx]: aag
+7: LECMBLU;RUTA;;X;
+IDS[idx]: aah
+8: LECMCJI;RUTA;;;X
+IDS[idx]: aai
+9: LECMCJL;RUTA;;;X
+IDS[idx]: aaj
+10: LECMCJU;RUTA;;;X
+IDS[idx]: aak
+11: LECMCZI;RUTA;;;X
+IDS[idx]: aal
+12: LECMDGI;RUTA;;X;
+IDS[idx]: aam
+13: LECMDGL;RUTA;;X;
+IDS[idx]: aan
+14: LECMDGU;RUTA;;X;
+IDS[idx]: aao
+15: LECMDPI;RUTA;;X;
+IDS[idx]: aap
+16: LECMPAI;RUTA;;X;
+IDS[idx]: aaq
+17: LECMPAL;RUTA;;X;
+IDS[idx]: aar
+18: LECMPAU;RUTA;;X;
+IDS[idx]: aas
+19: LECMR1I;RUTA;;X;
+IDS[idx]: aat
+20: LECMR2I;RUTA;;;X
+IDS[idx]: aau
+21: LECMSAB;RUTA;;X;
+IDS[idx]: aav
+22: LECMSAI;RUTA;;X;
+IDS[idx]: aaw
+23: LECMSAN;RUTA;;X;
+IDS[idx]: aax
+24: LECMSAO;RUTA;;X;
+IDS[idx]: aay
+25: LECMSAS;RUTA;;X;
+IDS[idx]: aaz
+26: LECMSEI;RUTA;;;X
+IDS[idx]: aba
+27: LECMSWI;RUTA;;;X
+IDS[idx]: abb
+28: LECMTCI;RUTA;;;X
+IDS[idx]: abc
+29: LECMTER;RUTA;;;X
+IDS[idx]: abd
+30: LECMTLI;RUTA;;;X
+IDS[idx]: abe
+31: LECMTLL;RUTA;;;X
+IDS[idx]: abf
+32: LECMTLU;RUTA;;;X
+IDS[idx]: abg
+33: LECMTZI;RUTA;;;X
+IDS[idx]: abh
+34: LECMZGZ;RUTA;;;X
+IDS[idx]: abi
+35: LECMZLM;RUTA;;;X
+IDS[idx]: abj
+36: LECMZMI;RUTA;;;X
+IDS[idx]: abk
+37: LECMZML;RUTA;;;X
+IDS[idx]: abl
+38: LECMZMU;RUTA;;;X
+IDS[idx]: abm
+39: LECMZTI;RUTA;;;X
+IDS[idx]: abn
+40: LECMZUM;RUTA;;;X
+IDS[idx]: abo
+41: LEMDAFN;APP;X;;
+42: LEMDAFS;APP;X;;
+43: LEMDAIN;APP;X;;
+44: LEMDAIS;APP;X;;
+45: LEMDALN;APP;X;;
+46: LEMDALS;APP;X;;
+47: LEMDAPN;APP;X;;
+48: LEMDAPS;APP;X;;
+49: LEMDARN;APP;X;;
+50: LEMDARS;APP;X;;
+51: LEMDATN;APP;X;;
+52: LEMDATS;APP;X;;
+53: LEMDDEN;APP;X;;
+54: LEMDDES;APP;X;;
+55: LEMDDIN;APP;X;;
+56: LEMDDIS;APP;X;;
+57: LEMDDNS;APP;X;;
+58: LEMDDWN;APP;X;;
+59: LEMDDWS;APP;X;;
+60: LEMDEAN;APP;X;;
+61: LEMDEAS;APP;X;;
+62: LEMDEBS;APP;X;;
+63: LEMDEDN;APP;X;;
+64: LEMDEDS;APP;X;;
+65: LEMDEIN;APP;X;;
+66: LEMDEIS;APP;X;;
+67: LEMDENN;APP;X;;
+68: LEMDENS;APP;X;;
+69: LEMDERN;APP;X;;
+70: LEMDERS;APP;X;;
+71: LEMDESN;APP;X;;
+72: LEMDESS;APP;X;;
+73: LEMDETN;APP;X;;
+74: LEMDETS;APP;X;;
+75: LEMDEXN;APP;X;;
+76: LEMDEXS;APP;X;;
+77: LEMDREN;APP;X;;
+78: LEMDRES;APP;X;;
+79: LEMDRNN;APP;X;;
+80: LEMDRNS;APP;X;;
+81: LEMDRSN;APP;X;;
+82: LEMDRSS;APP;X;;
+83: LEMDRWN;APP;X;;
+84: LEMDRWS;APP;X;;
+85: LEMDTEN;APP;X;;
+86: LEMDTES;APP;X;;
+87: LEMDTNN;APP;X;;
+88: LEMDTNS;APP;X;;
+89: LEMDTSN;APP;X;;
+90: LEMDTSS;APP;X;;
+91: LEMDTWN;APP;X;;
+92: LEMDTWS;APP;X;;
+93: LEMDWAN;APP;X;;
+94: LEMDWAS;APP;X;;
+95: LEMDWDN;APP;X;;
+96: LEMDWDS;APP;X;;
+97: LEMDWIN;APP;X;;
+98: LEMDWIS;APP;X;;
+99: LEMDWNN;APP;X;;
+100: LEMDWNS;APP;X;;
+101: LEMDWRN;APP;X;;
+102: LEMDWRS;APP;X;;
+103: LEMDWSN;APP;X;;
+104: LEMDWSS;APP;X;;
+105: LEMDWTN;APP;X;;
+106: LEMDWTS;APP;X;;
+107: LEMDXWN;APP;X;;
+
+
+
+crear_sectorizacion() con 99, [0, 99]
+Turno: Turno(nombre='Manana', inicio_tl='06:30:00', fin_tl='14:45:00', inicio_tc='06:30:00', fin_tc='14:45:00', parametros=Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des_min=15, tiempo_des_por_trabajo=30, tiempo_pos_min=15, tiempo_pos_opt=45, tiempo_trab_opt=90, num_sctrs_max=3, porcent_pos_max=0.6, porcent_pos_min=0.4, tamano_slots=5, pesos_objetivos=PesosObjetivos(peso_obj1=0.52, peso_obj2=0.27, peso_obj3=0.15, peso_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5)), tc=[0, 99], tl=[0, 99], slots_des_tc=25, slots_des_tl=25)
+cols=['Madrid Ruta 1', 'CONF', '0', '8A', '06:30:00', '14:45:00']
+====================================================================================================
+introducir_lista_sectores()
+nucleo = Madrid Ruta 1
+conf = 8A
+LECMASI is aaa
+LECMASI is aaa
+LECMBLL is aag
+LECMBLU is aah
+LECMDGL is aan
+LECMDGU is aao
+LECMPAL is aar
+LECMPAU is aas
+LECMSAN is aax
+LECMSAN is aax
+ids = <class 'list'>
+horas: 8, min: 480
+minutos: 15
+Inicio de turno: 06:30:00, Len = 99 slots de 5 min
+horas: 0, min: 0
+minutos: 0
+Offset = 0
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tipo sctori: <class 'list'> con len: 99
+=========================== short test summary info ============================
+ERROR tests/integration/test_instance.py::test_leer_entrada_caso_carga_sin_errores
+=============================== 1 error in 0.04s ===============================
+
+===== 2026-06-13 19:42:36 — pytest tests/integration/test_instance.py =====
+============================= test session starts ==============================
+platform darwin -- Python 3.11.15, pytest-9.0.3, pluggy-1.6.0 -- /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga
+configfile: pyproject.toml
+plugins: cov-7.1.0, anyio-4.13.0
+collecting ... collected 1 item
+
+tests/integration/test_instance.py::test_leer_entrada_caso_carga_sin_errores FAILED [100%]
+
+=================================== FAILURES ===================================
+___________________ test_leer_entrada_caso_carga_sin_errores ___________________
+
+entrada_caso = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, baja_alta=False, slo...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
+
+    def test_leer_entrada_caso_carga_sin_errores(entrada_caso: Entrada) -> None:
+        """La carga del caso produce una Entrada con sus invariantes mínimas."""
+        # Hay al menos un controlador en la plantilla.
+        assert len(entrada_caso.get_controladores()) >= 1
+    
+        # La sectorización es una lista no vacía de sets de IDs de sector.
+>       sec = entrada_caso.get_sectorizacion()
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/integration/test_instance.py:45: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, baja_alta=False, slo...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
+
+    def get_sectorizacion(self) -> list[set[str]]:
+        """Sectorización efectiva: original hasta slot_momento_actual,
+        modificada a partir de ahí. Coherente con cómo se cubren los slots
+        en tiempo real."""
+>       if not self.sectorizacion_modificada:
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'Entrada' object has no attribute 'sectorizacion_modificada'
+
+src/atco/problem/instance.py:161: AttributeError
+---------------------------- Captured stdout setup -----------------------------
+0: LECMASI;RUTA;;X;
+IDS[idx]: aaa
+1: LECMASL;RUTA;;X;
+IDS[idx]: aab
+2: LECMASU;RUTA;;X;
+IDS[idx]: aac
+3: LECMBDI;RUTA;;X;
+IDS[idx]: aad
+4: LECMBDP;RUTA;;X;
+IDS[idx]: aae
+5: LECMBLI;RUTA;;X;
+IDS[idx]: aaf
+6: LECMBLL;RUTA;;X;
+IDS[idx]: aag
+7: LECMBLU;RUTA;;X;
+IDS[idx]: aah
+8: LECMCJI;RUTA;;;X
+IDS[idx]: aai
+9: LECMCJL;RUTA;;;X
+IDS[idx]: aaj
+10: LECMCJU;RUTA;;;X
+IDS[idx]: aak
+11: LECMCZI;RUTA;;;X
+IDS[idx]: aal
+12: LECMDGI;RUTA;;X;
+IDS[idx]: aam
+13: LECMDGL;RUTA;;X;
+IDS[idx]: aan
+14: LECMDGU;RUTA;;X;
+IDS[idx]: aao
+15: LECMDPI;RUTA;;X;
+IDS[idx]: aap
+16: LECMPAI;RUTA;;X;
+IDS[idx]: aaq
+17: LECMPAL;RUTA;;X;
+IDS[idx]: aar
+18: LECMPAU;RUTA;;X;
+IDS[idx]: aas
+19: LECMR1I;RUTA;;X;
+IDS[idx]: aat
+20: LECMR2I;RUTA;;;X
+IDS[idx]: aau
+21: LECMSAB;RUTA;;X;
+IDS[idx]: aav
+22: LECMSAI;RUTA;;X;
+IDS[idx]: aaw
+23: LECMSAN;RUTA;;X;
+IDS[idx]: aax
+24: LECMSAO;RUTA;;X;
+IDS[idx]: aay
+25: LECMSAS;RUTA;;X;
+IDS[idx]: aaz
+26: LECMSEI;RUTA;;;X
+IDS[idx]: aba
+27: LECMSWI;RUTA;;;X
+IDS[idx]: abb
+28: LECMTCI;RUTA;;;X
+IDS[idx]: abc
+29: LECMTER;RUTA;;;X
+IDS[idx]: abd
+30: LECMTLI;RUTA;;;X
+IDS[idx]: abe
+31: LECMTLL;RUTA;;;X
+IDS[idx]: abf
+32: LECMTLU;RUTA;;;X
+IDS[idx]: abg
+33: LECMTZI;RUTA;;;X
+IDS[idx]: abh
+34: LECMZGZ;RUTA;;;X
+IDS[idx]: abi
+35: LECMZLM;RUTA;;;X
+IDS[idx]: abj
+36: LECMZMI;RUTA;;;X
+IDS[idx]: abk
+37: LECMZML;RUTA;;;X
+IDS[idx]: abl
+38: LECMZMU;RUTA;;;X
+IDS[idx]: abm
+39: LECMZTI;RUTA;;;X
+IDS[idx]: abn
+40: LECMZUM;RUTA;;;X
+IDS[idx]: abo
+41: LEMDAFN;APP;X;;
+42: LEMDAFS;APP;X;;
+43: LEMDAIN;APP;X;;
+44: LEMDAIS;APP;X;;
+45: LEMDALN;APP;X;;
+46: LEMDALS;APP;X;;
+47: LEMDAPN;APP;X;;
+48: LEMDAPS;APP;X;;
+49: LEMDARN;APP;X;;
+50: LEMDARS;APP;X;;
+51: LEMDATN;APP;X;;
+52: LEMDATS;APP;X;;
+53: LEMDDEN;APP;X;;
+54: LEMDDES;APP;X;;
+55: LEMDDIN;APP;X;;
+56: LEMDDIS;APP;X;;
+57: LEMDDNS;APP;X;;
+58: LEMDDWN;APP;X;;
+59: LEMDDWS;APP;X;;
+60: LEMDEAN;APP;X;;
+61: LEMDEAS;APP;X;;
+62: LEMDEBS;APP;X;;
+63: LEMDEDN;APP;X;;
+64: LEMDEDS;APP;X;;
+65: LEMDEIN;APP;X;;
+66: LEMDEIS;APP;X;;
+67: LEMDENN;APP;X;;
+68: LEMDENS;APP;X;;
+69: LEMDERN;APP;X;;
+70: LEMDERS;APP;X;;
+71: LEMDESN;APP;X;;
+72: LEMDESS;APP;X;;
+73: LEMDETN;APP;X;;
+74: LEMDETS;APP;X;;
+75: LEMDEXN;APP;X;;
+76: LEMDEXS;APP;X;;
+77: LEMDREN;APP;X;;
+78: LEMDRES;APP;X;;
+79: LEMDRNN;APP;X;;
+80: LEMDRNS;APP;X;;
+81: LEMDRSN;APP;X;;
+82: LEMDRSS;APP;X;;
+83: LEMDRWN;APP;X;;
+84: LEMDRWS;APP;X;;
+85: LEMDTEN;APP;X;;
+86: LEMDTES;APP;X;;
+87: LEMDTNN;APP;X;;
+88: LEMDTNS;APP;X;;
+89: LEMDTSN;APP;X;;
+90: LEMDTSS;APP;X;;
+91: LEMDTWN;APP;X;;
+92: LEMDTWS;APP;X;;
+93: LEMDWAN;APP;X;;
+94: LEMDWAS;APP;X;;
+95: LEMDWDN;APP;X;;
+96: LEMDWDS;APP;X;;
+97: LEMDWIN;APP;X;;
+98: LEMDWIS;APP;X;;
+99: LEMDWNN;APP;X;;
+100: LEMDWNS;APP;X;;
+101: LEMDWRN;APP;X;;
+102: LEMDWRS;APP;X;;
+103: LEMDWSN;APP;X;;
+104: LEMDWSS;APP;X;;
+105: LEMDWTN;APP;X;;
+106: LEMDWTS;APP;X;;
+107: LEMDXWN;APP;X;;
+
+
+
+crear_sectorizacion() con 99, [0, 99]
+Turno: Turno(nombre='Manana', inicio_tl='06:30:00', fin_tl='14:45:00', inicio_tc='06:30:00', fin_tc='14:45:00', parametros=Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des_min=15, tiempo_des_por_trabajo=30, tiempo_pos_min=15, tiempo_pos_opt=45, tiempo_trab_opt=90, num_sctrs_max=3, porcent_pos_max=0.6, porcent_pos_min=0.4, tamano_slots=5, pesos_objetivos=PesosObjetivos(peso_obj1=0.52, peso_obj2=0.27, peso_obj3=0.15, peso_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5)), tc=[0, 99], tl=[0, 99], slots_des_tc=25, slots_des_tl=25)
+cols=['Madrid Ruta 1', 'CONF', '0', '8A', '06:30:00', '14:45:00']
+====================================================================================================
+introducir_lista_sectores()
+nucleo = Madrid Ruta 1
+conf = 8A
+LECMASI is aaa
+LECMASI is aaa
+LECMBLL is aag
+LECMBLU is aah
+LECMDGL is aan
+LECMDGU is aao
+LECMPAL is aar
+LECMPAU is aas
+LECMSAN is aax
+LECMSAN is aax
+ids = <class 'list'>
+horas: 8, min: 480
+minutos: 15
+Inicio de turno: 06:30:00, Len = 99 slots de 5 min
+horas: 0, min: 0
+minutos: 0
+Offset = 0
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tipo sctori: <class 'list'> con len: 99
+=========================== short test summary info ============================
+FAILED tests/integration/test_instance.py::test_leer_entrada_caso_carga_sin_errores
+============================== 1 failed in 0.03s ===============================
+
+===== 2026-06-13 19:47:45 — pytest tests/integration/test_instance.py =====
+============================= test session starts ==============================
+platform darwin -- Python 3.11.15, pytest-9.0.3, pluggy-1.6.0 -- /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga
+configfile: pyproject.toml
+plugins: cov-7.1.0, anyio-4.13.0
+collecting ... collected 1 item
+
+tests/integration/test_instance.py::test_leer_entrada_caso_carga_sin_errores PASSED [100%]
+
+============================== 1 passed in 0.01s ===============================
+
+===== 2026-06-13 19:54:42 — pytest tests/unit/test_models.py =====
+============================= test session starts ==============================
+platform darwin -- Python 3.11.15, pytest-9.0.3, pluggy-1.6.0 -- /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga
+configfile: pyproject.toml
+plugins: cov-7.1.0, anyio-4.13.0
+collecting ... collected 13 items
+
+tests/unit/test_models.py::test_propiedades_tiene_tres_valores PASSED    [  7%]
+tests/unit/test_models.py::test_controlador_constructor_minimo PASSED    [ 15%]
+tests/unit/test_models.py::test_controlador_clone_es_independiente PASSED [ 23%]
+tests/unit/test_models.py::test_controlador_getters_setters_round_trip PASSED [ 30%]
+tests/unit/test_models.py::test_controlador_slots_trabajados_default_cero PASSED [ 38%]
+tests/unit/test_models.py::test_controlador_slots_trabajados_se_clona PASSED [ 46%]
+tests/unit/test_models.py::test_sector_constructor PASSED                [ 53%]
+tests/unit/test_models.py::test_sector_igualdad_y_hash_por_id PASSED     [ 61%]
+tests/unit/test_models.py::test_nucleo_constructor_sectores_default_vacio PASSED [ 69%]
+tests/unit/test_models.py::test_turno_turnos_slots[10:30-18:30-12:30-18:30-esperado0] PASSED [ 76%]
+tests/unit/test_models.py::test_solucion_constructor PASSED              [ 84%]
+tests/unit/test_models.py::test_solucion_clone_es_deep_en_controladores PASSED [ 92%]
+tests/unit/test_models.py::test_solucion_shallowClone_comparte_controladores PASSED [100%]
+
+============================== 13 passed in 0.01s ==============================
+
+===== 2026-06-13 19:54:44 — pytest tests/integration/test_instance.py =====
+============================= test session starts ==============================
+platform darwin -- Python 3.11.15, pytest-9.0.3, pluggy-1.6.0 -- /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga
+configfile: pyproject.toml
+plugins: cov-7.1.0, anyio-4.13.0
+collecting ... collected 1 item
+
+tests/integration/test_instance.py::test_leer_entrada_caso_carga_sin_errores PASSED [100%]
+
+============================== 1 passed in 0.01s ===============================
+
+===== 2026-06-13 20:04:16 — pytest tests/unit/test_restrictions.py =====
+============================= test session starts ==============================
+platform darwin -- Python 3.11.15, pytest-9.0.3, pluggy-1.6.0 -- /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga
+configfile: pyproject.toml
+plugins: cov-7.1.0, anyio-4.13.0
+collecting ... collected 0 items / 1 error
+
+==================================== ERRORS ====================================
+_______________ ERROR collecting tests/unit/test_restrictions.py _______________
+ImportError while importing test module '/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/tests/unit/test_restrictions.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+../../../../.local/share/uv/python/cpython-3.11.15-macos-aarch64-none/lib/python3.11/importlib/__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/unit/test_restrictions.py:36: in <module>
+    from atco.problem.restrictions.weights import (
+E   ImportError: cannot import name 'PESO_POR_RESTRICCION' from 'atco.problem.restrictions.weights' (/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/src/atco/problem/restrictions/weights.py)
+=========================== short test summary info ============================
+ERROR tests/unit/test_restrictions.py
+!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+=============================== 1 error in 0.04s ===============================
+
+===== 2026-06-13 20:07:22 — pytest tests/unit/test_restrictions.py =====
+============================= test session starts ==============================
+platform darwin -- Python 3.11.15, pytest-9.0.3, pluggy-1.6.0 -- /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga
+configfile: pyproject.toml
+plugins: cov-7.1.0, anyio-4.13.0
+collecting ... collected 0 items / 1 error
+
+==================================== ERRORS ====================================
+_______________ ERROR collecting tests/unit/test_restrictions.py _______________
+ImportError while importing test module '/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/tests/unit/test_restrictions.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+../../../../.local/share/uv/python/cpython-3.11.15-macos-aarch64-none/lib/python3.11/importlib/__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/unit/test_restrictions.py:36: in <module>
+    from atco.problem.restrictions.weights import (
+E   ImportError: cannot import name 'comprobar_restricciones_en_paralelo' from 'atco.problem.restrictions.weights' (/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/src/atco/problem/restrictions/weights.py)
+=========================== short test summary info ============================
+ERROR tests/unit/test_restrictions.py
+!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+=============================== 1 error in 0.04s ===============================
+
+===== 2026-06-13 20:11:02 — pytest tests/unit/test_restrictions.py =====
+============================= test session starts ==============================
+platform darwin -- Python 3.11.15, pytest-9.0.3, pluggy-1.6.0 -- /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga
+configfile: pyproject.toml
+plugins: cov-7.1.0, anyio-4.13.0
+collecting ... collected 20 items
+
+tests/unit/test_restrictions.py::test_pesos_tienen_longitud_14 PASSED    [  5%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_nucleo_trabajo] PASSED [ 10%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_tipo_sector] FAILED [ 15%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_porcentaje_descanso] PASSED [ 20%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_sectores_abiertos_noche] FAILED [ 25%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_trabajo_maximo_consecutivo] PASSED [ 30%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_controlador_turno_corto] PASSED [ 35%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_ventana_trabajo_descanso] PASSED [ 40%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_cambio_posicion] FAILED [ 45%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_trabajo_minimo_consecutivo] PASSED [ 50%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_descanso_minimo_consecutivo] PASSED [ 55%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_trabajo_posicion_minimo_consecutivo_no_regex] PASSED [ 60%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_num_maximo_sectores] FAILED [ 65%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_controlador_asignado] PASSED [ 70%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_turno_vacio] PASSED [ 75%]
+tests/unit/test_restrictions.py::test_acumulador_paralelo_devuelve_no_negativo FAILED [ 80%]
+tests/unit/test_restrictions.py::test_acumulador_sin_pesos_es_menor_o_igual_que_ponderado FAILED [ 85%]
+tests/unit/test_restrictions.py::test_acumulador_por_restricciones_publica_vector_global FAILED [ 90%]
+tests/unit/test_restrictions.py::test_turno_vacio_cuenta_solo_con_descanso_sin_trabajo PASSED [ 95%]
+tests/unit/test_restrictions.py::test_controlador_asignado_cuenta_huerfanos_y_no_asignados PASSED [100%]
+
+=================================== FAILURES ===================================
+___________ test_smoke_check_devuelve_numero[comprobar_tipo_sector] ____________
+
+nombre_check = 'comprobar_tipo_sector'
+entrada_madN_M1 = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, baja_alta=False, slo...Sector(nombre='LECMSAU', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
+parametros_reales = Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des...o_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5))
+
+    @pytest.mark.parametrize("nombre_check", ALL_CHECKS)
+    def test_smoke_check_devuelve_numero(
+        nombre_check: str,
+        entrada_madN_M1: Entrada,
+        parametros_reales: Parametros,
+    ) -> None:
+        """Cada comprobar_* devuelve un número finito sobre la distribución inicial.
+    
+        Esta es la prueba mínima de supervivencia tras los refactors: si
+        crashea aquí, hay una restricción que se quedó con una API vieja.
+        """
+        # Resolución dinámica del callable por nombre — simplifica los tests.
+        check_fn = globals()[nombre_check]
+        sol = entrada_madN_M1.get_distribucion_inicial()
+    
+        # Cada función tiene firmas distintas; las normalizamos con un dispatcher.
+>       resultado = _llamar_check(check_fn, sol, entrada_madN_M1, parametros_reales)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/test_restrictions.py:93: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/test_restrictions.py:126: in _llamar_check
+    return fn(sol, entrada)
+           ^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+individuo = Solucion(turnos=['aayaayaayaayaayaayaayaayaayaayAAYAAYAAYAAYAAYAAYAAYAAYAAYAAY111111111111111111111111111111aayaayaaya..._alta=<Propiedades.ALTA: 'ALTA'>, slot_baja=0, turno_asignado=21, turno_noche=0, slots_trabajados=0)], longdescansos=0)
+entrada = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, baja_alta=False, slo...Sector(nombre='LECMSAU', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
+
+    def comprobar_tipo_sector(individuo: Solucion, entrada: Entrada) -> float:
+        p = 0.0
+>       ruta_ids = entrada._fast_ruta_ids
+                   ^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'Entrada' object has no attribute '_fast_ruta_ids'
+
+src/atco/problem/restrictions/checks.py:452: AttributeError
+_____ test_smoke_check_devuelve_numero[comprobar_sectores_abiertos_noche] ______
+
+nombre_check = 'comprobar_sectores_abiertos_noche'
+entrada_madN_M1 = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, baja_alta=False, slo...Sector(nombre='LECMSAU', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
+parametros_reales = Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des...o_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5))
+
+    @pytest.mark.parametrize("nombre_check", ALL_CHECKS)
+    def test_smoke_check_devuelve_numero(
+        nombre_check: str,
+        entrada_madN_M1: Entrada,
+        parametros_reales: Parametros,
+    ) -> None:
+        """Cada comprobar_* devuelve un número finito sobre la distribución inicial.
+    
+        Esta es la prueba mínima de supervivencia tras los refactors: si
+        crashea aquí, hay una restricción que se quedó con una API vieja.
+        """
+        # Resolución dinámica del callable por nombre — simplifica los tests.
+        check_fn = globals()[nombre_check]
+        sol = entrada_madN_M1.get_distribucion_inicial()
+    
+        # Cada función tiene firmas distintas; las normalizamos con un dispatcher.
+>       resultado = _llamar_check(check_fn, sol, entrada_madN_M1, parametros_reales)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/test_restrictions.py:93: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/test_restrictions.py:126: in _llamar_check
+    return fn(sol, entrada)
+           ^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+individuo = Solucion(turnos=['aayaayaayaayaayaayaayaayaayaayAAYAAYAAYAAYAAYAAYAAYAAYAAYAAY111111111111111111111111111111aayaayaaya..._alta=<Propiedades.ALTA: 'ALTA'>, slot_baja=0, turno_asignado=21, turno_noche=0, slots_trabajados=0)], longdescansos=0)
+entrada = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, baja_alta=False, slo...Sector(nombre='LECMSAU', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
+
+    def comprobar_sectores_abiertos_noche(individuo: Solucion, entrada: Entrada) -> int:
+        p = 0
+        controladores = individuo.get_controladores()
+>       sector_ids = entrada._fast_sector_ids
+                     ^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'Entrada' object has no attribute '_fast_sector_ids'
+
+src/atco/problem/restrictions/checks.py:539: AttributeError
+_________ test_smoke_check_devuelve_numero[comprobar_cambio_posicion] __________
+
+nombre_check = 'comprobar_cambio_posicion'
+entrada_madN_M1 = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, baja_alta=False, slo...Sector(nombre='LECMSAU', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
+parametros_reales = Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des...o_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5))
+
+    @pytest.mark.parametrize("nombre_check", ALL_CHECKS)
+    def test_smoke_check_devuelve_numero(
+        nombre_check: str,
+        entrada_madN_M1: Entrada,
+        parametros_reales: Parametros,
+    ) -> None:
+        """Cada comprobar_* devuelve un número finito sobre la distribución inicial.
+    
+        Esta es la prueba mínima de supervivencia tras los refactors: si
+        crashea aquí, hay una restricción que se quedó con una API vieja.
+        """
+        # Resolución dinámica del callable por nombre — simplifica los tests.
+        check_fn = globals()[nombre_check]
+        sol = entrada_madN_M1.get_distribucion_inicial()
+    
+        # Cada función tiene firmas distintas; las normalizamos con un dispatcher.
+>       resultado = _llamar_check(check_fn, sol, entrada_madN_M1, parametros_reales)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/test_restrictions.py:93: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/test_restrictions.py:118: in _llamar_check
+    return fn(turnos, entrada.get_mapa_afinidad(), entrada.get_lista_sectores())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+turnos = ['aayaayaayaayaayaayaayaayaayaayAAYAAYAAYAAYAAYAAYAAYAAYAAYAAY111111111111111111111111111111aayaayaayaayaayaayaayaayaa...aaaaaaaaaaaaaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA111111111111111111111111111111111aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', ...]
+mapa_afinidad = {'aaa': {'aaa', 'aab', 'aac', 'aaq', 'aau', 'aaw', ...}, 'aab': {'aaa', 'aab', 'aaq', 'aau', 'aaw', 'aax'}, 'aac': {'aaa', 'aac', 'aau', 'aaw', 'aax'}, 'aad': {'aad', 'aae', 'aaf', 'aag', 'aah', 'aam', ...}, ...}
+lista_sec = [Sector(nombre='LECMASI', id='aaa', pdt=False, ruta=True, noche=0, sectores_elementales=['ASL', 'ASU']), Sector(nombre...les=['']), Sector(nombre='LECMBLI', id='aaf', pdt=False, ruta=True, noche=0, sectores_elementales=['BLL', 'BLU']), ...]
+
+    def comprobar_cambio_posicion(
+        turnos: list[str], mapa_afinidad: dict[str, set[str]], lista_sec: list[Sector]
+    ) -> float:
+        p = 0.0
+        for turno in turnos:
+            x = 0.0
+            slots = list(_slots(turno))
+>           for current, nxt in zip(slots, slots[1:], strict=True):
+E           ValueError: zip() argument 2 is shorter than argument 1
+
+src/atco/problem/restrictions/checks.py:429: ValueError
+_______ test_smoke_check_devuelve_numero[comprobar_num_maximo_sectores] ________
+
+nombre_check = 'comprobar_num_maximo_sectores'
+entrada_madN_M1 = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, baja_alta=False, slo...Sector(nombre='LECMSAU', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
+parametros_reales = Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des...o_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5))
+
+    @pytest.mark.parametrize("nombre_check", ALL_CHECKS)
+    def test_smoke_check_devuelve_numero(
+        nombre_check: str,
+        entrada_madN_M1: Entrada,
+        parametros_reales: Parametros,
+    ) -> None:
+        """Cada comprobar_* devuelve un número finito sobre la distribución inicial.
+    
+        Esta es la prueba mínima de supervivencia tras los refactors: si
+        crashea aquí, hay una restricción que se quedó con una API vieja.
+        """
+        # Resolución dinámica del callable por nombre — simplifica los tests.
+        check_fn = globals()[nombre_check]
+        sol = entrada_madN_M1.get_distribucion_inicial()
+    
+        # Cada función tiene firmas distintas; las normalizamos con un dispatcher.
+>       resultado = _llamar_check(check_fn, sol, entrada_madN_M1, parametros_reales)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/test_restrictions.py:93: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/test_restrictions.py:120: in _llamar_check
+    return fn(turnos, entrada, parametros)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+turnos = ['aayaayaayaayaayaayaayaayaayaayAAYAAYAAYAAYAAYAAYAAYAAYAAYAAY111111111111111111111111111111aayaayaayaayaayaayaayaayaa...aaaaaaaaaaaaaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA111111111111111111111111111111111aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', ...]
+entrada = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, baja_alta=False, slo...Sector(nombre='LECMSAU', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
+parametros = Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des...o_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5))
+
+    def comprobar_num_maximo_sectores(
+        turnos: list[str], entrada: Entrada, parametros: Parametros
+    ) -> int:
+        p = 0
+        # TODO: Verificar estos metodos en Entrada
+>       volumes = entrada._fast_volumes_by_id
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'Entrada' object has no attribute '_fast_volumes_by_id'
+
+src/atco/problem/restrictions/checks.py:221: AttributeError
+________________ test_acumulador_paralelo_devuelve_no_negativo _________________
+
+entrada_madN_M1 = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, baja_alta=False, slo...Sector(nombre='LECMSAU', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
+parametros_reales = Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des...o_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5))
+
+    def test_acumulador_paralelo_devuelve_no_negativo(
+        entrada_madN_M1: Entrada,
+        parametros_reales: Parametros,
+    ) -> None:
+        """`comprobar_restricciones_en_paralelo` suma ponderada; nunca negativa."""
+        sol = entrada_madN_M1.get_distribucion_inicial()
+>       total = comprobar_restricciones_en_paralelo(sol, entrada_madN_M1, parametros_reales)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/test_restrictions.py:140: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/atco/problem/restrictions/checks.py:105: in comprobar_restricciones_en_paralelo
+    for idx, value in enumerate(_checks(individuo, entrada, parametros)):
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/atco/problem/restrictions/checks.py:167: in _checks
+    comprobar_cambio_posicion(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+turnos = ['aayaayaayaayaayaayaayaayaayaayAAYAAYAAYAAYAAYAAYAAYAAYAAYAAY111111111111111111111111111111aayaayaayaayaayaayaayaayaa...aaaaaaaaaaaaaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA111111111111111111111111111111111aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', ...]
+mapa_afinidad = {'aaa': {'aaa', 'aab', 'aac', 'aaq', 'aau', 'aaw', ...}, 'aab': {'aaa', 'aab', 'aaq', 'aau', 'aaw', 'aax'}, 'aac': {'aaa', 'aac', 'aau', 'aaw', 'aax'}, 'aad': {'aad', 'aae', 'aaf', 'aag', 'aah', 'aam', ...}, ...}
+lista_sec = [Sector(nombre='LECMASI', id='aaa', pdt=False, ruta=True, noche=0, sectores_elementales=['ASL', 'ASU']), Sector(nombre...les=['']), Sector(nombre='LECMBLI', id='aaf', pdt=False, ruta=True, noche=0, sectores_elementales=['BLL', 'BLU']), ...]
+
+    def comprobar_cambio_posicion(
+        turnos: list[str], mapa_afinidad: dict[str, set[str]], lista_sec: list[Sector]
+    ) -> float:
+        p = 0.0
+        for turno in turnos:
+            x = 0.0
+            slots = list(_slots(turno))
+>           for current, nxt in zip(slots, slots[1:], strict=True):
+E           ValueError: zip() argument 2 is shorter than argument 1
+
+src/atco/problem/restrictions/checks.py:429: ValueError
+___________ test_acumulador_sin_pesos_es_menor_o_igual_que_ponderado ___________
+
+entrada_madN_M1 = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, baja_alta=False, slo...Sector(nombre='LECMSAU', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
+parametros_reales = Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des...o_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5))
+
+    def test_acumulador_sin_pesos_es_menor_o_igual_que_ponderado(
+        entrada_madN_M1: Entrada,
+        parametros_reales: Parametros,
+    ) -> None:
+        """Como los pesos son todos >= 0.5, la suma ponderada es >= la sin pesos.
+    
+        (Salvo restricciones con pesos < 1, que son R8, R11, R12. Aún así
+        el promedio de pesos es > 1, así que en agregado se cumple.)
+        """
+        sol = entrada_madN_M1.get_distribucion_inicial()
+>       sin_pesos = restricciones_sin_pesos(sol, entrada_madN_M1, parametros_reales)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/test_restrictions.py:154: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/atco/problem/restrictions/checks.py:128: in restricciones_sin_pesos
+    for value in _checks(individuo, entrada, parametros):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/atco/problem/restrictions/checks.py:167: in _checks
+    comprobar_cambio_posicion(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+turnos = ['aayaayaayaayaayaayaayaayaayaayAAYAAYAAYAAYAAYAAYAAYAAYAAYAAY111111111111111111111111111111aayaayaayaayaayaayaayaayaa...aaaaaaaaaaaaaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA111111111111111111111111111111111aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', ...]
+mapa_afinidad = {'aaa': {'aaa', 'aab', 'aac', 'aaq', 'aau', 'aaw', ...}, 'aab': {'aaa', 'aab', 'aaq', 'aau', 'aaw', 'aax'}, 'aac': {'aaa', 'aac', 'aau', 'aaw', 'aax'}, 'aad': {'aad', 'aae', 'aaf', 'aag', 'aah', 'aam', ...}, ...}
+lista_sec = [Sector(nombre='LECMASI', id='aaa', pdt=False, ruta=True, noche=0, sectores_elementales=['ASL', 'ASU']), Sector(nombre...les=['']), Sector(nombre='LECMBLI', id='aaf', pdt=False, ruta=True, noche=0, sectores_elementales=['BLL', 'BLU']), ...]
+
+    def comprobar_cambio_posicion(
+        turnos: list[str], mapa_afinidad: dict[str, set[str]], lista_sec: list[Sector]
+    ) -> float:
+        p = 0.0
+        for turno in turnos:
+            x = 0.0
+            slots = list(_slots(turno))
+>           for current, nxt in zip(slots, slots[1:], strict=True):
+E           ValueError: zip() argument 2 is shorter than argument 1
+
+src/atco/problem/restrictions/checks.py:429: ValueError
+___________ test_acumulador_por_restricciones_publica_vector_global ____________
+
+entrada_madN_M1 = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, baja_alta=False, slo...Sector(nombre='LECMSAU', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
+parametros_reales = Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des...o_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5))
+
+    def test_acumulador_por_restricciones_publica_vector_global(
+        entrada_madN_M1: Entrada,
+        parametros_reales: Parametros,
+    ) -> None:
+        """`penalizacion_por_restricciones` actualiza la global `restricciones_no_cumplidas`."""
+        from atco.problem.restrictions.weights import restricciones_no_cumplidas
+    
+        sol = entrada_madN_M1.get_distribucion_inicial()
+>       _ = penalizacion_por_restricciones(sol, entrada_madN_M1, parametros_reales)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/test_restrictions.py:175: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/atco/problem/restrictions/checks.py:74: in penalizacion_por_restricciones
+    checks = _checks(individuo, entrada, parametros)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/atco/problem/restrictions/checks.py:167: in _checks
+    comprobar_cambio_posicion(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+turnos = ['aayaayaayaayaayaayaayaayaayaayAAYAAYAAYAAYAAYAAYAAYAAYAAYAAY111111111111111111111111111111aayaayaayaayaayaayaayaayaa...aaaaaaaaaaaaaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA111111111111111111111111111111111aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', ...]
+mapa_afinidad = {'aaa': {'aaa', 'aab', 'aac', 'aaq', 'aau', 'aaw', ...}, 'aab': {'aaa', 'aab', 'aaq', 'aau', 'aaw', 'aax'}, 'aac': {'aaa', 'aac', 'aau', 'aaw', 'aax'}, 'aad': {'aad', 'aae', 'aaf', 'aag', 'aah', 'aam', ...}, ...}
+lista_sec = [Sector(nombre='LECMASI', id='aaa', pdt=False, ruta=True, noche=0, sectores_elementales=['ASL', 'ASU']), Sector(nombre...les=['']), Sector(nombre='LECMBLI', id='aaf', pdt=False, ruta=True, noche=0, sectores_elementales=['BLL', 'BLU']), ...]
+
+    def comprobar_cambio_posicion(
+        turnos: list[str], mapa_afinidad: dict[str, set[str]], lista_sec: list[Sector]
+    ) -> float:
+        p = 0.0
+        for turno in turnos:
+            x = 0.0
+            slots = list(_slots(turno))
+>           for current, nxt in zip(slots, slots[1:], strict=True):
+E           ValueError: zip() argument 2 is shorter than argument 1
+
+src/atco/problem/restrictions/checks.py:429: ValueError
+=========================== short test summary info ============================
+FAILED tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_tipo_sector]
+FAILED tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_sectores_abiertos_noche]
+FAILED tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_cambio_posicion]
+FAILED tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_num_maximo_sectores]
+FAILED tests/unit/test_restrictions.py::test_acumulador_paralelo_devuelve_no_negativo
+FAILED tests/unit/test_restrictions.py::test_acumulador_sin_pesos_es_menor_o_igual_que_ponderado
+FAILED tests/unit/test_restrictions.py::test_acumulador_por_restricciones_publica_vector_global
+========================= 7 failed, 13 passed in 0.06s =========================
+
+===== 2026-06-13 20:36:11 — pytest -x tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_tipo_sector] =====
+============================= test session starts ==============================
+platform darwin -- Python 3.11.15, pytest-9.0.3, pluggy-1.6.0 -- /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga
+configfile: pyproject.toml
+plugins: cov-7.1.0, anyio-4.13.0
+collecting ... collected 1 item
+
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_tipo_sector] FAILED [100%]
+
+=================================== FAILURES ===================================
+___________ test_smoke_check_devuelve_numero[comprobar_tipo_sector] ____________
+tests/unit/test_restrictions.py:89: in test_smoke_check_devuelve_numero
+    resultado = _llamar_check(check_fn, sol, entrada_madN_M1, parametros_reales)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/unit/test_restrictions.py:122: in _llamar_check
+    return fn(sol, entrada)
+           ^^^^^^^^^^^^^^^^
+src/atco/problem/restrictions/checks.py:452: in comprobar_tipo_sector
+    ruta_ids = entrada._fast_ruta_ids
+               ^^^^^^^^^^^^^^^^^^^^^^
+E   AttributeError: 'Entrada' object has no attribute '_fast_ruta_ids'
+---------------------------- Captured stdout setup -----------------------------
+0: LECMASI;RUTA;;X;
+IDS[idx]: aaa
+1: LECMASL;RUTA;;X;
+IDS[idx]: aab
+2: LECMASU;RUTA;;X;
+IDS[idx]: aac
+3: LECMBDI;RUTA;;X;
+IDS[idx]: aad
+4: LECMBDP;RUTA;;X;
+IDS[idx]: aae
+5: LECMBLI;RUTA;;X;
+IDS[idx]: aaf
+6: LECMBLL;RUTA;;X;
+IDS[idx]: aag
+7: LECMBLU;RUTA;;X;
+IDS[idx]: aah
+8: LECMCJI;RUTA;;;X
+IDS[idx]: aai
+9: LECMCJL;RUTA;;;X
+IDS[idx]: aaj
+10: LECMCJU;RUTA;;;X
+IDS[idx]: aak
+11: LECMCZI;RUTA;;;X
+IDS[idx]: aal
+12: LECMDGI;RUTA;;X;
+IDS[idx]: aam
+13: LECMDGL;RUTA;;X;
+IDS[idx]: aan
+14: LECMDGU;RUTA;;X;
+IDS[idx]: aao
+15: LECMDPI;RUTA;;X;
+IDS[idx]: aap
+16: LECMPAI;RUTA;;X;
+IDS[idx]: aaq
+17: LECMPAL;RUTA;;X;
+IDS[idx]: aar
+18: LECMPAU;RUTA;;X;
+IDS[idx]: aas
+19: LECMR1I;RUTA;;X;
+IDS[idx]: aat
+20: LECMR2I;RUTA;;;X
+IDS[idx]: aau
+21: LECMSAB;RUTA;;X;
+IDS[idx]: aav
+22: LECMSAI;RUTA;;X;
+IDS[idx]: aaw
+23: LECMSAN;RUTA;;X;
+IDS[idx]: aax
+24: LECMSAO;RUTA;;X;
+IDS[idx]: aay
+25: LECMSAS;RUTA;;X;
+IDS[idx]: aaz
+26: LECMSEI;RUTA;;;X
+IDS[idx]: aba
+27: LECMSWI;RUTA;;;X
+IDS[idx]: abb
+28: LECMTCI;RUTA;;;X
+IDS[idx]: abc
+29: LECMTER;RUTA;;;X
+IDS[idx]: abd
+30: LECMTLI;RUTA;;;X
+IDS[idx]: abe
+31: LECMTLL;RUTA;;;X
+IDS[idx]: abf
+32: LECMTLU;RUTA;;;X
+IDS[idx]: abg
+33: LECMTZI;RUTA;;;X
+IDS[idx]: abh
+34: LECMZGZ;RUTA;;;X
+IDS[idx]: abi
+35: LECMZLM;RUTA;;;X
+IDS[idx]: abj
+36: LECMZMI;RUTA;;;X
+IDS[idx]: abk
+37: LECMZML;RUTA;;;X
+IDS[idx]: abl
+38: LECMZMU;RUTA;;;X
+IDS[idx]: abm
+39: LECMZTI;RUTA;;;X
+IDS[idx]: abn
+40: LECMZUM;RUTA;;;X
+IDS[idx]: abo
+41: LEMDAFN;APP;X;;
+42: LEMDAFS;APP;X;;
+43: LEMDAIN;APP;X;;
+44: LEMDAIS;APP;X;;
+45: LEMDALN;APP;X;;
+46: LEMDALS;APP;X;;
+47: LEMDAPN;APP;X;;
+48: LEMDAPS;APP;X;;
+49: LEMDARN;APP;X;;
+50: LEMDARS;APP;X;;
+51: LEMDATN;APP;X;;
+52: LEMDATS;APP;X;;
+53: LEMDDEN;APP;X;;
+54: LEMDDES;APP;X;;
+55: LEMDDIN;APP;X;;
+56: LEMDDIS;APP;X;;
+57: LEMDDNS;APP;X;;
+58: LEMDDWN;APP;X;;
+59: LEMDDWS;APP;X;;
+60: LEMDEAN;APP;X;;
+61: LEMDEAS;APP;X;;
+62: LEMDEBS;APP;X;;
+63: LEMDEDN;APP;X;;
+64: LEMDEDS;APP;X;;
+65: LEMDEIN;APP;X;;
+66: LEMDEIS;APP;X;;
+67: LEMDENN;APP;X;;
+68: LEMDENS;APP;X;;
+69: LEMDERN;APP;X;;
+70: LEMDERS;APP;X;;
+71: LEMDESN;APP;X;;
+72: LEMDESS;APP;X;;
+73: LEMDETN;APP;X;;
+74: LEMDETS;APP;X;;
+75: LEMDEXN;APP;X;;
+76: LEMDEXS;APP;X;;
+77: LEMDREN;APP;X;;
+78: LEMDRES;APP;X;;
+79: LEMDRNN;APP;X;;
+80: LEMDRNS;APP;X;;
+81: LEMDRSN;APP;X;;
+82: LEMDRSS;APP;X;;
+83: LEMDRWN;APP;X;;
+84: LEMDRWS;APP;X;;
+85: LEMDTEN;APP;X;;
+86: LEMDTES;APP;X;;
+87: LEMDTNN;APP;X;;
+88: LEMDTNS;APP;X;;
+89: LEMDTSN;APP;X;;
+90: LEMDTSS;APP;X;;
+91: LEMDTWN;APP;X;;
+92: LEMDTWS;APP;X;;
+93: LEMDWAN;APP;X;;
+94: LEMDWAS;APP;X;;
+95: LEMDWDN;APP;X;;
+96: LEMDWDS;APP;X;;
+97: LEMDWIN;APP;X;;
+98: LEMDWIS;APP;X;;
+99: LEMDWNN;APP;X;;
+100: LEMDWNS;APP;X;;
+101: LEMDWRN;APP;X;;
+102: LEMDWRS;APP;X;;
+103: LEMDWSN;APP;X;;
+104: LEMDWSS;APP;X;;
+105: LEMDWTN;APP;X;;
+106: LEMDWTS;APP;X;;
+107: LEMDXWN;APP;X;;
+
+
+
+crear_sectorizacion() con 99, [0, 99]
+Turno: Turno(nombre='Manana', inicio_tl='06:30:00', fin_tl='14:45:00', inicio_tc='06:30:00', fin_tc='14:45:00', parametros=Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des_min=15, tiempo_des_por_trabajo=30, tiempo_pos_min=15, tiempo_pos_opt=45, tiempo_trab_opt=90, num_sctrs_max=3, porcent_pos_max=0.6, porcent_pos_min=0.4, tamano_slots=5, pesos_objetivos=PesosObjetivos(peso_obj1=0.52, peso_obj2=0.27, peso_obj3=0.15, peso_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5)), tc=[0, 99], tl=[0, 99], slots_des_tc=25, slots_des_tl=25)
+cols=['Madrid Ruta 1', 'CONF', '0', '8A', '06:30:00', '14:45:00']
+====================================================================================================
+introducir_lista_sectores()
+nucleo = Madrid Ruta 1
+conf = 8A
+LECMASI is aaa
+LECMASI is aaa
+LECMBLL is aag
+LECMBLU is aah
+LECMDGL is aan
+LECMDGU is aao
+LECMPAL is aar
+LECMPAU is aas
+LECMSAN is aax
+LECMSAN is aax
+ids = <class 'list'>
+horas: 8, min: 480
+minutos: 15
+Inicio de turno: 06:30:00, Len = 99 slots de 5 min
+horas: 0, min: 0
+minutos: 0
+Offset = 0
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tipo sctori: <class 'list'> con len: 99
+=========================== short test summary info ============================
+FAILED tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_tipo_sector]
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!!
+============================== 1 failed in 0.03s ===============================
+
+===== 2026-06-13 20:39:59 — pytest -x tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_tipo_sector] =====
+============================= test session starts ==============================
+platform darwin -- Python 3.11.15, pytest-9.0.3, pluggy-1.6.0 -- /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga
+configfile: pyproject.toml
+plugins: cov-7.1.0, anyio-4.13.0
+collecting ... collected 1 item
+
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_tipo_sector] PASSED [100%]
+
+============================== 1 passed in 0.02s ===============================
+
+===== 2026-06-13 20:41:04 — pytest -x tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_tipo_sector] =====
+============================= test session starts ==============================
+platform darwin -- Python 3.11.15, pytest-9.0.3, pluggy-1.6.0 -- /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga
+configfile: pyproject.toml
+plugins: cov-7.1.0, anyio-4.13.0
+collecting ... collected 1 item
+
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_tipo_sector] PASSED [100%]
+
+============================== 1 passed in 0.02s ===============================
+
+===== 2026-06-13 20:41:26 — pytest tests/unit/test_restrictions.py =====
+============================= test session starts ==============================
+platform darwin -- Python 3.11.15, pytest-9.0.3, pluggy-1.6.0 -- /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga
+configfile: pyproject.toml
+plugins: cov-7.1.0, anyio-4.13.0
+collecting ... collected 20 items
+
+tests/unit/test_restrictions.py::test_pesos_tienen_longitud_14 PASSED    [  5%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_nucleo_trabajo] PASSED [ 10%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_tipo_sector] PASSED [ 15%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_porcentaje_descanso] PASSED [ 20%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_sectores_abiertos_noche] PASSED [ 25%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_trabajo_maximo_consecutivo] PASSED [ 30%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_controlador_turno_corto] PASSED [ 35%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_ventana_trabajo_descanso] PASSED [ 40%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_cambio_posicion] FAILED [ 45%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_trabajo_minimo_consecutivo] PASSED [ 50%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_descanso_minimo_consecutivo] PASSED [ 55%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_trabajo_posicion_minimo_consecutivo_no_regex] PASSED [ 60%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_num_maximo_sectores] PASSED [ 65%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_controlador_asignado] PASSED [ 70%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_turno_vacio] PASSED [ 75%]
+tests/unit/test_restrictions.py::test_acumulador_paralelo_devuelve_no_negativo FAILED [ 80%]
+tests/unit/test_restrictions.py::test_acumulador_sin_pesos_es_menor_o_igual_que_ponderado FAILED [ 85%]
+tests/unit/test_restrictions.py::test_acumulador_por_restricciones_publica_vector_global FAILED [ 90%]
+tests/unit/test_restrictions.py::test_turno_vacio_cuenta_solo_con_descanso_sin_trabajo PASSED [ 95%]
+tests/unit/test_restrictions.py::test_controlador_asignado_cuenta_huerfanos_y_no_asignados PASSED [100%]
+
+=================================== FAILURES ===================================
+_________ test_smoke_check_devuelve_numero[comprobar_cambio_posicion] __________
+
+nombre_check = 'comprobar_cambio_posicion'
+entrada_madN_M1 = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, baja_alta=False, slo...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
+parametros_reales = Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des...o_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5))
+
+    @pytest.mark.parametrize("nombre_check", ALL_CHECKS)
+    def test_smoke_check_devuelve_numero(
+        nombre_check: str,
+        entrada_madN_M1: Entrada,
+        parametros_reales: Parametros,
+    ) -> None:
+        """Cada comprobar_* devuelve un número finito sobre la distribución inicial."""
+        # Resolución dinámica del callable por nombre — simplifica los tests.
+        check_fn = globals()[nombre_check]
+        sol = entrada_madN_M1.get_distribucion_inicial()
+    
+        # Cada función tiene firmas distintas; las normalizamos con un dispatcher.
+>       resultado = _llamar_check(check_fn, sol, entrada_madN_M1, parametros_reales)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/test_restrictions.py:90: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/test_restrictions.py:116: in _llamar_check
+    return fn(turnos, entrada.get_mapa_afinidad(), entrada.get_lista_sectores())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+turnos = ['aaxaaxaaxaaxaaxaaxaaxaaxaaxaaxAAXAAXAAXAAXAAXAAXAAXAAXAAXAAX111111111111111111111111111111aaxaaxaaxaaxaaxaaxaaxaaxaa...aaaaaaaaaaaaaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA111111111111111111111111111111111aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', ...]
+mapa_afinidad = {'aaa': {'aaa', 'aab', 'aac', 'aat', 'aav', 'aaw', ...}, 'aab': {'aaa', 'aab', 'aat', 'aav', 'aaw', 'aaz'}, 'aac': {'aaa', 'aac', 'aat', 'aav', 'aaw'}, 'aad': {'aad', 'aae', 'aaf', 'aag', 'aah', 'aam', ...}, ...}
+lista_sec = [Sector(nombre='LECMASI', id='aaa', pdt=False, ruta=True, noche=0, sectores_elementales=['LECMASL', 'LECMASU']), Secto...), Sector(nombre='LECMBLI', id='aaf', pdt=False, ruta=True, noche=0, sectores_elementales=['LECMBLL', 'LECMBLU']), ...]
+
+    def comprobar_cambio_posicion(
+        turnos: list[str], mapa_afinidad: dict[str, set[str]], lista_sec: list[Sector]
+    ) -> float:
+        p = 0.0
+        for turno in turnos:
+            x = 0.0
+            slots = list(_slots(turno))
+>           for current, nxt in zip(slots, slots[1:], strict=True):
+E           ValueError: zip() argument 2 is shorter than argument 1
+
+src/atco/problem/restrictions/checks.py:429: ValueError
+________________ test_acumulador_paralelo_devuelve_no_negativo _________________
+
+entrada_madN_M1 = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, baja_alta=False, slo...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
+parametros_reales = Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des...o_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5))
+
+    def test_acumulador_paralelo_devuelve_no_negativo(
+        entrada_madN_M1: Entrada,
+        parametros_reales: Parametros,
+    ) -> None:
+        """`comprobar_restricciones_en_paralelo` suma ponderada; nunca negativa."""
+        sol = entrada_madN_M1.get_distribucion_inicial()
+>       total = comprobar_restricciones_en_paralelo(sol, entrada_madN_M1, parametros_reales)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/test_restrictions.py:138: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/atco/problem/restrictions/checks.py:105: in comprobar_restricciones_en_paralelo
+    for idx, value in enumerate(_checks(individuo, entrada, parametros)):
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/atco/problem/restrictions/checks.py:167: in _checks
+    comprobar_cambio_posicion(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+turnos = ['aaxaaxaaxaaxaaxaaxaaxaaxaaxaaxAAXAAXAAXAAXAAXAAXAAXAAXAAXAAX111111111111111111111111111111aaxaaxaaxaaxaaxaaxaaxaaxaa...aaaaaaaaaaaaaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA111111111111111111111111111111111aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', ...]
+mapa_afinidad = {'aaa': {'aaa', 'aab', 'aac', 'aat', 'aav', 'aaw', ...}, 'aab': {'aaa', 'aab', 'aat', 'aav', 'aaw', 'aaz'}, 'aac': {'aaa', 'aac', 'aat', 'aav', 'aaw'}, 'aad': {'aad', 'aae', 'aaf', 'aag', 'aah', 'aam', ...}, ...}
+lista_sec = [Sector(nombre='LECMASI', id='aaa', pdt=False, ruta=True, noche=0, sectores_elementales=['LECMASL', 'LECMASU']), Secto...), Sector(nombre='LECMBLI', id='aaf', pdt=False, ruta=True, noche=0, sectores_elementales=['LECMBLL', 'LECMBLU']), ...]
+
+    def comprobar_cambio_posicion(
+        turnos: list[str], mapa_afinidad: dict[str, set[str]], lista_sec: list[Sector]
+    ) -> float:
+        p = 0.0
+        for turno in turnos:
+            x = 0.0
+            slots = list(_slots(turno))
+>           for current, nxt in zip(slots, slots[1:], strict=True):
+E           ValueError: zip() argument 2 is shorter than argument 1
+
+src/atco/problem/restrictions/checks.py:429: ValueError
+___________ test_acumulador_sin_pesos_es_menor_o_igual_que_ponderado ___________
+
+entrada_madN_M1 = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, baja_alta=False, slo...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
+parametros_reales = Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des...o_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5))
+
+    def test_acumulador_sin_pesos_es_menor_o_igual_que_ponderado(
+        entrada_madN_M1: Entrada,
+        parametros_reales: Parametros,
+    ) -> None:
+        """Como los pesos son todos >= 0.5, la suma ponderada es >= la sin pesos.
+    
+        (Salvo restricciones con pesos < 1, que son R8, R11, R12. Aún así
+        el promedio de pesos es > 1, así que en agregado se cumple.)
+        """
+        sol = entrada_madN_M1.get_distribucion_inicial()
+>       sin_pesos = restricciones_sin_pesos(sol, entrada_madN_M1, parametros_reales)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/test_restrictions.py:152: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/atco/problem/restrictions/checks.py:128: in restricciones_sin_pesos
+    for value in _checks(individuo, entrada, parametros):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/atco/problem/restrictions/checks.py:167: in _checks
+    comprobar_cambio_posicion(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+turnos = ['aaxaaxaaxaaxaaxaaxaaxaaxaaxaaxAAXAAXAAXAAXAAXAAXAAXAAXAAXAAX111111111111111111111111111111aaxaaxaaxaaxaaxaaxaaxaaxaa...aaaaaaaaaaaaaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA111111111111111111111111111111111aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', ...]
+mapa_afinidad = {'aaa': {'aaa', 'aab', 'aac', 'aat', 'aav', 'aaw', ...}, 'aab': {'aaa', 'aab', 'aat', 'aav', 'aaw', 'aaz'}, 'aac': {'aaa', 'aac', 'aat', 'aav', 'aaw'}, 'aad': {'aad', 'aae', 'aaf', 'aag', 'aah', 'aam', ...}, ...}
+lista_sec = [Sector(nombre='LECMASI', id='aaa', pdt=False, ruta=True, noche=0, sectores_elementales=['LECMASL', 'LECMASU']), Secto...), Sector(nombre='LECMBLI', id='aaf', pdt=False, ruta=True, noche=0, sectores_elementales=['LECMBLL', 'LECMBLU']), ...]
+
+    def comprobar_cambio_posicion(
+        turnos: list[str], mapa_afinidad: dict[str, set[str]], lista_sec: list[Sector]
+    ) -> float:
+        p = 0.0
+        for turno in turnos:
+            x = 0.0
+            slots = list(_slots(turno))
+>           for current, nxt in zip(slots, slots[1:], strict=True):
+E           ValueError: zip() argument 2 is shorter than argument 1
+
+src/atco/problem/restrictions/checks.py:429: ValueError
+___________ test_acumulador_por_restricciones_publica_vector_global ____________
+
+entrada_madN_M1 = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, baja_alta=False, slo...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
+parametros_reales = Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des...o_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5))
+
+    def test_acumulador_por_restricciones_publica_vector_global(
+        entrada_madN_M1: Entrada,
+        parametros_reales: Parametros,
+    ) -> None:
+        """`penalizacion_por_restricciones` actualiza la global `restricciones_no_cumplidas`."""
+        from atco.problem.restrictions.weights import restricciones_no_cumplidas
+    
+        sol = entrada_madN_M1.get_distribucion_inicial()
+>       _ = penalizacion_por_restricciones(sol, entrada_madN_M1, parametros_reales)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/test_restrictions.py:173: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/atco/problem/restrictions/checks.py:74: in penalizacion_por_restricciones
+    checks = _checks(individuo, entrada, parametros)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/atco/problem/restrictions/checks.py:167: in _checks
+    comprobar_cambio_posicion(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+turnos = ['aaxaaxaaxaaxaaxaaxaaxaaxaaxaaxAAXAAXAAXAAXAAXAAXAAXAAXAAXAAX111111111111111111111111111111aaxaaxaaxaaxaaxaaxaaxaaxaa...aaaaaaaaaaaaaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA111111111111111111111111111111111aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', ...]
+mapa_afinidad = {'aaa': {'aaa', 'aab', 'aac', 'aat', 'aav', 'aaw', ...}, 'aab': {'aaa', 'aab', 'aat', 'aav', 'aaw', 'aaz'}, 'aac': {'aaa', 'aac', 'aat', 'aav', 'aaw'}, 'aad': {'aad', 'aae', 'aaf', 'aag', 'aah', 'aam', ...}, ...}
+lista_sec = [Sector(nombre='LECMASI', id='aaa', pdt=False, ruta=True, noche=0, sectores_elementales=['LECMASL', 'LECMASU']), Secto...), Sector(nombre='LECMBLI', id='aaf', pdt=False, ruta=True, noche=0, sectores_elementales=['LECMBLL', 'LECMBLU']), ...]
+
+    def comprobar_cambio_posicion(
+        turnos: list[str], mapa_afinidad: dict[str, set[str]], lista_sec: list[Sector]
+    ) -> float:
+        p = 0.0
+        for turno in turnos:
+            x = 0.0
+            slots = list(_slots(turno))
+>           for current, nxt in zip(slots, slots[1:], strict=True):
+E           ValueError: zip() argument 2 is shorter than argument 1
+
+src/atco/problem/restrictions/checks.py:429: ValueError
+=========================== short test summary info ============================
+FAILED tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_cambio_posicion]
+FAILED tests/unit/test_restrictions.py::test_acumulador_paralelo_devuelve_no_negativo
+FAILED tests/unit/test_restrictions.py::test_acumulador_sin_pesos_es_menor_o_igual_que_ponderado
+FAILED tests/unit/test_restrictions.py::test_acumulador_por_restricciones_publica_vector_global
+========================= 4 failed, 16 passed in 0.05s =========================
+
+===== 2026-06-13 21:54:03 — pytest tests/unit/test_restrictions.py =====
+============================= test session starts ==============================
+platform darwin -- Python 3.11.15, pytest-9.0.3, pluggy-1.6.0 -- /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga
+configfile: pyproject.toml
+plugins: cov-7.1.0, anyio-4.13.0
+collecting ... collected 20 items
+
+tests/unit/test_restrictions.py::test_pesos_tienen_longitud_14 PASSED    [  5%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_nucleo_trabajo] PASSED [ 10%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_tipo_sector] PASSED [ 15%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_porcentaje_descanso] PASSED [ 20%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_sectores_abiertos_noche] PASSED [ 25%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_trabajo_maximo_consecutivo] PASSED [ 30%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_controlador_turno_corto] PASSED [ 35%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_ventana_trabajo_descanso] PASSED [ 40%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_cambio_posicion] FAILED [ 45%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_trabajo_minimo_consecutivo] PASSED [ 50%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_descanso_minimo_consecutivo] PASSED [ 55%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_trabajo_posicion_minimo_consecutivo_no_regex] PASSED [ 60%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_num_maximo_sectores] PASSED [ 65%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_controlador_asignado] PASSED [ 70%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_turno_vacio] PASSED [ 75%]
+tests/unit/test_restrictions.py::test_acumulador_paralelo_devuelve_no_negativo FAILED [ 80%]
+tests/unit/test_restrictions.py::test_acumulador_sin_pesos_es_menor_o_igual_que_ponderado FAILED [ 85%]
+tests/unit/test_restrictions.py::test_acumulador_por_restricciones_publica_vector_global FAILED [ 90%]
+tests/unit/test_restrictions.py::test_turno_vacio_cuenta_solo_con_descanso_sin_trabajo PASSED [ 95%]
+tests/unit/test_restrictions.py::test_controlador_asignado_cuenta_huerfanos_y_no_asignados PASSED [100%]
+
+=================================== FAILURES ===================================
+_________ test_smoke_check_devuelve_numero[comprobar_cambio_posicion] __________
+
+nombre_check = 'comprobar_cambio_posicion'
+entrada_madN_M1 = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, baja_alta=False, slo...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
+parametros_reales = Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des...o_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5))
+
+    @pytest.mark.parametrize("nombre_check", ALL_CHECKS)
+    def test_smoke_check_devuelve_numero(
+        nombre_check: str,
+        entrada_madN_M1: Entrada,
+        parametros_reales: Parametros,
+    ) -> None:
+        """Cada comprobar_* devuelve un número finito sobre la distribución inicial."""
+        # Resolución dinámica del callable por nombre — simplifica los tests.
+        check_fn = globals()[nombre_check]
+        sol = entrada_madN_M1.get_distribucion_inicial()
+    
+        # Cada función tiene firmas distintas; las normalizamos con un dispatcher.
+>       resultado = _llamar_check(check_fn, sol, entrada_madN_M1, parametros_reales)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/test_restrictions.py:90: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/test_restrictions.py:116: in _llamar_check
+    return fn(turnos, entrada.get_mapa_afinidad(), entrada.get_lista_sectores())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+turnos = ['aaxaaxaaxaaxaaxaaxaaxaaxaaxaaxAAXAAXAAXAAXAAXAAXAAXAAXAAXAAX111111111111111111111111111111aaxaaxaaxaaxaaxaaxaaxaaxaa...aaaaaaaaaaaaaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA111111111111111111111111111111111aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', ...]
+mapa_afinidad = {'aaa': {'aaa', 'aab', 'aac', 'aat', 'aav', 'aaw', ...}, 'aab': {'aaa', 'aab', 'aat', 'aav', 'aaw', 'aaz'}, 'aac': {'aaa', 'aac', 'aat', 'aav', 'aaw'}, 'aad': {'aad', 'aae', 'aaf', 'aag', 'aah', 'aam', ...}, ...}
+lista_sec = [Sector(nombre='LECMASI', id='aaa', pdt=False, ruta=True, noche=0, sectores_elementales=['LECMASL', 'LECMASU']), Secto...), Sector(nombre='LECMBLI', id='aaf', pdt=False, ruta=True, noche=0, sectores_elementales=['LECMBLL', 'LECMBLU']), ...]
+
+    def comprobar_cambio_posicion(
+        turnos: list[str], mapa_afinidad: dict[str, set[str]], lista_sec: list[Sector]
+    ) -> float:
+        # R6
+        # Los cambios de los controladores entre sectores cuando se encuentran trabajando en
+        # posición de ejecutivo, no están permitidos sin un descanso excepto que se produzca
+        # un cambio de conguración y los sectores sean afines
+        p = 0.0
+        for turno in turnos:
+            x = 0.0
+            slots = list(_slots(turno))
+>           for current, nxt in zip(slots, slots[1:], strict=True):
+E           ValueError: zip() argument 2 is shorter than argument 1
+
+src/atco/problem/restrictions/checks.py:450: ValueError
+________________ test_acumulador_paralelo_devuelve_no_negativo _________________
+
+entrada_madN_M1 = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, baja_alta=False, slo...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
+parametros_reales = Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des...o_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5))
+
+    def test_acumulador_paralelo_devuelve_no_negativo(
+        entrada_madN_M1: Entrada,
+        parametros_reales: Parametros,
+    ) -> None:
+        """`comprobar_restricciones_en_paralelo` suma ponderada; nunca negativa."""
+        sol = entrada_madN_M1.get_distribucion_inicial()
+>       total = comprobar_restricciones_en_paralelo(sol, entrada_madN_M1, parametros_reales)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/test_restrictions.py:138: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/atco/problem/restrictions/checks.py:105: in comprobar_restricciones_en_paralelo
+    for idx, value in enumerate(_checks(individuo, entrada, parametros)):
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/atco/problem/restrictions/checks.py:167: in _checks
+    comprobar_cambio_posicion(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+turnos = ['aaxaaxaaxaaxaaxaaxaaxaaxaaxaaxAAXAAXAAXAAXAAXAAXAAXAAXAAXAAX111111111111111111111111111111aaxaaxaaxaaxaaxaaxaaxaaxaa...aaaaaaaaaaaaaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA111111111111111111111111111111111aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', ...]
+mapa_afinidad = {'aaa': {'aaa', 'aab', 'aac', 'aat', 'aav', 'aaw', ...}, 'aab': {'aaa', 'aab', 'aat', 'aav', 'aaw', 'aaz'}, 'aac': {'aaa', 'aac', 'aat', 'aav', 'aaw'}, 'aad': {'aad', 'aae', 'aaf', 'aag', 'aah', 'aam', ...}, ...}
+lista_sec = [Sector(nombre='LECMASI', id='aaa', pdt=False, ruta=True, noche=0, sectores_elementales=['LECMASL', 'LECMASU']), Secto...), Sector(nombre='LECMBLI', id='aaf', pdt=False, ruta=True, noche=0, sectores_elementales=['LECMBLL', 'LECMBLU']), ...]
+
+    def comprobar_cambio_posicion(
+        turnos: list[str], mapa_afinidad: dict[str, set[str]], lista_sec: list[Sector]
+    ) -> float:
+        # R6
+        # Los cambios de los controladores entre sectores cuando se encuentran trabajando en
+        # posición de ejecutivo, no están permitidos sin un descanso excepto que se produzca
+        # un cambio de conguración y los sectores sean afines
+        p = 0.0
+        for turno in turnos:
+            x = 0.0
+            slots = list(_slots(turno))
+>           for current, nxt in zip(slots, slots[1:], strict=True):
+E           ValueError: zip() argument 2 is shorter than argument 1
+
+src/atco/problem/restrictions/checks.py:450: ValueError
+___________ test_acumulador_sin_pesos_es_menor_o_igual_que_ponderado ___________
+
+entrada_madN_M1 = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, baja_alta=False, slo...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
+parametros_reales = Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des...o_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5))
+
+    def test_acumulador_sin_pesos_es_menor_o_igual_que_ponderado(
+        entrada_madN_M1: Entrada,
+        parametros_reales: Parametros,
+    ) -> None:
+        """Como los pesos son todos >= 0.5, la suma ponderada es >= la sin pesos.
+    
+        (Salvo restricciones con pesos < 1, que son R8, R11, R12. Aún así
+        el promedio de pesos es > 1, así que en agregado se cumple.)
+        """
+        sol = entrada_madN_M1.get_distribucion_inicial()
+>       sin_pesos = restricciones_sin_pesos(sol, entrada_madN_M1, parametros_reales)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/test_restrictions.py:152: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/atco/problem/restrictions/checks.py:128: in restricciones_sin_pesos
+    for value in _checks(individuo, entrada, parametros):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/atco/problem/restrictions/checks.py:167: in _checks
+    comprobar_cambio_posicion(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+turnos = ['aaxaaxaaxaaxaaxaaxaaxaaxaaxaaxAAXAAXAAXAAXAAXAAXAAXAAXAAXAAX111111111111111111111111111111aaxaaxaaxaaxaaxaaxaaxaaxaa...aaaaaaaaaaaaaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA111111111111111111111111111111111aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', ...]
+mapa_afinidad = {'aaa': {'aaa', 'aab', 'aac', 'aat', 'aav', 'aaw', ...}, 'aab': {'aaa', 'aab', 'aat', 'aav', 'aaw', 'aaz'}, 'aac': {'aaa', 'aac', 'aat', 'aav', 'aaw'}, 'aad': {'aad', 'aae', 'aaf', 'aag', 'aah', 'aam', ...}, ...}
+lista_sec = [Sector(nombre='LECMASI', id='aaa', pdt=False, ruta=True, noche=0, sectores_elementales=['LECMASL', 'LECMASU']), Secto...), Sector(nombre='LECMBLI', id='aaf', pdt=False, ruta=True, noche=0, sectores_elementales=['LECMBLL', 'LECMBLU']), ...]
+
+    def comprobar_cambio_posicion(
+        turnos: list[str], mapa_afinidad: dict[str, set[str]], lista_sec: list[Sector]
+    ) -> float:
+        # R6
+        # Los cambios de los controladores entre sectores cuando se encuentran trabajando en
+        # posición de ejecutivo, no están permitidos sin un descanso excepto que se produzca
+        # un cambio de conguración y los sectores sean afines
+        p = 0.0
+        for turno in turnos:
+            x = 0.0
+            slots = list(_slots(turno))
+>           for current, nxt in zip(slots, slots[1:], strict=True):
+E           ValueError: zip() argument 2 is shorter than argument 1
+
+src/atco/problem/restrictions/checks.py:450: ValueError
+___________ test_acumulador_por_restricciones_publica_vector_global ____________
+
+entrada_madN_M1 = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, baja_alta=False, slo...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
+parametros_reales = Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des...o_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5))
+
+    def test_acumulador_por_restricciones_publica_vector_global(
+        entrada_madN_M1: Entrada,
+        parametros_reales: Parametros,
+    ) -> None:
+        """`penalizacion_por_restricciones` actualiza la global `restricciones_no_cumplidas`."""
+        from atco.problem.restrictions.weights import restricciones_no_cumplidas
+    
+        sol = entrada_madN_M1.get_distribucion_inicial()
+>       _ = penalizacion_por_restricciones(sol, entrada_madN_M1, parametros_reales)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/test_restrictions.py:173: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/atco/problem/restrictions/checks.py:74: in penalizacion_por_restricciones
+    checks = _checks(individuo, entrada, parametros)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/atco/problem/restrictions/checks.py:167: in _checks
+    comprobar_cambio_posicion(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+turnos = ['aaxaaxaaxaaxaaxaaxaaxaaxaaxaaxAAXAAXAAXAAXAAXAAXAAXAAXAAXAAX111111111111111111111111111111aaxaaxaaxaaxaaxaaxaaxaaxaa...aaaaaaaaaaaaaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA111111111111111111111111111111111aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', ...]
+mapa_afinidad = {'aaa': {'aaa', 'aab', 'aac', 'aat', 'aav', 'aaw', ...}, 'aab': {'aaa', 'aab', 'aat', 'aav', 'aaw', 'aaz'}, 'aac': {'aaa', 'aac', 'aat', 'aav', 'aaw'}, 'aad': {'aad', 'aae', 'aaf', 'aag', 'aah', 'aam', ...}, ...}
+lista_sec = [Sector(nombre='LECMASI', id='aaa', pdt=False, ruta=True, noche=0, sectores_elementales=['LECMASL', 'LECMASU']), Secto...), Sector(nombre='LECMBLI', id='aaf', pdt=False, ruta=True, noche=0, sectores_elementales=['LECMBLL', 'LECMBLU']), ...]
+
+    def comprobar_cambio_posicion(
+        turnos: list[str], mapa_afinidad: dict[str, set[str]], lista_sec: list[Sector]
+    ) -> float:
+        # R6
+        # Los cambios de los controladores entre sectores cuando se encuentran trabajando en
+        # posición de ejecutivo, no están permitidos sin un descanso excepto que se produzca
+        # un cambio de conguración y los sectores sean afines
+        p = 0.0
+        for turno in turnos:
+            x = 0.0
+            slots = list(_slots(turno))
+>           for current, nxt in zip(slots, slots[1:], strict=True):
+E           ValueError: zip() argument 2 is shorter than argument 1
+
+src/atco/problem/restrictions/checks.py:450: ValueError
+=========================== short test summary info ============================
+FAILED tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_cambio_posicion]
+FAILED tests/unit/test_restrictions.py::test_acumulador_paralelo_devuelve_no_negativo
+FAILED tests/unit/test_restrictions.py::test_acumulador_sin_pesos_es_menor_o_igual_que_ponderado
+FAILED tests/unit/test_restrictions.py::test_acumulador_por_restricciones_publica_vector_global
+========================= 4 failed, 16 passed in 0.05s =========================
+
+===== 2026-06-13 22:02:47 — pytest tests/unit/test_restrictions.py =====
+============================= test session starts ==============================
+platform darwin -- Python 3.11.15, pytest-9.0.3, pluggy-1.6.0 -- /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga
+configfile: pyproject.toml
+plugins: cov-7.1.0, anyio-4.13.0
+collecting ... collected 20 items
+
+tests/unit/test_restrictions.py::test_pesos_tienen_longitud_14 PASSED    [  5%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_nucleo_trabajo] PASSED [ 10%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_tipo_sector] PASSED [ 15%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_porcentaje_descanso] PASSED [ 20%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_sectores_abiertos_noche] PASSED [ 25%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_trabajo_maximo_consecutivo] PASSED [ 30%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_controlador_turno_corto] PASSED [ 35%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_ventana_trabajo_descanso] PASSED [ 40%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_cambio_posicion] PASSED [ 45%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_trabajo_minimo_consecutivo] PASSED [ 50%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_descanso_minimo_consecutivo] PASSED [ 55%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_trabajo_posicion_minimo_consecutivo_no_regex] PASSED [ 60%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_num_maximo_sectores] PASSED [ 65%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_controlador_asignado] PASSED [ 70%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_turno_vacio] PASSED [ 75%]
+tests/unit/test_restrictions.py::test_acumulador_paralelo_devuelve_no_negativo PASSED [ 80%]
+tests/unit/test_restrictions.py::test_acumulador_sin_pesos_es_menor_o_igual_que_ponderado PASSED [ 85%]
+tests/unit/test_restrictions.py::test_acumulador_por_restricciones_publica_vector_global PASSED [ 90%]
+tests/unit/test_restrictions.py::test_turno_vacio_cuenta_solo_con_descanso_sin_trabajo PASSED [ 95%]
+tests/unit/test_restrictions.py::test_controlador_asignado_cuenta_huerfanos_y_no_asignados PASSED [100%]
+
+============================== 20 passed in 0.03s ==============================
+
+===== 2026-06-13 23:21:06 — pytest tests/unit/test_restrictions.py =====
+============================= test session starts ==============================
+platform darwin -- Python 3.11.15, pytest-9.0.3, pluggy-1.6.0 -- /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga
+configfile: pyproject.toml
+plugins: cov-7.1.0, anyio-4.13.0
+collecting ... collected 20 items
+
+tests/unit/test_restrictions.py::test_pesos_tienen_longitud_14 PASSED    [  5%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_nucleo_trabajo] PASSED [ 10%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_tipo_sector] PASSED [ 15%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_porcentaje_descanso] PASSED [ 20%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_sectores_abiertos_noche] PASSED [ 25%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_trabajo_maximo_consecutivo] PASSED [ 30%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_controlador_turno_corto] PASSED [ 35%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_ventana_trabajo_descanso] PASSED [ 40%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_cambio_posicion] PASSED [ 45%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_trabajo_minimo_consecutivo] PASSED [ 50%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_descanso_minimo_consecutivo] PASSED [ 55%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_trabajo_posicion_minimo_consecutivo_no_regex] PASSED [ 60%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_num_maximo_sectores] PASSED [ 65%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_controlador_asignado] PASSED [ 70%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_turno_vacio] PASSED [ 75%]
+tests/unit/test_restrictions.py::test_acumulador_paralelo_devuelve_no_negativo PASSED [ 80%]
+tests/unit/test_restrictions.py::test_acumulador_sin_pesos_es_menor_o_igual_que_ponderado PASSED [ 85%]
+tests/unit/test_restrictions.py::test_acumulador_por_restricciones_publica_vector_global PASSED [ 90%]
+tests/unit/test_restrictions.py::test_turno_vacio_cuenta_solo_con_descanso_sin_trabajo PASSED [ 95%]
+tests/unit/test_restrictions.py::test_controlador_asignado_cuenta_huerfanos_y_no_asignados PASSED [100%]
+
+============================== 20 passed in 0.02s ==============================
+
+===== 2026-06-13 23:24:24 — pytest tests/unit/test_restrictions.py =====
+============================= test session starts ==============================
+platform darwin -- Python 3.11.15, pytest-9.1.0, pluggy-1.6.0 -- /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga
+configfile: pyproject.toml
+plugins: cov-7.1.0, anyio-4.13.0
+collecting ... collected 20 items
+
+tests/unit/test_restrictions.py::test_pesos_tienen_longitud_14 PASSED    [  5%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_nucleo_trabajo] PASSED [ 10%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_tipo_sector] PASSED [ 15%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_porcentaje_descanso] PASSED [ 20%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_sectores_abiertos_noche] PASSED [ 25%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_trabajo_maximo_consecutivo] PASSED [ 30%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_controlador_turno_corto] PASSED [ 35%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_ventana_trabajo_descanso] PASSED [ 40%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_cambio_posicion] PASSED [ 45%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_trabajo_minimo_consecutivo] PASSED [ 50%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_descanso_minimo_consecutivo] PASSED [ 55%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_trabajo_posicion_minimo_consecutivo_no_regex] PASSED [ 60%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_num_maximo_sectores] PASSED [ 65%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_controlador_asignado] PASSED [ 70%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_turno_vacio] PASSED [ 75%]
+tests/unit/test_restrictions.py::test_acumulador_paralelo_devuelve_no_negativo PASSED [ 80%]
+tests/unit/test_restrictions.py::test_acumulador_sin_pesos_es_menor_o_igual_que_ponderado PASSED [ 85%]
+tests/unit/test_restrictions.py::test_acumulador_por_restricciones_publica_vector_global PASSED [ 90%]
+tests/unit/test_restrictions.py::test_turno_vacio_cuenta_solo_con_descanso_sin_trabajo PASSED [ 95%]
+tests/unit/test_restrictions.py::test_controlador_asignado_cuenta_huerfanos_y_no_asignados PASSED [100%]
+
+============================== 20 passed in 0.04s ==============================

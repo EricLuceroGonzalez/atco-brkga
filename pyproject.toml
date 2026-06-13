@@ -31,6 +31,12 @@ dev = [
     "ruff>=0.15.17",
 ]
 
+[tool.hatch.build.targets.wheel]
+packages = ["src/atco"]
+
+[tool.uv]
+package = true
+
 [tool.ruff]
 line-length = 100
 target-version = "py311"

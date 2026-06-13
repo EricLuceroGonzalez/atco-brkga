@@ -26,6 +26,10 @@ Antes de commit o terminar una sesión es saludable ejectuar los commandos:
     uv run pytest
 ```
 
+## Refactor
+
+1. Truco para cambiar camelCase con RegEx: ([a-z])([A-Z]) -> $1_\l$2
+
 ## ruff
 
 Es un _linter_ + _formateador_ escrito en Rust. Súper rápido (analiza miles de líneas en milisegundos). Hace dos cosas:
@@ -86,9 +90,57 @@ Un _framework_ para escribir y ejecutar tests automáticos del código. Un test 
    1. Prepara un estado conocido.
    2. Ejecuta la pieza que quieres comprobar.
    3. Afirma (`assert`) que el resultado es el esperado.
-   4. Si la afirmación falla, `pytest` lo reporta. Si pasa, sigue adelante silenciosamente. 
+   4. Si la afirmación falla, `pytest` lo reporta. Si pasa, sigue adelante silenciosamente.
 
-Ejemplo mínimo en `tests/unit/test_models.py`:
+### Comandos para probar
+
+```bash
+# Uno concreto al iterar
+uv run pytest tests/unit/test_models.py::test_controlador_clone_es_independiente -v
+
+# Con cobertura para ver qué porcentaje cubrimos del dominio
+uv run pytest --cov=src/atco/domain --cov-report=term-missing
+```
+
+### Otros comandos:
+
+```bash
+    # El target por defecto (tests/)
+    make testf
+
+    # Un archivo concreto
+    make testf TARGET=tests/integration/test_instance.py
+
+    # Un test concreto de un archivo
+    make testf TARGET=tests/unit/test_models.py::test_controlador_clone_es_independiente
+
+    # Una carpeta
+    make testf TARGET=tests/unit
+
+    # Por palabra clave (encuentra todos los tests cuyo nombre contenga "clone")
+    make testk K=clone
+
+    # Stop al primer fallo, traceback corto
+    make testx TARGET=tests/integration
+
+    # Combinación: K + stop al primero
+    make testx K=clone
+
+    # O los atajos:
+    make t-models       # solo unit tests del modelo
+    make t-instance     # solo integration test de Entrada
+    make t-unit         # toda la carpeta unit/
+    make t-int          # toda la carpeta integration/
+```
+
+### Posible mejora: usar timestampo en el nombre
+
+```bash
+    STAMP_DAY := $(shell date "+%Y-%m-%d")
+    TEST_LOG  := $(LOG_DIR)/test-$(STAMP_DAY).log
+```
+
+### Ejemplo mínimo en `tests/unit/test_models.py`:
 
 ```python
     from atco.domain.models import Solucion

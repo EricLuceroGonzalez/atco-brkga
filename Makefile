@@ -1,6 +1,21 @@
 # Makefile — atajos del proyecto. Uso: make <objetivo>
 .PHONY: help install lint format type test check all clean
 
+bootstrap:
+	@uv sync
+	@$(MAKE) doctor
+
+reset:
+	rm -rf .venv uv.lock
+	@uv sync
+	@$(MAKE) doctor
+
+doctor:
+	@echo "→ Comprobando entorno..."
+	@grep -q "^package = false" pyproject.toml && echo "⚠️  ATENCIÓN: package = false sigue ahí" || echo "✓ package config correcta"
+	@uv pip list | grep -q "^atco" && echo "✓ atco instalado en el venv" || echo "✗ atco NO instalado — revisa pyproject.toml"
+	@uv run python -c "import atco; print('✓ import atco funciona:', atco.__file__)" 2>/dev/null || echo "✗ import atco falla"
+
 help:
 	@echo "Comandos disponibles:"
 	@echo "  make install   Instalar dependencias (uv sync)"
@@ -11,6 +26,18 @@ help:
 	@echo "  make check     lint + type + test (pre-commit)"
 	@echo "  make all       format + lint --fix + type + test"
 	@echo "  make clean     Limpiar caches"
+	@echo "Tests:"
+	@echo "  make test                  Toda la batería"
+	@echo "  make testf TARGET=<path>   Tests de un archivo/carpeta/test concreto"
+	@echo "  make testk K=<patrón>      Tests cuyo nombre case con el patrón"
+	@echo "  make testx TARGET=<path>   Stop al primer fallo (modo debug)"
+	@echo "  make tlf                   Solo los tests que fallaron la última vez"
+	@echo "  make t-cov TARGET=<path>   Tests con reporte de cobertura"
+	@echo "  Atajos:"
+	@echo "    make t-models            tests/unit/test_models.py"
+	@echo "    make t-instance          tests/integration/test_instance.py"
+	@echo "    make t-unit              toda la carpeta unit/"
+	@echo "    make t-int               toda la carpeta integration/"
 
 install:
 	uv sync
@@ -45,6 +72,13 @@ test: | $(LOG_DIR)
 	@echo "===== $(STAMP) — pytest =====" >> $(TEST_LOG)
 	@uv run pytest -v 2>&1 | tee -a $(TEST_LOG)
 
+test_instance: | $(LOG_DIR)
+	@echo "" >> $(TEST_LOG)
+	@echo "===== $(STAMP) — pytest =====" >> $(TEST_LOG)
+	@uv run pytest -v 2>&1 | tee -a $(TEST_LOG)
+# 	@uv run pytest tests/integration/test_instance.py
+
+
 # Pipeline que se ejecuta antes de commit: lint + tipos + tests
 check: lint type test
 
@@ -58,3 +92,51 @@ all:
 clean:
 	rm -rf .ruff_cache .mypy_cache .pytest_cache __pycache__
 	find . -type d -name __pycache__ -exec rm -rf {} +
+
+# ----- Tests selectivos con logging ----------------------------------------
+
+# Variable que el usuario puede sobreescribir
+TARGET ?= tests
+
+# Test en un path concreto (archivo, carpeta o test específico)
+.PHONY: testf
+testf: | $(LOG_DIR)
+	@echo "" >> $(TEST_LOG)
+	@echo "===== $(STAMP) — pytest $(TARGET) =====" >> $(TEST_LOG)
+	@set -o pipefail; uv run pytest -v $(TARGET) 2>&1 | tee -a $(TEST_LOG)
+
+# Test filtrado por palabra clave (pytest -k)
+.PHONY: testk
+testk: | $(LOG_DIR)
+	@if [ -z "$(K)" ]; then \
+		echo "Uso: make testk K=patron"; exit 1; \
+	fi
+	@echo "" >> $(TEST_LOG)
+	@echo "===== $(STAMP) — pytest -k '$(K)' =====" >> $(TEST_LOG)
+	@set -o pipefail; uv run pytest -v -k "$(K)" 2>&1 | tee -a $(TEST_LOG)
+
+# Test detenerse al primer fallo
+.PHONY: testx
+testx: | $(LOG_DIR)
+	@echo "" >> $(TEST_LOG)
+	@echo "===== $(STAMP) — pytest -x $(TARGET) =====" >> $(TEST_LOG)
+	@set -o pipefail; uv run pytest -x --tb=short -v $(TARGET) 2>&1 | tee -a $(TEST_LOG)	
+
+# ----- Atajos para tests frecuentes ----------------------------------------
+
+.PHONY: t-models t-instance t-restrictions t-unit t-int
+
+t-models:
+	@$(MAKE) testf TARGET=tests/unit/test_models.py
+
+t-instance:
+	@$(MAKE) testf TARGET=tests/integration/test_instance.py
+
+t-restrictions:
+	@$(MAKE) testf TARGET=tests/unit/test_restrictions.py
+
+t-unit:
+	@$(MAKE) testf TARGET=tests/unit
+
+t-int:
+	@$(MAKE) testf TARGET=tests/integration	

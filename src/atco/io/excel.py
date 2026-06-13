@@ -3,8 +3,12 @@ import hashlib
 import openpyxl
 from openpyxl.styles import Alignment, Font, PatternFill
 
+COLORES_FIJOS = {
+    "111": "aaadad",  # Rojo claro si 111 representa alguna penalización o retén
+}
 
-def _write_solution_xlsx_Gantt(path, solution) -> None:
+
+def _write_solution_xlsx_gantt(path, solution) -> None:
     # try:
     #     import openpyxl
     #     from openpyxl.styles import Font, PatternFill, Alignment
@@ -15,10 +19,6 @@ def _write_solution_xlsx_Gantt(path, solution) -> None:
     wb = openpyxl.Workbook()
     ws = wb.active
     ws.title = "Horario_Visual"
-
-    COLORES_FIJOS = {
-        "111": "aaadad",  # Rojo claro si 111 representa alguna penalización o retén
-    }
 
     # Caché dinámico para no recalcular colores ni recrear objetos PatternFill
     fills_cacheados = {}
@@ -68,7 +68,7 @@ def _write_solution_xlsx_Gantt(path, solution) -> None:
         cell.alignment = Alignment(horizontal="center")
 
     # Construcción de filas y coloreado automático
-    for controlador, turno_str in zip(controladores, turnos):
+    for controlador, turno_str in zip(controladores, turnos, strict=True):
         row_data = [
             controlador.id,
             controlador.turno,

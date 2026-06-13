@@ -55,16 +55,16 @@ class PesosObjetivos:
             _float(props, "Obj3Sub2"),
         )
 
-    def getPesoObj1(self) -> float:
+    def get_peso_obj1(self) -> float:
         return self.peso_obj1
 
-    def getPesoObj2(self) -> float:
+    def get_peso_obj2(self) -> float:
         return self.peso_obj2
 
-    def getPesoObj3(self) -> float:
+    def get_peso_obj3(self) -> float:
         return self.peso_obj3
 
-    def getPesoObj4(self) -> float:
+    def get_peso_obj4(self) -> float:
         return self.peso_obj4
 
 
@@ -106,46 +106,46 @@ class Parametros:
             PesosObjetivos.from_properties_file(problem_parameters),
         )
 
-    def getPorcentDescansoDia(self) -> float:
+    def get_porcent_descanso_dia(self) -> float:
         return self.porcent_descanso_dia
 
-    def getPorcentDescansoNoche(self) -> float:
+    def get_porcent_descanso_noche(self) -> float:
         return self.porcent_descanso_noche
 
-    def getTiempoTrabMax(self) -> int:
+    def get_tiempo_trab_max(self) -> int:
         return self.tiempo_trab_max
 
-    def getTiempoTrabMin(self) -> int:
+    def get_tiempo_trab_min(self) -> int:
         return self.tiempo_trab_min
 
-    def getTiempoDesMin(self) -> int:
+    def get_tiempo_des_min(self) -> int:
         return self.tiempo_des_min
 
-    def getTiempoDesPorTrabajo(self) -> int:
+    def get_tiempo_des_por_trabajo(self) -> int:
         return self.tiempo_des_por_trabajo
 
-    def getTiempoPosMin(self) -> int:
+    def get_tiempo_pos_min(self) -> int:
         return self.tiempo_pos_min
 
-    def getTiempoPosOpt(self) -> int:
+    def get_tiempo_pos_opt(self) -> int:
         return self.tiempo_pos_opt
 
-    def getTiempoTrabOpt(self) -> int:
+    def get_tiempo_trab_opt(self) -> int:
         return self.tiempo_trab_opt
 
-    def getNumSctrsMax(self) -> int:
+    def get_num_sctrs_max(self) -> int:
         return self.num_sctrs_max
 
-    def getPorcentPosMax(self) -> float:
+    def get_porcent_pos_max(self) -> float:
         return self.porcent_pos_max
 
-    def getPorcentPosMin(self) -> float:
+    def get_porcent_pos_min(self) -> float:
         return self.porcent_pos_min
 
-    def getTamanoSlots(self) -> int:
+    def get_tamano_slots(self) -> int:
         return self.tamano_slots
 
-    def getPesosObjetivos(self) -> PesosObjetivos:
+    def get_pesos_objetivos(self) -> PesosObjetivos:
         return self.pesos_objetivos
 
 
@@ -193,98 +193,41 @@ class SAParameters:
             int(props.get("cicloRefinarGrid", "0")),
         )
 
-    def getTemperaturaInicial(self) -> float:
-        return self.temperatura_inicial
-
-    def getDescensoTemperatura(self) -> float:
-        return self.descenso_temperatura
-
-    def getIteracionesTemperaturaL(self) -> int:
-        return self.iteraciones_temperatura_l
-
-    def getMovimientosEntorno(self) -> str:
+    def get_movimientos_entorno(self) -> str:
         return self.movimientos_entorno
 
-    def getCondicionParadaPorcent(self) -> float:
+    def get_condicion_parada_porcent(self) -> float:
         return self.condicion_parada_porcent
 
-    def getCondicionParadaCiclos(self) -> int:
+    def get_condicion_parada_ciclos(self) -> int:
         return self.condicion_parada_ciclos
 
-    def getCondicionParadaNumeroMejoras(self) -> float:
+    def get_condicion_parada_numero_mejoras(self) -> float:
         return self.condicion_parada_numero_mejoras
 
-    def getTamanoMaxMov(self) -> int:
+    def get_tamano_max_mov(self) -> int:
         return self.tamano_max_mov
 
-    def getTamanoMinMov(self) -> int:
+    def get_tamano_min_mov(self) -> int:
         return self.tamano_min_mov
 
-    def getPorcentajeEleccionMov(self) -> float:
-        return self.porcentaje_eleccion_mov
-
-    def setPorcentajeEleccionMov(self, value: float) -> None:
-        self.porcentaje_eleccion_mov = value
-
-    def getMove15_min(self) -> int:
+    def get_move15_min(self) -> int:
         return self.move15_min
 
-    def getMove15_max(self) -> int:
+    def get_move15_max(self) -> int:
         return self.move15_max
 
-    def isMove17_adapt_max(self) -> bool:
+    def is_move17_adapt_max(self) -> bool:
         return self.move17_adapt_max
 
-    def setMove17_adapt_max(self, value: bool) -> None:
+    def set_move17_adapt_max(self, value: bool) -> None:
         self.move17_adapt_max = value
-
-
-@dataclass
-class VNSParameters:
-    num_max_iteraciones_sin_mejora_busqueda_local: int
-    porcentaje_minimo_mejoria: float
-    num_iteraciones_para_comprobar_condicion_parada_porcentaje: int
-    tipo_vns: str
-    alpha: float
-    funcion_distancia: str
-    neighbor_structures_string: str
-
-    @classmethod
-    def from_properties(cls, props: dict[str, str]) -> VNSParameters:
-        porcentaje = props["porcentajeMinimoMejoria"]
-        return cls(
-            _int(props, "numMaxIteracionesSinMejoraBusquedaLocal"),
-            float("inf") if porcentaje.lower() == "inf" else float(porcentaje),
-            _int(props, "numIteracionesParaComprobarCondicionParadaPorcentaje"),
-            props["tipoVNS"],
-            _float(props, "skewed.alpha"),
-            props["skewed.funcionDistancia"],
-            props["neighborStructures"],
-        )
-
-    def getNeighborStructuresString(self) -> str:
-        return self.neighbor_structures_string
-
-    def getNumMaxIteracionesSinMejoraBusquedaLocal(self) -> int:
-        return self.num_max_iteraciones_sin_mejora_busqueda_local
-
-    def getPorcentajeMinimoMejoria(self) -> float:
-        return self.porcentaje_minimo_mejoria
-
-    def getAlpha(self) -> float:
-        return self.alpha
-
-    def getTipoVNS(self) -> str:
-        return self.tipo_vns
-
-    def getFuncionDistancia(self) -> str:
-        return self.funcion_distancia
 
 
 @dataclass
 class ParametrosAlgoritmo:
     algoritmo: str
-    funcion_fitness_fase2: str
+    funcion_fitness: str
     max_miliseconds_allowed: int
     max_iterations_allowed: int
     ponderacion_fitness1: float
@@ -292,7 +235,6 @@ class ParametrosAlgoritmo:
     ponderacion_fitness3: float
     ponderacion_fitness4: float
     SA: SAParameters
-    VNS: VNSParameters
 
     @classmethod
     def from_file(cls, path: str | Path) -> ParametrosAlgoritmo:
@@ -307,26 +249,25 @@ class ParametrosAlgoritmo:
             _float(props, "ponderacionFitness3"),
             _float(props, "ponderacionFitness4"),
             SAParameters.from_properties(props),
-            VNSParameters.from_properties(props),
         )
 
-    def getAlgoritmo(self) -> str:
+    def get_algoritmo(self) -> str:
         return self.algoritmo
 
-    def getFuncionFitnessFase2(self) -> str:
-        return self.funcion_fitness_fase2
+    def get_funcion_fitness(self) -> str:
+        return self.funcion_fitness
 
-    def getMaxMilisecondsAllowed(self) -> int:
+    def get_max_miliseconds_allowed(self) -> int:
         return self.max_miliseconds_allowed
 
-    def getPonderacionFitness1(self) -> float:
+    def get_ponderacion_fitness1(self) -> float:
         return self.ponderacion_fitness1
 
-    def getPonderacionFitness2(self) -> float:
+    def get_ponderacion_fitness2(self) -> float:
         return self.ponderacion_fitness2
 
-    def getPonderacionFitness3(self) -> float:
+    def get_ponderacion_fitness3(self) -> float:
         return self.ponderacion_fitness3
 
-    def getPonderacionFitness4(self) -> float:
+    def get_ponderacion_fitness4(self) -> float:
         return self.ponderacion_fitness4

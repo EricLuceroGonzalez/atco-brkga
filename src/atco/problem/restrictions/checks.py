@@ -145,18 +145,20 @@ def _checks(individuo, entrada, parametros) -> list[float]:
     return [
         comprobar_nucleo_trabajo(individuo, entrada),
         comprobar_tipo_sector(individuo, entrada),
-        comprobar_porcentaje_descanso(individuo, entrada, entrada.getTurno(), parametros),
+        comprobar_porcentaje_descanso(individuo, entrada, entrada.get_turno(), parametros),
         comprobar_sectores_abiertos_noche(individuo, entrada),
-        comprobar_trabajo_maximo_consecutivo(individuo.getTurnos(), parametros),
+        comprobar_trabajo_maximo_consecutivo(individuo.get_turnos(), parametros),
         comprobar_controlador_turno_corto(individuo, entrada),
-        comprobar_ventana_trabajo_descanso(individuo.getTurnos(), parametros),
+        comprobar_ventana_trabajo_descanso(individuo.get_turnos(), parametros),
         comprobar_cambio_posicion(
-            individuo.getTurnos(), entrada.getMapaAfinidad(), entrada.getListaSectores()
+            individuo.get_turnos(),
+            entrada.get_mapa_afinidad(),
+            entrada.get_lista_sectores(),
         ),
-        comprobar_trabajo_minimo_consecutivo(individuo.getTurnos(), parametros),
-        comprobar_descanso_minimo_consecutivo(individuo.getTurnos(), parametros),
-        comprobar_trabajo_posicion_minimo_consecutivo_no_regex(individuo.getTurnos(), parametros),
-        comprobar_num_maximo_sectores(individuo.getTurnos(), entrada, parametros),
+        comprobar_trabajo_minimo_consecutivo(individuo.get_turnos(), parametros),
+        comprobar_descanso_minimo_consecutivo(individuo.get_turnos(), parametros),
+        comprobar_trabajo_posicion_minimo_consecutivo_no_regex(individuo.get_turnos(), parametros),
+        comprobar_num_maximo_sectores(individuo.get_turnos(), entrada, parametros),
         comprobar_controlador_asignado(individuo),
         comprobar_turno_vacio(individuo),
     ]
@@ -172,7 +174,7 @@ def _is_rest(slot: str) -> bool:
     Returns:
         ``True`` si el slot no representa trabajo en sector.
     """
-    return slot == STRING_DESCANSO or slot == STRING_NO_TURNO
+    return slot in (STRING_DESCANSO, STRING_NO_TURNO)
 
 
 @lru_cache(maxsize=50000)
@@ -207,7 +209,7 @@ def comprobar_num_maximo_sectores(turnos: list[str], entrada, parametros) -> int
         if value is None:
             value = calculate(sectores, volumes)
             cache[key] = value
-        if value > parametros.getNumSctrsMax():
+        if value > parametros.get_num_sctrs_max():
             p += 1
     return p
 
@@ -267,7 +269,7 @@ def count_hits_per_sector(volume: str, sectors: list, volumes: dict[str, list[st
 
 def comprobar_trabajo_posicion_minimo_consecutivo_no_regex(turnos: list[str], parametros) -> float:
     p = 0.0
-    p_min = parametros.getTiempoPosMin() // parametros.getTamanoSlots()
+    p_min = parametros.get_tiempo_pos_min() // parametros.get_tamano_slots()
     for turno in turnos:
         t1 = 0
         cnt = 0
@@ -296,7 +298,7 @@ def comprobar_trabajo_posicion_minimo_consecutivo_no_regex(turnos: list[str], pa
 
 def comprobar_descanso_minimo_consecutivo(turnos: list[str], parametros) -> float:
     p = 0.0
-    d_min = parametros.getTiempoDesMin() // parametros.getTamanoSlots()
+    d_min = parametros.get_tiempo_des_min() // parametros.get_tamano_slots()
     for turno in turnos:
         t1 = 0
         cnt = 0
@@ -313,7 +315,7 @@ def comprobar_descanso_minimo_consecutivo(turnos: list[str], parametros) -> floa
 
 def comprobar_trabajo_minimo_consecutivo(turnos: list[str], parametros) -> float:
     p = 0.0
-    t_min = parametros.getTiempoTrabMin() // parametros.getTamanoSlots()
+    t_min = parametros.get_tiempo_trab_min() // parametros.get_tamano_slots()
     for turno in turnos:
         cnt = 0
         t1 = 0
@@ -332,7 +334,7 @@ def comprobar_trabajo_minimo_consecutivo(turnos: list[str], parametros) -> float
 
 def comprobar_turno_vacio(individuo) -> int:
     p = 0
-    for turno in individuo.getTurnos():
+    for turno in individuo.get_turnos():
         work = 0
         rest = 0
         for slot in _slots(turno):
@@ -348,21 +350,21 @@ def comprobar_turno_vacio(individuo) -> int:
 
 
 def comprobar_controlador_asignado(individuo) -> int:
-    p = sum(1 for c in individuo.getControladores() if c.turno_asignado == -1)
-    assigned = {c.turno_asignado for c in individuo.getControladores()}
-    p += sum(1 for idx in range(len(individuo.getTurnos())) if idx not in assigned)
+    p = sum(1 for c in individuo.get_controladores() if c.turno_asignado == -1)
+    assigned = {c.turno_asignado for c in individuo.get_controladores()}
+    p += sum(1 for idx in range(len(individuo.get_turnos())) if idx not in assigned)
     return p
 
 
 def comprobar_ventana_trabajo_descanso(turnos: list[str], parametros) -> float:
     p = 0.0
     ventana = (
-        (parametros.getTiempoTrabMax() + parametros.getTiempoDesPorTrabajo())
+        (parametros.get_tiempo_trab_max() + parametros.get_tiempo_des_por_trabajo())
         * 3
-        // parametros.getTamanoSlots()
+        // parametros.get_tamano_slots()
     )
-    d_min = parametros.getTiempoDesPorTrabajo() // parametros.getTamanoSlots()
-    t_max = parametros.getTiempoTrabMax() // parametros.getTamanoSlots()
+    d_min = parametros.get_tiempo_des_por_trabajo() // parametros.get_tamano_slots()
+    t_max = parametros.get_tiempo_trab_max() // parametros.get_tamano_slots()
     for turno in turnos:
         ds = tr = 0
         x = 0.0
@@ -393,14 +395,18 @@ def comprobar_cambio_posicion(
     for turno in turnos:
         x = 0.0
         slots = list(_slots(turno))
-        for current, nxt in zip(slots, slots[1:]):
-            if current not in REST_SLOTS and nxt not in REST_SLOTS and current != nxt:
-                if (
+        for current, nxt in zip(slots, slots[1:], strict=True):
+            if (
+                current not in REST_SLOTS
+                and nxt not in REST_SLOTS
+                and current != nxt
+                and (
                     current.isupper()
                     and nxt.isupper()
                     and not comprobar_afinidad(current, nxt, mapa_afinidad)
-                ):
-                    x += PENALIZACION
+                )
+            ):
+                x += PENALIZACION
         if x:
             p = p + 1 + x
     return p
@@ -413,11 +419,11 @@ def comprobar_afinidad(a: str, b: str, mapa_afinidad: dict[str, set[str]]) -> bo
 def comprobar_tipo_sector(individuo, entrada) -> float:
     p = 0.0
     ruta_ids = entrada._fast_ruta_ids
-    for controlador in individuo.getControladores():
+    for controlador in individuo.get_controladores():
         if not controlador.con or controlador.turno_asignado == -1:
             continue
         x = 0.0
-        turno = individuo.getTurnos()[controlador.turno_asignado]
+        turno = individuo.get_turnos()[controlador.turno_asignado]
         for slot in _slots(turno):
             ok = slot in REST_SLOTS or slot.lower() in ruta_ids
             if not ok:
@@ -428,17 +434,17 @@ def comprobar_tipo_sector(individuo, entrada) -> float:
 
 
 def comprobar_nucleo_trabajo(individuo, entrada) -> float:
-    if len(entrada.getNucleosAbiertos()) == 1:
+    if len(entrada.get_nucleos_abiertos()) == 1:
         return 0.0
     p = 0.0
     sector_ids = entrada._fast_sector_ids
-    for controlador in individuo.getControladores():
+    for controlador in individuo.get_controladores():
         num_turno = controlador.turno_asignado
         if num_turno == -1:
             p += 1
             continue
         x = 0.0
-        turno = individuo.getTurnos()[num_turno]
+        turno = individuo.get_turnos()[num_turno]
         for slot in _slots(turno):
             if slot not in REST_SLOTS:
                 ok = slot.lower() in sector_ids
@@ -451,12 +457,12 @@ def comprobar_nucleo_trabajo(individuo, entrada) -> float:
 
 def comprobar_controlador_turno_corto(individuo, entrada) -> float:
     p = 0.0
-    resto = entrada.getTurno().getTl()[1] - entrada.getTurno().getTc()[1]
-    inicio_corto = entrada.getTurno().getTc()[0]
-    for controlador in individuo.getControladores():
+    resto = entrada.get_turno().get_tl()[1] - entrada.get_turno().get_tc()[1]
+    inicio_corto = entrada.get_turno().get_tc()[0]
+    for controlador in individuo.get_controladores():
         if controlador.turno.upper() != "TC" or controlador.turno_asignado == -1:
             continue
-        turno = individuo.getTurnos()[controlador.turno_asignado]
+        turno = individuo.get_turnos()[controlador.turno_asignado]
         slots = list(_slots(turno))
         zone = slots[-resto:] if inicio_corto == 0 else slots[:inicio_corto]
         t1 = 0
@@ -469,7 +475,7 @@ def comprobar_controlador_turno_corto(individuo, entrada) -> float:
 
 def comprobar_trabajo_maximo_consecutivo(turnos: list[str], parametros) -> float:
     p = 0.0
-    t_max = parametros.getTiempoTrabMax() // parametros.getTamanoSlots()
+    t_max = parametros.get_tiempo_trab_max() // parametros.get_tamano_slots()
     for turno in turnos:
         t = 0
         cnt = 0
@@ -496,11 +502,11 @@ def comprobar_trabajo_maximo_consecutivo(turnos: list[str], parametros) -> float
 
 def comprobar_sectores_abiertos_noche(individuo, entrada) -> int:
     p = 0
-    controladores = individuo.getControladores()
+    controladores = individuo.get_controladores()
     sector_ids = entrada._fast_sector_ids
     for controlador in controladores:
         if controlador.turno_noche != 0 and controlador.turno_asignado != -1:
-            turno = individuo.getTurnos()[controlador.turno_asignado]
+            turno = individuo.get_turnos()[controlador.turno_asignado]
             x = 0
             for slot in _slots(turno):
                 if slot.lower() not in sector_ids:
@@ -508,35 +514,37 @@ def comprobar_sectores_abiertos_noche(individuo, entrada) -> int:
             if x:
                 p += 1
     for idx, controlador in enumerate(controladores):
-        if controlador.turno_noche != 0:
-            if sum(1 for c in controladores if c.turno_noche == idx) < 4:
-                p += 1
+        if (
+            controlador.turno_noche != 0
+            and sum(1 for c in controladores if c.turno_noche == idx) < 4
+        ):
+            p += 1
     return p
 
 
 def _ensure_fast_cache(entrada) -> None:
     if hasattr(entrada, "_fast_sector_ids"):
         return
-    sectores = entrada.getListaSectoresAbiertos()
+    sectores = entrada.get_lista_sectores_abiertos()
     entrada._fast_sector_ids = {sector.id.lower() for sector in sectores}
     entrada._fast_ruta_ids = {sector.id.lower() for sector in sectores if sector.ruta}
     entrada._fast_sector_by_id = {sector.id.lower(): sector for sector in sectores}
     entrada._fast_volumes_by_id = {
         sector_id.lower(): list(volumes)
-        for sector_id, volumes in entrada.getVolumnsOfSectors().items()
+        for sector_id, volumes in entrada.get_volumns_of_sectors().items()
     }
     entrada._fast_num_max_sectores_cache = {}
 
 
 def comprobar_porcentaje_descanso(individuo, entrada, turno, parametros) -> int:
     p = 0
-    slots_des_tl = turno.getSlotsDesTL()
-    slots_des_tc = turno.getSlotsDesTC()
-    for controlador in individuo.getControladores():
+    slots_des_tl = turno.get_slots_des_tl()
+    slots_des_tc = turno.get_slots_des_tc()
+    for controlador in individuo.get_controladores():
         ok = True
         num_turno = controlador.turno_asignado
         if num_turno != -1:
-            assigned = individuo.getTurnos()[num_turno]
+            assigned = individuo.get_turnos()[num_turno]
             cnt = sum(1 for slot in _slots(assigned) if slot in REST_SLOTS)
             if (
                 controlador.turno.upper() in {"TL", "ML", "N"}

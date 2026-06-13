@@ -15,7 +15,7 @@ __pycache__/
 .DS_Store
 
 # Logs y outputs
-*.log
+# *.log
 results/*
 !results/.gitkeep
 
@@ -24,7 +24,6 @@ results/*
 
 # LaTeX outputs
 *.aux
-*.log
 *.out
 *.pdf
 !docs/**/*.pdf

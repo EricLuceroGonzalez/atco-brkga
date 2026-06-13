@@ -6,24 +6,6 @@ from pathlib import Path
 from atco.domain.constants import STRING_DESCANSO
 from atco.domain.models import Controlador, Nucleo, Propiedades, Sector, Solucion, Turno
 
-from .rw_files import listar
-
-# =============================================================================
-# CORRESPONDENCIA CON CÓDIGO JAVA
-# =============================================================================
-# Archivos Java:
-#   - src/main/estructurasDatos/DominioDelProblema/Entrada.java
-#       → clase Entrada: leer_entrada(), getDistribucionInicial(),
-#         getSectorizacion(), getControladores(), getListaSectoresAbiertos(),
-#         getNucleosAbiertos(), getMapaAfinidad(), getVolumnsOfSectors(), etc.
-#
-#   - src/main/herramientas/parseoEntrada/CSVReader.java
-#       → lógica de lectura de ficheros CSV integrada en Entrada.leer_entrada()
-#
-#   - src/main/herramientas/lecturaSoluciones/LecturaSoluciones.java
-#       → lectura de la distribución inicial (estadillo de referencia)
-# =============================================================================
-
 IDS = [f"a{b}{c}" for b in "abcdefghijklmnopqrstuvwxyz" for c in "abcdefghijklmnopqrstuvwxyz"]
 
 
@@ -56,27 +38,27 @@ class Entrada:
     ) -> Entrada:
         repo = Path(repo)
         case_dir = repo / "entrada" / "Casos" / path
-        f_apertura = listar(case_dir / f"AperturaSectorizaciones_{entrada_id}.csv")
-        f_recursos = listar(case_dir / f"RecursosDisponibles_{entrada_id}.csv")
-        f_turno = listar(case_dir / f"Turno_{entrada_id}.csv")
-        f_mod_sectores = listar(case_dir / f"ModificacionSectorizaciones_{entrada_id}.csv", True)
-        f_mod_recursos = listar(case_dir / f"ModificacionRecursos_{entrada_id}.csv", True)
-        f_distribucion = listar(case_dir / f"DistribucionInicial_{entrada_id}.csv")
+        f_apertura = _listar(case_dir / f"AperturaSectorizaciones_{entrada_id}.csv")
+        f_recursos = _listar(case_dir / f"RecursosDisponibles_{entrada_id}.csv")
+        f_turno = _listar(case_dir / f"Turno_{entrada_id}.csv")
+        f_mod_sectores = _listar(case_dir / f"ModificacionSectorizaciones_{entrada_id}.csv", True)
+        f_mod_recursos = _listar(case_dir / f"ModificacionRecursos_{entrada_id}.csv", True)
+        f_distribucion = _listar(case_dir / f"DistribucionInicial_{entrada_id}.csv")
         # TODO: Probar los otros casos Barcelona, Canarias, etc
         if estudio_estadillos:
             fecha = entrada_id.replace("-", "")[-8:]
-            f_elementales = listar(case_dir / f"ListaSectoresElementales_{entrada_id}.csv")
-            f_afinidad = listar(
+            f_elementales = _listar(case_dir / f"ListaSectoresElementales_{entrada_id}.csv")
+            f_afinidad = _listar(
                 repo / "entrada" / "Matrices de afinidad" / f"MatrizAfinidad_{entorno}_{fecha}.csv"
             )
-            f_sectores_nucleos = listar(case_dir / f"SectoresNucleos{entorno}_{entrada_id}.csv")
-            f_sector_vol = listar(case_dir / f"SectorizacionesSectoresVolumenes_{entrada_id}.csv")
+            f_sectores_nucleos = _listar(case_dir / f"SectoresNucleos{entorno}_{entrada_id}.csv")
+            f_sector_vol = _listar(case_dir / f"SectorizacionesSectoresVolumenes_{entrada_id}.csv")
         else:
             env_dir = repo / "entrada" / entorno
-            f_elementales = listar(env_dir / f"ListaSectoresElementales_{entorno}.csv")
-            f_afinidad = listar(env_dir / f"MatrizAfinidad_{entorno}.csv")
-            f_sectores_nucleos = listar(env_dir / f"SectoresNucleos_{entorno}.csv")
-            f_sector_vol = listar(env_dir / f"SectorizacionesSectoresVolumenes_{entorno}.csv")
+            f_elementales = _listar(env_dir / f"ListaSectoresElementales_{entorno}.csv")
+            f_afinidad = _listar(env_dir / f"MatrizAfinidad_{entorno}.csv")
+            f_sectores_nucleos = _listar(env_dir / f"SectoresNucleos_{entorno}.csv")
+            f_sector_vol = _listar(env_dir / f"SectorizacionesSectoresVolumenes_{entorno}.csv")
 
         controladores = crear_controladores(f_recursos)
         lista_sectores = crear_lista_sectores(f_sectores_nucleos, f_elementales)
@@ -132,28 +114,28 @@ class Entrada:
             nocturnos,
         )
 
-    def getDistribucionInicial(self) -> Solucion:
+    def get_distribucion_inicial(self) -> Solucion:
         return self.distribucion_inicial
 
-    def getSectorizacionModificada(self) -> list[set[str]] | None:
+    def get_sectorizacion_modificada(self) -> list[set[str]] | None:
         return self.sectorizacion_modificada
 
-    def getControladores(self) -> list[Controlador]:
+    def get_controladores(self) -> list[Controlador]:
         return self.controladores
 
-    def getNucleos(self) -> list[Nucleo]:
+    def get_nucleos(self) -> list[Nucleo]:
         return self.nucleos
 
-    def getTurno(self) -> Turno:
+    def get_turno(self) -> Turno:
         return self.turno
 
-    def getListaSectores(self) -> list[Sector]:
+    def get_lista_sectores(self) -> list[Sector]:
         return self.lista_sectores
 
-    def getSectorizacionBase(self) -> list[set[str]]:
+    def get_sectorizacion_base(self) -> list[set[str]]:
         return self.sectorizacion
 
-    def getSectorizacion(self) -> list[set[str]]:
+    def get_sectorizacion(self) -> list[set[str]]:
         """Sectorización efectiva: original hasta slot_momento_actual,
         modificada a partir de ahí. Coherente con cómo se cubren los slots
         en tiempo real."""
@@ -162,26 +144,37 @@ class Entrada:
         t0 = self.slot_momento_actual
         return self.sectorizacion[:t0] + self.sectorizacion_modificada[t0:]
 
-    def getListaSectoresAbiertos(self) -> list[Sector]:
+    def get_lista_sectores_abiertos(self) -> list[Sector]:
         return self.lista_sectores_abiertos
 
-    def getVolumnsOfSectors(self) -> dict[str, list[str]]:
+    def get_volumns_of_sectors(self) -> dict[str, list[str]]:
         return self.volumes_of_sectors
 
-    def getSlotMomentoActual(self) -> int:
+    def get_slot_momento_actual(self) -> int:
         return self.slot_momento_actual
 
-    def getListaNuevosSectoresAbiertosTrasMomentoActual(self) -> list[Sector] | None:
+    def get_lista_nuevos_sectores_abiertos_tras_momento_actual(
+        self,
+    ) -> list[Sector] | None:
         return self.lista_nuevos_sectores_abiertos_tras_momento_actual
 
-    def getMapaAfinidad(self) -> dict[str, set[str]]:
+    def get_mapa_afinidad(self) -> dict[str, set[str]]:
         return self.mapa_afinidad
 
-    def getNucleosAbiertos(self) -> list[Nucleo]:
+    def get_nucleos_abiertos(self) -> list[Nucleo]:
         return self.nucleos_abiertos
 
-    def getSectoresNocturnos(self) -> list[list[Sector]]:
+    def get_sectores_nocturnos(self) -> list[list[Sector]]:
         return self.sectores_nocturnos
+
+
+def _listar(path: str | Path, opcional: bool = False) -> list[str]:
+    try:
+        return Path(path).read_text(encoding="utf-8", errors="replace").splitlines()
+    except OSError:
+        if opcional:
+            return []
+        raise
 
 
 def crear_controladores(lines: list[str]) -> list[Controlador]:
@@ -210,12 +203,19 @@ def crear_controladores(lines: list[str]) -> list[Controlador]:
 
 
 def crear_lista_sectores(lines: list[str], elementales_lines: list[str]) -> list[Sector]:
-    """Recorre la lista de sectores y compara con la lista de sectores y sus divisiones (sectores elementales) y va creando el Array de sectores elementales.
-    En cada iteración de la lista de sectores elementales crea una instancia del objeto Sector asignando un "id" de sector p.ej: ""aaa", "aab", "aac""
+    """Recorre la lista de sectores y compara con la lista de sectores y sus sectores elementales
+
+    Crea el Array de sectores elementales.
+
+    En cada iteración de la lista de sectores elementales crea una instancia del objeto
+    Sector asignando un "id" de sector p.ej: ""aaa", "aab", "aac""
 
     Args:
-        lines (list[str]): Toma la lista de sectores operativos (tipo de sector y ruta) del CSV: SectoresNucleos_id
-        elementales_lines (list[str]): Lista de sectores y sus divisiones, mapea qué piezas pequeñas (elementales) forman cada sector grande del CSV: ListaSectoresElementales_id
+        lines (list[str]): Toma la lista de sectores operativos (tipo de sector y ruta)
+        del CSV: SectoresNucleos_id
+        elementales_lines (list[str]): Lista de sectores y sus divisiones,
+        mapea qué piezas pequeñas (elementales) forman cada sector grande
+        del CSV: ListaSectoresElementales_id
 
     Returns:
         list[Sector]: listaSectores Lista del objeto Sector.
@@ -230,7 +230,8 @@ def crear_lista_sectores(lines: list[str], elementales_lines: list[str]) -> list
         if len(cols) < 2:
             continue
         elems = []
-        # Se itera el CSV SectoresNucleos_id comparando cada fila con todas las filas de ListaSectoresEmentales
+        # Se itera el CSV SectoresNucleos_id comparando cada fila con todas las filas
+        # de ListaSectoresEmentales
         for raw in elementales_lines:
             parts = raw.split(";")
             if len(parts) > 1 and parts[0].lower() == cols[0].lower():
@@ -238,7 +239,8 @@ def crear_lista_sectores(lines: list[str], elementales_lines: list[str]) -> list
                 elementales_totales.add(parts[1].lower())
         kind = cols[1].lower()
 
-        # Si el Nucleo tiene "RUTA" en la columna 2 crea una instancia tipo RUTA, sino crea una "APP" por defecto
+        # Si el Nucleo tiene "RUTA" en la columna 2 crea una instancia tipo RUTA,
+        # sino crea una "APP" por defecto
         if kind == "ruta":
             print(f"IDS[idx]: {IDS[idx]}")
             sectores.append(Sector(cols[0], IDS[idx], False, True, 0, elems))
@@ -248,7 +250,8 @@ def crear_lista_sectores(lines: list[str], elementales_lines: list[str]) -> list
 
     Fitness.sectores_elementales_totales = len(elementales_totales)
     # Devuelve un objeto <Sector> con sus atributos
-    # P.ej: Sector{nombre='LECMASI', id='aaa', pDT=false, ruta=true, noche=0, sectoresElementales=[ASL, ASU]}
+    # P.ej: Sector{nombre='LECMASI', id='aaa', pDT=false, ruta=true,
+    # noche=0, sectoresElementales=[ASL, ASU]}
     return sectores
 
 
@@ -306,8 +309,8 @@ def crear_turno(lines: list[str], parametros) -> Turno:
 def crear_sectorizacion(
     lines: list[str], conf_lines: list[str], turno: Turno, sectores: list[Sector]
 ) -> list[set[str]]:
-    temp = [[STRING_DESCANSO] for _ in range(turno.getTl()[1])]
-    print(f"\n\n\ncrear_sectorizacion() con {len(temp)}, {turno.getTl()}")
+    temp = [[STRING_DESCANSO] for _ in range(turno.get_tl()[1])]
+    print(f"\n\n\ncrear_sectorizacion() con {len(temp)}, {turno.get_tl()}")
     print(f"Turno: {turno}")
     for raw in lines[1:]:
         cols = raw.split(";")
@@ -322,7 +325,7 @@ def crear_sectorizacion(
         elif tipo == "SECTORNOCTURNO":
             introducir_sector(cols, temp, turno, sectores, True)
     result = []
-    for idx, slot in enumerate(temp):
+    for _idx, slot in enumerate(temp):
         # print(f"slot {idx+1} = {slot}")
         result.append(set(x for x in slot if x != STRING_DESCANSO))
     return result
@@ -348,7 +351,7 @@ def introducir_lista_sectores(
     print("introducir_lista_sectores()")
     ids = encontrar_configuracion(line, conf_lines, sectores)
     print(f"ids = {type(ids)}")
-    ini_tl = turno.getInicioTL()
+    ini_tl = turno.get_inicio_tl()
     length = obtener_longitud(line[4], line[5])
     print(f"Inicio de turno: {ini_tl}, Len = {length} slots de 5 min")
     if length < 0:
@@ -383,7 +386,7 @@ def introducir_sector(
             if nocturno:
                 sector.noche = int(line[2].replace(" ", ""))
             break
-    ini_tl = turno.getInicioTL()
+    ini_tl = turno.get_inicio_tl()
     length = obtener_longitud(line[4], line[5])
     if length < 0:
         length = obtener_longitud(line[4], "24:00:00") + obtener_longitud("00:00:00", line[5])
@@ -433,9 +436,9 @@ def crear_momento_actual(turno: Turno, distribucion_lines: list[str], parametros
 
 
 def calcular_slot(turno: Turno, momento: str, parametros) -> int:
-    return Turno.turnos_slots(turno.getInicioTL(), turno.getFinTL(), momento, momento, parametros)[
-        2
-    ]
+    return Turno.turnos_slots(
+        turno.get_inicio_tl(), turno.get_fin_tl(), momento, momento, parametros
+    )[2]
 
 
 def crear_solucion_inicial(
@@ -487,9 +490,9 @@ def crear_distribucion_del_turno(
             id_sector = obtener_id_sector(col, sectores)
             if col[0].isupper():
                 id_sector = id_sector.upper()
-        result.append(id_sector * (intervalo // parametros.getTamanoSlots()))
+        result.append(id_sector * (intervalo // parametros.get_tamano_slots()))
     if long_actual < long_max:
-        result.append(id_sector * ((long_max - long_actual) // parametros.getTamanoSlots()))
+        result.append(id_sector * ((long_max - long_actual) // parametros.get_tamano_slots()))
     return "".join(result)
 
 

@@ -5,18 +5,6 @@ from enum import Enum
 from math import ceil
 from typing import Any
 
-# =============================================================================
-# CORRESPONDENCIA CON CÓDIGO JAVA
-# =============================================================================
-# Archivos Java (todos en src/main/estructurasDatos/):
-#   - DominioDelProblema/Controlador.java  → clase Controlador
-#   - DominioDelProblema/Sector.java       → clase Sector
-#   - DominioDelProblema/Nucleo.java       → clase Nucleo
-#   - DominioDelProblema/Turno.java        → clase Turno (+ turnos_slots)
-#   - DominioDelProblema/Propiedades.java  → enum Propiedades (ALTA/BAJA/ALTABAJA)
-#   - Solucion.java                        → clase Solucion
-# =============================================================================
-
 
 class Propiedades(Enum):
     ALTA = "ALTA"
@@ -53,70 +41,70 @@ class Controlador:
             self.turno_noche,
         )
 
-    def isImaginario(self) -> bool:
+    def is_imaginario(self) -> bool:
         return self.imaginario
 
-    def setImaginario(self, value: bool) -> None:
+    def set_imaginario(self, value: bool) -> None:
         self.imaginario = value
 
-    def getSlotBaja(self) -> int:
+    def get_slot_baja(self) -> int:
         return self.slot_baja
 
-    def setSlotBaja(self, value: int) -> None:
+    def set_slot_baja(self, value: int) -> None:
         self.slot_baja = value
 
-    def getSlotAlta(self) -> int:
+    def get_slot_alta(self) -> int:
         return self.slot_alta
 
-    def setSlotAlta(self, value: int) -> None:
+    def set_slot_alta(self, value: int) -> None:
         self.slot_alta = value
 
-    def getId(self) -> int:
+    def get_id(self) -> int:
         return self.id
 
-    def setId(self, value: int) -> None:
+    def set_id(self, value: int) -> None:
         self.id = value
 
-    def getTurno(self) -> str:
+    def get_turno(self) -> str:
         return self.turno
 
-    def setTurno(self, value: str) -> None:
+    def set_turno(self, value: str) -> None:
         self.turno = value
 
-    def getNucleo(self) -> str:
+    def get_nucleo(self) -> str:
         return self.nucleo
 
-    def setNucleo(self, value: str) -> None:
+    def set_nucleo(self, value: str) -> None:
         self.nucleo = value
 
-    def isPTD(self) -> bool:
+    def is_ptd(self) -> bool:
         return self.ptd
 
-    def setPTD(self, value: bool) -> None:
+    def set_ptd(self, value: bool) -> None:
         self.ptd = value
 
-    def isCON(self) -> bool:
+    def is_con(self) -> bool:
         return self.con
 
-    def setCON(self, value: bool) -> None:
+    def set_con(self, value: bool) -> None:
         self.con = value
 
-    def getTurnoAsignado(self) -> int:
+    def get_turno_asignado(self) -> int:
         return self.turno_asignado
 
-    def setTurnoAsignado(self, value: int) -> None:
+    def set_turno_asignado(self, value: int) -> None:
         self.turno_asignado = value
 
-    def getTurnoNoche(self) -> int:
+    def get_turno_noche(self) -> int:
         return self.turno_noche
 
-    def setTurnoNoche(self, value: int) -> None:
+    def set_turno_noche(self, value: int) -> None:
         self.turno_noche = value
 
-    def getBajaAlta(self) -> Propiedades:
+    def get_baja_alta(self) -> Propiedades:
         return self.baja_alta
 
-    def setBajaAlta(self, value: Propiedades) -> None:
+    def set_baja_alta(self, value: Propiedades) -> None:
         self.baja_alta = value
 
 
@@ -135,40 +123,40 @@ class Sector:
     def __hash__(self) -> int:
         return hash(self.id)
 
-    def getSectoresElementales(self) -> list[str]:
+    def get_sectores_elementales(self) -> list[str]:
         return self.sectores_elementales
 
-    def setSectoresElementales(self, value: list[str]) -> None:
+    def set_sectores_elementales(self, value: list[str]) -> None:
         self.sectores_elementales = value
 
-    def getNombre(self) -> str:
+    def get_nombre(self) -> str:
         return self.nombre
 
-    def setNombre(self, value: str) -> None:
+    def set_nombre(self, value: str) -> None:
         self.nombre = value
 
-    def getId(self) -> str:
+    def get_id(self) -> str:
         return self.id
 
-    def setId(self, value: str) -> None:
+    def set_id(self, value: str) -> None:
         self.id = value
 
-    def isPDT(self) -> bool:
+    def is_ptd(self) -> bool:
         return self.pdt
 
-    def setPDT(self, value: bool) -> None:
+    def set_ptd(self, value: bool) -> None:
         self.pdt = value
 
-    def isRuta(self) -> bool:
+    def is_ruta(self) -> bool:
         return self.ruta
 
-    def setRuta(self, value: bool) -> None:
+    def set_ruta(self, value: bool) -> None:
         self.ruta = value
 
-    def getNoche(self) -> int:
+    def get_noche(self) -> int:
         return self.noche
 
-    def setNoche(self, value: int) -> None:
+    def set_noche(self, value: int) -> None:
         self.noche = value
 
 
@@ -178,22 +166,22 @@ class Nucleo:
     id: str
     sectores: list[Sector] = field(default_factory=list)
 
-    def getNombre(self) -> str:
+    def get_nombre(self) -> str:
         return self.nombre
 
-    def setNombre(self, value: str) -> None:
+    def set_nombre(self, value: str) -> None:
         self.nombre = value
 
-    def getId(self) -> str:
+    def get_id(self) -> str:
         return self.id
 
-    def setId(self, value: str) -> None:
+    def set_id(self, value: str) -> None:
         self.id = value
 
-    def getSectores(self) -> list[Sector]:
+    def get_sectores(self) -> list[Sector]:
         return self.sectores
 
-    def setSectores(self, value: list[Sector]) -> None:
+    def set_sectores(self, value: list[Sector]) -> None:
         self.sectores = value
 
 
@@ -226,9 +214,7 @@ class Turno:
             else self.parametros.getPorcentDescansoDia()
         )
         self.slots_des_tc = (
-            ceil((self.tc[1] - self.tc[0]) * descanso)
-            + self.tc[0]
-            + (self.tl[1] - self.tc[1])
+            ceil((self.tc[1] - self.tc[0]) * descanso) + self.tc[0] + (self.tl[1] - self.tc[1])
         )
         self.slots_des_tl = ceil((self.tl[1] - self.tl[0]) * descanso)
 
@@ -281,31 +267,31 @@ class Turno:
 
         return turnos
 
-    def getNombre(self) -> str:
+    def get_nombre(self) -> str:
         return self.nombre
 
-    def getInicioTL(self) -> str:
+    def get_inicio_tl(self) -> str:
         return self.inicio_tl
 
-    def getFinTL(self) -> str:
+    def get_fin_tl(self) -> str:
         return self.fin_tl
 
-    def getInicioTC(self) -> str:
+    def get_inicio_tc(self) -> str:
         return self.inicio_tc
 
-    def getFinTC(self) -> str:
+    def get_fin_tc(self) -> str:
         return self.fin_tc
 
-    def getTc(self) -> list[int]:
+    def get_tc(self) -> list[int]:
         return self.tc
 
-    def getTl(self) -> list[int]:
+    def get_tl(self) -> list[int]:
         return self.tl
 
-    def getSlotsDesTC(self) -> int:
+    def get_slots_des_tc(self) -> int:
         return self.slots_des_tc
 
-    def getSlotsDesTL(self) -> int:
+    def get_slots_des_tl(self) -> int:
         return self.slots_des_tl
 
 
@@ -322,25 +308,25 @@ class Solucion:
             self.longdescansos,
         )
 
-    def shallowClone(self) -> Solucion:
+    def shallow_clone(self) -> Solucion:
         return Solucion(self.turnos, self.controladores, self.longdescansos)
 
-    def getLongdescansos(self) -> int:
+    def get_long_descansos(self) -> int:
         return self.longdescansos
 
-    def setLongdescansos(self, value: int) -> None:
+    def set_long_descansos(self, value: int) -> None:
         self.longdescansos = value
 
-    def getControladores(self) -> list[Controlador]:
+    def get_controladores(self) -> list[Controlador]:
         return self.controladores
 
-    def setControladores(self, value: list[Controlador]) -> None:
+    def set_controladores(self, value: list[Controlador]) -> None:
         self.controladores = value
 
-    def getTurnos(self) -> list[str]:
+    def get_turnos(self) -> list[str]:
         return self.turnos
 
-    def setTurnos(self, value: list[str]) -> None:
+    def set_turnos(self, value: list[str]) -> None:
         self.turnos = value
 
 

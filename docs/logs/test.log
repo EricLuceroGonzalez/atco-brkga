@@ -2116,3 +2116,45 @@ tests/unit/test_restrictions.py::test_turno_vacio_cuenta_solo_con_descanso_sin_t
 tests/unit/test_restrictions.py::test_controlador_asignado_cuenta_huerfanos_y_no_asignados PASSED [100%]
 
 ============================== 20 passed in 0.04s ==============================
+
+===== 2026-06-14 04:28:30 — pytest tests/unit/test_seeds.py =====
+Traceback (most recent call last):
+  File "/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/.venv/bin/pytest", line 4, in <module>
+    from _pytest.config import _console_main
+  File "/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/.venv/lib/python3.11/site-packages/_pytest/config/__init__.py", line 50, in <module>
+    from .findpaths import ConfigDict
+  File "/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/.venv/lib/python3.11/site-packages/_pytest/config/findpaths.py", line 17, in <module>
+    from _pytest.pathlib import absolutepath
+  File "/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/.venv/lib/python3.11/site-packages/_pytest/pathlib.py", line 35, in <module>
+    from _pytest.compat import assert_never
+  File "/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/.venv/lib/python3.11/site-packages/_pytest/compat.py", line 20, in <module>
+    import py
+ModuleNotFoundError: No module named 'py'
+
+===== 2026-06-14 04:28:42 — pytest =====
+Traceback (most recent call last):
+  File "/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/.venv/bin/pytest", line 4, in <module>
+    from _pytest.config import _console_main
+  File "/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/.venv/lib/python3.11/site-packages/_pytest/config/__init__.py", line 50, in <module>
+    from .findpaths import ConfigDict
+  File "/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/.venv/lib/python3.11/site-packages/_pytest/config/findpaths.py", line 17, in <module>
+    from _pytest.pathlib import absolutepath
+  File "/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/.venv/lib/python3.11/site-packages/_pytest/pathlib.py", line 35, in <module>
+    from _pytest.compat import assert_never
+  File "/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/.venv/lib/python3.11/site-packages/_pytest/compat.py", line 20, in <module>
+    import py
+ModuleNotFoundError: No module named 'py'
+
+===== 2026-06-14 04:28:43 — pytest =====
+Traceback (most recent call last):
+  File "/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/.venv/bin/pytest", line 4, in <module>
+    from _pytest.config import _console_main
+  File "/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/.venv/lib/python3.11/site-packages/_pytest/config/__init__.py", line 50, in <module>
+    from .findpaths import ConfigDict
+  File "/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/.venv/lib/python3.11/site-packages/_pytest/config/findpaths.py", line 17, in <module>
+    from _pytest.pathlib import absolutepath
+  File "/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/.venv/lib/python3.11/site-packages/_pytest/pathlib.py", line 35, in <module>
+    from _pytest.compat import assert_never
+  File "/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/.venv/lib/python3.11/site-packages/_pytest/compat.py", line 20, in <module>
+    import py
+ModuleNotFoundError: No module named 'py'

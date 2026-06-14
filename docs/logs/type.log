@@ -1,0 +1,9 @@
+
+===== 2026-06-14 04:27:28 — mypy =====
+Traceback (most recent call last):
+  File "/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/.venv/bin/mypy", line 4, in <module>
+    from mypy.__main__ import console_entry
+  File "/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/.venv/lib/python3.11/site-packages/mypy/__main__.py", line 9, in <module>
+    from mypy.fscache import FileSystemCache
+  File "mypy/fscache.py", line 36, in <module>
+ModuleNotFoundError: No module named 'mypy_extensions'

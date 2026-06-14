@@ -24,7 +24,7 @@ def construir_solucion_heuristica(
     parametros: Parametros,
     rng: random.Random | None = None,
 ) -> Solucion:
-    """Construye una solución factible por heurística greedy menos-cargado.
+    """Construye una solución factible por heurística greedy al ATCo menos-cargado.
 
     Recorre cada slot del día y, para cada sector abierto en ese slot,
     asigna el controlador elegible con menor carga acumulada hasta el
@@ -39,7 +39,7 @@ def construir_solucion_heuristica(
       todo controlador sólo trabaja sectores de su núcleo.
     * **Ventana de turno**: los slots fuera de la ventana laboral del
       controlador (TC vs TL/N) quedan marcados con ``STRING_NO_TURNO``.
-    * **Biyección**: cada controlador apunta a su propia fila del horario
+    * **Fila única**: cada controlador a su propia fila del horario
       vía ``turno_asignado``.
 
     No garantiza otras restricciones operativas (trabajo continuo mínimo,
@@ -69,43 +69,41 @@ def construir_solucion_heuristica(
     if rng is None:
         rng = random.Random()
 
-    controladores: list[Controlador] = [c.clone() for c in entrada.get_controladores()]
-    n_controladores: int = len(controladores)
+    atcos: list[Controlador] = [c.clone() for c in entrada.get_controladores()]
     sectorizacion: list[set[str]] = entrada.get_sectorizacion()
-    n_slots: int = len(sectorizacion)
+    n_atcos: int = len(atcos)  # Cantidad de atcos
+    n_slots: int = len(sectorizacion)  # Cantidad de atcos
 
-    if n_controladores == 0:
+    if n_atcos == 0:
         raise ValueError("entrada.get_controladores() está vacío")
     if n_slots == 0:
         raise ValueError("entrada.get_sectorizacion() está vacía")
 
-    # Tabla turnos × slots inicializada con `STRING_NO_TURNO` (fuera de turno).
-    matriz: list[list[str]] = [
-        [STRING_NO_TURNO] * n_slots for _ in range(n_controladores)
-    ]
+    # Tabla turnos × slots inicializada con `STRING_NO_TURNO` (fuera de turno '000').
+    matriz: list[list[str]] = [[STRING_NO_TURNO] * n_slots for _ in range(n_atcos)]
 
     # Marca los slots dentro de la ventana de cada controlador como
-    # `STRING_DESCANSO` por defecto: el resto del algoritmo sólo
-    # sobrescribe estas celdas, nunca las de `STRING_NO_TURNO`.
-    _marcar_ventana_de_turno(matriz, controladores, entrada)
+    # `STRING_DESCANSO` por defecto: luego sólo se trabaja
+    # sobre estas celdas, nunca las de `STRING_NO_TURNO`.
+    _marcar_ventana_de_turno(matriz, atcos, entrada)  # Inicialización de la matriz
 
-    # Caches de licencia para evaluación O(1) por par (ATCo, sector).
+    # Caches de licencia para evaluación por par (ATCo, sector).
     ruta_ids, nucleo_a_sectores = _cachear_licencias(entrada)
 
-    # Vector de carga acumulada por controlador, paralelo a `controladores`.
-    slots_trabajados: list[int] = [0] * n_controladores
+    # Carga acumulada por controlador, paralelo a `atcos`.
+    slots_trabajados: list[int] = [0] * n_atcos  # Inicializar el contador de carga
 
     # Recorrido cronológico, asignando sectores al ATCo menos cargado.
     for t in range(n_slots):
-        sectores_en_t: list[str] = sorted(sectorizacion[t])
+        sectores_en_t: list[str] = sorted(sectorizacion[t])  # Reproductibilidad
         rng.shuffle(sectores_en_t)  # diversidad en el orden de recorrido
 
-        asignados_en_t: set[int] = set()
-        for sigma in sectores_en_t:
+        asignados_en_t: set[int] = set()  # Garantiza 1 turno - 1 ATCo en la matriz
+        for sector_t in sectores_en_t:
             elegido: int | None = _elegir_atco_menos_cargado(
-                sigma=sigma,
+                sector_t=sector_t,
                 t=t,
-                controladores=controladores,
+                controladores=atcos,
                 matriz=matriz,
                 slots_trabajados=slots_trabajados,
                 asignados_en_t=asignados_en_t,
@@ -117,20 +115,20 @@ def construir_solucion_heuristica(
                 # Sector sin cubrir: ningún ATCo elegible disponible.
                 # Aceptado como caso degradado; F2 lo penalizará.
                 continue
-            matriz[elegido][t] = sigma.upper()
+            matriz[elegido][t] = sector_t.upper()
             asignados_en_t.add(elegido)
             slots_trabajados[elegido] += 1
 
-    # Publicar contadores en los controladores y construir la Solucion final.
+    # Instanciar contadores en los controladores y construir la Solucion final.
     turnos_strings: list[str] = ["".join(fila) for fila in matriz]
-    for c_idx, controlador in enumerate(controladores):
+    for c_idx, controlador in enumerate(atcos):
         controlador.turno_asignado = c_idx
         controlador.slots_trabajados = slots_trabajados[c_idx]
 
     return Solucion(
         turnos=turnos_strings,
-        controladores=controladores,
-        longdescansos=0,
+        controladores=atcos,
+        longdescansos=0,  # cuántos descansos largos tiene la solución
     )
 
 
@@ -145,12 +143,13 @@ def _marcar_ventana_de_turno(
     corta; el resto (``TL``, ``ML``, ``N``) en la ventana larga. Fuera
     de su ventana, su celda permanece como ``STRING_NO_TURNO``.
 
-    Muta ``matriz`` in-place.
+    Muta ``matriz`` recorriendo todo el turno de cada atco.
     """
+    # TODO: Puede ser un poco peligroso bloquear los slots de NO_TURNO
     turno = entrada.get_turno()
     ventana_corta: list[int] = turno.get_tc()  # [inicio, fin)
     ventana_larga: list[int] = turno.get_tl()
-    n_slots: int = len(matriz[0]) if matriz else 0
+    n_slots: int = len(matriz[0]) if matriz else 0  # Todas las filas deben ser iguales
 
     for c_idx, controlador in enumerate(controladores):
         es_corto: bool = controlador.turno.upper() in {"TC", "MC"}
@@ -162,7 +161,7 @@ def _marcar_ventana_de_turno(
 
 
 def _cachear_licencias(entrada: Entrada) -> tuple[set[str], dict[str, set[str]]]:
-    """Precalcula las estructuras de búsqueda O(1) para chequeos de licencia.
+    """Precalcula las estructuras de búsqueda para chequeos de licencia.
 
     Returns:
         Tupla ``(ruta_ids, nucleo_a_sectores)`` donde:
@@ -175,7 +174,9 @@ def _cachear_licencias(entrada: Entrada) -> tuple[set[str], dict[str, set[str]]]
     """
     ruta_ids: set[str] = {
         s.id.lower() for s in entrada.get_lista_sectores_abiertos() if s.ruta
-    }
+    }  # Si el sector del slot s es ruta se anota.
+
+    # Registra los ids de los sectores de un núcleo
     nucleo_a_sectores: dict[str, set[str]] = {}
     nucleos: list[Nucleo] = entrada.get_nucleos_abiertos()
     for nucleo in nucleos:
@@ -188,7 +189,7 @@ def _cachear_licencias(entrada: Entrada) -> tuple[set[str], dict[str, set[str]]]
 
 def _elegir_atco_menos_cargado(
     *,
-    sigma: str,
+    sector_t: str,
     t: int,
     controladores: list[Controlador],
     matriz: list[list[str]],
@@ -198,7 +199,7 @@ def _elegir_atco_menos_cargado(
     nucleo_a_sectores: dict[str, set[str]],
     rng: random.Random,
 ) -> int | None:
-    """Elige el ATCo con menor carga acumulada elegible para ``(sigma, t)``.
+    """Elige el ATCo con menor carga acumulada elegible para ``(sector_t, t)``.
 
     Un ATCo es elegible si: (a) no ha sido asignado en este mismo slot,
     (b) está dentro de su ventana de turno, (c) tiene licencia para el
@@ -214,16 +215,15 @@ def _elegir_atco_menos_cargado(
             continue
         if matriz[c_idx][t] == STRING_NO_TURNO:
             continue
-        if not _tiene_licencia(controlador, sigma, ruta_ids, nucleo_a_sectores):
+        if not _tiene_licencia(controlador, sector_t, ruta_ids, nucleo_a_sectores):
             continue
-        candidatos.append(c_idx)
+        candidatos.append(c_idx)  # Si no viola las anteriores se le asigna sector_t
 
     if not candidatos:
         return None
 
     # Romper empates al azar: barajar candidatos antes del min() asegura
-    # que el primero con carga mínima sea elegido, pero ese "primero"
-    # cambia entre llamadas con `rng` distinto.
+    # que el primero con carga mínima sea elegido.
     rng.shuffle(candidatos)
     return min(candidatos, key=lambda i: slots_trabajados[i])
 

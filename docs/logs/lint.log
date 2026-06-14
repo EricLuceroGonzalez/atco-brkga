@@ -1,2 +1,248 @@
-===== 2026-06-13 01:59:20 — ruff check =====
-All checks passed!
+
+===== 2026-06-14 04:05:28 — ruff check =====
+I001 [*] Import block is un-sorted or un-formatted
+ --> tests/unit/test_generador.py:1:1
+  |
+1 | / from __future__ import annotations
+2 | | from pathlib import Path
+3 | |
+4 | | import pytest
+5 | |
+6 | | from atco.problem.instance import Entrada
+7 | | from atco.problem.parameters import Parametros
+8 | | from atco.domain.constants import STRING_NO_TURNO
+9 | | from atco.seeds import construir_solucion_heuristica
+  | |____________________________________________________^
+  |
+help: Organize imports
+
+F821 Undefined name `_slots`
+  --> tests/unit/test_generador.py:25:52
+   |
+23 |         for s in sectores_abiertos:
+24 |             asignaciones = sum(
+25 |                 1 for turno in sol.get_turnos() if _slots(turno)[t].lower() == s.lower()
+   |                                                    ^^^^^^
+26 |             )
+27 |             assert asignaciones >= 1, f"Sector {s} sin cubrir en slot {t}"
+   |
+
+F821 Undefined name `_slots`
+  --> tests/unit/test_generador.py:41:22
+   |
+39 |             continue
+40 |         turno = sol.get_turnos()[c.turno_asignado]
+41 |         for token in _slots(turno):
+   |                      ^^^^^^
+42 |             assert (
+43 |                 token.lower() not in sectores_no_ruta
+   |
+
+F821 Undefined name `_slots`
+  --> tests/unit/test_generador.py:53:18
+   |
+51 |     for c in sol.get_controladores():
+52 |         ventana = tc if c.turno.upper() in {"TC", "MC"} else tl
+53 |         tokens = _slots(sol.get_turnos()[c.turno_asignado])
+   |                  ^^^^^^
+54 |         for t, tok in enumerate(tokens):
+55 |             if not (ventana[0] <= t < ventana[1]):
+   |
+
+F821 Undefined name `random`
+  --> tests/unit/test_generador.py:64:50
+   |
+62 |     """Dos llamadas con semillas distintas producen soluciones distintas."""
+63 |     sol_a = construir_solucion_heuristica(
+64 |         entrada_mad_n_m1, parametros_reales, rng=random.Random(1)
+   |                                                  ^^^^^^
+65 |     )
+66 |     sol_b = construir_solucion_heuristica(
+   |
+
+F821 Undefined name `random`
+  --> tests/unit/test_generador.py:67:50
+   |
+65 |     )
+66 |     sol_b = construir_solucion_heuristica(
+67 |         entrada_mad_n_m1, parametros_reales, rng=random.Random(2)
+   |                                                  ^^^^^^
+68 |     )
+69 |     assert sol_a.get_turnos() != sol_b.get_turnos()
+   |
+
+F821 Undefined name `random`
+  --> tests/unit/test_generador.py:75:50
+   |
+73 |     """Dos llamadas con la misma semilla producen la misma solución."""
+74 |     sol_a = construir_solucion_heuristica(
+75 |         entrada_mad_n_m1, parametros_reales, rng=random.Random(42)
+   |                                                  ^^^^^^
+76 |     )
+77 |     sol_b = construir_solucion_heuristica(
+   |
+
+F821 Undefined name `random`
+  --> tests/unit/test_generador.py:78:50
+   |
+76 |     )
+77 |     sol_b = construir_solucion_heuristica(
+78 |         entrada_mad_n_m1, parametros_reales, rng=random.Random(42)
+   |                                                  ^^^^^^
+79 |     )
+80 |     assert sol_a.get_turnos() == sol_b.get_turnos()
+   |
+
+Found 8 errors.
+[*] 1 fixable with the `--fix` option.
+
+===== 2026-06-14 04:07:37 — ruff check =====
+I001 [*] Import block is un-sorted or un-formatted
+ --> tests/unit/test_generador.py:1:1
+  |
+1 | / from __future__ import annotations
+2 | | from pathlib import Path
+3 | |
+4 | | import pytest
+5 | |
+6 | | from atco.problem.instance import Entrada
+7 | | from atco.problem.parameters import Parametros
+8 | | from atco.domain.constants import STRING_NO_TURNO
+9 | | from atco.seeds import construir_solucion_heuristica
+  | |____________________________________________________^
+  |
+help: Organize imports
+
+F821 Undefined name `_slots`
+  --> tests/unit/test_generador.py:25:52
+   |
+23 |         for s in sectores_abiertos:
+24 |             asignaciones = sum(
+25 |                 1 for turno in sol.get_turnos() if _slots(turno)[t].lower() == s.lower()
+   |                                                    ^^^^^^
+26 |             )
+27 |             assert asignaciones >= 1, f"Sector {s} sin cubrir en slot {t}"
+   |
+
+F821 Undefined name `_slots`
+  --> tests/unit/test_generador.py:41:22
+   |
+39 |             continue
+40 |         turno = sol.get_turnos()[c.turno_asignado]
+41 |         for token in _slots(turno):
+   |                      ^^^^^^
+42 |             assert (
+43 |                 token.lower() not in sectores_no_ruta
+   |
+
+F821 Undefined name `_slots`
+  --> tests/unit/test_generador.py:53:18
+   |
+51 |     for c in sol.get_controladores():
+52 |         ventana = tc if c.turno.upper() in {"TC", "MC"} else tl
+53 |         tokens = _slots(sol.get_turnos()[c.turno_asignado])
+   |                  ^^^^^^
+54 |         for t, tok in enumerate(tokens):
+55 |             if not (ventana[0] <= t < ventana[1]):
+   |
+
+F821 Undefined name `random`
+  --> tests/unit/test_generador.py:64:50
+   |
+62 |     """Dos llamadas con semillas distintas producen soluciones distintas."""
+63 |     sol_a = construir_solucion_heuristica(
+64 |         entrada_mad_n_m1, parametros_reales, rng=random.Random(1)
+   |                                                  ^^^^^^
+65 |     )
+66 |     sol_b = construir_solucion_heuristica(
+   |
+
+F821 Undefined name `random`
+  --> tests/unit/test_generador.py:67:50
+   |
+65 |     )
+66 |     sol_b = construir_solucion_heuristica(
+67 |         entrada_mad_n_m1, parametros_reales, rng=random.Random(2)
+   |                                                  ^^^^^^
+68 |     )
+69 |     assert sol_a.get_turnos() != sol_b.get_turnos()
+   |
+
+F821 Undefined name `random`
+  --> tests/unit/test_generador.py:75:50
+   |
+73 |     """Dos llamadas con la misma semilla producen la misma solución."""
+74 |     sol_a = construir_solucion_heuristica(
+75 |         entrada_mad_n_m1, parametros_reales, rng=random.Random(42)
+   |                                                  ^^^^^^
+76 |     )
+77 |     sol_b = construir_solucion_heuristica(
+   |
+
+F821 Undefined name `random`
+  --> tests/unit/test_generador.py:78:50
+   |
+76 |     )
+77 |     sol_b = construir_solucion_heuristica(
+78 |         entrada_mad_n_m1, parametros_reales, rng=random.Random(42)
+   |                                                  ^^^^^^
+79 |     )
+80 |     assert sol_a.get_turnos() == sol_b.get_turnos()
+   |
+
+Found 8 errors.
+[*] 1 fixable with the `--fix` option.
+
+===== 2026-06-14 04:08:04 — ruff check =====
+I001 [*] Import block is un-sorted or un-formatted
+  --> tests/unit/test_generador.py:1:1
+   |
+ 1 | / from __future__ import annotations
+ 2 | | from pathlib import Path
+ 3 | |
+ 4 | | import pytest
+ 5 | | import random
+ 6 | |
+ 7 | | from atco.problem.instance import Entrada
+ 8 | | from atco.problem.parameters import Parametros
+ 9 | | from atco.domain.constants import STRING_NO_TURNO
+10 | | from atco.seeds import construir_solucion_heuristica
+   | |____________________________________________________^
+   |
+help: Organize imports
+
+F821 Undefined name `_slots`
+  --> tests/unit/test_generador.py:26:52
+   |
+24 |         for s in sectores_abiertos:
+25 |             asignaciones = sum(
+26 |                 1 for turno in sol.get_turnos() if _slots(turno)[t].lower() == s.lower()
+   |                                                    ^^^^^^
+27 |             )
+28 |             assert asignaciones >= 1, f"Sector {s} sin cubrir en slot {t}"
+   |
+
+F821 Undefined name `_slots`
+  --> tests/unit/test_generador.py:42:22
+   |
+40 |             continue
+41 |         turno = sol.get_turnos()[c.turno_asignado]
+42 |         for token in _slots(turno):
+   |                      ^^^^^^
+43 |             assert (
+44 |                 token.lower() not in sectores_no_ruta
+   |
+
+F821 Undefined name `_slots`
+  --> tests/unit/test_generador.py:54:18
+   |
+52 |     for c in sol.get_controladores():
+53 |         ventana = tc if c.turno.upper() in {"TC", "MC"} else tl
+54 |         tokens = _slots(sol.get_turnos()[c.turno_asignado])
+   |                  ^^^^^^
+55 |         for t, tok in enumerate(tokens):
+56 |             if not (ventana[0] <= t < ventana[1]):
+   |
+
+Found 4 errors.
+[*] 1 fixable with the `--fix` option.

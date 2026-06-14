@@ -1,6 +1,7 @@
 # Pendientes
 
 <!-- - 🅿️ -->
+- 🅿️ Implementer el `logging`
 - 🅿️ Verificar en checks
   
     ```python

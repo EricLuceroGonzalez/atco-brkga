@@ -1,16 +1,17 @@
 from __future__ import annotations
 
 from functools import lru_cache
-from typing import Any
 from itertools import pairwise
+from typing import Any
 
 from atco.domain.constants import STRING_DESCANSO, STRING_NO_TURNO
-from ...domain.models import Solucion, Turno, Sector
+
+from ...domain.models import Sector, Solucion, Turno
 from ...problem.instance import Entrada
 from ...problem.parameters import Parametros
 from ...problem.restrictions.weights import (
-    PESO_POR_RESTRICCION,
     PENALIZACION,
+    PESO_POR_RESTRICCION,
     REST_SLOTS,
     restricciones_no_cumplidas,
 )

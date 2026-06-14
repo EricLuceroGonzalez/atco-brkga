@@ -15,25 +15,13 @@ import pytest
 
 from atco.domain.constants import STRING_DESCANSO, STRING_NO_TURNO
 from atco.domain.models import Solucion
-from atco.problem.restrictions.checks import ensure_fast_cache
 from atco.problem.instance import Entrada
 from atco.problem.parameters import Parametros
 from atco.problem.restrictions.checks import (
-    comprobar_cambio_posicion,
     comprobar_controlador_asignado,
-    comprobar_controlador_turno_corto,
-    comprobar_descanso_minimo_consecutivo,
-    comprobar_nucleo_trabajo,
-    comprobar_num_maximo_sectores,
-    comprobar_porcentaje_descanso,
-    comprobar_sectores_abiertos_noche,
-    comprobar_trabajo_maximo_consecutivo,
-    comprobar_trabajo_minimo_consecutivo,
-    comprobar_trabajo_posicion_minimo_consecutivo_no_regex,
-    comprobar_turno_vacio,
-    comprobar_ventana_trabajo_descanso,
-    comprobar_tipo_sector,
     comprobar_restricciones_en_paralelo,
+    comprobar_turno_vacio,
+    ensure_fast_cache,
     penalizacion_por_restricciones,
     restricciones_sin_pesos,
 )
@@ -78,16 +66,16 @@ def test_pesos_tienen_longitud_14() -> None:
 @pytest.mark.parametrize("nombre_check", ALL_CHECKS)
 def test_smoke_check_devuelve_numero(
     nombre_check: str,
-    entrada_madN_M1: Entrada,
+    entrada_mad_n_m1: Entrada,
     parametros_reales: Parametros,
 ) -> None:
     """Cada comprobar_* devuelve un número finito sobre la distribución inicial."""
     # Resolución dinámica del callable por nombre — simplifica los tests.
     check_fn = globals()[nombre_check]
-    sol = entrada_madN_M1.get_distribucion_inicial()
+    sol = entrada_mad_n_m1.get_distribucion_inicial()
 
     # Cada función tiene firmas distintas; las normalizamos con un dispatcher.
-    resultado = _llamar_check(check_fn, sol, entrada_madN_M1, parametros_reales)
+    resultado = _llamar_check(check_fn, sol, entrada_mad_n_m1, parametros_reales)
 
     assert isinstance(resultado, int | float)
     assert resultado >= 0, f"{nombre_check} devolvió valor negativo: {resultado}"
@@ -130,17 +118,19 @@ def _llamar_check(
 
 
 def test_acumulador_paralelo_devuelve_no_negativo(
-    entrada_madN_M1: Entrada,
+    entrada_mad_n_m1: Entrada,
     parametros_reales: Parametros,
 ) -> None:
     """`comprobar_restricciones_en_paralelo` suma ponderada; nunca negativa."""
-    sol = entrada_madN_M1.get_distribucion_inicial()
-    total = comprobar_restricciones_en_paralelo(sol, entrada_madN_M1, parametros_reales)
+    sol = entrada_mad_n_m1.get_distribucion_inicial()
+    total = comprobar_restricciones_en_paralelo(
+        sol, entrada_mad_n_m1, parametros_reales
+    )
     assert total >= 0
 
 
 def test_acumulador_sin_pesos_es_menor_o_igual_que_ponderado(
-    entrada_madN_M1: Entrada,
+    entrada_mad_n_m1: Entrada,
     parametros_reales: Parametros,
 ) -> None:
     """Como los pesos son todos >= 0.5, la suma ponderada es >= la sin pesos.
@@ -148,10 +138,10 @@ def test_acumulador_sin_pesos_es_menor_o_igual_que_ponderado(
     (Salvo restricciones con pesos < 1, que son R8, R11, R12. Aún así
     el promedio de pesos es > 1, así que en agregado se cumple.)
     """
-    sol = entrada_madN_M1.get_distribucion_inicial()
-    sin_pesos = restricciones_sin_pesos(sol, entrada_madN_M1, parametros_reales)
+    sol = entrada_mad_n_m1.get_distribucion_inicial()
+    sin_pesos = restricciones_sin_pesos(sol, entrada_mad_n_m1, parametros_reales)
     paralelo = comprobar_restricciones_en_paralelo(
-        sol, entrada_madN_M1, parametros_reales
+        sol, entrada_mad_n_m1, parametros_reales
     )
     # Heurística: con pesos medios > 1, lo ponderado supera a lo sin pesos
     # cuando hay alguna violación. Si todo es 0, ambos son 0.
@@ -163,14 +153,14 @@ def test_acumulador_sin_pesos_es_menor_o_igual_que_ponderado(
 
 
 def test_acumulador_por_restricciones_publica_vector_global(
-    entrada_madN_M1: Entrada,
+    entrada_mad_n_m1: Entrada,
     parametros_reales: Parametros,
 ) -> None:
     """`penalizacion_por_restricciones` actualiza la global `restricciones_no_cumplidas`."""
     from atco.problem.restrictions.weights import restricciones_no_cumplidas
 
-    sol = entrada_madN_M1.get_distribucion_inicial()
-    _ = penalizacion_por_restricciones(sol, entrada_madN_M1, parametros_reales)
+    sol = entrada_mad_n_m1.get_distribucion_inicial()
+    _ = penalizacion_por_restricciones(sol, entrada_mad_n_m1, parametros_reales)
     # Tras la llamada, el vector global debe tener 14 valores poblados.
     assert len(restricciones_no_cumplidas) == 14
     assert all(v >= 0 for v in restricciones_no_cumplidas)

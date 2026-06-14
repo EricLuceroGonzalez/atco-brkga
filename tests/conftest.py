@@ -23,7 +23,7 @@ def repo_root() -> Path:
 
 
 @pytest.fixture(scope="session")
-def parametros_reales(repo_root: Path) -> Parametros:
+def parametros(repo_root: Path) -> Parametros:
     return Parametros.from_files(
         repo_root / "resources" / "problemParameters.properties",
         repo_root / "resources" / "options.properties",
@@ -31,7 +31,7 @@ def parametros_reales(repo_root: Path) -> Parametros:
 
 
 @pytest.fixture(scope="session")
-def entrada_madN_M1(repo_root: Path, parametros_reales: Parametros) -> Entrada:
+def entrada_mad_n_m1(repo_root: Path, parametros_reales: Parametros) -> Entrada:
     return Entrada.leer_entrada(
         repo_root,
         parametros_reales,

@@ -180,7 +180,7 @@ def test_solucion_clone_es_deep_en_controladores(solucion_basica: Solucion) -> N
     assert solucion_basica.get_controladores()[0].get_turno_asignado() == -1
 
 
-def test_solucion_shallowClone_comparte_controladores(
+def test_solucion_shallow_clone_comparte_controladores(
     solucion_basica: Solucion,
 ) -> None:
     clon = solucion_basica.shallow_clone()

@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from enum import Enum
 from math import ceil
-from typing import Any
+
 from atco.problem.parameters import Parametros
 
 

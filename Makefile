@@ -140,3 +140,6 @@ t-unit:
 
 t-int:
 	@$(MAKE) testf TARGET=tests/integration	
+
+t-seeds:
+	@$(MAKE) testf TARGET=tests/unit/test_seeds.py

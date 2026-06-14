@@ -4,9 +4,9 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-from atco.problem.parameters import Parametros
 from atco.domain.constants import STRING_DESCANSO
 from atco.domain.models import Controlador, Nucleo, Propiedades, Sector, Solucion, Turno
+from atco.problem.parameters import Parametros
 
 IDS = [
     f"a{b}{c}"
@@ -45,9 +45,9 @@ class Entrada:
         f_apertura = _listar(case_dir / f"AperturaSectorizaciones_{entrada_id}.csv")
         f_recursos = _listar(case_dir / f"RecursosDisponibles_{entrada_id}.csv")
         f_turno = _listar(case_dir / f"Turno_{entrada_id}.csv")
-        f_mod_sectores = _listar(
-            case_dir / f"ModificacionSectorizaciones_{entrada_id}.csv", True
-        )
+        # f_mod_sectores = _listar(
+        #     case_dir / f"ModificacionSectorizaciones_{entrada_id}.csv", True
+        # )
         # f_mod_recursos = _listar(
         #     case_dir / f"ModificacionRecursos_{entrada_id}.csv", True
         # )

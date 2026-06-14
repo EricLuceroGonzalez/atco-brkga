@@ -1,10 +1,10 @@
 import hashlib
+from pathlib import Path
 
 import openpyxl
-from pathlib import Path
 from openpyxl.styles import Alignment, Font, PatternFill
 
-from ..domain.models import Solucion
+from atco.domain.models import Solucion
 
 COLORES_FIJOS = {
     "111": "aaadad",  # Rojo claro si 111 representa alguna penalización o retén

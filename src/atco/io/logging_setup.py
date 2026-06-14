@@ -11,7 +11,6 @@ from __future__ import annotations
 import logging
 import sys
 from collections.abc import Callable
-from typing import Any
 
 
 def setup_logging(

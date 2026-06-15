@@ -31,10 +31,10 @@ def parametros(repo_root: Path) -> Parametros:
 
 
 @pytest.fixture(scope="session")
-def entrada_mad_n_m1(repo_root: Path, parametros_reales: Parametros) -> Entrada:
+def entrada_mad_n_m1(repo_root: Path, parametros: Parametros) -> Entrada:
     return Entrada.leer_entrada(
         repo_root,
-        parametros_reales,
+        parametros,
         "madN_M1",
         "madN_M1-2019-02-12",
         "Madrid",

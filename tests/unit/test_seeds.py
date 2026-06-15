@@ -22,13 +22,15 @@ from atco.seeds import construir_solucion_heuristica
 
 
 def test_generador_cubre_toda_la_sectorizacion(
-    entrada: Entrada,
+    entrada_mad_n_m1: Entrada,
     parametros: Parametros,
 ) -> None:
     """Cada sector abierto en cada slot debe tener al menos un ATCo asignado."""
-    sol = construir_solucion_heuristica(entrada, parametros, rng=random.Random(0))
+    sol = construir_solucion_heuristica(
+        entrada_mad_n_m1, parametros, rng=random.Random(0)
+    )
     sin_cubrir: list[tuple[int, str]] = []
-    sectorizacion = entrada.get_sectorizacion()
+    sectorizacion = entrada_mad_n_m1.get_sectorizacion()
     turnos = sol.get_turnos()
     for t, sectores_abiertos in enumerate(sectorizacion):
         for sigma in sectores_abiertos:
@@ -44,13 +46,17 @@ def test_generador_cubre_toda_la_sectorizacion(
 
 
 def test_generador_respeta_licencia_con(
-    entrada: Entrada,
+    entrada_mad_n_m1: Entrada,
     parametros: Parametros,
 ) -> None:
     """Un ATCo con flag CON solo trabaja sectores marcados como ruta."""
-    sol = construir_solucion_heuristica(entrada, parametros, rng=random.Random(0))
+    sol = construir_solucion_heuristica(
+        entrada_mad_n_m1, parametros, rng=random.Random(0)
+    )
     no_ruta_ids = {
-        s.id.lower() for s in entrada.get_lista_sectores_abiertos() if not s.ruta
+        s.id.lower()
+        for s in entrada_mad_n_m1.get_lista_sectores_abiertos()
+        if not s.ruta
     }
     for controlador in sol.get_controladores():
         if not controlador.con:
@@ -66,12 +72,14 @@ def test_generador_respeta_licencia_con(
 
 
 def test_generador_respeta_ventana_de_turno(
-    entrada: Entrada,
+    entrada_mad_n_m1: Entrada,
     parametros: Parametros,
 ) -> None:
     """Fuera de la ventana de turno, las celdas deben ser STRING_NO_TURNO."""
-    sol = construir_solucion_heuristica(entrada, parametros, rng=random.Random(0))
-    turno_escenario = entrada.get_turno()
+    sol = construir_solucion_heuristica(
+        entrada_mad_n_m1, parametros, rng=random.Random(0)
+    )
+    turno_escenario = entrada_mad_n_m1.get_turno()
     ventana_corta = turno_escenario.get_tc()
     ventana_larga = turno_escenario.get_tl()
 
@@ -91,22 +99,26 @@ def test_generador_respeta_ventana_de_turno(
 
 
 def test_generador_publica_biyeccion_atco_turno(
-    entrada: Entrada,
+    entrada_mad_n_m1: Entrada,
     parametros: Parametros,
 ) -> None:
     """Cada ATCo apunta a su propia fila; todas las filas tienen dueño."""
-    sol = construir_solucion_heuristica(entrada, parametros, rng=random.Random(0))
+    sol = construir_solucion_heuristica(
+        entrada_mad_n_m1, parametros, rng=random.Random(0)
+    )
     asignaciones = [c.turno_asignado for c in sol.get_controladores()]
     assert len(set(asignaciones)) == len(asignaciones), "Hay dos ATCos en la misma fila"
     assert set(asignaciones) == set(range(len(sol.get_turnos())))
 
 
 def test_generador_publica_slots_trabajados_consistente(
-    entrada: Entrada,
+    entrada_mad_n_m1: Entrada,
     parametros: Parametros,
 ) -> None:
     """`slots_trabajados` coincide con el conteo real de la matriz."""
-    sol = construir_solucion_heuristica(entrada, parametros, rng=random.Random(0))
+    sol = construir_solucion_heuristica(
+        entrada_mad_n_m1, parametros, rng=random.Random(0)
+    )
     for controlador in sol.get_controladores():
         turno = sol.get_turnos()[controlador.turno_asignado]
         trabajados = sum(
@@ -123,22 +135,30 @@ def test_generador_publica_slots_trabajados_consistente(
 
 
 def test_generador_es_diverso_entre_llamadas(
-    entrada: Entrada,
+    entrada_mad_n_m1: Entrada,
     parametros: Parametros,
 ) -> None:
     """Dos llamadas con semillas distintas producen soluciones distintas."""
-    sol_a = construir_solucion_heuristica(entrada, parametros, rng=random.Random(1))
-    sol_b = construir_solucion_heuristica(entrada, parametros, rng=random.Random(2))
+    sol_a = construir_solucion_heuristica(
+        entrada_mad_n_m1, parametros, rng=random.Random(1)
+    )
+    sol_b = construir_solucion_heuristica(
+        entrada_mad_n_m1, parametros, rng=random.Random(2)
+    )
     assert sol_a.get_turnos() != sol_b.get_turnos()
 
 
 def test_generador_es_reproducible_con_misma_semilla(
-    entrada: Entrada,
+    entrada_mad_n_m1: Entrada,
     parametros: Parametros,
 ) -> None:
     """Misma semilla, misma solución exacta."""
-    sol_a = construir_solucion_heuristica(entrada, parametros, rng=random.Random(42))
-    sol_b = construir_solucion_heuristica(entrada, parametros, rng=random.Random(42))
+    sol_a = construir_solucion_heuristica(
+        entrada_mad_n_m1, parametros, rng=random.Random(42)
+    )
+    sol_b = construir_solucion_heuristica(
+        entrada_mad_n_m1, parametros, rng=random.Random(42)
+    )
     assert sol_a.get_turnos() == sol_b.get_turnos()
 
 
@@ -148,11 +168,13 @@ def test_generador_es_reproducible_con_misma_semilla(
 
 
 def test_generador_falla_con_controladores_vacios(
-    entrada: Entrada,
+    entrada_mad_n_m1: Entrada,
     parametros: Parametros,
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     """Sin ATCos no se puede construir solución; debe lanzar ValueError."""
-    monkeypatch.setattr(entrada, "get_controladores", lambda: [])
+    monkeypatch.setattr(entrada_mad_n_m1, "get_controladores", lambda: [])
     with pytest.raises(ValueError, match="controladores"):
-        construir_solucion_heuristica(entrada, parametros, rng=random.Random(0))
+        construir_solucion_heuristica(
+            entrada_mad_n_m1, parametros, rng=random.Random(0)
+        )

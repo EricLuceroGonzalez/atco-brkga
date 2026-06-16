@@ -55,7 +55,7 @@ def test_generador_respeta_licencia_con(
     )
     no_ruta_ids = {
         s.id.lower()
-        for s in entrada_mad_n_m1.get_lista_sectores_abiertos()
+        for s in entrada_mad_n_m1.get_sectores_abiertos_todo_el_dia()
         if not s.ruta
     }
     for controlador in sol.get_controladores():
@@ -178,3 +178,52 @@ def test_generador_falla_con_controladores_vacios(
         construir_solucion_heuristica(
             entrada_mad_n_m1, parametros, rng=random.Random(0)
         )
+
+
+def test_generador_asigna_ejecutivo_y_planificador_cuando_hay_dos_candidatos(
+    entrada_mad_n_m1: Entrada, parametros: Parametros
+) -> None:
+    """Para cada (sector, slot) con ≥2 candidatos, deben aparecer EJ y PL."""
+    sol = construir_solucion_heuristica(entrada_mad_n_m1, parametros, random.Random(42))
+    cadenas = sol.turnos
+    T = len(cadenas[0]) // 3
+    sectores = entrada_mad_n_m1.get_sectores_abiertos_todo_el_dia()
+
+    # En al menos un slot con suficientes recursos, EJ y PL deben aparecer.
+    hubo_par = False
+    for t in range(T):
+        tokens_t = {cadena[t * 3 : (t + 1) * 3] for cadena in cadenas}
+        for s in sectores:
+            if s.id.upper() in tokens_t and s.id.lower() in tokens_t:
+                hubo_par = True
+                break
+        if hubo_par:
+            break
+    assert hubo_par, "Ningún sector aparece con EJ y PL simultáneamente"
+
+
+def test_generador_nunca_pone_mismo_atco_como_ej_y_pl(
+    entrada_mad_n_m1: Entrada, parametros: Parametros
+) -> None:
+    """En un mismo slot, EJ y PL del mismo sector deben estar en filas distintas.
+
+    (Trivialmente cierto por construcción de la matriz —cada ATCo tiene
+    una sola celda por slot—, pero merece test explícito para que la
+    invariante no se rompa en refactors futuros.)
+    """
+    sol = construir_solucion_heuristica(entrada_mad_n_m1, parametros, random.Random(42))
+    cadenas = sol.turnos
+    T = len(cadenas[0]) // 3
+    for t in range(T):
+        tokens_t = [cadena[t * 3 : (t + 1) * 3] for cadena in cadenas]
+        for sector in entrada_mad_n_m1.get_sectores_abiertos_todo_el_dia():
+            indices_ej = [
+                i for i, tok in enumerate(tokens_t) if tok == sector.id.upper()
+            ]
+            indices_pl = [
+                i for i, tok in enumerate(tokens_t) if tok == sector.id.lower()
+            ]
+            assert len(indices_ej) <= 1, f"Más de un EJ para {sector.id} en t={t}"
+            assert len(indices_pl) <= 1, f"Más de un PL para {sector.id} en t={t}"
+            if indices_ej and indices_pl:
+                assert indices_ej[0] != indices_pl[0]

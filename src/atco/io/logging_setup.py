@@ -14,7 +14,7 @@ from collections.abc import Callable
 
 
 def setup_logging(
-    log_name: str = "abaco.log",
+    log_name: str = "docs/logs/logs.log",
     level: str | int = "INFO",
 ) -> logging.Logger:
     """Inicializa logging con salida a archivo + stdout.

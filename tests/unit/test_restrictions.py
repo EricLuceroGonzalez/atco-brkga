@@ -144,9 +144,6 @@ def test_turno_vacio_cuenta_solo_con_descanso_sin_trabajo() -> None:
         nucleo="X",
         ptd=False,
         con=True,
-        baja_alta=False,
-        slot_alta=0,
-        slot_baja=0,
     )
     c2 = c1.clone()
     c3 = c1.clone()
@@ -171,9 +168,6 @@ def test_controlador_asignado_cuenta_huerfanos_y_no_asignados() -> None:
         nucleo="X",
         ptd=False,
         con=True,
-        baja_alta=False,
-        slot_alta=0,
-        slot_baja=0,
     )
     c1.turno_asignado = 0
     c2 = c1.clone()

@@ -12,25 +12,59 @@ import pytest
 from atco.domain.models import (
     Controlador,
     Nucleo,
-    Propiedades,
     Sector,
     Solucion,
     Turno,
+    VentanaDisponibilidad,
 )
 from atco.problem.parameters import Parametros
 
 # =============================================================================
-#  Propiedades
-# =============================================================================
-
-
-def test_propiedades_tiene_tres_valores() -> None:
-    assert {p.value for p in Propiedades} == {"ALTA", "BAJA", "ALTABAJA"}
-
-
-# =============================================================================
 #  Controlador
 # =============================================================================
+
+
+class TestVentanaDisponibilidad:
+    """Tests del invariante y la API de la ventana."""
+
+    def test_default_es_completa(self) -> None:
+        v = VentanaDisponibilidad()
+        assert v.es_completa
+        assert v.slot_inicio_disponibilidad == 0
+        assert v.slot_fin_disponibilidad is None
+
+    def test_inicio_negativo_lanza_value_error(self) -> None:
+        with pytest.raises(ValueError, match="slot_inicio_disponibilidad"):
+            VentanaDisponibilidad(slot_inicio_disponibilidad=-1)
+
+    def test_ventana_invertida_lanza_value_error(self) -> None:
+        with pytest.raises(ValueError, match="invertida"):
+            VentanaDisponibilidad(
+                slot_inicio_disponibilidad=20,
+                slot_fin_disponibilidad=10,
+            )
+
+    def test_ventana_vacia_lanza_value_error(self) -> None:
+        with pytest.raises(ValueError, match="vacía|invertida"):
+            VentanaDisponibilidad(
+                slot_inicio_disponibilidad=15,
+                slot_fin_disponibilidad=15,
+            )
+
+    def test_contiene_dentro_de_la_ventana(self) -> None:
+        v = VentanaDisponibilidad(
+            slot_inicio_disponibilidad=10,
+            slot_fin_disponibilidad=50,
+        )
+        assert not v.contiene(9)
+        assert v.contiene(10)
+        assert v.contiene(49)
+        assert not v.contiene(50)  # fin exclusivo
+
+    def test_contiene_con_fin_none_no_limita_por_arriba(self) -> None:
+        v = VentanaDisponibilidad(slot_inicio_disponibilidad=10)
+        assert v.contiene(10)
+        assert v.contiene(10_000)
 
 
 def test_controlador_constructor_minimo(controlador_basico: Controlador) -> None:
@@ -53,8 +87,8 @@ def test_controlador_clone_es_independiente(controlador_basico: Controlador) -> 
 def test_controlador_getters_setters_round_trip(
     controlador_basico: Controlador,
 ) -> None:
-    controlador_basico.set_slot_alta(99)
-    assert controlador_basico.get_slot_alta() == 99
+    # controlador_basico.set_slot_alta(99)
+    # assert controlador_basico.get_slot_alta() == 99
     assert not hasattr(controlador_basico, "imaginario")
 
 
@@ -66,9 +100,6 @@ def test_controlador_slots_trabajados_default_cero() -> None:
         nucleo="Madrid Ruta 1",
         ptd=False,
         con=True,
-        baja_alta=Propiedades.ALTA,
-        slot_alta=0,
-        slot_baja=0,
     )
     assert c.slots_trabajados == 0
 
@@ -81,9 +112,6 @@ def test_controlador_slots_trabajados_se_clona() -> None:
         nucleo="Madrid Ruta 1",
         ptd=False,
         con=True,
-        baja_alta=Propiedades.ALTA,
-        slot_alta=0,
-        slot_baja=0,
     )
     c.slots_trabajados = 42
     clon = c.clone()

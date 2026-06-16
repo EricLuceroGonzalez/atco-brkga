@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from atco.domain.models import Controlador, Propiedades, Solucion
+from atco.domain.models import Controlador, Solucion
 from atco.problem.instance import Entrada
 from atco.problem.parameters import Parametros
 
@@ -73,9 +73,6 @@ def controlador_basico() -> Controlador:
         nucleo="Madrid Ruta 1",
         ptd=False,
         con=True,
-        baja_alta=Propiedades.ALTA,
-        slot_alta=0,
-        slot_baja=0,
     )
 
 

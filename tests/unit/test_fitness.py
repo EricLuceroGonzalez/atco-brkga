@@ -164,3 +164,33 @@ class TestEvaluarFitness:
             evaluar_fitness(sol_a, entrada_mad_n_m1, parametros, cfg).valor
             == evaluar_fitness(sol_b, entrada_mad_n_m1, parametros, cfg).valor
         )
+
+
+def test_cobertura_cota_es_doble_del_total_de_sectores_por_slot(
+    entrada_mad_n_m1: Entrada, parametros: Parametros
+) -> None:
+    """La cota normalizadora cuenta EJ + PL por (sector, slot)."""
+    from atco.fitness.components import cobertura_insatisfecha
+
+    sol = construir_solucion_heuristica(entrada_mad_n_m1, parametros, random.Random(42))
+    _, cota = cobertura_insatisfecha(sol, entrada_mad_n_m1, parametros)
+
+    T = len(sol.turnos[0]) // 3
+    n_sectores = len(entrada_mad_n_m1.get_sectores_abiertos_todo_el_dia())
+    assert cota == 2 * T * n_sectores
+
+
+def test_cobertura_cota_respeta_sectorizacion_dinamica(
+    entrada_mad_n_m1: Entrada, parametros: Parametros
+) -> None:
+    """La cota es la suma de 2·|abiertos(t)| sobre los T slots."""
+    from atco.fitness.components import cobertura_insatisfecha
+
+    sol = construir_solucion_heuristica(entrada_mad_n_m1, parametros, random.Random(42))
+    _, cota = cobertura_insatisfecha(sol, entrada_mad_n_m1, parametros)
+
+    T = len(sol.turnos[0]) // 3
+    esperada = sum(
+        2 * len(entrada_mad_n_m1.get_sectores_abiertos_en(t)) for t in range(T)
+    )
+    assert cota == esperada

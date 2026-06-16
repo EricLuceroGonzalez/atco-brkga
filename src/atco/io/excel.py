@@ -46,10 +46,6 @@ def _write_solution_xlsx_gantt(path: Path, solution: Solucion) -> None:
         "PTD",
         "CON",
         "T_Asignado",
-        "Imaginario",
-        "Baja_Alta",
-        "Slot_Alta",
-        "Slot_Baja",
     ]
 
     turnos = solution.get_turnos()
@@ -81,23 +77,25 @@ def _write_solution_xlsx_gantt(path: Path, solution: Solucion) -> None:
             controlador.ptd,
             controlador.con,
             controlador.turno_asignado,
-            (
-                controlador.baja_alta.value
-                if hasattr(controlador.baja_alta, "value")
-                else str(controlador.baja_alta)
-            ),
-            controlador.slot_alta,
-            controlador.slot_baja,
+            # (
+            #     controlador.baja_alta.value
+            #     if hasattr(controlador.baja_alta, "value")
+            #     else str(controlador.baja_alta)
+            # ),
+            # controlador.slot_alta,
+            # controlador.slot_baja,
         ]
 
         slots_individuales = [turno_str[i : i + 3] for i in range(0, len(turno_str), 3)]
         row_data.extend(slots_individuales)
+        print("row_data")
+        print(row_data)
         ws.append(row_data)
 
         current_row = ws.max_row
 
         for idx, slot_val in enumerate(slots_individuales):
-            col_excel = 11 + idx
+            col_excel = 10 + idx
             celda = ws.cell(row=current_row, column=col_excel)
 
             # Llamamos a la función inteligente que te da el color hasheado o fijo
@@ -105,7 +103,7 @@ def _write_solution_xlsx_gantt(path: Path, solution: Solucion) -> None:
             celda.alignment = Alignment(horizontal="center")
 
     # Congelar paneles
-    ws.freeze_panes = "K2"
+    ws.freeze_panes = "J2"
 
     wb.save(path)
 
@@ -184,9 +182,9 @@ def _write_solution_xlsx(path: Path, solution: Solucion) -> None:
                 controlador.ptd,
                 controlador.con,
                 controlador.turno_asignado,
-                controlador.baja_alta.value,
-                controlador.slot_alta,
-                controlador.slot_baja,
+                # controlador.baja_alta.value,
+                # controlador.slot_alta,
+                # controlador.slot_baja,
                 controlador.slots_trabajados,
             ]
         )

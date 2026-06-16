@@ -14,7 +14,7 @@ from __future__ import annotations
 import random
 
 from atco.domain.constants import STRING_DESCANSO, STRING_NO_TURNO
-from atco.domain.models import Controlador, Nucleo, Sector, Solucion
+from atco.domain.models import Controlador, Nucleo, Sector, Solucion, Turno
 from atco.problem.instance import Entrada
 from atco.problem.parameters import Parametros
 
@@ -95,29 +95,28 @@ def construir_solucion_heuristica(
 
     # Recorrido cronológico, asignando sectores al ATCo menos cargado.
     for t in range(n_slots):
-        sectores_en_t: list[str] = sorted(sectorizacion[t])  # Reproductibilidad
+        sectores_en_t = list(entrada.get_lista_sectores_abiertos(t))
         rng.shuffle(sectores_en_t)  # diversidad en el orden de recorrido
 
-        asignados_en_t: set[int] = set()  # Garantiza 1 turno - 1 ATCo en la matriz
         for sector_t in sectores_en_t:
-            elegido: int | None = _elegir_atco_menos_cargado(
-                sector_t=sector_t,
-                t=t,
-                controladores=atcos,
-                matriz=matriz,
-                slots_trabajados=slots_trabajados,
-                asignados_en_t=asignados_en_t,
-                ruta_ids=ruta_ids,
-                nucleo_a_sectores=nucleo_a_sectores,
-                rng=rng,
-            )
-            if elegido is None:
-                # Sector sin cubrir: ningún ATCo elegible disponible.
-                # Aceptado como caso degradado; F2 lo penalizará.
-                continue
-            matriz[elegido][t] = sector_t.upper()
-            asignados_en_t.add(elegido)
-            slots_trabajados[elegido] += 1
+            candidatos = [
+                i
+                for i in range(n_atcos)
+                if matriz[i][t] == STRING_DESCANSO
+                and _tiene_licencia(atcos[i], sector_t, ruta_ids, nucleo_a_sectores)
+            ]
+            if not candidatos:
+                continue  # EJ y PL no cubiertos
+
+            i_ej, i_pl = _elegir_pareja_ej_pl(candidatos, slots_trabajados, rng)
+
+            matriz[i_ej][t] = sector_t.id.upper()
+            slots_trabajados[i_ej] += 1
+
+            if i_pl is not None:
+                matriz[i_pl][t] = sector_t.id.lower()
+                slots_trabajados[i_pl] += 1
+            # si i_pl is None: PL queda descubierto (lo registra el fitness)
 
     # Instanciar contadores en los controladores y construir la Solucion final.
     turnos_strings: list[str] = ["".join(fila) for fila in matriz]
@@ -134,30 +133,36 @@ def construir_solucion_heuristica(
 
 def _marcar_ventana_de_turno(
     matriz: list[list[str]],
-    controladores: list[Controlador],
+    atcos: list[Controlador],
     entrada: Entrada,
 ) -> None:
-    """Marca los slots dentro de la ventana laboral como ``STRING_DESCANSO``.
+    """Marca cada celda como ``STRING_DESCANSO`` si el controlador puede trabajar en ese slot.
 
-    El controlador con turno ``TC`` o ``MC`` opera dentro de la ventana
-    corta; el resto (``TL``, ``ML``, ``N``) en la ventana larga. Fuera
-    de su ventana, su celda permanece como ``STRING_NO_TURNO``.
+    Combina dos restricciones:
 
-    Muta ``matriz`` recorriendo todo el turno de cada atco.
+    - **Ventana de turno**: depende del tipo de turno del controlador
+      (corta ``TC``/``MC`` o larga ``TL``/``ML``/``N``).
+    - **Ventana de disponibilidad** (`c.disponibilidad`): restricción
+      estratégica del plan de turnos (alta tardía, baja temprana,
+      ambas, o completa por defecto).
+
+    Las celdas fuera de cualquiera de las dos quedan como
+    ``STRING_NO_TURNO`` (el valor por defecto de la matriz).
     """
-    # TODO: Puede ser un poco peligroso bloquear los slots de NO_TURNO
-    turno = entrada.get_turno()
-    ventana_corta: list[int] = turno.get_tc()  # [inicio, fin)
+    turno: Turno = entrada.turno
+    ventana_corta: list[int] = turno.get_tc()
     ventana_larga: list[int] = turno.get_tl()
-    n_slots: int = len(matriz[0]) if matriz else 0  # Todas las filas deben ser iguales
+    n_slots: int = len(matriz[0]) if matriz else 0
 
-    for c_idx, controlador in enumerate(controladores):
-        es_corto: bool = controlador.turno.upper() in {"TC", "MC"}
-        ventana: list[int] = ventana_corta if es_corto else ventana_larga
-        inicio: int = max(0, ventana[0])
-        fin: int = min(n_slots, ventana[1])
+    for i, c in enumerate(atcos):
+        es_corto = c.turno in ("TC", "MC")
+        ventana = ventana_corta if es_corto else ventana_larga
+        inicio = max(0, ventana[0])
+        fin = min(n_slots, ventana[1])
         for t in range(inicio, fin):
-            matriz[c_idx][t] = STRING_DESCANSO
+            if c.disponibilidad.contiene(t):
+                matriz[i][t] = STRING_DESCANSO
+            # else: queda STRING_NO_TURNO por default
 
 
 def _cachear_licencias(entrada: Entrada) -> tuple[set[str], dict[str, set[str]]]:
@@ -226,6 +231,46 @@ def _elegir_atco_menos_cargado(
     # que el primero con carga mínima sea elegido.
     rng.shuffle(candidatos)
     return min(candidatos, key=lambda i: slots_trabajados[i])
+
+
+def _elegir_pareja_ej_pl(
+    candidatos: list[int],
+    cargas: list[int],
+    rng: random.Random,
+) -> tuple[int, int | None]:
+    """Selecciona ejecutivo y planificador entre los candidatos elegibles.
+
+    Política (decisión P1 + P2 del diseño):
+    - Si hay ≥ 2 candidatos: el menos cargado es EJ, el segundo menos
+      cargado entre los restantes es PL. Empates se rompen al azar.
+    - Si hay exactamente 1 candidato: se asigna a EJ; PL queda
+      descubierto (devuelve `(i_ej, None)`).
+    - Mismo controlador en EJ y PL: imposible por construcción (PL se
+      elige solo entre los restantes tras quitar EJ).
+
+    Args:
+        candidatos: índices de controladores elegibles para este
+            (slot, sector).
+        cargas: vector `slots_trabajados` por controlador, mutable.
+        rng: generador aleatorio para desempates.
+
+    Returns:
+        `(i_ej, i_pl)` con `i_pl is None` si solo hay un candidato.
+    """
+    if not candidatos:
+        raise ValueError("Se llamó a _elegir_pareja_ej_pl con lista vacía")
+
+    rng.shuffle(candidatos)
+    candidatos.sort(
+        key=lambda i: cargas[i]
+    )  # sort estable: preserva shuffle en empates
+
+    i_ej = candidatos[0]
+    if len(candidatos) == 1:
+        return i_ej, None
+
+    i_pl = candidatos[1]
+    return i_ej, i_pl
 
 
 def _tiene_licencia(

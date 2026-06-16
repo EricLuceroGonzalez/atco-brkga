@@ -593,7 +593,7 @@ def comprobar_sectores_abiertos_noche(individuo: Solucion, entrada: Entrada) -> 
 def ensure_fast_cache(entrada: Entrada) -> None:
     if hasattr(entrada, "_fast_sector_ids"):
         return
-    sectores = entrada.get_lista_sectores_abiertos()
+    sectores = entrada.get_sectores_abiertos_todo_el_dia()
     entrada._fast_sector_ids = {sector.id.lower() for sector in sectores}
     entrada._fast_ruta_ids = {sector.id.lower() for sector in sectores if sector.ruta}
     entrada._fast_sector_by_id = {sector.id.lower(): sector for sector in sectores}

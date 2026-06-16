@@ -150,9 +150,6 @@ class Entrada:
     def get_distribucion_inicial(self) -> Solucion:
         return self.distribucion_inicial
 
-    # def get_sectorizacion_modificada(self) -> list[set[str]] | None:
-    #     return self.sectorizacion_modificada
-
     def get_controladores(self) -> list[Controlador]:
         return self.controladores
 
@@ -163,22 +160,36 @@ class Entrada:
         return self.turno
 
     def get_lista_sectores(self) -> list[Sector]:
+        """Todos los sectores definidos en la instancia.
+
+        Útil para consultar propiedades estáticas del sector (`ruta`,
+        `nucleo`, `nombre`) sin depender de cuándo está abierto.
+        """
         return self.lista_sectores
 
-    def get_sectorizacion_base(self) -> list[set[str]]:
-        return self.sectorizacion
+    def get_sectores_abiertos_en(self, t: int) -> list[Sector]:
+        """Sectores abiertos en el slot `t` (sectorización dinámica).
 
-    def get_sectorizacion(self) -> list[set[str]]:
-        """Sectorización efectiva: original hasta slot_momento_actual,
-        modificada a partir de ahí. Coherente con cómo se cubren los slots
-        en tiempo real."""
-        return self.sectorizacion
-        # t0 = self.slot_momento_actual
-        # return self.sectorizacion[:t0] + self.sectorizacion_modificada[t0:]
-
-    def get_lista_sectores_abiertos(self, t: int) -> list[Sector]:
+        Refleja la configuración del espacio aéreo en cada instante:
+        el número de sectores abiertos varía a lo largo del día.
+        """
         ids_t = self.sectorizacion[t]
         return [s for s in self.lista_sectores if s.id in ids_t]
+
+    def get_sectorizacion(self) -> list[set[str]]:
+        return self.sectorizacion
+
+    def get_sectores_abiertos_todo_el_dia(self) -> list[Sector]:
+        """Unión de sectores que están abiertos en algún momento del día.
+
+        No usa una vista por slot: agrega todos los sectores cuyo id
+        aparezca en algún elemento de `self.sectorizacion`. Útil para
+        cotas globales y comprobaciones de invariante.
+        """
+        ids_union: set[str] = set()
+        for ids_t in self.sectorizacion:
+            ids_union.update(ids_t)
+        return [s for s in self.lista_sectores if s.id in ids_union]
 
     def get_volumns_of_sectors(self) -> dict[str, list[str]]:
         return self.volumes_of_sectors

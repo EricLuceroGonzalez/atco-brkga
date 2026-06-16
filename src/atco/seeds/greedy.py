@@ -95,7 +95,7 @@ def construir_solucion_heuristica(
 
     # Recorrido cronológico, asignando sectores al ATCo menos cargado.
     for t in range(n_slots):
-        sectores_en_t = list(entrada.get_lista_sectores_abiertos(t))
+        sectores_en_t = list(entrada.get_sectores_abiertos_en(t))
         rng.shuffle(sectores_en_t)  # diversidad en el orden de recorrido
 
         for sector_t in sectores_en_t:
@@ -103,7 +103,7 @@ def construir_solucion_heuristica(
                 i
                 for i in range(n_atcos)
                 if matriz[i][t] == STRING_DESCANSO
-                and _tiene_licencia(atcos[i], sector_t, ruta_ids, nucleo_a_sectores)
+                and _tiene_licencia(atcos[i], sector_t.id, ruta_ids, nucleo_a_sectores)
             ]
             if not candidatos:
                 continue  # EJ y PL no cubiertos
@@ -178,7 +178,7 @@ def _cachear_licencias(entrada: Entrada) -> tuple[set[str], dict[str, set[str]]]
           chequeo de núcleo.
     """
     ruta_ids: set[str] = {
-        s.id.lower() for s in entrada.get_lista_sectores_abiertos() if s.ruta
+        s.id.lower() for s in entrada.get_lista_sectores() if s.ruta
     }  # Si el sector del slot s es ruta se anota.
 
     # Registra los ids de los sectores de un núcleo

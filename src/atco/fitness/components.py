@@ -137,7 +137,7 @@ def cobertura_insatisfecha(
     cota = 0
     crudo = 0
     for t in range(longitud):
-        abiertos_t = entrada.get_lista_sectores_abiertos(t)
+        abiertos_t = entrada.get_sectores_abiertos_en(t)
         cota += 2 * len(abiertos_t)
         if not abiertos_t:
             continue

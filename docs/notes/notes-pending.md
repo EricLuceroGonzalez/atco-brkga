@@ -1,9 +1,10 @@
 # Pendientes
 
 <!-- - 🅿️ -->
+- 🅿️ Verificar qué es `solucion.turnos` (deberia ser `cadenas`)
 - 🅿️ Implementer el `logging`
 - 🅿️ Verificar en checks
-  
+   
     ```python
     p += 1
     p += (cnt - t_max) * 0.025

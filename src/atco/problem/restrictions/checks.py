@@ -409,11 +409,11 @@ def comprobar_ventana_trabajo_descanso(
     # media hora.
     p = 0.0
     ventana = (
-        (parametros.get_tiempo_trab_max() + parametros.get_tiempo_des_por_trabajo())
+        (parametros.get_tiempo_trab_max() + parametros.get_tiempo_des_por_turno())
         * 3
         // parametros.get_tamano_slots()
     )
-    d_min = parametros.get_tiempo_des_por_trabajo() // parametros.get_tamano_slots()
+    d_min = parametros.get_tiempo_des_por_turno() // parametros.get_tamano_slots()
     t_max = parametros.get_tiempo_trab_max() // parametros.get_tamano_slots()
     for turno in turnos:
         ds = tr = 0

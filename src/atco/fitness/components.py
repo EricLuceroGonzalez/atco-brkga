@@ -114,36 +114,42 @@ def cobertura_insatisfecha(
     entrada: Entrada,
     parametros: Parametros,  # noqa: ARG001
 ) -> tuple[int, int]:
-    """Cuenta pares (sector_abierto, slot) sin asignar.
+    """Cuenta posiciones (EJ o PL) sin cubrir respetando la sectorización por slot.
 
-    El modelo asume que todo sector listado en
-    `entrada.get_lista_sectores_abiertos()` debe estar cubierto por
-    algún controlador en cada slot del día. No hay granularidad
-    "abierto/cerrado por slot": la lista de sectores abiertos es
-    global al día.
-
-    Los IDs de sector se normalizan a minúsculas para comparar con los
-    tokens de la cadena, que vienen en mayúsculas.
+    Para cada slot `t`, la demanda de cobertura es:
+    `2 · |sectores_abiertos_en(t)|` (un ejecutivo y un planificador por
+    cada sector abierto en ese instante). El método
+    `entrada.get_lista_sectores_abiertos(t)` proporciona la lista de
+    sectores activos en el slot `t`, reflejando la **sectorización
+    dinámica del espacio aéreo**: el número de sectores abiertos varía
+    a lo largo del día según la configuración operativa.
 
     Returns:
         Tupla `(crudo, cota)`:
-        - `crudo`: pares `(sector_abierto, slot)` no cubiertos.
-        - `cota`: `T * |sectores_abiertos|`.
+        - `crudo`: número total de posiciones (EJ o PL) sin cubrir.
+        - `cota`: número total de posiciones a cubrir,
+          `sum(2 · |abiertos(t)|) sobre t`.
     """
     cadenas = solucion.turnos
     n = len(cadenas)
     longitud = _longitud_t(solucion)
-    abiertos_ids = {s.id.lower() for s in entrada.get_lista_sectores_abiertos()}
 
+    cota = 0
     crudo = 0
-    cota = longitud * len(abiertos_ids)
     for t in range(longitud):
-        cubiertos = {
-            _slot(cadenas[i], t).lower()
-            for i in range(n)
-            if _es_trabajo(_slot(cadenas[i], t))
+        abiertos_t = entrada.get_lista_sectores_abiertos(t)
+        cota += 2 * len(abiertos_t)
+        if not abiertos_t:
+            continue
+        tokens_t = {
+            _slot(cadenas[i], t) for i in range(n) if _es_trabajo(_slot(cadenas[i], t))
         }
-        crudo += len(abiertos_ids - cubiertos)
+        for sector in abiertos_t:
+            if sector.id.upper() not in tokens_t:
+                crudo += 1  # Falta ejecutivo
+            if sector.id.lower() not in tokens_t:
+                crudo += 1  # Falta planificador
+                crudo += 1
     return crudo, cota
 
 

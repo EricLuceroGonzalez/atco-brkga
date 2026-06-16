@@ -143,3 +143,6 @@ t-int:
 
 t-seeds:
 	@$(MAKE) testf TARGET=tests/unit/test_seeds.py
+
+t-fitness:
+	@$(MAKE) testf TARGET=tests/unit/test_fitness.py

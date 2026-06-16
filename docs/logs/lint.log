@@ -252,3 +252,164 @@ All checks passed!
 
 ===== 2026-06-14 04:35:47 — ruff check =====
 All checks passed!
+
+===== 2026-06-14 16:58:13 — ruff check =====
+I001 [*] Import block is un-sorted or un-formatted
+  --> tests/unit/test_restrictions.py:11:1
+   |
+ 9 |   """
+10 |
+11 | / from __future__ import annotations
+12 | |
+13 | | import pytest
+14 | |
+15 | | from atco.domain.constants import STRING_DESCANSO, STRING_NO_TURNO
+16 | | from atco.domain.models import Solucion
+17 | | from atco.problem.instance import Entrada
+18 | | from atco.problem.parameters import Parametros
+19 | | from atco.problem.restrictions import checks as _checks_mod
+20 | | from atco.problem.restrictions.checks import (
+21 | |     ensure_fast_cache,
+22 | |     comprobar_restricciones_en_paralelo,
+23 | |     penalizacion_por_restricciones,
+24 | |     restricciones_sin_pesos,
+25 | | )
+26 | | from atco.problem.restrictions.weights import PESO_POR_RESTRICCION
+   | |__________________________________________________________________^
+27 |
+28 |   # Lista canónica de las 14 comprobar_*, en orden de PESO_POR_RESTRICCION.
+   |
+help: Organize imports
+
+Found 1 error.
+[*] 1 fixable with the `--fix` option.
+
+===== 2026-06-14 16:59:34 — ruff check =====
+I001 [*] Import block is un-sorted or un-formatted
+  --> tests/unit/test_restrictions.py:11:1
+   |
+ 9 |   """
+10 |
+11 | / from __future__ import annotations
+12 | |
+13 | | import pytest
+14 | |
+15 | | from atco.problem.restrictions.weights import PESO_POR_RESTRICCION
+16 | | from atco.domain.constants import STRING_DESCANSO, STRING_NO_TURNO
+17 | | from atco.domain.models import Solucion
+18 | | from atco.problem.instance import Entrada
+19 | | from atco.problem.parameters import Parametros
+20 | | from atco.problem.restrictions import checks as _checks_mod
+21 | | from atco.problem.restrictions.checks import (
+22 | |     ensure_fast_cache,
+23 | |     comprobar_restricciones_en_paralelo,
+24 | |     penalizacion_por_restricciones,
+25 | |     restricciones_sin_pesos,
+26 | | )
+   | |_^
+27 |
+28 |   # Lista canónica de las 14 comprobar_*, en orden de PESO_POR_RESTRICCION.
+   |
+help: Organize imports
+
+Found 1 error.
+[*] 1 fixable with the `--fix` option.
+
+===== 2026-06-14 17:01:39 — ruff check =====
+I001 [*] Import block is un-sorted or un-formatted
+  --> tests/unit/test_restrictions.py:11:1
+   |
+ 9 |   """
+10 |
+11 | / from __future__ import annotations
+12 | |
+13 | | import pytest
+14 | |
+15 | | from atco.domain.constants import STRING_DESCANSO, STRING_NO_TURNO
+16 | | from atco.domain.models import Solucion
+17 | | from atco.problem.instance import Entrada
+18 | | from atco.problem.parameters import Parametros
+19 | | from atco.problem.restrictions.weights import PESO_POR_RESTRICCION
+20 | | from atco.problem.restrictions import checks as _checks_mod
+21 | | from atco.problem.restrictions.checks import (
+22 | |     ensure_fast_cache,
+23 | |     comprobar_restricciones_en_paralelo,
+24 | |     penalizacion_por_restricciones,
+25 | |     restricciones_sin_pesos,
+26 | | )
+   | |_^
+27 |
+28 |   # Lista canónica de las 14 comprobar_*, en orden de PESO_POR_RESTRICCION.
+   |
+help: Organize imports
+
+Found 1 error.
+[*] 1 fixable with the `--fix` option.
+
+===== 2026-06-14 17:05:52 — ruff check =====
+I001 [*] Import block is un-sorted or un-formatted
+  --> tests/unit/test_restrictions.py:11:1
+   |
+ 9 |   """
+10 |
+11 | / from __future__ import annotations
+12 | |
+13 | | import pytest
+14 | |
+15 | | from atco.domain.constants import STRING_DESCANSO, STRING_NO_TURNO
+16 | | from atco.domain.models import Solucion
+17 | | from atco.problem.instance import Entrada
+18 | | from atco.problem.parameters import Parametros
+19 | | from atco.problem.restrictions import checks as _checks_mod
+20 | | from atco.problem.restrictions.checks import (
+21 | |     ensure_fast_cache,
+22 | |     comprobar_restricciones_en_paralelo,
+23 | |     penalizacion_por_restricciones,
+24 | |     restricciones_sin_pesos,
+25 | | )
+26 | | from atco.problem.restrictions.weights import PESO_POR_RESTRICCION
+   | |__________________________________________________________________^
+27 |
+28 |   # Lista canónica de las 14 comprobar_*, en orden de PESO_POR_RESTRICCION.
+   |
+help: Organize imports
+
+Found 1 error.
+[*] 1 fixable with the `--fix` option.
+
+===== 2026-06-14 17:06:36 — ruff check =====
+All checks passed!
+
+===== 2026-06-14 17:06:42 — ruff check =====
+I001 [*] Import block is un-sorted or un-formatted
+  --> tests/unit/test_restrictions.py:11:1
+   |
+ 9 |   """
+10 |
+11 | / from __future__ import annotations
+12 | |
+13 | | import pytest
+14 | |
+15 | | from atco.domain.constants import STRING_DESCANSO, STRING_NO_TURNO
+16 | | from atco.domain.models import Solucion
+17 | | from atco.problem.instance import Entrada
+18 | | from atco.problem.parameters import Parametros
+19 | | from atco.problem.restrictions import checks as _checks_mod
+20 | | from atco.problem.restrictions.checks import (
+21 | |     ensure_fast_cache,
+22 | |     comprobar_restricciones_en_paralelo,
+23 | |     penalizacion_por_restricciones,
+24 | |     restricciones_sin_pesos,
+25 | | )
+26 | | from atco.problem.restrictions.weights import PESO_POR_RESTRICCION
+   | |__________________________________________________________________^
+27 |
+28 |   # Lista canónica de las 14 comprobar_*, en orden de PESO_POR_RESTRICCION.
+   |
+help: Organize imports
+
+Found 1 error.
+[*] 1 fixable with the `--fix` option.
+
+===== 2026-06-14 17:06:49 — ruff check =====
+All checks passed!

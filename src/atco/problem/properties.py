@@ -19,7 +19,9 @@ def load_properties(path: str | Path) -> dict[str, str]:
     current_key: str | None = None
     current_value = ""
 
-    for raw_line in Path(path).read_text(encoding="utf-8", errors="replace").splitlines():
+    for raw_line in (
+        Path(path).read_text(encoding="utf-8", errors="replace").splitlines()
+    ):
         line = raw_line.strip()
         if not line or line.startswith("#") or line.startswith("!"):
             continue
@@ -42,7 +44,7 @@ def load_properties(path: str | Path) -> dict[str, str]:
 
     if current_key is not None:
         result[current_key] = _unescape_property(current_value.strip())
-
+    print(result)
     return result
 
 

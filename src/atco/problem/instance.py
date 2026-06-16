@@ -5,7 +5,7 @@ from pathlib import Path
 from typing import Any
 
 from atco.domain.constants import STRING_DESCANSO
-from atco.domain.models import Controlador, Nucleo, Propiedades, Sector, Solucion, Turno
+from atco.domain.models import Controlador, Nucleo, Sector, Solucion, Turno
 from atco.problem.parameters import Parametros
 
 IDS = [
@@ -42,6 +42,22 @@ class Entrada:
     ) -> Entrada:
         repo = Path(repo)
         case_dir = repo / "entrada" / "Casos" / path
+        print(f"case_dir = {case_dir}")
+        print(f"path = {path}")
+        print(f"entorno = {entorno}")
+        print(f"entorno = {entrada_id}")
+        (
+            print("Apertura cool")
+            if _listar(case_dir / f"AperturaSectorizaciones_{entrada_id}.csv")
+            is not None
+            else print("No apertura")
+        )
+        (
+            print("Apertura cool")
+            if _listar(case_dir / f"ListaSectoresElementales_{entrada_id}.csv")
+            is not None
+            else print("No apertura")
+        )
         f_apertura = _listar(case_dir / f"AperturaSectorizaciones_{entrada_id}.csv")
         f_recursos = _listar(case_dir / f"RecursosDisponibles_{entrada_id}.csv")
         f_turno = _listar(case_dir / f"Turno_{entrada_id}.csv")
@@ -160,8 +176,9 @@ class Entrada:
         # t0 = self.slot_momento_actual
         # return self.sectorizacion[:t0] + self.sectorizacion_modificada[t0:]
 
-    def get_lista_sectores_abiertos(self) -> list[Sector]:
-        return self.lista_sectores_abiertos
+    def get_lista_sectores_abiertos(self, t: int) -> list[Sector]:
+        ids_t = self.sectorizacion[t]
+        return [s for s in self.lista_sectores if s.id in ids_t]
 
     def get_volumns_of_sectors(self) -> dict[str, list[str]]:
         return self.volumes_of_sectors
@@ -194,27 +211,24 @@ def _listar(path: str | Path, opcional: bool = False) -> list[str]:
 
 
 def crear_controladores(lines: list[str]) -> list[Controlador]:
+    """Parsea RecursosDisponibles.csv. Todos arrancan con disponibilidad completa."""
     controladores: list[Controlador] = []
-    for line in lines[1:]:
-        cols = line.split(";")
+    for raw in lines[1:]:
+        cols = raw.split(";")
         if len(cols) < 4:
             continue
-        is_ptd = cols[1].lower() == "ptd"
-        is_con = cols[1].lower() == "con"
-        if is_ptd or is_con:
-            controladores.append(
-                Controlador(
-                    int(cols[0][1:]),
-                    cols[3],
-                    cols[2],
-                    is_ptd,
-                    is_con,
-                    False,
-                    Propiedades.ALTA,
-                    0,
-                    -1,
-                )
+        is_con = cols[1] == "CON"
+        is_ptd = cols[1] == "PTD"
+        controladores.append(
+            Controlador(
+                id=int(cols[0][1:]),
+                turno=cols[3],
+                nucleo=cols[2],
+                ptd=is_ptd,
+                con=is_con,
+                # disponibilidad: default VentanaDisponibilidad() (completa)
             )
+        )
     return controladores
 
 
@@ -242,7 +256,7 @@ def crear_lista_sectores(
     sectores: list[Sector] = []
     # i = 2 para saltarse el encabezado de la tabla SectoresNucleos...
     for idx, line in enumerate(lines[2:]):
-        print(f"{idx}: {line}")
+        # print(f"{idx}: {line}")
         # Se separa cada fila del CSV SectoresNucles
         cols = line.split(";")
         if len(cols) < 2:
@@ -260,7 +274,7 @@ def crear_lista_sectores(
         # Si el Nucleo tiene "RUTA" en la columna 2 crea una instancia tipo RUTA,
         # sino crea una "APP" por defecto
         if kind == "ruta":
-            print(f"IDS[idx]: {IDS[idx]}")
+            # print(f"IDS[idx]: {IDS[idx]}")
             sectores.append(Sector(cols[0], IDS[idx], False, True, 0, elems))
         elif kind == "app":
             sectores.append(Sector(cols[0], IDS[idx], True, False, 0, elems))

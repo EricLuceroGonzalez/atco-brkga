@@ -75,7 +75,7 @@ class Parametros:
     tiempo_trab_max: int
     tiempo_trab_min: int
     tiempo_des_min: int
-    tiempo_des_por_trabajo: int
+    tiempo_des_por_turno: int
     tiempo_pos_min: int
     tiempo_pos_opt: int
     tiempo_trab_opt: int
@@ -91,6 +91,8 @@ class Parametros:
     ) -> Parametros:
         props = load_properties(problem_parameters)
         opts = load_properties(options)
+        print("options")
+        print(options)
         return cls(
             _float(props, "porcentajeDeDescansoDuranteDia"),
             _float(props, "porcentajeDeDescansoDuranteNoche"),
@@ -123,8 +125,8 @@ class Parametros:
     def get_tiempo_des_min(self) -> int:
         return self.tiempo_des_min
 
-    def get_tiempo_des_por_trabajo(self) -> int:
-        return self.tiempo_des_por_trabajo
+    def get_tiempo_des_por_turno(self) -> int:
+        return self.tiempo_des_por_turno
 
     def get_tiempo_pos_min(self) -> int:
         return self.tiempo_pos_min

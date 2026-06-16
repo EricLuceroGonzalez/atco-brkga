@@ -1,58 +1,97 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from enum import Enum
 from math import ceil
 
 from atco.problem.parameters import Parametros
 
 
-class Propiedades(Enum):
-    ALTA = "ALTA"
-    BAJA = "BAJA"
-    ALTABAJA = "ALTABAJA"
+@dataclass(frozen=True)
+class VentanaDisponibilidad:
+    """Ventana del turno en la que el controlador está disponible.
+
+    Restricción estratégica: el horario se planifica días antes y refleja
+    causas estructurales (formación programada, comisión de servicio,
+    jornada reducida pactada, permiso planificado) que reducen el tiempo
+    en el que el controlador puede ocupar una posición durante el turno.
+
+    Por defecto la ventana es completa (todo el turno). Solo se rellena
+    cuando el plan operativo registra una excepción.
+
+    Attributes:
+        slot_inicio_disponibilidad: Primer slot del turno en el que el
+            controlador está disponible. Default 0.
+        slot_fin_disponibilidad: Slot (exclusivo) a partir del cual deja
+            de estar disponible. `None` ≡ hasta el fin del turno.
+
+    Raises:
+        ValueError: Si `slot_inicio_disponibilidad` es negativo, o si
+            `slot_fin_disponibilidad` no es None y es ≤
+            `slot_inicio_disponibilidad` (ventana vacía o invertida).
+    """
+
+    slot_inicio_disponibilidad: int = 0
+    slot_fin_disponibilidad: int | None = None
+
+    def __post_init__(self) -> None:
+        if self.slot_inicio_disponibilidad < 0:
+            raise ValueError(
+                f"slot_inicio_disponibilidad debe ser ≥ 0, recibido "
+                f"{self.slot_inicio_disponibilidad}"
+            )
+        if (
+            self.slot_fin_disponibilidad is not None
+            and self.slot_fin_disponibilidad <= self.slot_inicio_disponibilidad
+        ):
+            raise ValueError(
+                f"Ventana vacía o invertida: "
+                f"slot_inicio={self.slot_inicio_disponibilidad}, "
+                f"slot_fin={self.slot_fin_disponibilidad}"
+            )
+
+    @property
+    def es_completa(self) -> bool:
+        """True si la ventana cubre todo el turno sin restricción."""
+        return (
+            self.slot_inicio_disponibilidad == 0
+            and self.slot_fin_disponibilidad is None
+        )
+
+    def contiene(self, slot: int) -> bool:
+        """True si el controlador está disponible en `slot`."""
+        if slot < self.slot_inicio_disponibilidad:
+            return False
+        if self.slot_fin_disponibilidad is None:
+            return True
+        return slot < self.slot_fin_disponibilidad
 
 
 @dataclass(eq=True)
 class Controlador:
+    """Controlador aéreo con sus licencias y disponibilidad estratégica."""
+
     id: int
     turno: str
     nucleo: str
     ptd: bool
     con: bool
-    baja_alta: Propiedades
-    slot_alta: int
-    slot_baja: int
+    disponibilidad: VentanaDisponibilidad = field(default_factory=VentanaDisponibilidad)
+    slots_trabajados: int = 0
     turno_asignado: int = -1
     turno_noche: int = 0
-    slots_trabajados: int = 0
 
-    def clone(self) -> Controlador:
+    def clone(self) -> "Controlador":
         return Controlador(
-            self.id,
-            self.turno,
-            self.nucleo,
-            self.ptd,
-            self.con,
-            self.baja_alta,
-            self.slot_alta,
-            self.slot_baja,
-            self.turno_asignado,
-            self.turno_noche,
-            self.slots_trabajados,
+            id=self.id,
+            turno=self.turno,
+            nucleo=self.nucleo,
+            ptd=self.ptd,
+            con=self.con,
+            disponibilidad=self.disponibilidad,  # frozen, safe to share
+            slots_trabajados=self.slots_trabajados,
+            turno_asignado=self.turno_asignado,
+            turno_noche=self.turno_noche,
         )
-
-    def get_slot_baja(self) -> int:
-        return self.slot_baja
-
-    def set_slot_baja(self, value: int) -> None:
-        self.slot_baja = value
-
-    def get_slot_alta(self) -> int:
-        return self.slot_alta
-
-    def set_slot_alta(self, value: int) -> None:
-        self.slot_alta = value
 
     def get_id(self) -> int:
         return self.id
@@ -95,12 +134,6 @@ class Controlador:
 
     def set_turno_noche(self, value: int) -> None:
         self.turno_noche = value
-
-    def get_baja_alta(self) -> Propiedades:
-        return self.baja_alta
-
-    def set_baja_alta(self, value: Propiedades) -> None:
-        self.baja_alta = value
 
 
 @dataclass
@@ -297,6 +330,7 @@ class Solucion:
     turnos: list[str]
     controladores: list[Controlador]
     longdescansos: int = 0
+    cadenas: list[list[str]] = field(default_factory=list)
 
     def clone(self) -> Solucion:
         return Solucion(

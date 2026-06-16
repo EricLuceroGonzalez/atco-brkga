@@ -146,3 +146,7 @@ t-seeds:
 
 t-fitness:
 	@$(MAKE) testf TARGET=tests/unit/test_fitness.py
+
+# ----- Atajos para smoke tests ----------------------------------------
+smoke:
+	uv run python experiments/01_seed_pop.py

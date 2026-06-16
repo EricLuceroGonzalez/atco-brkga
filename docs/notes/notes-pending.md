@@ -1,6 +1,7 @@
 # Pendientes
 
 <!-- - 🅿️ -->
+- 🅿️ Verificar si es conveniente: - Si $|\text{cand}| = 1$: solo EJ, PL queda descubierto (penalizado por fitness).
 - 🅿️ Verificar qué es `solucion.turnos` (deberia ser `cadenas`)
 - 🅿️ Implementer el `logging`
 - 🅿️ Verificar en checks

@@ -11,7 +11,6 @@ from atco.domain.models import Solucion
 from atco.fitness import FitnessConfig, FitnessResult, evaluar_fitness
 from atco.fitness.components import (
     descansos_largos,
-    desbalance_carga,
     fragmentacion,
 )
 from atco.problem.instance import Entrada
@@ -175,9 +174,9 @@ def test_cobertura_cota_es_doble_del_total_de_sectores_por_slot(
     sol = construir_solucion_heuristica(entrada_mad_n_m1, parametros, random.Random(42))
     _, cota = cobertura_insatisfecha(sol, entrada_mad_n_m1, parametros)
 
-    T = len(sol.turnos[0]) // 3
+    turnos = len(sol.turnos[0]) // 3
     n_sectores = len(entrada_mad_n_m1.get_sectores_abiertos_todo_el_dia())
-    assert cota == 2 * T * n_sectores
+    assert cota == 2 * turnos * n_sectores
 
 
 def test_cobertura_cota_respeta_sectorizacion_dinamica(
@@ -189,8 +188,8 @@ def test_cobertura_cota_respeta_sectorizacion_dinamica(
     sol = construir_solucion_heuristica(entrada_mad_n_m1, parametros, random.Random(42))
     _, cota = cobertura_insatisfecha(sol, entrada_mad_n_m1, parametros)
 
-    T = len(sol.turnos[0]) // 3
+    turnos = len(sol.turnos[0]) // 3
     esperada = sum(
-        2 * len(entrada_mad_n_m1.get_sectores_abiertos_en(t)) for t in range(T)
+        2 * len(entrada_mad_n_m1.get_sectores_abiertos_en(t)) for t in range(turnos)
     )
     assert cota == esperada

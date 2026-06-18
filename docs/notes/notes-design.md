@@ -87,14 +87,32 @@ Pesos por defecto: $\alpha_R=0.45,\ \alpha_C=0.30,\ \alpha_B=0.15,\ \alpha_F=0.1
 
 Métricas de **rendimiento** separadas del fitness, almacenadas en `RunResult` / `ConvergenceRecord`: tiempo wall-clock, n_evaluaciones, generaciones, mejora_relativa = (seed − final)/seed, robustez ($\bar f \pm \sigma$ sobre K corridas), tasa de éxito.
 
-Codificación, política de parada, etc., en §5.
+### Esquemas de codificación implementados
+
+| Decoder | L (genes) | Semántica | Uso |
+|---|---|---|---|
+| `PermutationDecoder` | $L = N$ | Cada gen es la prioridad global del ATCo $i$ para la fase 2 del greedy. Se usa como **tiebreaker** tras ordenar por carga. | **Principal** |
+| `ParametricDecoder` | $L \approx 5$ | Cada gen mapea a un hiperparámetro del greedy (peso del balance, peso de continuidad, softness del cap, etc.). | Comparativa académica |
+
+Ambos comparten la ABC `DecoderBase` con contrato `decode(chromosome, entrada, parametros) → Solucion`.
+
+### Política de parada
+
+Combinación `OR` de cuatro criterios:
+
+- Máximo de generaciones (default 200).
+- Máximo de evaluaciones de fitness (default sin tope).
+- Tiempo wall-clock máximo (default 300 s).
+- Generaciones consecutivas sin mejora del best (default 30).
+
+Cualquier criterio activo dispara la parada. Pasar `None` lo desactiva.
 
 ## 5. Decisiones pendientes
 
 | ID | Tema | Estado |
 |---|---|---|
-| D6 | Esquema de codificación cromosoma↔Solución (bin-midpoint vs permutación) | Abierta |
-| D7 | Política de parada del BRKGA | Abierta |
+| D6 | Esquema de codificación cromosoma-Solución  | Cerrado |
+| D7 | Política de parada del BRKGA | Cerrado |
 | D8 | Calibración de pesos $\alpha_i$: a priori vs sensitivity sweep vs AHP | A priori; sweep tras línea base |
 | D9 | Migración de `paralelo` a `ponderada_clasica` | Diferida |
 | D10 | Encendido de $L$ | Off; revisable tras experimentos |
@@ -120,3 +138,4 @@ Resende & Gonçalves (2011). *Handbook of Metaheuristics*, capítulo sobre BRKGA
 | 2026-06-16 | Cobertura del dominio: pareja EJ+PL por (sector, slot). Generador y `cobertura_insatisfecha` adaptados. |
 | 2026-06-16 | Convención de tokens: upper=EJ, lower=PL. |
 | 2026-06-16 | API de sectores marcada como pendiente refactor (D11). |
+| 2026-06-18 | D6 cerrada: `PermutationDecoder` (N genes, prioridad global como tiebreaker) y `ParametricDecoder` (K genes, hiperparámetros). D7 cerrada: parada por OR de cuatro criterios. |

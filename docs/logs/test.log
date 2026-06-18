@@ -1,5 +1,29 @@
 
-===== 2026-06-16 18:45:36 — pytest =====
+===== 2026-06-18 22:58:12 — pytest tests/unit/test_seeds.py =====
+============================= test session starts ==============================
+platform darwin -- Python 3.11.15, pytest-9.1.0, pluggy-1.6.0 -- /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga
+configfile: pyproject.toml
+plugins: anyio-4.14.0, cov-7.1.0
+collecting ... collected 12 items
+
+tests/unit/test_seeds.py::test_generador_cubre_la_mayoria_de_la_sectorizacion PASSED [  8%]
+tests/unit/test_seeds.py::test_generador_respeta_licencia_con PASSED     [ 16%]
+tests/unit/test_seeds.py::test_generador_respeta_ventana_de_turno PASSED [ 25%]
+tests/unit/test_seeds.py::test_generador_publica_biyeccion_atco_turno PASSED [ 33%]
+tests/unit/test_seeds.py::test_generador_publica_slots_trabajados_consistente PASSED [ 41%]
+tests/unit/test_seeds.py::test_generador_es_diverso_entre_llamadas PASSED [ 50%]
+tests/unit/test_seeds.py::test_generador_es_reproducible_con_misma_semilla PASSED [ 58%]
+tests/unit/test_seeds.py::test_generador_falla_con_controladores_vacios PASSED [ 66%]
+tests/unit/test_seeds.py::test_generador_asigna_ejecutivo_y_planificador_cuando_hay_dos_candidatos PASSED [ 75%]
+tests/unit/test_seeds.py::test_generador_nunca_pone_mismo_atco_como_ej_y_pl PASSED [ 83%]
+tests/unit/test_seeds.py::test_ningun_atco_supera_el_cap_de_trabajo_consecutivo PASSED [ 91%]
+tests/unit/test_seeds.py::test_descanso_minimo_tras_alcanzar_el_cap PASSED [100%]
+
+============================== 12 passed in 0.03s ==============================
+
+===== 2026-06-18 22:58:17 — pytest =====
 ============================= test session starts ==============================
 platform darwin -- Python 3.11.15, pytest-9.1.0, pluggy-1.6.0 -- /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/.venv/bin/python
 cachedir: .pytest_cache
@@ -7,7 +31,7 @@ rootdir: /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga
 configfile: pyproject.toml
 testpaths: tests
 plugins: anyio-4.14.0, cov-7.1.0
-collecting ... collected 67 items
+collecting ... collected 69 items
 
 tests/integration/test_instance.py::test_leer_entrada_caso_carga_sin_errores PASSED [  1%]
 tests/unit/test_fitness.py::TestFitnessConfig::test_defaults_son_validos PASSED [  2%]
@@ -19,974 +43,528 @@ tests/unit/test_fitness.py::TestDescansosLargos::test_una_racha_justo_en_umbral_
 tests/unit/test_fitness.py::TestDescansosLargos::test_dos_rachas_largas_misma_fila PASSED [ 11%]
 tests/unit/test_fitness.py::TestDescansosLargos::test_celdas_fuera_de_turno_no_cuentan_como_descanso PASSED [ 13%]
 tests/unit/test_fitness.py::TestFragmentacion::test_fila_homogenea_de_trabajo_da_cero PASSED [ 14%]
-tests/unit/test_fitness.py::TestFragmentacion::test_alternancia_total_da_transiciones_maximas PASSED [ 16%]
+tests/unit/test_fitness.py::TestFragmentacion::test_alternancia_total_da_transiciones_maximas PASSED [ 15%]
 tests/unit/test_fitness.py::TestFragmentacion::test_celdas_fuera_de_turno_no_se_cuentan PASSED [ 17%]
-tests/unit/test_fitness.py::TestEvaluarFitness::test_fitness_result_es_float_castable FAILED [ 19%]
-tests/unit/test_fitness.py::TestEvaluarFitness::test_componentes_tiene_las_cinco_claves FAILED [ 20%]
-tests/unit/test_fitness.py::TestEvaluarFitness::test_componentes_estan_en_rango_unitario FAILED [ 22%]
-tests/unit/test_fitness.py::TestEvaluarFitness::test_alpha_l_cero_anula_componente_l_en_valor FAILED [ 23%]
-tests/unit/test_fitness.py::TestEvaluarFitness::test_reproducibilidad_con_misma_semilla FAILED [ 25%]
-tests/unit/test_fitness.py::test_cobertura_cota_es_doble_del_total_de_sectores_por_slot PASSED [ 26%]
-tests/unit/test_fitness.py::test_cobertura_cota_respeta_sectorizacion_dinamica PASSED [ 28%]
-tests/unit/test_models.py::TestVentanaDisponibilidad::test_default_es_completa PASSED [ 29%]
-tests/unit/test_models.py::TestVentanaDisponibilidad::test_inicio_negativo_lanza_value_error PASSED [ 31%]
-tests/unit/test_models.py::TestVentanaDisponibilidad::test_ventana_invertida_lanza_value_error PASSED [ 32%]
-tests/unit/test_models.py::TestVentanaDisponibilidad::test_ventana_vacia_lanza_value_error PASSED [ 34%]
-tests/unit/test_models.py::TestVentanaDisponibilidad::test_contiene_dentro_de_la_ventana PASSED [ 35%]
-tests/unit/test_models.py::TestVentanaDisponibilidad::test_contiene_con_fin_none_no_limita_por_arriba PASSED [ 37%]
-tests/unit/test_models.py::test_controlador_constructor_minimo PASSED    [ 38%]
-tests/unit/test_models.py::test_controlador_clone_es_independiente PASSED [ 40%]
-tests/unit/test_models.py::test_controlador_getters_setters_round_trip PASSED [ 41%]
-tests/unit/test_models.py::test_controlador_slots_trabajados_default_cero PASSED [ 43%]
-tests/unit/test_models.py::test_controlador_slots_trabajados_se_clona PASSED [ 44%]
-tests/unit/test_models.py::test_sector_constructor PASSED                [ 46%]
-tests/unit/test_models.py::test_sector_igualdad_y_hash_por_id PASSED     [ 47%]
-tests/unit/test_models.py::test_nucleo_constructor_sectores_default_vacio PASSED [ 49%]
-tests/unit/test_models.py::test_turno_turnos_slots[10:30-18:30-12:30-18:30-esperado0] PASSED [ 50%]
-tests/unit/test_models.py::test_solucion_constructor PASSED              [ 52%]
-tests/unit/test_models.py::test_solucion_clone_es_deep_en_controladores PASSED [ 53%]
-tests/unit/test_models.py::test_solucion_shallow_clone_comparte_controladores PASSED [ 55%]
-tests/unit/test_restrictions.py::test_pesos_tienen_longitud_14 PASSED    [ 56%]
-tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_nucleo_trabajo] FAILED [ 58%]
-tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_tipo_sector] FAILED [ 59%]
-tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_porcentaje_descanso] FAILED [ 61%]
-tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_sectores_abiertos_noche] FAILED [ 62%]
-tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_trabajo_maximo_consecutivo] FAILED [ 64%]
-tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_controlador_turno_corto] FAILED [ 65%]
-tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_ventana_trabajo_descanso] FAILED [ 67%]
-tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_cambio_posicion] FAILED [ 68%]
-tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_trabajo_minimo_consecutivo] FAILED [ 70%]
-tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_descanso_minimo_consecutivo] FAILED [ 71%]
-tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_trabajo_posicion_minimo_consecutivo_no_regex] FAILED [ 73%]
-tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_num_maximo_sectores] FAILED [ 74%]
-tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_controlador_asignado] FAILED [ 76%]
-tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_turno_vacio] FAILED [ 77%]
-tests/unit/test_restrictions.py::test_acumulador_paralelo_devuelve_no_negativo FAILED [ 79%]
-tests/unit/test_restrictions.py::test_acumulador_sin_pesos_invariantes FAILED [ 80%]
-tests/unit/test_restrictions.py::test_acumulador_por_restricciones_publica_vector_global FAILED [ 82%]
-tests/unit/test_restrictions.py::test_turno_vacio_cuenta_solo_con_descanso_sin_trabajo PASSED [ 83%]
-tests/unit/test_restrictions.py::test_controlador_asignado_cuenta_huerfanos_y_no_asignados PASSED [ 85%]
-tests/unit/test_seeds.py::test_generador_cubre_toda_la_sectorizacion PASSED [ 86%]
-tests/unit/test_seeds.py::test_generador_respeta_licencia_con PASSED     [ 88%]
-tests/unit/test_seeds.py::test_generador_respeta_ventana_de_turno PASSED [ 89%]
-tests/unit/test_seeds.py::test_generador_publica_biyeccion_atco_turno PASSED [ 91%]
-tests/unit/test_seeds.py::test_generador_publica_slots_trabajados_consistente PASSED [ 92%]
-tests/unit/test_seeds.py::test_generador_es_diverso_entre_llamadas PASSED [ 94%]
-tests/unit/test_seeds.py::test_generador_es_reproducible_con_misma_semilla PASSED [ 95%]
-tests/unit/test_seeds.py::test_generador_falla_con_controladores_vacios PASSED [ 97%]
-tests/unit/test_seeds.py::test_generador_asigna_ejecutivo_y_planificador_cuando_hay_dos_candidatos PASSED [ 98%]
-tests/unit/test_seeds.py::test_generador_nunca_pone_mismo_atco_como_ej_y_pl PASSED [100%]
-
-=================================== FAILURES ===================================
-___________ TestEvaluarFitness.test_fitness_result_es_float_castable ___________
-
-self = <tests.unit.test_fitness.TestEvaluarFitness object at 0x106af7dd0>
-entrada_mad_n_m1 = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, disponibilidad=Venta...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
-parametros = Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des...o_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5))
-
-    def test_fitness_result_es_float_castable(
-        self, entrada_mad_n_m1: Entrada, parametros: Parametros
-    ) -> None:
-        sol = construir_solucion_heuristica(
-            entrada_mad_n_m1, parametros, random.Random(42)
-        )
->       result = evaluar_fitness(sol, entrada_mad_n_m1, parametros, FitnessConfig())
-                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-tests/unit/test_fitness.py:113: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-src/atco/fitness/objective.py:66: in evaluar_fitness
-    violadas = restricciones_violadas(solucion, entrada, parametros)
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-src/atco/fitness/components.py:51: in restricciones_violadas
-    violaciones = _checks(solucion, entrada, parametros)
-                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-src/atco/problem/restrictions/checks.py:158: in _checks
-    ensure_fast_cache(entrada)
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-
-entrada = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, disponibilidad=Venta...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
-
-    def ensure_fast_cache(entrada: Entrada) -> None:
-        if hasattr(entrada, "_fast_sector_ids"):
-            return
->       sectores = entrada.get_lista_sectores_abiertos()
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-E       AttributeError: 'Entrada' object has no attribute 'get_lista_sectores_abiertos'
-
-src/atco/problem/restrictions/checks.py:596: AttributeError
----------------------------- Captured stdout setup -----------------------------
-{'tamanoDeSlots': '5', 'porcentajeDeDescansoDuranteDia': '0.25', 'porcentajeDeDescansoDuranteNoche': '0.33', 'tiempoDeTrabajoMaximo': '120', 'tiempoDeTrabajoMinimo': '15', 'tiempoDeDescansoMinimo': '15', 'tiempoDeDescansoNoContinuoMinimo': '30', 'tiempoDeTrabajoEnPosicionMinimo': '15', 'tiempoDeTrabajoEnPosicionOptimo': '45', 'tiempoDeTrabajoOptimo': '90', 'numeroDeSectoresDistintosMaximo': '3', 'porcentajeDeTrabajoMaximoEnPosicion': '0.6', 'porcentajeDeTrabajoMinimoEnPosicion': '0.4', 'PesoPorcentajeDeDescansoDuranteDia': '0.25', 'PesoPorcentajeDeDescansoDuranteNoche': '0.33', 'PesoTiempoDeTrabajoMaximo': '120', 'PesoTiempoDeTrabajoMinimo': '15', 'PesoTiempoDeDescansoMinimo': '15', 'PesoTiempoDeDescansoNoContinuoMinimo': '30', 'PesoTiempoDeTrabajoEnPosicionMinimo': '15', 'PesoTiempoDeTrabajoEnPosicionOptimo': '45', 'PesoTiempoDeTrabajoOptimo': '90', 'PesoNumeroDeSectoresDistintosMaximo': '3', 'PesoPorcentajeDeTrabajoMaximoEnPosicion': '0.6', 'PesoPorcentajeDeTrabajoMinimoEnPosicion': '0.4', 'Obj1': '0.52', 'Obj1Sub1': '0.333', 'Obj1Sub2': '0.333', 'Obj1Sub3': '0.333', 'Obj2': '0.27', 'Obj3': '0.15', 'Obj3Sub1': '0.5', 'Obj3Sub2': '0.5', 'Obj4': '0.06'}
-{'tamanoDeSlots': '5', 'representacionDescanso': '111', 'representacionNumCaracteresSlot': '3', 'numMaximoSectores': '26', 'rutaTrazas': 'DT/trazas/', 'rutaExcels': 'DT/excels/', 'waitingtime': '30', 'EliminarTurnosVacios': 'TRUE', 'algoritmo': 'simulatedAnnealing', 'distribucionTrabajo': 'FALSE', 'algoritmoInit': 'greedy', 'funcionFitness': 'SANoPermiteSolucionesInvalidas', 'patterns': 'onlyNecesaryPatterns', 'trazas': 'true', 'tamanoIntervaloRealizado': 'true', 'numControladores1Probados': 'true', 'numIntervalosProbados': 'true', 'numControladores2Probados': 'true', 'fitnessIndividuoActual': 'true', 'fitnessf1': 'true', 'fitnessf2': 'true', 'diferenciaFitness': 'true', 'fitnessMejorIndividuo': 'true', 'temperatura': 'true', 'mejora': 'true', 'probabilidadEleccion': 'true', 'cambioRealizado': 'true'}
-options
-/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/resources/options.properties
-{'tamanoDeSlots': '5', 'porcentajeDeDescansoDuranteDia': '0.25', 'porcentajeDeDescansoDuranteNoche': '0.33', 'tiempoDeTrabajoMaximo': '120', 'tiempoDeTrabajoMinimo': '15', 'tiempoDeDescansoMinimo': '15', 'tiempoDeDescansoNoContinuoMinimo': '30', 'tiempoDeTrabajoEnPosicionMinimo': '15', 'tiempoDeTrabajoEnPosicionOptimo': '45', 'tiempoDeTrabajoOptimo': '90', 'numeroDeSectoresDistintosMaximo': '3', 'porcentajeDeTrabajoMaximoEnPosicion': '0.6', 'porcentajeDeTrabajoMinimoEnPosicion': '0.4', 'PesoPorcentajeDeDescansoDuranteDia': '0.25', 'PesoPorcentajeDeDescansoDuranteNoche': '0.33', 'PesoTiempoDeTrabajoMaximo': '120', 'PesoTiempoDeTrabajoMinimo': '15', 'PesoTiempoDeDescansoMinimo': '15', 'PesoTiempoDeDescansoNoContinuoMinimo': '30', 'PesoTiempoDeTrabajoEnPosicionMinimo': '15', 'PesoTiempoDeTrabajoEnPosicionOptimo': '45', 'PesoTiempoDeTrabajoOptimo': '90', 'PesoNumeroDeSectoresDistintosMaximo': '3', 'PesoPorcentajeDeTrabajoMaximoEnPosicion': '0.6', 'PesoPorcentajeDeTrabajoMinimoEnPosicion': '0.4', 'Obj1': '0.52', 'Obj1Sub1': '0.333', 'Obj1Sub2': '0.333', 'Obj1Sub3': '0.333', 'Obj2': '0.27', 'Obj3': '0.15', 'Obj3Sub1': '0.5', 'Obj3Sub2': '0.5', 'Obj4': '0.06'}
-case_dir = /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/entrada/Casos/madN_M1
-path = madN_M1
-entorno = Madrid
-entorno = madN_M1-2019-02-12
-Apertura cool
-Apertura cool
-
-
-
-crear_sectorizacion() con 99, [0, 99]
-Turno: Turno(nombre='Manana', inicio_tl='06:30:00', fin_tl='14:45:00', inicio_tc='06:30:00', fin_tc='14:45:00', parametros=Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des_min=15, tiempo_des_por_turno=30, tiempo_pos_min=15, tiempo_pos_opt=45, tiempo_trab_opt=90, num_sctrs_max=3, porcent_pos_max=0.6, porcent_pos_min=0.4, tamano_slots=5, pesos_objetivos=PesosObjetivos(peso_obj1=0.52, peso_obj2=0.27, peso_obj3=0.15, peso_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5)), tc=[0, 99], tl=[0, 99], slots_des_tc=25, slots_des_tl=25)
-cols=['Madrid Ruta 1', 'CONF', '0', '8A', '06:30:00', '14:45:00']
-====================================================================================================
-introducir_lista_sectores()
-nucleo = Madrid Ruta 1
-conf = 8A
-LECMASI is aaa
-LECMASI is aaa
-LECMBLL is aag
-LECMBLU is aah
-LECMDGL is aan
-LECMDGU is aao
-LECMPAL is aar
-LECMPAU is aas
-LECMSAN is aax
-LECMSAN is aax
-ids = <class 'list'>
-horas: 8, min: 480
-minutos: 15
-Inicio de turno: 06:30:00, Len = 99 slots de 5 min
-horas: 0, min: 0
-minutos: 0
-Offset = 0
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-tipo sctori: <class 'list'> con len: 99
-__________ TestEvaluarFitness.test_componentes_tiene_las_cinco_claves __________
-
-self = <tests.unit.test_fitness.TestEvaluarFitness object at 0x106b00510>
-entrada_mad_n_m1 = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, disponibilidad=Venta...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
-parametros = Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des...o_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5))
-
-    def test_componentes_tiene_las_cinco_claves(
-        self, entrada_mad_n_m1: Entrada, parametros: Parametros
-    ) -> None:
-        sol = construir_solucion_heuristica(
-            entrada_mad_n_m1, parametros, random.Random(42)
-        )
->       result = evaluar_fitness(sol, entrada_mad_n_m1, parametros, FitnessConfig())
-                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-tests/unit/test_fitness.py:123: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-src/atco/fitness/objective.py:66: in evaluar_fitness
-    violadas = restricciones_violadas(solucion, entrada, parametros)
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-src/atco/fitness/components.py:51: in restricciones_violadas
-    violaciones = _checks(solucion, entrada, parametros)
-                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-src/atco/problem/restrictions/checks.py:158: in _checks
-    ensure_fast_cache(entrada)
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-
-entrada = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, disponibilidad=Venta...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
-
-    def ensure_fast_cache(entrada: Entrada) -> None:
-        if hasattr(entrada, "_fast_sector_ids"):
-            return
->       sectores = entrada.get_lista_sectores_abiertos()
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-E       AttributeError: 'Entrada' object has no attribute 'get_lista_sectores_abiertos'
-
-src/atco/problem/restrictions/checks.py:596: AttributeError
-_________ TestEvaluarFitness.test_componentes_estan_en_rango_unitario __________
-
-self = <tests.unit.test_fitness.TestEvaluarFitness object at 0x106af6490>
-entrada_mad_n_m1 = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, disponibilidad=Venta...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
-parametros = Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des...o_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5))
-
-    def test_componentes_estan_en_rango_unitario(
-        self, entrada_mad_n_m1: Entrada, parametros: Parametros
-    ) -> None:
-        sol = construir_solucion_heuristica(
-            entrada_mad_n_m1, parametros, random.Random(42)
-        )
->       result = evaluar_fitness(sol, entrada_mad_n_m1, parametros, FitnessConfig())
-                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-tests/unit/test_fitness.py:133: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-src/atco/fitness/objective.py:66: in evaluar_fitness
-    violadas = restricciones_violadas(solucion, entrada, parametros)
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-src/atco/fitness/components.py:51: in restricciones_violadas
-    violaciones = _checks(solucion, entrada, parametros)
-                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-src/atco/problem/restrictions/checks.py:158: in _checks
-    ensure_fast_cache(entrada)
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-
-entrada = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, disponibilidad=Venta...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
-
-    def ensure_fast_cache(entrada: Entrada) -> None:
-        if hasattr(entrada, "_fast_sector_ids"):
-            return
->       sectores = entrada.get_lista_sectores_abiertos()
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-E       AttributeError: 'Entrada' object has no attribute 'get_lista_sectores_abiertos'
-
-src/atco/problem/restrictions/checks.py:596: AttributeError
-_______ TestEvaluarFitness.test_alpha_l_cero_anula_componente_l_en_valor _______
-
-self = <tests.unit.test_fitness.TestEvaluarFitness object at 0x106ae6c50>
-entrada_mad_n_m1 = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, disponibilidad=Venta...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
-parametros = Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des...o_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5))
-
-    def test_alpha_l_cero_anula_componente_l_en_valor(
-        self, entrada_mad_n_m1: Entrada, parametros: Parametros
-    ) -> None:
-        sol = construir_solucion_heuristica(
-            entrada_mad_n_m1, parametros, random.Random(42)
-        )
-        cfg = FitnessConfig()  # alpha_l = 0
->       result = evaluar_fitness(sol, entrada_mad_n_m1, parametros, cfg)
-                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-tests/unit/test_fitness.py:144: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-src/atco/fitness/objective.py:66: in evaluar_fitness
-    violadas = restricciones_violadas(solucion, entrada, parametros)
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-src/atco/fitness/components.py:51: in restricciones_violadas
-    violaciones = _checks(solucion, entrada, parametros)
-                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-src/atco/problem/restrictions/checks.py:158: in _checks
-    ensure_fast_cache(entrada)
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-
-entrada = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, disponibilidad=Venta...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
-
-    def ensure_fast_cache(entrada: Entrada) -> None:
-        if hasattr(entrada, "_fast_sector_ids"):
-            return
->       sectores = entrada.get_lista_sectores_abiertos()
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-E       AttributeError: 'Entrada' object has no attribute 'get_lista_sectores_abiertos'
-
-src/atco/problem/restrictions/checks.py:596: AttributeError
-__________ TestEvaluarFitness.test_reproducibilidad_con_misma_semilla __________
-
-self = <tests.unit.test_fitness.TestEvaluarFitness object at 0x106b00b50>
-entrada_mad_n_m1 = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, disponibilidad=Venta...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
-parametros = Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des...o_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5))
-
-    def test_reproducibilidad_con_misma_semilla(
-        self, entrada_mad_n_m1: Entrada, parametros: Parametros
-    ) -> None:
-        sol_a = construir_solucion_heuristica(
-            entrada_mad_n_m1, parametros, random.Random(7)
-        )
-        sol_b = construir_solucion_heuristica(
-            entrada_mad_n_m1, parametros, random.Random(7)
-        )
-        cfg = FitnessConfig()
-        assert (
->           evaluar_fitness(sol_a, entrada_mad_n_m1, parametros, cfg).valor
-            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-            == evaluar_fitness(sol_b, entrada_mad_n_m1, parametros, cfg).valor
-        )
-
-tests/unit/test_fitness.py:164: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-src/atco/fitness/objective.py:66: in evaluar_fitness
-    violadas = restricciones_violadas(solucion, entrada, parametros)
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-src/atco/fitness/components.py:51: in restricciones_violadas
-    violaciones = _checks(solucion, entrada, parametros)
-                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-src/atco/problem/restrictions/checks.py:158: in _checks
-    ensure_fast_cache(entrada)
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-
-entrada = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, disponibilidad=Venta...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
-
-    def ensure_fast_cache(entrada: Entrada) -> None:
-        if hasattr(entrada, "_fast_sector_ids"):
-            return
->       sectores = entrada.get_lista_sectores_abiertos()
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-E       AttributeError: 'Entrada' object has no attribute 'get_lista_sectores_abiertos'
-
-src/atco/problem/restrictions/checks.py:596: AttributeError
-__________ test_smoke_check_devuelve_numero[comprobar_nucleo_trabajo] __________
-
-nombre_check = 'comprobar_nucleo_trabajo'
-entrada_mad_n_m1 = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, disponibilidad=Venta...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
-parametros = Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des...o_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5))
-
-    @pytest.mark.parametrize("nombre_check", ALL_CHECKS)
-    def test_smoke_check_devuelve_numero(
-        nombre_check: str,
-        entrada_mad_n_m1: Entrada,
-        parametros: Parametros,
-    ) -> None:
-        """Cada comprobar_* devuelve un número finito sobre la distribución inicial."""
-        check_fn = getattr(_checks_mod, nombre_check)
-        sol = entrada_mad_n_m1.get_distribucion_inicial()
->       resultado = _llamar_check(check_fn, sol, entrada_mad_n_m1, parametros)
-                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-tests/unit/test_restrictions.py:65: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-tests/unit/test_restrictions.py:72: in _llamar_check
-    ensure_fast_cache(entrada)
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-
-entrada = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, disponibilidad=Venta...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
-
-    def ensure_fast_cache(entrada: Entrada) -> None:
-        if hasattr(entrada, "_fast_sector_ids"):
-            return
->       sectores = entrada.get_lista_sectores_abiertos()
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-E       AttributeError: 'Entrada' object has no attribute 'get_lista_sectores_abiertos'
-
-src/atco/problem/restrictions/checks.py:596: AttributeError
-___________ test_smoke_check_devuelve_numero[comprobar_tipo_sector] ____________
-
-nombre_check = 'comprobar_tipo_sector'
-entrada_mad_n_m1 = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, disponibilidad=Venta...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
-parametros = Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des...o_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5))
-
-    @pytest.mark.parametrize("nombre_check", ALL_CHECKS)
-    def test_smoke_check_devuelve_numero(
-        nombre_check: str,
-        entrada_mad_n_m1: Entrada,
-        parametros: Parametros,
-    ) -> None:
-        """Cada comprobar_* devuelve un número finito sobre la distribución inicial."""
-        check_fn = getattr(_checks_mod, nombre_check)
-        sol = entrada_mad_n_m1.get_distribucion_inicial()
->       resultado = _llamar_check(check_fn, sol, entrada_mad_n_m1, parametros)
-                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-tests/unit/test_restrictions.py:65: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-tests/unit/test_restrictions.py:72: in _llamar_check
-    ensure_fast_cache(entrada)
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-
-entrada = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, disponibilidad=Venta...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
-
-    def ensure_fast_cache(entrada: Entrada) -> None:
-        if hasattr(entrada, "_fast_sector_ids"):
-            return
->       sectores = entrada.get_lista_sectores_abiertos()
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-E       AttributeError: 'Entrada' object has no attribute 'get_lista_sectores_abiertos'
-
-src/atco/problem/restrictions/checks.py:596: AttributeError
-_______ test_smoke_check_devuelve_numero[comprobar_porcentaje_descanso] ________
-
-nombre_check = 'comprobar_porcentaje_descanso'
-entrada_mad_n_m1 = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, disponibilidad=Venta...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
-parametros = Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des...o_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5))
-
-    @pytest.mark.parametrize("nombre_check", ALL_CHECKS)
-    def test_smoke_check_devuelve_numero(
-        nombre_check: str,
-        entrada_mad_n_m1: Entrada,
-        parametros: Parametros,
-    ) -> None:
-        """Cada comprobar_* devuelve un número finito sobre la distribución inicial."""
-        check_fn = getattr(_checks_mod, nombre_check)
-        sol = entrada_mad_n_m1.get_distribucion_inicial()
->       resultado = _llamar_check(check_fn, sol, entrada_mad_n_m1, parametros)
-                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-tests/unit/test_restrictions.py:65: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-tests/unit/test_restrictions.py:72: in _llamar_check
-    ensure_fast_cache(entrada)
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-
-entrada = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, disponibilidad=Venta...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
-
-    def ensure_fast_cache(entrada: Entrada) -> None:
-        if hasattr(entrada, "_fast_sector_ids"):
-            return
->       sectores = entrada.get_lista_sectores_abiertos()
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-E       AttributeError: 'Entrada' object has no attribute 'get_lista_sectores_abiertos'
-
-src/atco/problem/restrictions/checks.py:596: AttributeError
-_____ test_smoke_check_devuelve_numero[comprobar_sectores_abiertos_noche] ______
-
-nombre_check = 'comprobar_sectores_abiertos_noche'
-entrada_mad_n_m1 = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, disponibilidad=Venta...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
-parametros = Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des...o_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5))
-
-    @pytest.mark.parametrize("nombre_check", ALL_CHECKS)
-    def test_smoke_check_devuelve_numero(
-        nombre_check: str,
-        entrada_mad_n_m1: Entrada,
-        parametros: Parametros,
-    ) -> None:
-        """Cada comprobar_* devuelve un número finito sobre la distribución inicial."""
-        check_fn = getattr(_checks_mod, nombre_check)
-        sol = entrada_mad_n_m1.get_distribucion_inicial()
->       resultado = _llamar_check(check_fn, sol, entrada_mad_n_m1, parametros)
-                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-tests/unit/test_restrictions.py:65: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-tests/unit/test_restrictions.py:72: in _llamar_check
-    ensure_fast_cache(entrada)
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-
-entrada = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, disponibilidad=Venta...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
-
-    def ensure_fast_cache(entrada: Entrada) -> None:
-        if hasattr(entrada, "_fast_sector_ids"):
-            return
->       sectores = entrada.get_lista_sectores_abiertos()
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-E       AttributeError: 'Entrada' object has no attribute 'get_lista_sectores_abiertos'
-
-src/atco/problem/restrictions/checks.py:596: AttributeError
-____ test_smoke_check_devuelve_numero[comprobar_trabajo_maximo_consecutivo] ____
-
-nombre_check = 'comprobar_trabajo_maximo_consecutivo'
-entrada_mad_n_m1 = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, disponibilidad=Venta...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
-parametros = Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des...o_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5))
-
-    @pytest.mark.parametrize("nombre_check", ALL_CHECKS)
-    def test_smoke_check_devuelve_numero(
-        nombre_check: str,
-        entrada_mad_n_m1: Entrada,
-        parametros: Parametros,
-    ) -> None:
-        """Cada comprobar_* devuelve un número finito sobre la distribución inicial."""
-        check_fn = getattr(_checks_mod, nombre_check)
-        sol = entrada_mad_n_m1.get_distribucion_inicial()
->       resultado = _llamar_check(check_fn, sol, entrada_mad_n_m1, parametros)
-                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-tests/unit/test_restrictions.py:65: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-tests/unit/test_restrictions.py:72: in _llamar_check
-    ensure_fast_cache(entrada)
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-
-entrada = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, disponibilidad=Venta...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
-
-    def ensure_fast_cache(entrada: Entrada) -> None:
-        if hasattr(entrada, "_fast_sector_ids"):
-            return
->       sectores = entrada.get_lista_sectores_abiertos()
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-E       AttributeError: 'Entrada' object has no attribute 'get_lista_sectores_abiertos'
-
-src/atco/problem/restrictions/checks.py:596: AttributeError
-_____ test_smoke_check_devuelve_numero[comprobar_controlador_turno_corto] ______
-
-nombre_check = 'comprobar_controlador_turno_corto'
-entrada_mad_n_m1 = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, disponibilidad=Venta...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
-parametros = Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des...o_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5))
-
-    @pytest.mark.parametrize("nombre_check", ALL_CHECKS)
-    def test_smoke_check_devuelve_numero(
-        nombre_check: str,
-        entrada_mad_n_m1: Entrada,
-        parametros: Parametros,
-    ) -> None:
-        """Cada comprobar_* devuelve un número finito sobre la distribución inicial."""
-        check_fn = getattr(_checks_mod, nombre_check)
-        sol = entrada_mad_n_m1.get_distribucion_inicial()
->       resultado = _llamar_check(check_fn, sol, entrada_mad_n_m1, parametros)
-                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-tests/unit/test_restrictions.py:65: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-tests/unit/test_restrictions.py:72: in _llamar_check
-    ensure_fast_cache(entrada)
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-
-entrada = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, disponibilidad=Venta...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
-
-    def ensure_fast_cache(entrada: Entrada) -> None:
-        if hasattr(entrada, "_fast_sector_ids"):
-            return
->       sectores = entrada.get_lista_sectores_abiertos()
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-E       AttributeError: 'Entrada' object has no attribute 'get_lista_sectores_abiertos'
-
-src/atco/problem/restrictions/checks.py:596: AttributeError
-_____ test_smoke_check_devuelve_numero[comprobar_ventana_trabajo_descanso] _____
-
-nombre_check = 'comprobar_ventana_trabajo_descanso'
-entrada_mad_n_m1 = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, disponibilidad=Venta...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
-parametros = Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des...o_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5))
-
-    @pytest.mark.parametrize("nombre_check", ALL_CHECKS)
-    def test_smoke_check_devuelve_numero(
-        nombre_check: str,
-        entrada_mad_n_m1: Entrada,
-        parametros: Parametros,
-    ) -> None:
-        """Cada comprobar_* devuelve un número finito sobre la distribución inicial."""
-        check_fn = getattr(_checks_mod, nombre_check)
-        sol = entrada_mad_n_m1.get_distribucion_inicial()
->       resultado = _llamar_check(check_fn, sol, entrada_mad_n_m1, parametros)
-                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-tests/unit/test_restrictions.py:65: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-tests/unit/test_restrictions.py:72: in _llamar_check
-    ensure_fast_cache(entrada)
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-
-entrada = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, disponibilidad=Venta...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
-
-    def ensure_fast_cache(entrada: Entrada) -> None:
-        if hasattr(entrada, "_fast_sector_ids"):
-            return
->       sectores = entrada.get_lista_sectores_abiertos()
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-E       AttributeError: 'Entrada' object has no attribute 'get_lista_sectores_abiertos'
-
-src/atco/problem/restrictions/checks.py:596: AttributeError
-_________ test_smoke_check_devuelve_numero[comprobar_cambio_posicion] __________
-
-nombre_check = 'comprobar_cambio_posicion'
-entrada_mad_n_m1 = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, disponibilidad=Venta...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
-parametros = Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des...o_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5))
-
-    @pytest.mark.parametrize("nombre_check", ALL_CHECKS)
-    def test_smoke_check_devuelve_numero(
-        nombre_check: str,
-        entrada_mad_n_m1: Entrada,
-        parametros: Parametros,
-    ) -> None:
-        """Cada comprobar_* devuelve un número finito sobre la distribución inicial."""
-        check_fn = getattr(_checks_mod, nombre_check)
-        sol = entrada_mad_n_m1.get_distribucion_inicial()
->       resultado = _llamar_check(check_fn, sol, entrada_mad_n_m1, parametros)
-                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-tests/unit/test_restrictions.py:65: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-tests/unit/test_restrictions.py:72: in _llamar_check
-    ensure_fast_cache(entrada)
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-
-entrada = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, disponibilidad=Venta...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
-
-    def ensure_fast_cache(entrada: Entrada) -> None:
-        if hasattr(entrada, "_fast_sector_ids"):
-            return
->       sectores = entrada.get_lista_sectores_abiertos()
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-E       AttributeError: 'Entrada' object has no attribute 'get_lista_sectores_abiertos'
-
-src/atco/problem/restrictions/checks.py:596: AttributeError
-____ test_smoke_check_devuelve_numero[comprobar_trabajo_minimo_consecutivo] ____
-
-nombre_check = 'comprobar_trabajo_minimo_consecutivo'
-entrada_mad_n_m1 = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, disponibilidad=Venta...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
-parametros = Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des...o_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5))
-
-    @pytest.mark.parametrize("nombre_check", ALL_CHECKS)
-    def test_smoke_check_devuelve_numero(
-        nombre_check: str,
-        entrada_mad_n_m1: Entrada,
-        parametros: Parametros,
-    ) -> None:
-        """Cada comprobar_* devuelve un número finito sobre la distribución inicial."""
-        check_fn = getattr(_checks_mod, nombre_check)
-        sol = entrada_mad_n_m1.get_distribucion_inicial()
->       resultado = _llamar_check(check_fn, sol, entrada_mad_n_m1, parametros)
-                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-tests/unit/test_restrictions.py:65: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-tests/unit/test_restrictions.py:72: in _llamar_check
-    ensure_fast_cache(entrada)
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-
-entrada = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, disponibilidad=Venta...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
-
-    def ensure_fast_cache(entrada: Entrada) -> None:
-        if hasattr(entrada, "_fast_sector_ids"):
-            return
->       sectores = entrada.get_lista_sectores_abiertos()
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-E       AttributeError: 'Entrada' object has no attribute 'get_lista_sectores_abiertos'
-
-src/atco/problem/restrictions/checks.py:596: AttributeError
-___ test_smoke_check_devuelve_numero[comprobar_descanso_minimo_consecutivo] ____
-
-nombre_check = 'comprobar_descanso_minimo_consecutivo'
-entrada_mad_n_m1 = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, disponibilidad=Venta...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
-parametros = Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des...o_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5))
-
-    @pytest.mark.parametrize("nombre_check", ALL_CHECKS)
-    def test_smoke_check_devuelve_numero(
-        nombre_check: str,
-        entrada_mad_n_m1: Entrada,
-        parametros: Parametros,
-    ) -> None:
-        """Cada comprobar_* devuelve un número finito sobre la distribución inicial."""
-        check_fn = getattr(_checks_mod, nombre_check)
-        sol = entrada_mad_n_m1.get_distribucion_inicial()
->       resultado = _llamar_check(check_fn, sol, entrada_mad_n_m1, parametros)
-                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-tests/unit/test_restrictions.py:65: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-tests/unit/test_restrictions.py:72: in _llamar_check
-    ensure_fast_cache(entrada)
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-
-entrada = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, disponibilidad=Venta...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
-
-    def ensure_fast_cache(entrada: Entrada) -> None:
-        if hasattr(entrada, "_fast_sector_ids"):
-            return
->       sectores = entrada.get_lista_sectores_abiertos()
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-E       AttributeError: 'Entrada' object has no attribute 'get_lista_sectores_abiertos'
-
-src/atco/problem/restrictions/checks.py:596: AttributeError
-_ test_smoke_check_devuelve_numero[comprobar_trabajo_posicion_minimo_consecutivo_no_regex] _
-
-nombre_check = 'comprobar_trabajo_posicion_minimo_consecutivo_no_regex'
-entrada_mad_n_m1 = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, disponibilidad=Venta...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
-parametros = Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des...o_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5))
-
-    @pytest.mark.parametrize("nombre_check", ALL_CHECKS)
-    def test_smoke_check_devuelve_numero(
-        nombre_check: str,
-        entrada_mad_n_m1: Entrada,
-        parametros: Parametros,
-    ) -> None:
-        """Cada comprobar_* devuelve un número finito sobre la distribución inicial."""
-        check_fn = getattr(_checks_mod, nombre_check)
-        sol = entrada_mad_n_m1.get_distribucion_inicial()
->       resultado = _llamar_check(check_fn, sol, entrada_mad_n_m1, parametros)
-                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-tests/unit/test_restrictions.py:65: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-tests/unit/test_restrictions.py:72: in _llamar_check
-    ensure_fast_cache(entrada)
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-
-entrada = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, disponibilidad=Venta...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
-
-    def ensure_fast_cache(entrada: Entrada) -> None:
-        if hasattr(entrada, "_fast_sector_ids"):
-            return
->       sectores = entrada.get_lista_sectores_abiertos()
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-E       AttributeError: 'Entrada' object has no attribute 'get_lista_sectores_abiertos'
-
-src/atco/problem/restrictions/checks.py:596: AttributeError
-_______ test_smoke_check_devuelve_numero[comprobar_num_maximo_sectores] ________
-
-nombre_check = 'comprobar_num_maximo_sectores'
-entrada_mad_n_m1 = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, disponibilidad=Venta...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
-parametros = Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des...o_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5))
-
-    @pytest.mark.parametrize("nombre_check", ALL_CHECKS)
-    def test_smoke_check_devuelve_numero(
-        nombre_check: str,
-        entrada_mad_n_m1: Entrada,
-        parametros: Parametros,
-    ) -> None:
-        """Cada comprobar_* devuelve un número finito sobre la distribución inicial."""
-        check_fn = getattr(_checks_mod, nombre_check)
-        sol = entrada_mad_n_m1.get_distribucion_inicial()
->       resultado = _llamar_check(check_fn, sol, entrada_mad_n_m1, parametros)
-                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-tests/unit/test_restrictions.py:65: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-tests/unit/test_restrictions.py:72: in _llamar_check
-    ensure_fast_cache(entrada)
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-
-entrada = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, disponibilidad=Venta...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
-
-    def ensure_fast_cache(entrada: Entrada) -> None:
-        if hasattr(entrada, "_fast_sector_ids"):
-            return
->       sectores = entrada.get_lista_sectores_abiertos()
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-E       AttributeError: 'Entrada' object has no attribute 'get_lista_sectores_abiertos'
-
-src/atco/problem/restrictions/checks.py:596: AttributeError
-_______ test_smoke_check_devuelve_numero[comprobar_controlador_asignado] _______
-
-nombre_check = 'comprobar_controlador_asignado'
-entrada_mad_n_m1 = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, disponibilidad=Venta...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
-parametros = Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des...o_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5))
-
-    @pytest.mark.parametrize("nombre_check", ALL_CHECKS)
-    def test_smoke_check_devuelve_numero(
-        nombre_check: str,
-        entrada_mad_n_m1: Entrada,
-        parametros: Parametros,
-    ) -> None:
-        """Cada comprobar_* devuelve un número finito sobre la distribución inicial."""
-        check_fn = getattr(_checks_mod, nombre_check)
-        sol = entrada_mad_n_m1.get_distribucion_inicial()
->       resultado = _llamar_check(check_fn, sol, entrada_mad_n_m1, parametros)
-                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-tests/unit/test_restrictions.py:65: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-tests/unit/test_restrictions.py:72: in _llamar_check
-    ensure_fast_cache(entrada)
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-
-entrada = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, disponibilidad=Venta...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
-
-    def ensure_fast_cache(entrada: Entrada) -> None:
-        if hasattr(entrada, "_fast_sector_ids"):
-            return
->       sectores = entrada.get_lista_sectores_abiertos()
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-E       AttributeError: 'Entrada' object has no attribute 'get_lista_sectores_abiertos'
-
-src/atco/problem/restrictions/checks.py:596: AttributeError
-___________ test_smoke_check_devuelve_numero[comprobar_turno_vacio] ____________
-
-nombre_check = 'comprobar_turno_vacio'
-entrada_mad_n_m1 = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, disponibilidad=Venta...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
-parametros = Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des...o_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5))
-
-    @pytest.mark.parametrize("nombre_check", ALL_CHECKS)
-    def test_smoke_check_devuelve_numero(
-        nombre_check: str,
-        entrada_mad_n_m1: Entrada,
-        parametros: Parametros,
-    ) -> None:
-        """Cada comprobar_* devuelve un número finito sobre la distribución inicial."""
-        check_fn = getattr(_checks_mod, nombre_check)
-        sol = entrada_mad_n_m1.get_distribucion_inicial()
->       resultado = _llamar_check(check_fn, sol, entrada_mad_n_m1, parametros)
-                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-tests/unit/test_restrictions.py:65: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-tests/unit/test_restrictions.py:72: in _llamar_check
-    ensure_fast_cache(entrada)
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-
-entrada = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, disponibilidad=Venta...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
-
-    def ensure_fast_cache(entrada: Entrada) -> None:
-        if hasattr(entrada, "_fast_sector_ids"):
-            return
->       sectores = entrada.get_lista_sectores_abiertos()
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-E       AttributeError: 'Entrada' object has no attribute 'get_lista_sectores_abiertos'
-
-src/atco/problem/restrictions/checks.py:596: AttributeError
-________________ test_acumulador_paralelo_devuelve_no_negativo _________________
-
-entrada_mad_n_m1 = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, disponibilidad=Venta...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
-parametros = Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des...o_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5))
-
-    def test_acumulador_paralelo_devuelve_no_negativo(
-        entrada_mad_n_m1: Entrada,
-        parametros: Parametros,
-    ) -> None:
-        sol = entrada_mad_n_m1.get_distribucion_inicial()
->       total = comprobar_restricciones_en_paralelo(sol, entrada_mad_n_m1, parametros)
-                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-tests/unit/test_restrictions.py:104: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-src/atco/problem/restrictions/checks.py:107: in comprobar_restricciones_en_paralelo
-    for idx, value in enumerate(_checks(individuo, entrada, parametros)):
-                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-src/atco/problem/restrictions/checks.py:158: in _checks
-    ensure_fast_cache(entrada)
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-
-entrada = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, disponibilidad=Venta...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
-
-    def ensure_fast_cache(entrada: Entrada) -> None:
-        if hasattr(entrada, "_fast_sector_ids"):
-            return
->       sectores = entrada.get_lista_sectores_abiertos()
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-E       AttributeError: 'Entrada' object has no attribute 'get_lista_sectores_abiertos'
-
-src/atco/problem/restrictions/checks.py:596: AttributeError
-____________________ test_acumulador_sin_pesos_invariantes _____________________
-
-entrada_mad_n_m1 = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, disponibilidad=Venta...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
-parametros = Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des...o_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5))
-
-    def test_acumulador_sin_pesos_invariantes(
-        entrada_mad_n_m1: Entrada,
-        parametros: Parametros,
-    ) -> None:
-        sol = entrada_mad_n_m1.get_distribucion_inicial()
->       sin_pesos = restricciones_sin_pesos(sol, entrada_mad_n_m1, parametros)
-                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-tests/unit/test_restrictions.py:113: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-src/atco/problem/restrictions/checks.py:130: in restricciones_sin_pesos
-    for value in _checks(individuo, entrada, parametros):
-                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-src/atco/problem/restrictions/checks.py:158: in _checks
-    ensure_fast_cache(entrada)
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-
-entrada = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, disponibilidad=Venta...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
-
-    def ensure_fast_cache(entrada: Entrada) -> None:
-        if hasattr(entrada, "_fast_sector_ids"):
-            return
->       sectores = entrada.get_lista_sectores_abiertos()
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-E       AttributeError: 'Entrada' object has no attribute 'get_lista_sectores_abiertos'
-
-src/atco/problem/restrictions/checks.py:596: AttributeError
-___________ test_acumulador_por_restricciones_publica_vector_global ____________
-
-entrada_mad_n_m1 = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, disponibilidad=Venta...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
-parametros = Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des...o_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5))
-
-    def test_acumulador_por_restricciones_publica_vector_global(
-        entrada_mad_n_m1: Entrada,
-        parametros: Parametros,
-    ) -> None:
-        from atco.problem.restrictions.weights import restricciones_no_cumplidas
-    
-        sol = entrada_mad_n_m1.get_distribucion_inicial()
->       _ = penalizacion_por_restricciones(sol, entrada_mad_n_m1, parametros)
-            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-tests/unit/test_restrictions.py:128: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-src/atco/problem/restrictions/checks.py:76: in penalizacion_por_restricciones
-    checks = _checks(individuo, entrada, parametros)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-src/atco/problem/restrictions/checks.py:158: in _checks
-    ensure_fast_cache(entrada)
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-
-entrada = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, disponibilidad=Venta...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
-
-    def ensure_fast_cache(entrada: Entrada) -> None:
-        if hasattr(entrada, "_fast_sector_ids"):
-            return
->       sectores = entrada.get_lista_sectores_abiertos()
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-E       AttributeError: 'Entrada' object has no attribute 'get_lista_sectores_abiertos'
-
-src/atco/problem/restrictions/checks.py:596: AttributeError
-=========================== short test summary info ============================
-FAILED tests/unit/test_fitness.py::TestEvaluarFitness::test_fitness_result_es_float_castable
-FAILED tests/unit/test_fitness.py::TestEvaluarFitness::test_componentes_tiene_las_cinco_claves
-FAILED tests/unit/test_fitness.py::TestEvaluarFitness::test_componentes_estan_en_rango_unitario
-FAILED tests/unit/test_fitness.py::TestEvaluarFitness::test_alpha_l_cero_anula_componente_l_en_valor
-FAILED tests/unit/test_fitness.py::TestEvaluarFitness::test_reproducibilidad_con_misma_semilla
-FAILED tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_nucleo_trabajo]
-FAILED tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_tipo_sector]
-FAILED tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_porcentaje_descanso]
-FAILED tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_sectores_abiertos_noche]
-FAILED tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_trabajo_maximo_consecutivo]
-FAILED tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_controlador_turno_corto]
-FAILED tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_ventana_trabajo_descanso]
-FAILED tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_cambio_posicion]
-FAILED tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_trabajo_minimo_consecutivo]
-FAILED tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_descanso_minimo_consecutivo]
-FAILED tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_trabajo_posicion_minimo_consecutivo_no_regex]
-FAILED tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_num_maximo_sectores]
-FAILED tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_controlador_asignado]
-FAILED tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_turno_vacio]
-FAILED tests/unit/test_restrictions.py::test_acumulador_paralelo_devuelve_no_negativo
-FAILED tests/unit/test_restrictions.py::test_acumulador_sin_pesos_invariantes
-FAILED tests/unit/test_restrictions.py::test_acumulador_por_restricciones_publica_vector_global
-======================== 22 failed, 45 passed in 0.22s =========================
-
-===== 2026-06-16 18:46:15 — pytest =====
-============================= test session starts ==============================
-platform darwin -- Python 3.11.15, pytest-9.1.0, pluggy-1.6.0 -- /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/.venv/bin/python
-cachedir: .pytest_cache
-rootdir: /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga
-configfile: pyproject.toml
-testpaths: tests
-plugins: anyio-4.14.0, cov-7.1.0
-collecting ... collected 67 items
-
-tests/integration/test_instance.py::test_leer_entrada_caso_carga_sin_errores PASSED [  1%]
-tests/unit/test_fitness.py::TestFitnessConfig::test_defaults_son_validos PASSED [  2%]
-tests/unit/test_fitness.py::TestFitnessConfig::test_pesos_que_no_suman_uno_lanzan_error PASSED [  4%]
-tests/unit/test_fitness.py::TestFitnessConfig::test_pesos_negativos_lanzan_error PASSED [  5%]
-tests/unit/test_fitness.py::TestFitnessConfig::test_umbral_l_no_positivo_lanza_error PASSED [  7%]
-tests/unit/test_fitness.py::TestDescansosLargos::test_sin_rachas_largas_devuelve_cero PASSED [  8%]
-tests/unit/test_fitness.py::TestDescansosLargos::test_una_racha_justo_en_umbral_cuenta_una PASSED [ 10%]
-tests/unit/test_fitness.py::TestDescansosLargos::test_dos_rachas_largas_misma_fila PASSED [ 11%]
-tests/unit/test_fitness.py::TestDescansosLargos::test_celdas_fuera_de_turno_no_cuentan_como_descanso PASSED [ 13%]
-tests/unit/test_fitness.py::TestFragmentacion::test_fila_homogenea_de_trabajo_da_cero PASSED [ 14%]
-tests/unit/test_fitness.py::TestFragmentacion::test_alternancia_total_da_transiciones_maximas PASSED [ 16%]
-tests/unit/test_fitness.py::TestFragmentacion::test_celdas_fuera_de_turno_no_se_cuentan PASSED [ 17%]
-tests/unit/test_fitness.py::TestEvaluarFitness::test_fitness_result_es_float_castable PASSED [ 19%]
+tests/unit/test_fitness.py::TestEvaluarFitness::test_fitness_result_es_float_castable PASSED [ 18%]
 tests/unit/test_fitness.py::TestEvaluarFitness::test_componentes_tiene_las_cinco_claves PASSED [ 20%]
-tests/unit/test_fitness.py::TestEvaluarFitness::test_componentes_estan_en_rango_unitario PASSED [ 22%]
+tests/unit/test_fitness.py::TestEvaluarFitness::test_componentes_estan_en_rango_unitario PASSED [ 21%]
 tests/unit/test_fitness.py::TestEvaluarFitness::test_alpha_l_cero_anula_componente_l_en_valor PASSED [ 23%]
-tests/unit/test_fitness.py::TestEvaluarFitness::test_reproducibilidad_con_misma_semilla PASSED [ 25%]
+tests/unit/test_fitness.py::TestEvaluarFitness::test_reproducibilidad_con_misma_semilla PASSED [ 24%]
 tests/unit/test_fitness.py::test_cobertura_cota_es_doble_del_total_de_sectores_por_slot PASSED [ 26%]
-tests/unit/test_fitness.py::test_cobertura_cota_respeta_sectorizacion_dinamica PASSED [ 28%]
-tests/unit/test_models.py::TestVentanaDisponibilidad::test_default_es_completa PASSED [ 29%]
-tests/unit/test_models.py::TestVentanaDisponibilidad::test_inicio_negativo_lanza_value_error PASSED [ 31%]
-tests/unit/test_models.py::TestVentanaDisponibilidad::test_ventana_invertida_lanza_value_error PASSED [ 32%]
-tests/unit/test_models.py::TestVentanaDisponibilidad::test_ventana_vacia_lanza_value_error PASSED [ 34%]
-tests/unit/test_models.py::TestVentanaDisponibilidad::test_contiene_dentro_de_la_ventana PASSED [ 35%]
-tests/unit/test_models.py::TestVentanaDisponibilidad::test_contiene_con_fin_none_no_limita_por_arriba PASSED [ 37%]
-tests/unit/test_models.py::test_controlador_constructor_minimo PASSED    [ 38%]
-tests/unit/test_models.py::test_controlador_clone_es_independiente PASSED [ 40%]
-tests/unit/test_models.py::test_controlador_getters_setters_round_trip PASSED [ 41%]
-tests/unit/test_models.py::test_controlador_slots_trabajados_default_cero PASSED [ 43%]
-tests/unit/test_models.py::test_controlador_slots_trabajados_se_clona PASSED [ 44%]
-tests/unit/test_models.py::test_sector_constructor PASSED                [ 46%]
-tests/unit/test_models.py::test_sector_igualdad_y_hash_por_id PASSED     [ 47%]
-tests/unit/test_models.py::test_nucleo_constructor_sectores_default_vacio PASSED [ 49%]
-tests/unit/test_models.py::test_turno_turnos_slots[10:30-18:30-12:30-18:30-esperado0] PASSED [ 50%]
-tests/unit/test_models.py::test_solucion_constructor PASSED              [ 52%]
-tests/unit/test_models.py::test_solucion_clone_es_deep_en_controladores PASSED [ 53%]
-tests/unit/test_models.py::test_solucion_shallow_clone_comparte_controladores PASSED [ 55%]
-tests/unit/test_restrictions.py::test_pesos_tienen_longitud_14 PASSED    [ 56%]
+tests/unit/test_fitness.py::test_cobertura_cota_respeta_sectorizacion_dinamica PASSED [ 27%]
+tests/unit/test_models.py::TestVentanaDisponibilidad::test_default_es_completa PASSED [ 28%]
+tests/unit/test_models.py::TestVentanaDisponibilidad::test_inicio_negativo_lanza_value_error PASSED [ 30%]
+tests/unit/test_models.py::TestVentanaDisponibilidad::test_ventana_invertida_lanza_value_error PASSED [ 31%]
+tests/unit/test_models.py::TestVentanaDisponibilidad::test_ventana_vacia_lanza_value_error PASSED [ 33%]
+tests/unit/test_models.py::TestVentanaDisponibilidad::test_contiene_dentro_de_la_ventana PASSED [ 34%]
+tests/unit/test_models.py::TestVentanaDisponibilidad::test_contiene_con_fin_none_no_limita_por_arriba PASSED [ 36%]
+tests/unit/test_models.py::test_controlador_constructor_minimo PASSED    [ 37%]
+tests/unit/test_models.py::test_controlador_clone_es_independiente PASSED [ 39%]
+tests/unit/test_models.py::test_controlador_getters_setters_round_trip PASSED [ 40%]
+tests/unit/test_models.py::test_controlador_slots_trabajados_default_cero PASSED [ 42%]
+tests/unit/test_models.py::test_controlador_slots_trabajados_se_clona PASSED [ 43%]
+tests/unit/test_models.py::test_sector_constructor PASSED                [ 44%]
+tests/unit/test_models.py::test_sector_igualdad_y_hash_por_id PASSED     [ 46%]
+tests/unit/test_models.py::test_nucleo_constructor_sectores_default_vacio PASSED [ 47%]
+tests/unit/test_models.py::test_turno_turnos_slots[10:30-18:30-12:30-18:30-esperado0] PASSED [ 49%]
+tests/unit/test_models.py::test_solucion_constructor PASSED              [ 50%]
+tests/unit/test_models.py::test_solucion_clone_es_deep_en_controladores PASSED [ 52%]
+tests/unit/test_models.py::test_solucion_shallow_clone_comparte_controladores PASSED [ 53%]
+tests/unit/test_restrictions.py::test_pesos_tienen_longitud_14 PASSED    [ 55%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_nucleo_trabajo] PASSED [ 56%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_tipo_sector] PASSED [ 57%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_porcentaje_descanso] PASSED [ 59%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_sectores_abiertos_noche] PASSED [ 60%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_trabajo_maximo_consecutivo] PASSED [ 62%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_controlador_turno_corto] PASSED [ 63%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_ventana_trabajo_descanso] PASSED [ 65%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_cambio_posicion] PASSED [ 66%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_trabajo_minimo_consecutivo] PASSED [ 68%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_descanso_minimo_consecutivo] PASSED [ 69%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_trabajo_posicion_minimo_consecutivo_no_regex] PASSED [ 71%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_num_maximo_sectores] PASSED [ 72%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_controlador_asignado] PASSED [ 73%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_turno_vacio] PASSED [ 75%]
+tests/unit/test_restrictions.py::test_acumulador_paralelo_devuelve_no_negativo PASSED [ 76%]
+tests/unit/test_restrictions.py::test_acumulador_sin_pesos_invariantes PASSED [ 78%]
+tests/unit/test_restrictions.py::test_acumulador_por_restricciones_publica_vector_global PASSED [ 79%]
+tests/unit/test_restrictions.py::test_turno_vacio_cuenta_solo_con_descanso_sin_trabajo PASSED [ 81%]
+tests/unit/test_restrictions.py::test_controlador_asignado_cuenta_huerfanos_y_no_asignados PASSED [ 82%]
+tests/unit/test_seeds.py::test_generador_cubre_la_mayoria_de_la_sectorizacion PASSED [ 84%]
+tests/unit/test_seeds.py::test_generador_respeta_licencia_con PASSED     [ 85%]
+tests/unit/test_seeds.py::test_generador_respeta_ventana_de_turno PASSED [ 86%]
+tests/unit/test_seeds.py::test_generador_publica_biyeccion_atco_turno PASSED [ 88%]
+tests/unit/test_seeds.py::test_generador_publica_slots_trabajados_consistente PASSED [ 89%]
+tests/unit/test_seeds.py::test_generador_es_diverso_entre_llamadas PASSED [ 91%]
+tests/unit/test_seeds.py::test_generador_es_reproducible_con_misma_semilla PASSED [ 92%]
+tests/unit/test_seeds.py::test_generador_falla_con_controladores_vacios PASSED [ 94%]
+tests/unit/test_seeds.py::test_generador_asigna_ejecutivo_y_planificador_cuando_hay_dos_candidatos PASSED [ 95%]
+tests/unit/test_seeds.py::test_generador_nunca_pone_mismo_atco_como_ej_y_pl PASSED [ 97%]
+tests/unit/test_seeds.py::test_ningun_atco_supera_el_cap_de_trabajo_consecutivo PASSED [ 98%]
+tests/unit/test_seeds.py::test_descanso_minimo_tras_alcanzar_el_cap PASSED [100%]
+
+============================== 69 passed in 0.08s ==============================
+
+===== 2026-06-18 23:41:10 — pytest =====
+============================= test session starts ==============================
+platform darwin -- Python 3.11.15, pytest-9.1.0, pluggy-1.6.0 -- /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga
+configfile: pyproject.toml
+testpaths: tests
+plugins: anyio-4.14.0, cov-7.1.0
+collecting ... collected 73 items
+
+tests/integration/test_instance.py::test_leer_entrada_caso_carga_sin_errores PASSED [  1%]
+tests/unit/test_brkga_decoders.py::TestDecoderBase::test_validate_chromosome_acepta_longitud_correcta PASSED [  2%]
+tests/unit/test_brkga_decoders.py::TestDecoderBase::test_validate_chromosome_rechaza_longitud_incorrecta PASSED [  4%]
+tests/unit/test_brkga_decoders.py::TestDecoderBase::test_validate_chromosome_rechaza_valores_fuera_de_rango PASSED [  5%]
+tests/unit/test_brkga_decoders.py::TestDecoderBase::test_no_se_puede_instanciar_directamente PASSED [  6%]
+tests/unit/test_fitness.py::TestFitnessConfig::test_defaults_son_validos PASSED [  8%]
+tests/unit/test_fitness.py::TestFitnessConfig::test_pesos_que_no_suman_uno_lanzan_error PASSED [  9%]
+tests/unit/test_fitness.py::TestFitnessConfig::test_pesos_negativos_lanzan_error PASSED [ 10%]
+tests/unit/test_fitness.py::TestFitnessConfig::test_umbral_l_no_positivo_lanza_error PASSED [ 12%]
+tests/unit/test_fitness.py::TestDescansosLargos::test_sin_rachas_largas_devuelve_cero PASSED [ 13%]
+tests/unit/test_fitness.py::TestDescansosLargos::test_una_racha_justo_en_umbral_cuenta_una PASSED [ 15%]
+tests/unit/test_fitness.py::TestDescansosLargos::test_dos_rachas_largas_misma_fila PASSED [ 16%]
+tests/unit/test_fitness.py::TestDescansosLargos::test_celdas_fuera_de_turno_no_cuentan_como_descanso PASSED [ 17%]
+tests/unit/test_fitness.py::TestFragmentacion::test_fila_homogenea_de_trabajo_da_cero PASSED [ 19%]
+tests/unit/test_fitness.py::TestFragmentacion::test_alternancia_total_da_transiciones_maximas PASSED [ 20%]
+tests/unit/test_fitness.py::TestFragmentacion::test_celdas_fuera_de_turno_no_se_cuentan PASSED [ 21%]
+tests/unit/test_fitness.py::TestEvaluarFitness::test_fitness_result_es_float_castable PASSED [ 23%]
+tests/unit/test_fitness.py::TestEvaluarFitness::test_componentes_tiene_las_cinco_claves PASSED [ 24%]
+tests/unit/test_fitness.py::TestEvaluarFitness::test_componentes_estan_en_rango_unitario PASSED [ 26%]
+tests/unit/test_fitness.py::TestEvaluarFitness::test_alpha_l_cero_anula_componente_l_en_valor PASSED [ 27%]
+tests/unit/test_fitness.py::TestEvaluarFitness::test_reproducibilidad_con_misma_semilla PASSED [ 28%]
+tests/unit/test_fitness.py::test_cobertura_cota_es_doble_del_total_de_sectores_por_slot PASSED [ 30%]
+tests/unit/test_fitness.py::test_cobertura_cota_respeta_sectorizacion_dinamica PASSED [ 31%]
+tests/unit/test_models.py::TestVentanaDisponibilidad::test_default_es_completa PASSED [ 32%]
+tests/unit/test_models.py::TestVentanaDisponibilidad::test_inicio_negativo_lanza_value_error PASSED [ 34%]
+tests/unit/test_models.py::TestVentanaDisponibilidad::test_ventana_invertida_lanza_value_error PASSED [ 35%]
+tests/unit/test_models.py::TestVentanaDisponibilidad::test_ventana_vacia_lanza_value_error PASSED [ 36%]
+tests/unit/test_models.py::TestVentanaDisponibilidad::test_contiene_dentro_de_la_ventana PASSED [ 38%]
+tests/unit/test_models.py::TestVentanaDisponibilidad::test_contiene_con_fin_none_no_limita_por_arriba PASSED [ 39%]
+tests/unit/test_models.py::test_controlador_constructor_minimo PASSED    [ 41%]
+tests/unit/test_models.py::test_controlador_clone_es_independiente PASSED [ 42%]
+tests/unit/test_models.py::test_controlador_getters_setters_round_trip PASSED [ 43%]
+tests/unit/test_models.py::test_controlador_slots_trabajados_default_cero PASSED [ 45%]
+tests/unit/test_models.py::test_controlador_slots_trabajados_se_clona PASSED [ 46%]
+tests/unit/test_models.py::test_sector_constructor PASSED                [ 47%]
+tests/unit/test_models.py::test_sector_igualdad_y_hash_por_id PASSED     [ 49%]
+tests/unit/test_models.py::test_nucleo_constructor_sectores_default_vacio PASSED [ 50%]
+tests/unit/test_models.py::test_turno_turnos_slots[10:30-18:30-12:30-18:30-esperado0] PASSED [ 52%]
+tests/unit/test_models.py::test_solucion_constructor PASSED              [ 53%]
+tests/unit/test_models.py::test_solucion_clone_es_deep_en_controladores PASSED [ 54%]
+tests/unit/test_models.py::test_solucion_shallow_clone_comparte_controladores PASSED [ 56%]
+tests/unit/test_restrictions.py::test_pesos_tienen_longitud_14 PASSED    [ 57%]
 tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_nucleo_trabajo] PASSED [ 58%]
-tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_tipo_sector] PASSED [ 59%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_tipo_sector] PASSED [ 60%]
 tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_porcentaje_descanso] PASSED [ 61%]
-tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_sectores_abiertos_noche] PASSED [ 62%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_sectores_abiertos_noche] PASSED [ 63%]
 tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_trabajo_maximo_consecutivo] PASSED [ 64%]
 tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_controlador_turno_corto] PASSED [ 65%]
 tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_ventana_trabajo_descanso] PASSED [ 67%]
 tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_cambio_posicion] PASSED [ 68%]
-tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_trabajo_minimo_consecutivo] PASSED [ 70%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_trabajo_minimo_consecutivo] PASSED [ 69%]
 tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_descanso_minimo_consecutivo] PASSED [ 71%]
-tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_trabajo_posicion_minimo_consecutivo_no_regex] PASSED [ 73%]
-tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_num_maximo_sectores] PASSED [ 74%]
-tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_controlador_asignado] PASSED [ 76%]
-tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_turno_vacio] PASSED [ 77%]
-tests/unit/test_restrictions.py::test_acumulador_paralelo_devuelve_no_negativo PASSED [ 79%]
-tests/unit/test_restrictions.py::test_acumulador_sin_pesos_invariantes PASSED [ 80%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_trabajo_posicion_minimo_consecutivo_no_regex] PASSED [ 72%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_num_maximo_sectores] PASSED [ 73%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_controlador_asignado] PASSED [ 75%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_turno_vacio] PASSED [ 76%]
+tests/unit/test_restrictions.py::test_acumulador_paralelo_devuelve_no_negativo PASSED [ 78%]
+tests/unit/test_restrictions.py::test_acumulador_sin_pesos_invariantes PASSED [ 79%]
+tests/unit/test_restrictions.py::test_acumulador_por_restricciones_publica_vector_global PASSED [ 80%]
+tests/unit/test_restrictions.py::test_turno_vacio_cuenta_solo_con_descanso_sin_trabajo PASSED [ 82%]
+tests/unit/test_restrictions.py::test_controlador_asignado_cuenta_huerfanos_y_no_asignados PASSED [ 83%]
+tests/unit/test_seeds.py::test_generador_cubre_la_mayoria_de_la_sectorizacion PASSED [ 84%]
+tests/unit/test_seeds.py::test_generador_respeta_licencia_con PASSED     [ 86%]
+tests/unit/test_seeds.py::test_generador_respeta_ventana_de_turno PASSED [ 87%]
+tests/unit/test_seeds.py::test_generador_publica_biyeccion_atco_turno PASSED [ 89%]
+tests/unit/test_seeds.py::test_generador_publica_slots_trabajados_consistente PASSED [ 90%]
+tests/unit/test_seeds.py::test_generador_es_diverso_entre_llamadas PASSED [ 91%]
+tests/unit/test_seeds.py::test_generador_es_reproducible_con_misma_semilla PASSED [ 93%]
+tests/unit/test_seeds.py::test_generador_falla_con_controladores_vacios PASSED [ 94%]
+tests/unit/test_seeds.py::test_generador_asigna_ejecutivo_y_planificador_cuando_hay_dos_candidatos PASSED [ 95%]
+tests/unit/test_seeds.py::test_generador_nunca_pone_mismo_atco_como_ej_y_pl PASSED [ 97%]
+tests/unit/test_seeds.py::test_ningun_atco_supera_el_cap_de_trabajo_consecutivo PASSED [ 98%]
+tests/unit/test_seeds.py::test_descanso_minimo_tras_alcanzar_el_cap PASSED [100%]
+
+============================== 73 passed in 0.17s ==============================
+
+===== 2026-06-18 23:41:28 — pytest =====
+============================= test session starts ==============================
+platform darwin -- Python 3.11.15, pytest-9.1.0, pluggy-1.6.0 -- /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga
+configfile: pyproject.toml
+testpaths: tests
+plugins: anyio-4.14.0, cov-7.1.0
+collecting ... collected 82 items
+
+tests/integration/test_instance.py::test_leer_entrada_caso_carga_sin_errores PASSED [  1%]
+tests/unit/test_brkga_config.py::TestStoppingCriteria::test_defaults_son_validos PASSED [  2%]
+tests/unit/test_brkga_config.py::TestStoppingCriteria::test_todos_none_lanza_error PASSED [  3%]
+tests/unit/test_brkga_config.py::TestStoppingCriteria::test_valores_no_positivos_lanzan_error PASSED [  4%]
+tests/unit/test_brkga_config.py::TestBRKGAConfig::test_defaults_son_validos PASSED [  6%]
+tests/unit/test_brkga_config.py::TestBRKGAConfig::test_population_size_minimo PASSED [  7%]
+tests/unit/test_brkga_config.py::TestBRKGAConfig::test_elite_fraction_fuera_de_rango PASSED [  8%]
+tests/unit/test_brkga_config.py::TestBRKGAConfig::test_mutant_fraction_fuera_de_rango PASSED [  9%]
+tests/unit/test_brkga_config.py::TestBRKGAConfig::test_rho_elite_fuera_de_rango PASSED [ 10%]
+tests/unit/test_brkga_config.py::TestBRKGAConfig::test_suma_de_clases_iguala_poblacion PASSED [ 12%]
+tests/unit/test_brkga_decoders.py::TestDecoderBase::test_validate_chromosome_acepta_longitud_correcta PASSED [ 13%]
+tests/unit/test_brkga_decoders.py::TestDecoderBase::test_validate_chromosome_rechaza_longitud_incorrecta PASSED [ 14%]
+tests/unit/test_brkga_decoders.py::TestDecoderBase::test_validate_chromosome_rechaza_valores_fuera_de_rango PASSED [ 15%]
+tests/unit/test_brkga_decoders.py::TestDecoderBase::test_no_se_puede_instanciar_directamente PASSED [ 17%]
+tests/unit/test_fitness.py::TestFitnessConfig::test_defaults_son_validos PASSED [ 18%]
+tests/unit/test_fitness.py::TestFitnessConfig::test_pesos_que_no_suman_uno_lanzan_error PASSED [ 19%]
+tests/unit/test_fitness.py::TestFitnessConfig::test_pesos_negativos_lanzan_error PASSED [ 20%]
+tests/unit/test_fitness.py::TestFitnessConfig::test_umbral_l_no_positivo_lanza_error PASSED [ 21%]
+tests/unit/test_fitness.py::TestDescansosLargos::test_sin_rachas_largas_devuelve_cero PASSED [ 23%]
+tests/unit/test_fitness.py::TestDescansosLargos::test_una_racha_justo_en_umbral_cuenta_una PASSED [ 24%]
+tests/unit/test_fitness.py::TestDescansosLargos::test_dos_rachas_largas_misma_fila PASSED [ 25%]
+tests/unit/test_fitness.py::TestDescansosLargos::test_celdas_fuera_de_turno_no_cuentan_como_descanso PASSED [ 26%]
+tests/unit/test_fitness.py::TestFragmentacion::test_fila_homogenea_de_trabajo_da_cero PASSED [ 28%]
+tests/unit/test_fitness.py::TestFragmentacion::test_alternancia_total_da_transiciones_maximas PASSED [ 29%]
+tests/unit/test_fitness.py::TestFragmentacion::test_celdas_fuera_de_turno_no_se_cuentan PASSED [ 30%]
+tests/unit/test_fitness.py::TestEvaluarFitness::test_fitness_result_es_float_castable PASSED [ 31%]
+tests/unit/test_fitness.py::TestEvaluarFitness::test_componentes_tiene_las_cinco_claves PASSED [ 32%]
+tests/unit/test_fitness.py::TestEvaluarFitness::test_componentes_estan_en_rango_unitario PASSED [ 34%]
+tests/unit/test_fitness.py::TestEvaluarFitness::test_alpha_l_cero_anula_componente_l_en_valor PASSED [ 35%]
+tests/unit/test_fitness.py::TestEvaluarFitness::test_reproducibilidad_con_misma_semilla PASSED [ 36%]
+tests/unit/test_fitness.py::test_cobertura_cota_es_doble_del_total_de_sectores_por_slot PASSED [ 37%]
+tests/unit/test_fitness.py::test_cobertura_cota_respeta_sectorizacion_dinamica PASSED [ 39%]
+tests/unit/test_models.py::TestVentanaDisponibilidad::test_default_es_completa PASSED [ 40%]
+tests/unit/test_models.py::TestVentanaDisponibilidad::test_inicio_negativo_lanza_value_error PASSED [ 41%]
+tests/unit/test_models.py::TestVentanaDisponibilidad::test_ventana_invertida_lanza_value_error PASSED [ 42%]
+tests/unit/test_models.py::TestVentanaDisponibilidad::test_ventana_vacia_lanza_value_error PASSED [ 43%]
+tests/unit/test_models.py::TestVentanaDisponibilidad::test_contiene_dentro_de_la_ventana PASSED [ 45%]
+tests/unit/test_models.py::TestVentanaDisponibilidad::test_contiene_con_fin_none_no_limita_por_arriba PASSED [ 46%]
+tests/unit/test_models.py::test_controlador_constructor_minimo PASSED    [ 47%]
+tests/unit/test_models.py::test_controlador_clone_es_independiente PASSED [ 48%]
+tests/unit/test_models.py::test_controlador_getters_setters_round_trip PASSED [ 50%]
+tests/unit/test_models.py::test_controlador_slots_trabajados_default_cero PASSED [ 51%]
+tests/unit/test_models.py::test_controlador_slots_trabajados_se_clona PASSED [ 52%]
+tests/unit/test_models.py::test_sector_constructor PASSED                [ 53%]
+tests/unit/test_models.py::test_sector_igualdad_y_hash_por_id PASSED     [ 54%]
+tests/unit/test_models.py::test_nucleo_constructor_sectores_default_vacio PASSED [ 56%]
+tests/unit/test_models.py::test_turno_turnos_slots[10:30-18:30-12:30-18:30-esperado0] PASSED [ 57%]
+tests/unit/test_models.py::test_solucion_constructor PASSED              [ 58%]
+tests/unit/test_models.py::test_solucion_clone_es_deep_en_controladores PASSED [ 59%]
+tests/unit/test_models.py::test_solucion_shallow_clone_comparte_controladores PASSED [ 60%]
+tests/unit/test_restrictions.py::test_pesos_tienen_longitud_14 PASSED    [ 62%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_nucleo_trabajo] PASSED [ 63%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_tipo_sector] PASSED [ 64%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_porcentaje_descanso] PASSED [ 65%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_sectores_abiertos_noche] PASSED [ 67%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_trabajo_maximo_consecutivo] PASSED [ 68%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_controlador_turno_corto] PASSED [ 69%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_ventana_trabajo_descanso] PASSED [ 70%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_cambio_posicion] PASSED [ 71%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_trabajo_minimo_consecutivo] PASSED [ 73%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_descanso_minimo_consecutivo] PASSED [ 74%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_trabajo_posicion_minimo_consecutivo_no_regex] PASSED [ 75%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_num_maximo_sectores] PASSED [ 76%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_controlador_asignado] PASSED [ 78%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_turno_vacio] PASSED [ 79%]
+tests/unit/test_restrictions.py::test_acumulador_paralelo_devuelve_no_negativo PASSED [ 80%]
+tests/unit/test_restrictions.py::test_acumulador_sin_pesos_invariantes PASSED [ 81%]
 tests/unit/test_restrictions.py::test_acumulador_por_restricciones_publica_vector_global PASSED [ 82%]
-tests/unit/test_restrictions.py::test_turno_vacio_cuenta_solo_con_descanso_sin_trabajo PASSED [ 83%]
+tests/unit/test_restrictions.py::test_turno_vacio_cuenta_solo_con_descanso_sin_trabajo PASSED [ 84%]
 tests/unit/test_restrictions.py::test_controlador_asignado_cuenta_huerfanos_y_no_asignados PASSED [ 85%]
-tests/unit/test_seeds.py::test_generador_cubre_toda_la_sectorizacion PASSED [ 86%]
-tests/unit/test_seeds.py::test_generador_respeta_licencia_con PASSED     [ 88%]
+tests/unit/test_seeds.py::test_generador_cubre_la_mayoria_de_la_sectorizacion PASSED [ 86%]
+tests/unit/test_seeds.py::test_generador_respeta_licencia_con PASSED     [ 87%]
 tests/unit/test_seeds.py::test_generador_respeta_ventana_de_turno PASSED [ 89%]
-tests/unit/test_seeds.py::test_generador_publica_biyeccion_atco_turno PASSED [ 91%]
-tests/unit/test_seeds.py::test_generador_publica_slots_trabajados_consistente PASSED [ 92%]
+tests/unit/test_seeds.py::test_generador_publica_biyeccion_atco_turno PASSED [ 90%]
+tests/unit/test_seeds.py::test_generador_publica_slots_trabajados_consistente PASSED [ 91%]
+tests/unit/test_seeds.py::test_generador_es_diverso_entre_llamadas PASSED [ 92%]
+tests/unit/test_seeds.py::test_generador_es_reproducible_con_misma_semilla PASSED [ 93%]
+tests/unit/test_seeds.py::test_generador_falla_con_controladores_vacios PASSED [ 95%]
+tests/unit/test_seeds.py::test_generador_asigna_ejecutivo_y_planificador_cuando_hay_dos_candidatos PASSED [ 96%]
+tests/unit/test_seeds.py::test_generador_nunca_pone_mismo_atco_como_ej_y_pl PASSED [ 97%]
+tests/unit/test_seeds.py::test_ningun_atco_supera_el_cap_de_trabajo_consecutivo PASSED [ 98%]
+tests/unit/test_seeds.py::test_descanso_minimo_tras_alcanzar_el_cap PASSED [100%]
+
+============================== 82 passed in 0.11s ==============================
+
+===== 2026-06-18 23:50:51 — pytest tests/unit/test_seeds.py =====
+============================= test session starts ==============================
+platform darwin -- Python 3.11.15, pytest-9.1.0, pluggy-1.6.0 -- /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga
+configfile: pyproject.toml
+plugins: anyio-4.14.0, cov-7.1.0
+collecting ... collected 12 items
+
+tests/unit/test_seeds.py::test_generador_cubre_la_mayoria_de_la_sectorizacion PASSED [  8%]
+tests/unit/test_seeds.py::test_generador_respeta_licencia_con PASSED     [ 16%]
+tests/unit/test_seeds.py::test_generador_respeta_ventana_de_turno PASSED [ 25%]
+tests/unit/test_seeds.py::test_generador_publica_biyeccion_atco_turno PASSED [ 33%]
+tests/unit/test_seeds.py::test_generador_publica_slots_trabajados_consistente PASSED [ 41%]
+tests/unit/test_seeds.py::test_generador_es_diverso_entre_llamadas PASSED [ 50%]
+tests/unit/test_seeds.py::test_generador_es_reproducible_con_misma_semilla PASSED [ 58%]
+tests/unit/test_seeds.py::test_generador_falla_con_controladores_vacios PASSED [ 66%]
+tests/unit/test_seeds.py::test_generador_asigna_ejecutivo_y_planificador_cuando_hay_dos_candidatos PASSED [ 75%]
+tests/unit/test_seeds.py::test_generador_nunca_pone_mismo_atco_como_ej_y_pl PASSED [ 83%]
+tests/unit/test_seeds.py::test_ningun_atco_supera_el_cap_de_trabajo_consecutivo PASSED [ 91%]
+tests/unit/test_seeds.py::test_descanso_minimo_tras_alcanzar_el_cap PASSED [100%]
+
+============================== 12 passed in 0.03s ==============================
+
+===== 2026-06-18 23:50:57 — pytest tests/unit/test_seeds.py =====
+============================= test session starts ==============================
+platform darwin -- Python 3.11.15, pytest-9.1.0, pluggy-1.6.0 -- /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga
+configfile: pyproject.toml
+plugins: anyio-4.14.0, cov-7.1.0
+collecting ... collected 12 items
+
+tests/unit/test_seeds.py::test_generador_cubre_la_mayoria_de_la_sectorizacion PASSED [  8%]
+tests/unit/test_seeds.py::test_generador_respeta_licencia_con PASSED     [ 16%]
+tests/unit/test_seeds.py::test_generador_respeta_ventana_de_turno PASSED [ 25%]
+tests/unit/test_seeds.py::test_generador_publica_biyeccion_atco_turno PASSED [ 33%]
+tests/unit/test_seeds.py::test_generador_publica_slots_trabajados_consistente PASSED [ 41%]
+tests/unit/test_seeds.py::test_generador_es_diverso_entre_llamadas PASSED [ 50%]
+tests/unit/test_seeds.py::test_generador_es_reproducible_con_misma_semilla PASSED [ 58%]
+tests/unit/test_seeds.py::test_generador_falla_con_controladores_vacios PASSED [ 66%]
+tests/unit/test_seeds.py::test_generador_asigna_ejecutivo_y_planificador_cuando_hay_dos_candidatos PASSED [ 75%]
+tests/unit/test_seeds.py::test_generador_nunca_pone_mismo_atco_como_ej_y_pl PASSED [ 83%]
+tests/unit/test_seeds.py::test_ningun_atco_supera_el_cap_de_trabajo_consecutivo PASSED [ 91%]
+tests/unit/test_seeds.py::test_descanso_minimo_tras_alcanzar_el_cap PASSED [100%]
+
+============================== 12 passed in 0.03s ==============================
+
+===== 2026-06-19 00:08:29 — pytest =====
+============================= test session starts ==============================
+platform darwin -- Python 3.11.15, pytest-9.1.0, pluggy-1.6.0 -- /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga
+configfile: pyproject.toml
+testpaths: tests
+plugins: anyio-4.14.0, cov-7.1.0
+collecting ... collected 103 items
+
+tests/integration/test_brkga_smoke.py::test_brkga_converge_o_al_menos_no_empeora PASSED [  0%]
+tests/integration/test_brkga_smoke.py::test_brkga_record_de_convergencia_es_coherente PASSED [  1%]
+tests/integration/test_instance.py::test_leer_entrada_caso_carga_sin_errores PASSED [  2%]
+tests/unit/test_brkga_config.py::TestStoppingCriteria::test_defaults_son_validos PASSED [  3%]
+tests/unit/test_brkga_config.py::TestStoppingCriteria::test_todos_none_lanza_error PASSED [  4%]
+tests/unit/test_brkga_config.py::TestStoppingCriteria::test_valores_no_positivos_lanzan_error PASSED [  5%]
+tests/unit/test_brkga_config.py::TestBRKGAConfig::test_defaults_son_validos PASSED [  6%]
+tests/unit/test_brkga_config.py::TestBRKGAConfig::test_population_size_minimo PASSED [  7%]
+tests/unit/test_brkga_config.py::TestBRKGAConfig::test_elite_fraction_fuera_de_rango PASSED [  8%]
+tests/unit/test_brkga_config.py::TestBRKGAConfig::test_mutant_fraction_fuera_de_rango PASSED [  9%]
+tests/unit/test_brkga_config.py::TestBRKGAConfig::test_rho_elite_fuera_de_rango PASSED [ 10%]
+tests/unit/test_brkga_config.py::TestBRKGAConfig::test_suma_de_clases_iguala_poblacion PASSED [ 11%]
+tests/unit/test_brkga_decoders.py::TestDecoderBase::test_validate_chromosome_acepta_longitud_correcta PASSED [ 12%]
+tests/unit/test_brkga_decoders.py::TestDecoderBase::test_validate_chromosome_rechaza_longitud_incorrecta PASSED [ 13%]
+tests/unit/test_brkga_decoders.py::TestDecoderBase::test_validate_chromosome_rechaza_valores_fuera_de_rango PASSED [ 14%]
+tests/unit/test_brkga_decoders.py::TestDecoderBase::test_no_se_puede_instanciar_directamente PASSED [ 15%]
+tests/unit/test_brkga_decoders.py::TestPermutationDecoder::test_num_genes_es_n_controladores PASSED [ 16%]
+tests/unit/test_brkga_decoders.py::TestPermutationDecoder::test_decoder_rechaza_n_no_positivo PASSED [ 17%]
+tests/unit/test_brkga_decoders.py::TestPermutationDecoder::test_decoder_produce_solucion_valida PASSED [ 18%]
+tests/unit/test_brkga_decoders.py::TestPermutationDecoder::test_decoder_es_determinista_con_mismo_cromosoma PASSED [ 19%]
+tests/unit/test_brkga_decoders.py::TestPermutationDecoder::test_decoder_responde_al_cromosoma PASSED [ 20%]
+tests/unit/test_brkga_decoders.py::TestPermutationDecoder::test_decoder_rechaza_entrada_con_n_distinto PASSED [ 21%]
+tests/unit/test_brkga_decoders.py::TestPermutationDecoder::test_decoder_rechaza_cromosoma_con_shape_incorrecta PASSED [ 22%]
+tests/unit/test_brkga_decoders.py::TestGreedyConPrioridad::test_prioridad_none_es_compatible_con_comportamiento_antiguo PASSED [ 23%]
+tests/unit/test_brkga_decoders.py::TestGreedyConPrioridad::test_prioridad_dirige_eleccion_en_empates_de_carga PASSED [ 24%]
+tests/unit/test_brkga_operators.py::TestRandomChromosome::test_shape_correcta PASSED [ 25%]
+tests/unit/test_brkga_operators.py::TestRandomChromosome::test_valores_en_rango_unitario PASSED [ 26%]
+tests/unit/test_brkga_operators.py::TestRandomChromosome::test_reproducibilidad PASSED [ 27%]
+tests/unit/test_brkga_operators.py::TestBiasedCrossover::test_shapes_distintos_lanzan_error PASSED [ 28%]
+tests/unit/test_brkga_operators.py::TestBiasedCrossover::test_rho_uno_hereda_todo_del_elite PASSED [ 29%]
+tests/unit/test_brkga_operators.py::TestBiasedCrossover::test_rho_cero_hereda_todo_del_no_elite PASSED [ 30%]
+tests/unit/test_brkga_operators.py::TestBiasedCrossover::test_rho_medio_mezcla_genes PASSED [ 31%]
+tests/unit/test_brkga_operators.py::TestDiversidad::test_lista_vacia_o_corta_devuelve_cero PASSED [ 32%]
+tests/unit/test_brkga_operators.py::TestDiversidad::test_todos_iguales_devuelve_cero PASSED [ 33%]
+tests/unit/test_brkga_operators.py::TestDiversidad::test_diversidad_positiva_con_valores_distintos PASSED [ 33%]
+tests/unit/test_fitness.py::TestFitnessConfig::test_defaults_son_validos PASSED [ 34%]
+tests/unit/test_fitness.py::TestFitnessConfig::test_pesos_que_no_suman_uno_lanzan_error PASSED [ 35%]
+tests/unit/test_fitness.py::TestFitnessConfig::test_pesos_negativos_lanzan_error PASSED [ 36%]
+tests/unit/test_fitness.py::TestFitnessConfig::test_umbral_l_no_positivo_lanza_error PASSED [ 37%]
+tests/unit/test_fitness.py::TestDescansosLargos::test_sin_rachas_largas_devuelve_cero PASSED [ 38%]
+tests/unit/test_fitness.py::TestDescansosLargos::test_una_racha_justo_en_umbral_cuenta_una PASSED [ 39%]
+tests/unit/test_fitness.py::TestDescansosLargos::test_dos_rachas_largas_misma_fila PASSED [ 40%]
+tests/unit/test_fitness.py::TestDescansosLargos::test_celdas_fuera_de_turno_no_cuentan_como_descanso PASSED [ 41%]
+tests/unit/test_fitness.py::TestFragmentacion::test_fila_homogenea_de_trabajo_da_cero PASSED [ 42%]
+tests/unit/test_fitness.py::TestFragmentacion::test_alternancia_total_da_transiciones_maximas PASSED [ 43%]
+tests/unit/test_fitness.py::TestFragmentacion::test_celdas_fuera_de_turno_no_se_cuentan PASSED [ 44%]
+tests/unit/test_fitness.py::TestEvaluarFitness::test_fitness_result_es_float_castable PASSED [ 45%]
+tests/unit/test_fitness.py::TestEvaluarFitness::test_componentes_tiene_las_cinco_claves PASSED [ 46%]
+tests/unit/test_fitness.py::TestEvaluarFitness::test_componentes_estan_en_rango_unitario PASSED [ 47%]
+tests/unit/test_fitness.py::TestEvaluarFitness::test_alpha_l_cero_anula_componente_l_en_valor PASSED [ 48%]
+tests/unit/test_fitness.py::TestEvaluarFitness::test_reproducibilidad_con_misma_semilla PASSED [ 49%]
+tests/unit/test_fitness.py::test_cobertura_cota_es_doble_del_total_de_sectores_por_slot PASSED [ 50%]
+tests/unit/test_fitness.py::test_cobertura_cota_respeta_sectorizacion_dinamica PASSED [ 51%]
+tests/unit/test_models.py::TestVentanaDisponibilidad::test_default_es_completa PASSED [ 52%]
+tests/unit/test_models.py::TestVentanaDisponibilidad::test_inicio_negativo_lanza_value_error PASSED [ 53%]
+tests/unit/test_models.py::TestVentanaDisponibilidad::test_ventana_invertida_lanza_value_error PASSED [ 54%]
+tests/unit/test_models.py::TestVentanaDisponibilidad::test_ventana_vacia_lanza_value_error PASSED [ 55%]
+tests/unit/test_models.py::TestVentanaDisponibilidad::test_contiene_dentro_de_la_ventana PASSED [ 56%]
+tests/unit/test_models.py::TestVentanaDisponibilidad::test_contiene_con_fin_none_no_limita_por_arriba PASSED [ 57%]
+tests/unit/test_models.py::test_controlador_constructor_minimo PASSED    [ 58%]
+tests/unit/test_models.py::test_controlador_clone_es_independiente PASSED [ 59%]
+tests/unit/test_models.py::test_controlador_getters_setters_round_trip PASSED [ 60%]
+tests/unit/test_models.py::test_controlador_slots_trabajados_default_cero PASSED [ 61%]
+tests/unit/test_models.py::test_controlador_slots_trabajados_se_clona PASSED [ 62%]
+tests/unit/test_models.py::test_sector_constructor PASSED                [ 63%]
+tests/unit/test_models.py::test_sector_igualdad_y_hash_por_id PASSED     [ 64%]
+tests/unit/test_models.py::test_nucleo_constructor_sectores_default_vacio PASSED [ 65%]
+tests/unit/test_models.py::test_turno_turnos_slots[10:30-18:30-12:30-18:30-esperado0] PASSED [ 66%]
+tests/unit/test_models.py::test_solucion_constructor PASSED              [ 66%]
+tests/unit/test_models.py::test_solucion_clone_es_deep_en_controladores PASSED [ 67%]
+tests/unit/test_models.py::test_solucion_shallow_clone_comparte_controladores PASSED [ 68%]
+tests/unit/test_restrictions.py::test_pesos_tienen_longitud_14 PASSED    [ 69%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_nucleo_trabajo] PASSED [ 70%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_tipo_sector] PASSED [ 71%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_porcentaje_descanso] PASSED [ 72%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_sectores_abiertos_noche] PASSED [ 73%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_trabajo_maximo_consecutivo] PASSED [ 74%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_controlador_turno_corto] PASSED [ 75%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_ventana_trabajo_descanso] PASSED [ 76%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_cambio_posicion] PASSED [ 77%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_trabajo_minimo_consecutivo] PASSED [ 78%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_descanso_minimo_consecutivo] PASSED [ 79%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_trabajo_posicion_minimo_consecutivo_no_regex] PASSED [ 80%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_num_maximo_sectores] PASSED [ 81%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_controlador_asignado] PASSED [ 82%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_turno_vacio] PASSED [ 83%]
+tests/unit/test_restrictions.py::test_acumulador_paralelo_devuelve_no_negativo PASSED [ 84%]
+tests/unit/test_restrictions.py::test_acumulador_sin_pesos_invariantes PASSED [ 85%]
+tests/unit/test_restrictions.py::test_acumulador_por_restricciones_publica_vector_global PASSED [ 86%]
+tests/unit/test_restrictions.py::test_turno_vacio_cuenta_solo_con_descanso_sin_trabajo PASSED [ 87%]
+tests/unit/test_restrictions.py::test_controlador_asignado_cuenta_huerfanos_y_no_asignados PASSED [ 88%]
+tests/unit/test_seeds.py::test_generador_cubre_la_mayoria_de_la_sectorizacion PASSED [ 89%]
+tests/unit/test_seeds.py::test_generador_respeta_licencia_con PASSED     [ 90%]
+tests/unit/test_seeds.py::test_generador_respeta_ventana_de_turno PASSED [ 91%]
+tests/unit/test_seeds.py::test_generador_publica_biyeccion_atco_turno PASSED [ 92%]
+tests/unit/test_seeds.py::test_generador_publica_slots_trabajados_consistente PASSED [ 93%]
 tests/unit/test_seeds.py::test_generador_es_diverso_entre_llamadas PASSED [ 94%]
 tests/unit/test_seeds.py::test_generador_es_reproducible_con_misma_semilla PASSED [ 95%]
-tests/unit/test_seeds.py::test_generador_falla_con_controladores_vacios PASSED [ 97%]
-tests/unit/test_seeds.py::test_generador_asigna_ejecutivo_y_planificador_cuando_hay_dos_candidatos PASSED [ 98%]
-tests/unit/test_seeds.py::test_generador_nunca_pone_mismo_atco_como_ej_y_pl PASSED [100%]
+tests/unit/test_seeds.py::test_generador_falla_con_controladores_vacios PASSED [ 96%]
+tests/unit/test_seeds.py::test_generador_asigna_ejecutivo_y_planificador_cuando_hay_dos_candidatos PASSED [ 97%]
+tests/unit/test_seeds.py::test_generador_nunca_pone_mismo_atco_como_ej_y_pl PASSED [ 98%]
+tests/unit/test_seeds.py::test_ningun_atco_supera_el_cap_de_trabajo_consecutivo PASSED [ 99%]
+tests/unit/test_seeds.py::test_descanso_minimo_tras_alcanzar_el_cap PASSED [100%]
 
-============================== 67 passed in 0.13s ==============================
+============================= 103 passed in 0.72s ==============================
+
+===== 2026-06-19 00:09:15 — pytest =====
+============================= test session starts ==============================
+platform darwin -- Python 3.11.15, pytest-9.1.0, pluggy-1.6.0 -- /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga
+configfile: pyproject.toml
+testpaths: tests
+plugins: anyio-4.14.0, cov-7.1.0
+collecting ... collected 106 items
+
+tests/integration/test_brkga_smoke.py::test_brkga_converge_o_al_menos_no_empeora PASSED [  0%]
+tests/integration/test_brkga_smoke.py::test_brkga_record_de_convergencia_es_coherente PASSED [  1%]
+tests/integration/test_instance.py::test_leer_entrada_caso_carga_sin_errores PASSED [  2%]
+tests/unit/test_brkga_config.py::TestStoppingCriteria::test_defaults_son_validos PASSED [  3%]
+tests/unit/test_brkga_config.py::TestStoppingCriteria::test_todos_none_lanza_error PASSED [  4%]
+tests/unit/test_brkga_config.py::TestStoppingCriteria::test_valores_no_positivos_lanzan_error PASSED [  5%]
+tests/unit/test_brkga_config.py::TestStoppingCriteria::test_should_stop_max_generations PASSED [  6%]
+tests/unit/test_brkga_config.py::TestStoppingCriteria::test_should_stop_stagnation PASSED [  7%]
+tests/unit/test_brkga_config.py::TestStoppingCriteria::test_should_stop_or_de_varios_criterios PASSED [  8%]
+tests/unit/test_brkga_config.py::TestBRKGAConfig::test_defaults_son_validos PASSED [  9%]
+tests/unit/test_brkga_config.py::TestBRKGAConfig::test_population_size_minimo PASSED [ 10%]
+tests/unit/test_brkga_config.py::TestBRKGAConfig::test_elite_fraction_fuera_de_rango PASSED [ 11%]
+tests/unit/test_brkga_config.py::TestBRKGAConfig::test_mutant_fraction_fuera_de_rango PASSED [ 12%]
+tests/unit/test_brkga_config.py::TestBRKGAConfig::test_rho_elite_fuera_de_rango PASSED [ 13%]
+tests/unit/test_brkga_config.py::TestBRKGAConfig::test_suma_de_clases_iguala_poblacion PASSED [ 14%]
+tests/unit/test_brkga_decoders.py::TestDecoderBase::test_validate_chromosome_acepta_longitud_correcta PASSED [ 15%]
+tests/unit/test_brkga_decoders.py::TestDecoderBase::test_validate_chromosome_rechaza_longitud_incorrecta PASSED [ 16%]
+tests/unit/test_brkga_decoders.py::TestDecoderBase::test_validate_chromosome_rechaza_valores_fuera_de_rango PASSED [ 16%]
+tests/unit/test_brkga_decoders.py::TestDecoderBase::test_no_se_puede_instanciar_directamente PASSED [ 17%]
+tests/unit/test_brkga_decoders.py::TestPermutationDecoder::test_num_genes_es_n_controladores PASSED [ 18%]
+tests/unit/test_brkga_decoders.py::TestPermutationDecoder::test_decoder_rechaza_n_no_positivo PASSED [ 19%]
+tests/unit/test_brkga_decoders.py::TestPermutationDecoder::test_decoder_produce_solucion_valida PASSED [ 20%]
+tests/unit/test_brkga_decoders.py::TestPermutationDecoder::test_decoder_es_determinista_con_mismo_cromosoma PASSED [ 21%]
+tests/unit/test_brkga_decoders.py::TestPermutationDecoder::test_decoder_responde_al_cromosoma PASSED [ 22%]
+tests/unit/test_brkga_decoders.py::TestPermutationDecoder::test_decoder_rechaza_entrada_con_n_distinto PASSED [ 23%]
+tests/unit/test_brkga_decoders.py::TestPermutationDecoder::test_decoder_rechaza_cromosoma_con_shape_incorrecta PASSED [ 24%]
+tests/unit/test_brkga_decoders.py::TestGreedyConPrioridad::test_prioridad_none_es_compatible_con_comportamiento_antiguo PASSED [ 25%]
+tests/unit/test_brkga_decoders.py::TestGreedyConPrioridad::test_prioridad_dirige_eleccion_en_empates_de_carga PASSED [ 26%]
+tests/unit/test_brkga_operators.py::TestRandomChromosome::test_shape_correcta PASSED [ 27%]
+tests/unit/test_brkga_operators.py::TestRandomChromosome::test_valores_en_rango_unitario PASSED [ 28%]
+tests/unit/test_brkga_operators.py::TestRandomChromosome::test_reproducibilidad PASSED [ 29%]
+tests/unit/test_brkga_operators.py::TestBiasedCrossover::test_shapes_distintos_lanzan_error PASSED [ 30%]
+tests/unit/test_brkga_operators.py::TestBiasedCrossover::test_rho_uno_hereda_todo_del_elite PASSED [ 31%]
+tests/unit/test_brkga_operators.py::TestBiasedCrossover::test_rho_cero_hereda_todo_del_no_elite PASSED [ 32%]
+tests/unit/test_brkga_operators.py::TestBiasedCrossover::test_rho_medio_mezcla_genes PASSED [ 33%]
+tests/unit/test_brkga_operators.py::TestDiversidad::test_lista_vacia_o_corta_devuelve_cero PASSED [ 33%]
+tests/unit/test_brkga_operators.py::TestDiversidad::test_todos_iguales_devuelve_cero PASSED [ 34%]
+tests/unit/test_brkga_operators.py::TestDiversidad::test_diversidad_positiva_con_valores_distintos PASSED [ 35%]
+tests/unit/test_fitness.py::TestFitnessConfig::test_defaults_son_validos PASSED [ 36%]
+tests/unit/test_fitness.py::TestFitnessConfig::test_pesos_que_no_suman_uno_lanzan_error PASSED [ 37%]
+tests/unit/test_fitness.py::TestFitnessConfig::test_pesos_negativos_lanzan_error PASSED [ 38%]
+tests/unit/test_fitness.py::TestFitnessConfig::test_umbral_l_no_positivo_lanza_error PASSED [ 39%]
+tests/unit/test_fitness.py::TestDescansosLargos::test_sin_rachas_largas_devuelve_cero PASSED [ 40%]
+tests/unit/test_fitness.py::TestDescansosLargos::test_una_racha_justo_en_umbral_cuenta_una PASSED [ 41%]
+tests/unit/test_fitness.py::TestDescansosLargos::test_dos_rachas_largas_misma_fila PASSED [ 42%]
+tests/unit/test_fitness.py::TestDescansosLargos::test_celdas_fuera_de_turno_no_cuentan_como_descanso PASSED [ 43%]
+tests/unit/test_fitness.py::TestFragmentacion::test_fila_homogenea_de_trabajo_da_cero PASSED [ 44%]
+tests/unit/test_fitness.py::TestFragmentacion::test_alternancia_total_da_transiciones_maximas PASSED [ 45%]
+tests/unit/test_fitness.py::TestFragmentacion::test_celdas_fuera_de_turno_no_se_cuentan PASSED [ 46%]
+tests/unit/test_fitness.py::TestEvaluarFitness::test_fitness_result_es_float_castable PASSED [ 47%]
+tests/unit/test_fitness.py::TestEvaluarFitness::test_componentes_tiene_las_cinco_claves PASSED [ 48%]
+tests/unit/test_fitness.py::TestEvaluarFitness::test_componentes_estan_en_rango_unitario PASSED [ 49%]
+tests/unit/test_fitness.py::TestEvaluarFitness::test_alpha_l_cero_anula_componente_l_en_valor PASSED [ 50%]
+tests/unit/test_fitness.py::TestEvaluarFitness::test_reproducibilidad_con_misma_semilla PASSED [ 50%]
+tests/unit/test_fitness.py::test_cobertura_cota_es_doble_del_total_de_sectores_por_slot PASSED [ 51%]
+tests/unit/test_fitness.py::test_cobertura_cota_respeta_sectorizacion_dinamica PASSED [ 52%]
+tests/unit/test_models.py::TestVentanaDisponibilidad::test_default_es_completa PASSED [ 53%]
+tests/unit/test_models.py::TestVentanaDisponibilidad::test_inicio_negativo_lanza_value_error PASSED [ 54%]
+tests/unit/test_models.py::TestVentanaDisponibilidad::test_ventana_invertida_lanza_value_error PASSED [ 55%]
+tests/unit/test_models.py::TestVentanaDisponibilidad::test_ventana_vacia_lanza_value_error PASSED [ 56%]
+tests/unit/test_models.py::TestVentanaDisponibilidad::test_contiene_dentro_de_la_ventana PASSED [ 57%]
+tests/unit/test_models.py::TestVentanaDisponibilidad::test_contiene_con_fin_none_no_limita_por_arriba PASSED [ 58%]
+tests/unit/test_models.py::test_controlador_constructor_minimo PASSED    [ 59%]
+tests/unit/test_models.py::test_controlador_clone_es_independiente PASSED [ 60%]
+tests/unit/test_models.py::test_controlador_getters_setters_round_trip PASSED [ 61%]
+tests/unit/test_models.py::test_controlador_slots_trabajados_default_cero PASSED [ 62%]
+tests/unit/test_models.py::test_controlador_slots_trabajados_se_clona PASSED [ 63%]
+tests/unit/test_models.py::test_sector_constructor PASSED                [ 64%]
+tests/unit/test_models.py::test_sector_igualdad_y_hash_por_id PASSED     [ 65%]
+tests/unit/test_models.py::test_nucleo_constructor_sectores_default_vacio PASSED [ 66%]
+tests/unit/test_models.py::test_turno_turnos_slots[10:30-18:30-12:30-18:30-esperado0] PASSED [ 66%]
+tests/unit/test_models.py::test_solucion_constructor PASSED              [ 67%]
+tests/unit/test_models.py::test_solucion_clone_es_deep_en_controladores PASSED [ 68%]
+tests/unit/test_models.py::test_solucion_shallow_clone_comparte_controladores PASSED [ 69%]
+tests/unit/test_restrictions.py::test_pesos_tienen_longitud_14 PASSED    [ 70%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_nucleo_trabajo] PASSED [ 71%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_tipo_sector] PASSED [ 72%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_porcentaje_descanso] PASSED [ 73%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_sectores_abiertos_noche] PASSED [ 74%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_trabajo_maximo_consecutivo] PASSED [ 75%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_controlador_turno_corto] PASSED [ 76%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_ventana_trabajo_descanso] PASSED [ 77%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_cambio_posicion] PASSED [ 78%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_trabajo_minimo_consecutivo] PASSED [ 79%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_descanso_minimo_consecutivo] PASSED [ 80%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_trabajo_posicion_minimo_consecutivo_no_regex] PASSED [ 81%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_num_maximo_sectores] PASSED [ 82%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_controlador_asignado] PASSED [ 83%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_turno_vacio] PASSED [ 83%]
+tests/unit/test_restrictions.py::test_acumulador_paralelo_devuelve_no_negativo PASSED [ 84%]
+tests/unit/test_restrictions.py::test_acumulador_sin_pesos_invariantes PASSED [ 85%]
+tests/unit/test_restrictions.py::test_acumulador_por_restricciones_publica_vector_global PASSED [ 86%]
+tests/unit/test_restrictions.py::test_turno_vacio_cuenta_solo_con_descanso_sin_trabajo PASSED [ 87%]
+tests/unit/test_restrictions.py::test_controlador_asignado_cuenta_huerfanos_y_no_asignados PASSED [ 88%]
+tests/unit/test_seeds.py::test_generador_cubre_la_mayoria_de_la_sectorizacion PASSED [ 89%]
+tests/unit/test_seeds.py::test_generador_respeta_licencia_con PASSED     [ 90%]
+tests/unit/test_seeds.py::test_generador_respeta_ventana_de_turno PASSED [ 91%]
+tests/unit/test_seeds.py::test_generador_publica_biyeccion_atco_turno PASSED [ 92%]
+tests/unit/test_seeds.py::test_generador_publica_slots_trabajados_consistente PASSED [ 93%]
+tests/unit/test_seeds.py::test_generador_es_diverso_entre_llamadas PASSED [ 94%]
+tests/unit/test_seeds.py::test_generador_es_reproducible_con_misma_semilla PASSED [ 95%]
+tests/unit/test_seeds.py::test_generador_falla_con_controladores_vacios PASSED [ 96%]
+tests/unit/test_seeds.py::test_generador_asigna_ejecutivo_y_planificador_cuando_hay_dos_candidatos PASSED [ 97%]
+tests/unit/test_seeds.py::test_generador_nunca_pone_mismo_atco_como_ej_y_pl PASSED [ 98%]
+tests/unit/test_seeds.py::test_ningun_atco_supera_el_cap_de_trabajo_consecutivo PASSED [ 99%]
+tests/unit/test_seeds.py::test_descanso_minimo_tras_alcanzar_el_cap PASSED [100%]
+
+============================= 106 passed in 0.72s ==============================

@@ -1,0 +1,547 @@
+2026-06-18 21:20:00,222 [INFO] atco.problem.instance: case_dir = {/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/entrada/Casos/madN_M1}
+2026-06-18 21:20:00,222 [INFO] atco.problem.instance: path = {madN_M1}, entorno = {Madrid}, entorno_id = {madN_M1-2019-02-12}
+2026-06-18 21:20:00,227 [INFO] root: Turno: Turno(nombre='Manana', inicio_tl='06:30:00', fin_tl='14:45:00', inicio_tc='06:30:00', fin_tc='14:45:00', parametros=Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des_min=15, tiempo_des_por_turno=30, tiempo_pos_min=15, tiempo_pos_opt=45, tiempo_trab_opt=90, num_sctrs_max=3, porcent_pos_max=0.6, porcent_pos_min=0.4, tamano_slots=5, pesos_objetivos=PesosObjetivos(peso_obj1=0.52, peso_obj2=0.27, peso_obj3=0.15, peso_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5)), tc=[0, 99], tl=[0, 99], slots_des_tc=25, slots_des_tl=25)
+2026-06-18 21:20:00,227 [INFO] atco.problem.instance: Lines: {['NUCLEO;TIPO;_SECTORNOCTURNO;NOMBRE;INICIO;FIN', 'Madrid Ruta 1;CONF;0;8A;06:30:00;14:45:00']}
+2026-06-18 21:20:00,227 [INFO] atco.problem.instance: filas={['Madrid Ruta 1', 'CONF', '0', '8A', '06:30:00', '14:45:00']}
+2026-06-18 21:20:00,227 [DEBUG] atco.problem.instance: ====================================================================================================
+2026-06-18 21:20:00,227 [DEBUG] atco.problem.instance: introducir_lista_sectores()
+2026-06-18 21:20:00,228 [INFO] atco.problem.instance: Inicio de turno: {06:30:00}, Len = {99} slots de 5 min
+2026-06-18 21:20:00,228 [INFO] atco.problem.instance: len sectorizacion: 99
+2026-06-18 21:20:00,228 [DEBUG] atco.problem.instance: [{'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}, {'aan', 'aah', 'aas', 'aao', 'aaa', 'aag', 'aay', 'aat'}]
+2026-06-18 21:20:00,230 [DEBUG] __main__: === === ===  01_seed_pop.py  === === === === ===
+2026-06-18 21:20:00,230 [DEBUG] __main__: args:
+2026-06-18 21:20:00,230 [DEBUG] __main__: Namespace(n_seeds=10, seed_base=42, path='madN_M1', entrada_id='madN_M1-2019-02-12', entorno='Madrid', properties='resources/problemParameters.properties', problem_props='resources/problemParameters.properties', options_props='resources/problemParameters.properties')
+2026-06-18 21:20:00,230 [DEBUG] __main__: === === === === === === === === ===
+2026-06-18 21:20:00,230 [DEBUG] __main__: Caso: madN_M1-2019-02-12 | N=22 controladores
+2026-06-18 21:20:00,230 [DEBUG] __main__: Pesos fitness: R=0.45 C=0.30 B=0.15 F=0.10 L=0.00
+2026-06-18 21:20:00,230 [DEBUG] __main__: Generando 10 semillas con base=42
+2026-06-18 21:20:00,230 [DEBUG] __main__: --------------------------------------------------------------------------------
+2026-06-18 21:20:00,230 [DEBUG] atco.seeds.greedy: ✅ dentro de construir_solucion_heuristica()
+2026-06-18 21:20:00,230 [ERROR] root: Traceback (most recent call last):
+2026-06-18 21:20:00,230 [ERROR] root: File "/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/experiments/01_seed_pop.py", line 173, in <module>
+2026-06-18 21:20:00,231 [ERROR] root: main()
+2026-06-18 21:20:00,231 [ERROR] root: File "/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/experiments/01_seed_pop.py", line 115, in main
+2026-06-18 21:20:00,231 [ERROR] root: sol = construir_solucion_heuristica(entrada, parametros, rng)
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: File "/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/src/atco/seeds/greedy.py", line 103, in construir_solucion_heuristica
+2026-06-18 21:20:00,231 [ERROR] root: MIN_REST: int = parametros.tiempo_des_por_trabajo // parametros.tamano_slots
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,231 [ERROR] root: ^
+2026-06-18 21:20:00,232 [ERROR] root: ^
+2026-06-18 21:20:00,232 [ERROR] root: ^
+2026-06-18 21:20:00,232 [ERROR] root: ^
+2026-06-18 21:20:00,232 [ERROR] root: ^
+2026-06-18 21:20:00,232 [ERROR] root: AttributeError
+2026-06-18 21:20:00,232 [ERROR] root: :
+2026-06-18 21:20:00,232 [ERROR] root: 'Parametros' object has no attribute 'tiempo_des_por_trabajo'
+2026-06-18 21:20:00,232 [ERROR] root: . Did you mean: '
+2026-06-18 21:20:00,232 [ERROR] root: tiempo_des_por_turno
+2026-06-18 21:20:00,232 [ERROR] root: '?
+2026-06-18 21:25:45,726 [INFO] atco.problem.instance: case_dir = {/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/entrada/Casos/madN_M1}
+2026-06-18 21:25:45,726 [INFO] atco.problem.instance: path = {madN_M1}, entorno = {Madrid}, entorno_id = {madN_M1-2019-02-12}
+2026-06-18 21:25:45,730 [INFO] root: Turno: Turno(nombre='Manana', inicio_tl='06:30:00', fin_tl='14:45:00', inicio_tc='06:30:00', fin_tc='14:45:00', parametros=Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des_min=15, tiempo_des_por_turno=30, tiempo_pos_min=15, tiempo_pos_opt=45, tiempo_trab_opt=90, num_sctrs_max=3, porcent_pos_max=0.6, porcent_pos_min=0.4, tamano_slots=5, pesos_objetivos=PesosObjetivos(peso_obj1=0.52, peso_obj2=0.27, peso_obj3=0.15, peso_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5)), tc=[0, 99], tl=[0, 99], slots_des_tc=25, slots_des_tl=25)
+2026-06-18 21:25:45,730 [INFO] atco.problem.instance: Lines: {['NUCLEO;TIPO;_SECTORNOCTURNO;NOMBRE;INICIO;FIN', 'Madrid Ruta 1;CONF;0;8A;06:30:00;14:45:00']}
+2026-06-18 21:25:45,730 [INFO] atco.problem.instance: filas={['Madrid Ruta 1', 'CONF', '0', '8A', '06:30:00', '14:45:00']}
+2026-06-18 21:25:45,730 [DEBUG] atco.problem.instance: ====================================================================================================
+2026-06-18 21:25:45,730 [DEBUG] atco.problem.instance: introducir_lista_sectores()
+2026-06-18 21:25:45,730 [INFO] atco.problem.instance: Inicio de turno: {06:30:00}, Len = {99} slots de 5 min
+2026-06-18 21:25:45,730 [INFO] atco.problem.instance: len sectorizacion: 99
+2026-06-18 21:25:45,730 [DEBUG] atco.problem.instance: [{'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}, {'aat', 'aao', 'aag', 'aas', 'aay', 'aan', 'aah', 'aaa'}]
+2026-06-18 21:25:45,732 [DEBUG] __main__: === === ===  01_seed_pop.py  === === === === ===
+2026-06-18 21:25:45,732 [DEBUG] __main__: args:
+2026-06-18 21:25:45,732 [DEBUG] __main__: Namespace(n_seeds=10, seed_base=42, path='madN_M1', entrada_id='madN_M1-2019-02-12', entorno='Madrid', properties='resources/problemParameters.properties', problem_props='resources/problemParameters.properties', options_props='resources/problemParameters.properties')
+2026-06-18 21:25:45,732 [DEBUG] __main__: === === === === === === === === ===
+2026-06-18 21:25:45,732 [DEBUG] __main__: Caso: madN_M1-2019-02-12 | N=22 controladores
+2026-06-18 21:25:45,732 [DEBUG] __main__: Pesos fitness: R=0.45 C=0.30 B=0.15 F=0.10 L=0.00
+2026-06-18 21:25:45,732 [DEBUG] __main__: Generando 10 semillas con base=42
+2026-06-18 21:25:45,732 [DEBUG] __main__: --------------------------------------------------------------------------------
+2026-06-18 21:25:45,732 [DEBUG] atco.seeds.greedy: ✅ dentro de construir_solucion_heuristica()
+2026-06-18 21:25:45,732 [ERROR] root: Traceback (most recent call last):
+2026-06-18 21:25:45,732 [ERROR] root: File "/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/experiments/01_seed_pop.py", line 173, in <module>
+2026-06-18 21:25:45,732 [ERROR] root: main()
+2026-06-18 21:25:45,732 [ERROR] root: File "/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/experiments/01_seed_pop.py", line 115, in main
+2026-06-18 21:25:45,732 [ERROR] root: sol = construir_solucion_heuristica(entrada, parametros, rng)
+2026-06-18 21:25:45,732 [ERROR] root: ^
+2026-06-18 21:25:45,732 [ERROR] root: ^
+2026-06-18 21:25:45,732 [ERROR] root: ^
+2026-06-18 21:25:45,732 [ERROR] root: ^
+2026-06-18 21:25:45,732 [ERROR] root: ^
+2026-06-18 21:25:45,732 [ERROR] root: ^
+2026-06-18 21:25:45,732 [ERROR] root: ^
+2026-06-18 21:25:45,732 [ERROR] root: ^
+2026-06-18 21:25:45,732 [ERROR] root: ^
+2026-06-18 21:25:45,732 [ERROR] root: ^
+2026-06-18 21:25:45,732 [ERROR] root: ^
+2026-06-18 21:25:45,732 [ERROR] root: ^
+2026-06-18 21:25:45,732 [ERROR] root: ^
+2026-06-18 21:25:45,732 [ERROR] root: ^
+2026-06-18 21:25:45,732 [ERROR] root: ^
+2026-06-18 21:25:45,732 [ERROR] root: ^
+2026-06-18 21:25:45,732 [ERROR] root: ^
+2026-06-18 21:25:45,732 [ERROR] root: ^
+2026-06-18 21:25:45,732 [ERROR] root: ^
+2026-06-18 21:25:45,732 [ERROR] root: ^
+2026-06-18 21:25:45,732 [ERROR] root: ^
+2026-06-18 21:25:45,732 [ERROR] root: ^
+2026-06-18 21:25:45,732 [ERROR] root: ^
+2026-06-18 21:25:45,732 [ERROR] root: ^
+2026-06-18 21:25:45,732 [ERROR] root: ^
+2026-06-18 21:25:45,732 [ERROR] root: ^
+2026-06-18 21:25:45,732 [ERROR] root: ^
+2026-06-18 21:25:45,732 [ERROR] root: ^
+2026-06-18 21:25:45,732 [ERROR] root: ^
+2026-06-18 21:25:45,732 [ERROR] root: ^
+2026-06-18 21:25:45,732 [ERROR] root: ^
+2026-06-18 21:25:45,732 [ERROR] root: ^
+2026-06-18 21:25:45,732 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: File "/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/src/atco/seeds/greedy.py", line 103, in construir_solucion_heuristica
+2026-06-18 21:25:45,733 [ERROR] root: MIN_REST: int = parametros.tiempo_des_por_trabajo // parametros.tamano_slots
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: ^
+2026-06-18 21:25:45,733 [ERROR] root: AttributeError
+2026-06-18 21:25:45,733 [ERROR] root: :
+2026-06-18 21:25:45,733 [ERROR] root: 'Parametros' object has no attribute 'tiempo_des_por_trabajo'
+2026-06-18 21:25:45,733 [ERROR] root: . Did you mean: '
+2026-06-18 21:25:45,733 [ERROR] root: tiempo_des_por_turno
+2026-06-18 21:25:45,733 [ERROR] root: '?
+2026-06-18 21:27:04,738 [ERROR] root: Traceback (most recent call last):
+2026-06-18 21:27:04,738 [ERROR] root: File "/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/experiments/01_seed_pop.py", line 173, in <module>
+2026-06-18 21:27:04,738 [ERROR] root: main()
+2026-06-18 21:27:04,738 [ERROR] root: File "/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/experiments/01_seed_pop.py", line 90, in main
+2026-06-18 21:27:04,738 [ERROR] root: parametros = Parametros.from_files(args.problem_props, args.options_props)
+2026-06-18 21:27:04,738 [ERROR] root: ^
+2026-06-18 21:27:04,738 [ERROR] root: ^
+2026-06-18 21:27:04,738 [ERROR] root: ^
+2026-06-18 21:27:04,738 [ERROR] root: ^
+2026-06-18 21:27:04,738 [ERROR] root: ^
+2026-06-18 21:27:04,738 [ERROR] root: ^
+2026-06-18 21:27:04,738 [ERROR] root: ^
+2026-06-18 21:27:04,738 [ERROR] root: ^
+2026-06-18 21:27:04,738 [ERROR] root: ^
+2026-06-18 21:27:04,738 [ERROR] root: ^
+2026-06-18 21:27:04,738 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: File "/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/src/atco/problem/parameters.py", line 94, in from_files
+2026-06-18 21:27:04,739 [ERROR] root: return cls(
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: ^
+2026-06-18 21:27:04,739 [ERROR] root: TypeError
+2026-06-18 21:27:04,739 [ERROR] root: :
+2026-06-18 21:27:04,739 [ERROR] root: Parametros.__init__() takes 15 positional arguments but 16 were given
+2026-06-18 21:28:51,246 [INFO] atco.problem.instance: case_dir = {/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/entrada/Casos/madN_M1}
+2026-06-18 21:28:51,246 [INFO] atco.problem.instance: path = {madN_M1}, entorno = {Madrid}, entorno_id = {madN_M1-2019-02-12}
+2026-06-18 21:28:51,250 [INFO] root: Turno: Turno(nombre='Manana', inicio_tl='06:30:00', fin_tl='14:45:00', inicio_tc='06:30:00', fin_tc='14:45:00', parametros=Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des_min=15, tiempo_des_por_turno=30, tiempo_pos_min=15, tiempo_pos_opt=45, tiempo_trab_opt=90, num_sctrs_max=3, porcent_pos_max=0.6, porcent_pos_min=0.4, tamano_slots=5, tiempo_des_por_trabajo=30, pesos_objetivos=PesosObjetivos(peso_obj1=0.52, peso_obj2=0.27, peso_obj3=0.15, peso_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5)), tc=[0, 99], tl=[0, 99], slots_des_tc=25, slots_des_tl=25)
+2026-06-18 21:28:51,250 [INFO] atco.problem.instance: Lines: {['NUCLEO;TIPO;_SECTORNOCTURNO;NOMBRE;INICIO;FIN', 'Madrid Ruta 1;CONF;0;8A;06:30:00;14:45:00']}
+2026-06-18 21:28:51,250 [INFO] atco.problem.instance: filas={['Madrid Ruta 1', 'CONF', '0', '8A', '06:30:00', '14:45:00']}
+2026-06-18 21:28:51,250 [DEBUG] atco.problem.instance: ====================================================================================================
+2026-06-18 21:28:51,250 [DEBUG] atco.problem.instance: introducir_lista_sectores()
+2026-06-18 21:28:51,251 [INFO] atco.problem.instance: Inicio de turno: {06:30:00}, Len = {99} slots de 5 min
+2026-06-18 21:28:51,251 [INFO] atco.problem.instance: len sectorizacion: 99
+2026-06-18 21:28:51,251 [DEBUG] atco.problem.instance: [{'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}, {'aas', 'aan', 'aah', 'aat', 'aaa', 'aay', 'aao', 'aag'}]
+2026-06-18 21:28:51,252 [DEBUG] __main__: === === ===  01_seed_pop.py  === === === === ===
+2026-06-18 21:28:51,253 [DEBUG] __main__: args:
+2026-06-18 21:28:51,253 [DEBUG] __main__: Namespace(n_seeds=10, seed_base=42, path='madN_M1', entrada_id='madN_M1-2019-02-12', entorno='Madrid', properties='resources/problemParameters.properties', problem_props='resources/problemParameters.properties', options_props='resources/problemParameters.properties')
+2026-06-18 21:28:51,253 [DEBUG] __main__: === === === === === === === === ===
+2026-06-18 21:28:51,253 [DEBUG] __main__: Caso: madN_M1-2019-02-12 | N=22 controladores
+2026-06-18 21:28:51,253 [DEBUG] __main__: Pesos fitness: R=0.45 C=0.30 B=0.15 F=0.10 L=0.00
+2026-06-18 21:28:51,253 [DEBUG] __main__: Generando 10 semillas con base=42
+2026-06-18 21:28:51,253 [DEBUG] __main__: --------------------------------------------------------------------------------
+2026-06-18 21:28:51,253 [DEBUG] atco.seeds.greedy: ✅ dentro de construir_solucion_heuristica()
+2026-06-18 21:28:51,253 [ERROR] root: Traceback (most recent call last):
+2026-06-18 21:28:51,253 [ERROR] root: File "/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/experiments/01_seed_pop.py", line 173, in <module>
+2026-06-18 21:28:51,253 [ERROR] root: main()
+2026-06-18 21:28:51,253 [ERROR] root: File "/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/experiments/01_seed_pop.py", line 115, in main
+2026-06-18 21:28:51,253 [ERROR] root: sol = construir_solucion_heuristica(entrada, parametros, rng)
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: ^
+2026-06-18 21:28:51,253 [ERROR] root: File "/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/src/atco/seeds/greedy.py", line 106, in construir_solucion_heuristica
+2026-06-18 21:28:51,254 [ERROR] root: sectores_t = list(entrada.get_lista_sectores_abiertos(t))
+2026-06-18 21:28:51,254 [ERROR] root: ^
+2026-06-18 21:28:51,254 [ERROR] root: ^
+2026-06-18 21:28:51,254 [ERROR] root: ^
+2026-06-18 21:28:51,254 [ERROR] root: ^
+2026-06-18 21:28:51,254 [ERROR] root: ^
+2026-06-18 21:28:51,254 [ERROR] root: ^
+2026-06-18 21:28:51,254 [ERROR] root: ^
+2026-06-18 21:28:51,254 [ERROR] root: ^
+2026-06-18 21:28:51,254 [ERROR] root: ^
+2026-06-18 21:28:51,254 [ERROR] root: ^
+2026-06-18 21:28:51,254 [ERROR] root: ^
+2026-06-18 21:28:51,254 [ERROR] root: ^
+2026-06-18 21:28:51,254 [ERROR] root: ^
+2026-06-18 21:28:51,254 [ERROR] root: ^
+2026-06-18 21:28:51,254 [ERROR] root: ^
+2026-06-18 21:28:51,254 [ERROR] root: ^
+2026-06-18 21:28:51,254 [ERROR] root: ^
+2026-06-18 21:28:51,254 [ERROR] root: ^
+2026-06-18 21:28:51,254 [ERROR] root: ^
+2026-06-18 21:28:51,254 [ERROR] root: ^
+2026-06-18 21:28:51,254 [ERROR] root: ^
+2026-06-18 21:28:51,254 [ERROR] root: ^
+2026-06-18 21:28:51,254 [ERROR] root: ^
+2026-06-18 21:28:51,254 [ERROR] root: ^
+2026-06-18 21:28:51,254 [ERROR] root: ^
+2026-06-18 21:28:51,254 [ERROR] root: ^
+2026-06-18 21:28:51,254 [ERROR] root: ^
+2026-06-18 21:28:51,254 [ERROR] root: ^
+2026-06-18 21:28:51,254 [ERROR] root: ^
+2026-06-18 21:28:51,254 [ERROR] root: ^
+2026-06-18 21:28:51,254 [ERROR] root: ^
+2026-06-18 21:28:51,254 [ERROR] root: ^
+2026-06-18 21:28:51,254 [ERROR] root: ^
+2026-06-18 21:28:51,254 [ERROR] root: ^
+2026-06-18 21:28:51,254 [ERROR] root: ^
+2026-06-18 21:28:51,254 [ERROR] root: AttributeError
+2026-06-18 21:28:51,254 [ERROR] root: :
+2026-06-18 21:28:51,254 [ERROR] root: 'Entrada' object has no attribute 'get_lista_sectores_abiertos'
+2026-06-18 21:28:51,254 [ERROR] root: . Did you mean: '
+2026-06-18 21:28:51,254 [ERROR] root: lista_sectores_abiertos
+2026-06-18 21:28:51,254 [ERROR] root: '?
+2026-06-18 21:29:47,627 [INFO] atco.problem.instance: case_dir = {/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/entrada/Casos/madN_M1}
+2026-06-18 21:29:47,627 [INFO] atco.problem.instance: path = {madN_M1}, entorno = {Madrid}, entorno_id = {madN_M1-2019-02-12}
+2026-06-18 21:29:47,631 [INFO] root: Turno: Turno(nombre='Manana', inicio_tl='06:30:00', fin_tl='14:45:00', inicio_tc='06:30:00', fin_tc='14:45:00', parametros=Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des_min=15, tiempo_des_por_turno=30, tiempo_pos_min=15, tiempo_pos_opt=45, tiempo_trab_opt=90, num_sctrs_max=3, porcent_pos_max=0.6, porcent_pos_min=0.4, tamano_slots=5, tiempo_des_por_trabajo=30, pesos_objetivos=PesosObjetivos(peso_obj1=0.52, peso_obj2=0.27, peso_obj3=0.15, peso_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5)), tc=[0, 99], tl=[0, 99], slots_des_tc=25, slots_des_tl=25)
+2026-06-18 21:29:47,631 [INFO] atco.problem.instance: Lines: {['NUCLEO;TIPO;_SECTORNOCTURNO;NOMBRE;INICIO;FIN', 'Madrid Ruta 1;CONF;0;8A;06:30:00;14:45:00']}
+2026-06-18 21:29:47,631 [INFO] atco.problem.instance: filas={['Madrid Ruta 1', 'CONF', '0', '8A', '06:30:00', '14:45:00']}
+2026-06-18 21:29:47,631 [DEBUG] atco.problem.instance: ====================================================================================================
+2026-06-18 21:29:47,631 [DEBUG] atco.problem.instance: introducir_lista_sectores()
+2026-06-18 21:29:47,631 [INFO] atco.problem.instance: Inicio de turno: {06:30:00}, Len = {99} slots de 5 min
+2026-06-18 21:29:47,631 [INFO] atco.problem.instance: len sectorizacion: 99
+2026-06-18 21:29:47,631 [DEBUG] atco.problem.instance: [{'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}, {'aat', 'aao', 'aag', 'aay', 'aah', 'aan', 'aas', 'aaa'}]
+2026-06-18 21:29:47,633 [DEBUG] __main__: === === ===  01_seed_pop.py  === === === === ===
+2026-06-18 21:29:47,633 [DEBUG] __main__: args:
+2026-06-18 21:29:47,633 [DEBUG] __main__: Namespace(n_seeds=10, seed_base=42, path='madN_M1', entrada_id='madN_M1-2019-02-12', entorno='Madrid', properties='resources/problemParameters.properties', problem_props='resources/problemParameters.properties', options_props='resources/problemParameters.properties')
+2026-06-18 21:29:47,633 [DEBUG] __main__: === === === === === === === === ===
+2026-06-18 21:29:47,633 [DEBUG] __main__: Caso: madN_M1-2019-02-12 | N=22 controladores
+2026-06-18 21:29:47,633 [DEBUG] __main__: Pesos fitness: R=0.45 C=0.30 B=0.15 F=0.10 L=0.00
+2026-06-18 21:29:47,633 [DEBUG] __main__: Generando 10 semillas con base=42
+2026-06-18 21:29:47,633 [DEBUG] __main__: --------------------------------------------------------------------------------
+2026-06-18 21:29:47,633 [DEBUG] atco.seeds.greedy: ✅ dentro de construir_solucion_heuristica()
+2026-06-18 21:29:47,634 [DEBUG] atco.seeds.greedy: ATCos = [69, 72, 51, 69, 75, 75, 72, 51, 75, 72, 75, 63, 69, 63, 69, 69, 63, 72, 72, 72, 69, 63]
+2026-06-18 21:29:47,636 [DEBUG] __main__: seed  0 | valor=0.1295 | R=0.143 C=0.080 B=0.242 F=0.050 L=0.909 | violadas=2
+2026-06-18 21:29:47,636 [DEBUG] atco.seeds.greedy: ✅ dentro de construir_solucion_heuristica()
+2026-06-18 21:29:47,637 [DEBUG] atco.seeds.greedy: ATCos = [72, 72, 69, 69, 72, 63, 69, 72, 51, 63, 69, 63, 75, 75, 63, 75, 51, 69, 75, 72, 72, 69]
+2026-06-18 21:29:47,639 [DEBUG] __main__: seed  1 | valor=0.0974 | R=0.071 C=0.080 B=0.242 F=0.050 L=0.909 | violadas=1
+2026-06-18 21:29:47,639 [DEBUG] atco.seeds.greedy: ✅ dentro de construir_solucion_heuristica()
+2026-06-18 21:29:47,640 [DEBUG] atco.seeds.greedy: ATCos = [63, 69, 51, 69, 72, 72, 72, 72, 69, 72, 69, 75, 63, 75, 63, 72, 75, 69, 51, 75, 63, 69]
+2026-06-18 21:29:47,642 [DEBUG] __main__: seed  2 | valor=0.0974 | R=0.071 C=0.080 B=0.242 F=0.050 L=0.909 | violadas=1
+2026-06-18 21:29:47,642 [DEBUG] atco.seeds.greedy: ✅ dentro de construir_solucion_heuristica()
+2026-06-18 21:29:47,643 [DEBUG] atco.seeds.greedy: ATCos = [63, 75, 51, 72, 69, 69, 75, 63, 72, 69, 63, 72, 72, 75, 69, 72, 69, 72, 51, 69, 75, 63]
+2026-06-18 21:29:47,644 [DEBUG] __main__: seed  3 | valor=0.1295 | R=0.143 C=0.080 B=0.242 F=0.050 L=0.909 | violadas=2
+2026-06-18 21:29:47,644 [DEBUG] atco.seeds.greedy: ✅ dentro de construir_solucion_heuristica()
+2026-06-18 21:29:47,645 [DEBUG] atco.seeds.greedy: ATCos = [75, 75, 69, 72, 69, 69, 72, 69, 63, 72, 63, 72, 51, 63, 51, 69, 69, 75, 75, 72, 63, 72]
+2026-06-18 21:29:47,647 [DEBUG] __main__: seed  4 | valor=0.1295 | R=0.143 C=0.080 B=0.242 F=0.050 L=0.909 | violadas=2
+2026-06-18 21:29:47,647 [DEBUG] atco.seeds.greedy: ✅ dentro de construir_solucion_heuristica()
+2026-06-18 21:29:47,648 [DEBUG] atco.seeds.greedy: ATCos = [63, 69, 51, 72, 63, 75, 75, 69, 72, 72, 63, 75, 69, 72, 63, 51, 69, 69, 69, 72, 75, 72]
+2026-06-18 21:29:47,650 [DEBUG] __main__: seed  5 | valor=0.1295 | R=0.143 C=0.080 B=0.242 F=0.050 L=0.909 | violadas=2
+2026-06-18 21:29:47,650 [DEBUG] atco.seeds.greedy: ✅ dentro de construir_solucion_heuristica()
+2026-06-18 21:29:47,651 [DEBUG] atco.seeds.greedy: ATCos = [72, 75, 72, 69, 63, 51, 72, 69, 69, 69, 69, 63, 63, 75, 75, 63, 69, 51, 72, 75, 72, 72]
+2026-06-18 21:29:47,653 [DEBUG] __main__: seed  6 | valor=0.0974 | R=0.071 C=0.080 B=0.242 F=0.050 L=0.909 | violadas=1
+2026-06-18 21:29:47,653 [DEBUG] atco.seeds.greedy: ✅ dentro de construir_solucion_heuristica()
+2026-06-18 21:29:47,654 [DEBUG] atco.seeds.greedy: ATCos = [69, 51, 75, 69, 72, 69, 69, 72, 63, 75, 75, 51, 69, 63, 72, 63, 63, 75, 72, 69, 72, 72]
+2026-06-18 21:29:47,655 [DEBUG] __main__: seed  7 | valor=0.1295 | R=0.143 C=0.080 B=0.242 F=0.050 L=0.909 | violadas=2
+2026-06-18 21:29:47,655 [DEBUG] atco.seeds.greedy: ✅ dentro de construir_solucion_heuristica()
+2026-06-18 21:29:47,657 [DEBUG] atco.seeds.greedy: ATCos = [63, 63, 75, 75, 69, 75, 51, 72, 63, 72, 75, 63, 72, 72, 51, 69, 69, 72, 72, 69, 69, 69]
+2026-06-18 21:29:47,658 [DEBUG] __main__: seed  8 | valor=0.1295 | R=0.143 C=0.080 B=0.242 F=0.050 L=0.909 | violadas=2
+2026-06-18 21:29:47,658 [DEBUG] atco.seeds.greedy: ✅ dentro de construir_solucion_heuristica()
+2026-06-18 21:29:47,659 [DEBUG] atco.seeds.greedy: ATCos = [51, 51, 72, 72, 69, 72, 63, 75, 63, 72, 75, 69, 69, 63, 63, 75, 69, 75, 69, 72, 72, 69]
+2026-06-18 21:29:47,661 [DEBUG] __main__: seed  9 | valor=0.1295 | R=0.143 C=0.080 B=0.242 F=0.050 L=0.909 | violadas=2
+2026-06-18 21:29:47,661 [DEBUG] __main__: --------------------------------------------------------------------------------
+2026-06-18 21:29:47,661 [DEBUG] __main__: Resumen: best=0.0974 | avg=0.1199 | worst=0.1295 | std=0.0147
+2026-06-18 21:29:47,661 [DEBUG] __main__: Mejor semilla: #1 (valor=0.0974)
+2026-06-18 21:29:47,661 [DEBUG] atco.seeds.greedy: ✅ dentro de construir_solucion_heuristica()
+2026-06-18 21:29:47,662 [DEBUG] atco.seeds.greedy: ATCos = [72, 72, 69, 69, 72, 63, 69, 72, 51, 63, 69, 63, 75, 75, 63, 75, 51, 69, 75, 72, 72, 69]
+2026-06-18 21:29:47,695 [DEBUG] __main__:   restricciones violadas (1):
+2026-06-18 21:29:47,695 [DEBUG] __main__: {0+1}: {comprobar_porcentaje_descanso}
+2026-06-18 22:21:04,447 [INFO] atco.problem.instance: case_dir = {/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/entrada/Casos/madN_M1}
+2026-06-18 22:21:04,447 [INFO] atco.problem.instance: path = {madN_M1}, entorno = {Madrid}, entorno_id = {madN_M1-2019-02-12}
+2026-06-18 22:21:04,451 [INFO] root: Turno: Turno(nombre='Manana', inicio_tl='06:30:00', fin_tl='14:45:00', inicio_tc='06:30:00', fin_tc='14:45:00', parametros=Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des_min=15, tiempo_des_por_turno=30, tiempo_pos_min=15, tiempo_pos_opt=45, tiempo_trab_opt=90, num_sctrs_max=3, porcent_pos_max=0.6, porcent_pos_min=0.4, tamano_slots=5, pesos_objetivos=PesosObjetivos(peso_obj1=0.52, peso_obj2=0.27, peso_obj3=0.15, peso_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5)), tc=[0, 99], tl=[0, 99], slots_des_tc=25, slots_des_tl=25)
+2026-06-18 22:21:04,451 [INFO] atco.problem.instance: Lines: {['NUCLEO;TIPO;_SECTORNOCTURNO;NOMBRE;INICIO;FIN', 'Madrid Ruta 1;CONF;0;8A;06:30:00;14:45:00']}
+2026-06-18 22:21:04,451 [INFO] atco.problem.instance: filas={['Madrid Ruta 1', 'CONF', '0', '8A', '06:30:00', '14:45:00']}
+2026-06-18 22:21:04,451 [DEBUG] atco.problem.instance: ====================================================================================================
+2026-06-18 22:21:04,451 [DEBUG] atco.problem.instance: introducir_lista_sectores()
+2026-06-18 22:21:04,451 [INFO] atco.problem.instance: Inicio de turno: {06:30:00}, Len = {99} slots de 5 min
+2026-06-18 22:21:04,451 [INFO] atco.problem.instance: len sectorizacion: 99
+2026-06-18 22:21:04,451 [DEBUG] atco.problem.instance: [{'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}, {'aay', 'aaa', 'aan', 'aat', 'aah', 'aas', 'aao', 'aag'}]
+2026-06-18 22:21:04,453 [DEBUG] __main__: === === ===  01_seed_pop.py  === === === === ===
+2026-06-18 22:21:04,453 [DEBUG] __main__: args:
+2026-06-18 22:21:04,453 [DEBUG] __main__: Namespace(n_seeds=10, seed_base=42, path='madN_M1', entrada_id='madN_M1-2019-02-12', entorno='Madrid', properties='resources/problemParameters.properties', problem_props='resources/problemParameters.properties', options_props='resources/problemParameters.properties')
+2026-06-18 22:21:04,453 [DEBUG] __main__: === === === === === === === === ===
+2026-06-18 22:21:04,453 [DEBUG] __main__: Caso: madN_M1-2019-02-12 | N=22 controladores
+2026-06-18 22:21:04,453 [DEBUG] __main__: Pesos fitness: R=0.45 C=0.30 B=0.15 F=0.10 L=0.00
+2026-06-18 22:21:04,453 [DEBUG] __main__: Generando 10 semillas con base=42
+2026-06-18 22:21:04,453 [DEBUG] __main__: --------------------------------------------------------------------------------
+2026-06-18 22:21:04,453 [DEBUG] atco.seeds.greedy: ✅ dentro de construir_solucion_heuristica()
+2026-06-18 22:21:04,454 [DEBUG] atco.seeds.greedy: ATCos = [69, 72, 51, 69, 75, 75, 72, 51, 75, 72, 75, 63, 69, 63, 69, 69, 63, 72, 72, 72, 69, 63]
+2026-06-18 22:21:04,456 [DEBUG] __main__: seed  0 | valor=0.1295 | R=0.143 C=0.080 B=0.242 F=0.050 L=0.909 | violadas=2
+2026-06-18 22:21:04,456 [DEBUG] atco.seeds.greedy: ✅ dentro de construir_solucion_heuristica()
+2026-06-18 22:21:04,457 [DEBUG] atco.seeds.greedy: ATCos = [72, 72, 69, 69, 72, 63, 69, 72, 51, 63, 69, 63, 75, 75, 63, 75, 51, 69, 75, 72, 72, 69]
+2026-06-18 22:21:04,459 [DEBUG] __main__: seed  1 | valor=0.0974 | R=0.071 C=0.080 B=0.242 F=0.050 L=0.909 | violadas=1
+2026-06-18 22:21:04,459 [DEBUG] atco.seeds.greedy: ✅ dentro de construir_solucion_heuristica()
+2026-06-18 22:21:04,460 [DEBUG] atco.seeds.greedy: ATCos = [63, 69, 51, 69, 72, 72, 72, 72, 69, 72, 69, 75, 63, 75, 63, 72, 75, 69, 51, 75, 63, 69]
+2026-06-18 22:21:04,462 [DEBUG] __main__: seed  2 | valor=0.0974 | R=0.071 C=0.080 B=0.242 F=0.050 L=0.909 | violadas=1
+2026-06-18 22:21:04,462 [DEBUG] atco.seeds.greedy: ✅ dentro de construir_solucion_heuristica()
+2026-06-18 22:21:04,463 [DEBUG] atco.seeds.greedy: ATCos = [63, 75, 51, 72, 69, 69, 75, 63, 72, 69, 63, 72, 72, 75, 69, 72, 69, 72, 51, 69, 75, 63]
+2026-06-18 22:21:04,465 [DEBUG] __main__: seed  3 | valor=0.1295 | R=0.143 C=0.080 B=0.242 F=0.050 L=0.909 | violadas=2
+2026-06-18 22:21:04,465 [DEBUG] atco.seeds.greedy: ✅ dentro de construir_solucion_heuristica()
+2026-06-18 22:21:04,466 [DEBUG] atco.seeds.greedy: ATCos = [75, 75, 69, 72, 69, 69, 72, 69, 63, 72, 63, 72, 51, 63, 51, 69, 69, 75, 75, 72, 63, 72]
+2026-06-18 22:21:04,468 [DEBUG] __main__: seed  4 | valor=0.1295 | R=0.143 C=0.080 B=0.242 F=0.050 L=0.909 | violadas=2
+2026-06-18 22:21:04,468 [DEBUG] atco.seeds.greedy: ✅ dentro de construir_solucion_heuristica()
+2026-06-18 22:21:04,469 [DEBUG] atco.seeds.greedy: ATCos = [63, 69, 51, 72, 63, 75, 75, 69, 72, 72, 63, 75, 69, 72, 63, 51, 69, 69, 69, 72, 75, 72]
+2026-06-18 22:21:04,470 [DEBUG] __main__: seed  5 | valor=0.1295 | R=0.143 C=0.080 B=0.242 F=0.050 L=0.909 | violadas=2
+2026-06-18 22:21:04,470 [DEBUG] atco.seeds.greedy: ✅ dentro de construir_solucion_heuristica()
+2026-06-18 22:21:04,471 [DEBUG] atco.seeds.greedy: ATCos = [72, 75, 72, 69, 63, 51, 72, 69, 69, 69, 69, 63, 63, 75, 75, 63, 69, 51, 72, 75, 72, 72]
+2026-06-18 22:21:04,473 [DEBUG] __main__: seed  6 | valor=0.0974 | R=0.071 C=0.080 B=0.242 F=0.050 L=0.909 | violadas=1
+2026-06-18 22:21:04,473 [DEBUG] atco.seeds.greedy: ✅ dentro de construir_solucion_heuristica()
+2026-06-18 22:21:04,474 [DEBUG] atco.seeds.greedy: ATCos = [69, 51, 75, 69, 72, 69, 69, 72, 63, 75, 75, 51, 69, 63, 72, 63, 63, 75, 72, 69, 72, 72]
+2026-06-18 22:21:04,476 [DEBUG] __main__: seed  7 | valor=0.1295 | R=0.143 C=0.080 B=0.242 F=0.050 L=0.909 | violadas=2
+2026-06-18 22:21:04,476 [DEBUG] atco.seeds.greedy: ✅ dentro de construir_solucion_heuristica()
+2026-06-18 22:21:04,477 [DEBUG] atco.seeds.greedy: ATCos = [63, 63, 75, 75, 69, 75, 51, 72, 63, 72, 75, 63, 72, 72, 51, 69, 69, 72, 72, 69, 69, 69]
+2026-06-18 22:21:04,479 [DEBUG] __main__: seed  8 | valor=0.1295 | R=0.143 C=0.080 B=0.242 F=0.050 L=0.909 | violadas=2
+2026-06-18 22:21:04,479 [DEBUG] atco.seeds.greedy: ✅ dentro de construir_solucion_heuristica()
+2026-06-18 22:21:04,480 [DEBUG] atco.seeds.greedy: ATCos = [51, 51, 72, 72, 69, 72, 63, 75, 63, 72, 75, 69, 69, 63, 63, 75, 69, 75, 69, 72, 72, 69]
+2026-06-18 22:21:04,481 [DEBUG] __main__: seed  9 | valor=0.1295 | R=0.143 C=0.080 B=0.242 F=0.050 L=0.909 | violadas=2
+2026-06-18 22:21:04,481 [DEBUG] __main__: --------------------------------------------------------------------------------
+2026-06-18 22:21:04,481 [DEBUG] __main__: Resumen: best=0.0974 | avg=0.1199 | worst=0.1295 | std=0.0147
+2026-06-18 22:21:04,481 [DEBUG] __main__: Mejor semilla: #1 (valor=0.0974)
+2026-06-18 22:21:04,481 [DEBUG] atco.seeds.greedy: ✅ dentro de construir_solucion_heuristica()
+2026-06-18 22:21:04,483 [DEBUG] atco.seeds.greedy: ATCos = [72, 72, 69, 69, 72, 63, 69, 72, 51, 63, 69, 63, 75, 75, 63, 75, 51, 69, 75, 72, 72, 69]
+2026-06-18 22:21:04,518 [DEBUG] __main__:   restricciones violadas (1):
+2026-06-18 22:21:04,518 [DEBUG] __main__: {0+1}: {comprobar_porcentaje_descanso}

@@ -80,7 +80,7 @@ class Controlador:
     turno_asignado: int = -1
     turno_noche: int = 0
 
-    def clone(self) -> "Controlador":
+    def clone(self) -> Controlador:
         return Controlador(
             id=self.id,
             turno=self.turno,

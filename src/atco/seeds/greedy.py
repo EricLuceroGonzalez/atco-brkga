@@ -11,6 +11,7 @@ Referencia: ``docs/thesis/notes-design.md`` §2.4.
 
 from __future__ import annotations
 
+import logging
 import random
 
 from atco.domain.constants import STRING_DESCANSO, STRING_NO_TURNO
@@ -18,11 +19,14 @@ from atco.domain.models import Controlador, Nucleo, Sector, Solucion, Turno
 from atco.problem.instance import Entrada
 from atco.problem.parameters import Parametros
 
+log = logging.getLogger(__name__)
+
 
 def construir_solucion_heuristica(
     entrada: Entrada,
     parametros: Parametros,
     rng: random.Random | None = None,
+    prioridad: list[float] | None = None,
 ) -> Solucion:
     """Construye una solución factible por heurística greedy al ATCo menos-cargado.
 
@@ -55,7 +59,11 @@ def construir_solucion_heuristica(
             usa, pero versiones futuras pueden consultarlo.
         rng: Generador aleatorio para reproducibilidad. Si es ``None``,
             se instancia un ``random.Random()`` nuevo (no reproducible).
-
+        prioridad: Vector opcional de prioridades por controlador,
+            normalmente `chromosome` del BRKGA. Si se proporciona, se
+            usa como **tiebreaker** tras ordenar por `slots_trabajados`
+            (mayor prioridad gana el empate). Si es None, se usa shuffle
+            aleatorio para romper empates.
     Returns:
         ``Solucion`` con la matriz de turnos completa, los controladores
         clonados con su ``turno_asignado`` y ``slots_trabajados``
@@ -68,7 +76,7 @@ def construir_solucion_heuristica(
     """
     if rng is None:
         rng = random.Random()
-
+    log.debug("✅ dentro de construir_solucion_heuristica()")
     atcos: list[Controlador] = [c.clone() for c in entrada.get_controladores()]
     sectorizacion: list[set[str]] = entrada.get_sectorizacion()
     n_atcos: int = len(atcos)  # Cantidad de atcos
@@ -83,7 +91,7 @@ def construir_solucion_heuristica(
     matriz: list[list[str]] = [[STRING_NO_TURNO] * n_slots for _ in range(n_atcos)]
 
     # Marca los slots dentro de la ventana de cada controlador como
-    # `STRING_DESCANSO` por defecto: luego sólo se trabaja
+    # `STRING_DESCANSO (111)` por defecto: luego sólo se trabaja
     # sobre estas celdas, nunca las de `STRING_NO_TURNO`.
     _marcar_ventana_de_turno(matriz, atcos, entrada)  # Inicialización de la matriz
 
@@ -91,39 +99,89 @@ def construir_solucion_heuristica(
     ruta_ids, nucleo_a_sectores = _cachear_licencias(entrada)
 
     # Carga acumulada por controlador, paralelo a `atcos`.
-    slots_trabajados: list[int] = [0] * n_atcos  # Inicializar el contador de carga
+    # Inicializar el contador de carga
+    slots_trabajados: list[int] = [0] * n_atcos
+    consecutivos: list[int] = [0] * n_atcos  # slots seguidos trabajando
+    descanso_pendiente: list[int] = [0] * n_atcos  # slots de descanso obligatorio
 
-    # Recorrido cronológico, asignando sectores al ATCo menos cargado.
+    maximo_consecutivo: int = parametros.tiempo_trab_max // parametros.tamano_slots
+    minimo_consecutivo: int = parametros.tiempo_des_por_turno // parametros.tamano_slots
+    # Recorrido cronológico, asignando sectores al ATCo
+    # 1. menos cargado y 2. asegurando pareja ejecutivo/planificador.
     for t in range(n_slots):
-        sectores_en_t = list(entrada.get_sectores_abiertos_en(t))
-        rng.shuffle(sectores_en_t)  # diversidad en el orden de recorrido
+        sectores_t = list(entrada.get_sectores_abiertos_en(t))
+        rng.shuffle(sectores_t)
 
-        for sector_t in sectores_en_t:
+        # ── FASE 1: extender bloques activos ─────────────────────────
+        pendientes: list[tuple[Sector, str]] = []
+        for sector_t in sectores_t:
+            for posicion in ("EJ", "PL"):
+                token = sector_t.id.upper() if posicion == "EJ" else sector_t.id.lower()
+                if t == 0:
+                    pendientes.append((sector_t, posicion))
+                    continue
+                i_prev = _atco_en_slot_anterior(matriz, t - 1, token)
+                puede = (
+                    i_prev is not None
+                    and _puede_continuar(i_prev, t, matriz)
+                    and descanso_pendiente[i_prev] == 0
+                    and consecutivos[i_prev] < maximo_consecutivo
+                )
+                if puede:
+                    matriz[i_prev][t] = token
+                    slots_trabajados[i_prev] += 1
+                    consecutivos[i_prev] += 1
+                    if consecutivos[i_prev] >= maximo_consecutivo:
+                        descanso_pendiente[i_prev] = minimo_consecutivo
+                else:
+                    pendientes.append((sector_t, posicion))
+
+        # ── FASE 2: rellenar pendientes con el menos cargado ─────────
+        for sector_t, posicion in pendientes:
             candidatos = [
                 i
                 for i in range(n_atcos)
                 if matriz[i][t] == STRING_DESCANSO
+                and descanso_pendiente[i] == 0
                 and _tiene_licencia(atcos[i], sector_t.id, ruta_ids, nucleo_a_sectores)
             ]
             if not candidatos:
-                continue  # EJ y PL no cubiertos
+                continue  # posición descubierta
 
-            i_ej, i_pl = _elegir_pareja_ej_pl(candidatos, slots_trabajados, rng)
+            if prioridad is not None:
+                # Tiebreaker dirigido por el cromosoma del BRKGA.
+                candidatos.sort(key=lambda i: (slots_trabajados[i], -prioridad[i]))
+            else:
+                # Tiebreaker aleatorio (greedy puro).
+                rng.shuffle(candidatos)
+                candidatos.sort(key=lambda i: slots_trabajados[i])
 
-            matriz[i_ej][t] = sector_t.id.upper()
-            slots_trabajados[i_ej] += 1
+            i_elegido = candidatos[0]
 
-            if i_pl is not None:
-                matriz[i_pl][t] = sector_t.id.lower()
-                slots_trabajados[i_pl] += 1
+            token = sector_t.id.upper() if posicion == "EJ" else sector_t.id.lower()
+            matriz[i_elegido][t] = token
+            slots_trabajados[i_elegido] += 1
+            consecutivos[i_elegido] += 1
+            if consecutivos[i_elegido] >= maximo_consecutivo:
+                descanso_pendiente[i_elegido] = minimo_consecutivo
+
+        # ── BOOKKEEPING fin-de-slot ──────────────────────────────────
+        # Quienes no fueron asignados en este slot descansan: reseteamos
+        # su contador de consecutivos y descontamos el descanso pendiente.
+        for i in range(n_atcos):
+            cell = matriz[i][t]
+            if cell in (STRING_DESCANSO, STRING_NO_TURNO):
+                consecutivos[i] = 0
+                if descanso_pendiente[i] > 0:
+                    descanso_pendiente[i] -= 1
             # si i_pl is None: PL queda descubierto (lo registra el fitness)
 
-    # Instanciar contadores en los controladores y construir la Solucion final.
+    # Instanciar filas de matriz en los atco y construir Solucion final.
     turnos_strings: list[str] = ["".join(fila) for fila in matriz]
     for c_idx, controlador in enumerate(atcos):
         controlador.turno_asignado = c_idx
         controlador.slots_trabajados = slots_trabajados[c_idx]
-
+    log.debug("ATCos = %s", [i.slots_trabajados for i in atcos])
     return Solucion(
         turnos=turnos_strings,
         controladores=atcos,
@@ -154,6 +212,7 @@ def _marcar_ventana_de_turno(
     ventana_larga: list[int] = turno.get_tl()
     n_slots: int = len(matriz[0]) if matriz else 0
 
+    # TODO: toma todo el turno como disponibilidad del atco. Verificar.
     for i, c in enumerate(atcos):
         es_corto = c.turno in ("TC", "MC")
         ventana = ventana_corta if es_corto else ventana_larga
@@ -173,7 +232,7 @@ def _cachear_licencias(entrada: Entrada) -> tuple[set[str], dict[str, set[str]]]
 
         * ``ruta_ids``: conjunto de IDs (en minúsculas) de los sectores
           marcados como ``ruta=True``. Lo consulta el chequeo CON.
-        * ``nucleo_a_sectores``: mapeo ``nombre_núcleo_lower → set de
+        * ``nucleo_a_sectores``: mapeo ``nombre_núcleo_lower --> set de
           IDs de sector pertenecientes a ese núcleo``. Lo consulta el
           chequeo de núcleo.
     """
@@ -263,7 +322,7 @@ def _elegir_pareja_ej_pl(
     rng.shuffle(candidatos)
     candidatos.sort(
         key=lambda i: cargas[i]
-    )  # sort estable: preserva shuffle en empates
+    )  # sort estable: preserva random shuffle en empates
 
     i_ej = candidatos[0]
     if len(candidatos) == 1:
@@ -296,3 +355,42 @@ def _tiene_licencia(
     nucleo_key: str = controlador.nucleo.lower()
     sectores_del_nucleo: set[str] | None = nucleo_a_sectores.get(nucleo_key)
     return sectores_del_nucleo is None or sid in sectores_del_nucleo
+
+
+def _atco_en_slot_anterior(
+    matriz: list[list[str]],
+    t_prev: int,
+    token: str,
+) -> int | None:
+    """Devuelve el índice del controlador que tenía `token` en el slot `t_prev`, o None.
+
+    Recorre la columna `t_prev` de la matriz buscando el token (id en
+    mayúsculas si es ejecutivo, minúsculas si es planificador). Se usa
+    para extender la asignación de un bloque (sector, posición) de un
+    slot al siguiente.
+
+    Args:
+        matriz: matriz N×T de tokens de 3 caracteres.
+        t_prev: índice del slot anterior (debe ser ≥ 0).
+        token: token de 3 caracteres a buscar.
+
+    Returns:
+        Índice del controlador que tenía `token` en `t_prev`, o `None`
+        si ningún controlador lo tenía.
+    """
+    for i, fila in enumerate(matriz):
+        if fila[t_prev] == token:
+            return i
+    return None
+
+
+def _puede_continuar(i: int, t: int, matriz: list[list[str]]) -> bool:
+    """True si el controlador i puede continuar su bloque en el slot `t`.
+
+    Por construcción, la celda `matriz[i][t]` arranca con
+    ``STRING_DESCANSO`` si el controlador está en su ventana de turno
+    y en su ventana de disponibilidad. Cualquier otro valor
+    (``STRING_NO_TURNO`` o un id de sector) significa que no puede
+    continuar: fuera de turno, fuera de disponibilidad, o ya asignado.
+    """
+    return matriz[i][t] == STRING_DESCANSO

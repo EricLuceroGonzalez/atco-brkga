@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import logging
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -13,6 +14,7 @@ IDS = [
     for b in "abcdefghijklmnopqrstuvwxyz"
     for c in "abcdefghijklmnopqrstuvwxyz"
 ]
+log = logging.getLogger(__name__)
 
 
 @dataclass
@@ -42,22 +44,11 @@ class Entrada:
     ) -> Entrada:
         repo = Path(repo)
         case_dir = repo / "entrada" / "Casos" / path
-        print(f"case_dir = {case_dir}")
-        print(f"path = {path}")
-        print(f"entorno = {entorno}")
-        print(f"entorno = {entrada_id}")
-        (
-            print("Apertura cool")
-            if _listar(case_dir / f"AperturaSectorizaciones_{entrada_id}.csv")
-            is not None
-            else print("No apertura")
+        log.info("case_dir = {%s}", case_dir)
+        log.info(
+            "path = {%s}, entorno = {%s}, entorno_id = {%s}", path, entorno, entrada_id
         )
-        (
-            print("Apertura cool")
-            if _listar(case_dir / f"ListaSectoresElementales_{entrada_id}.csv")
-            is not None
-            else print("No apertura")
-        )
+
         f_apertura = _listar(case_dir / f"AperturaSectorizaciones_{entrada_id}.csv")
         f_recursos = _listar(case_dir / f"RecursosDisponibles_{entrada_id}.csv")
         f_turno = _listar(case_dir / f"Turno_{entrada_id}.csv")
@@ -103,27 +94,9 @@ class Entrada:
         sectorizacion = crear_sectorizacion(
             f_apertura, f_sector_vol, turno, lista_sectores
         )
-        print(f"tipo sctori: {type(sectorizacion)} con len: {len(sectorizacion)}")
-        # for i, sec in enumerate(sectorizacion):
-        #     print(f"slot {i+1}: {sec}")
+        log.info("len sectorizacion: %s", len(sectorizacion))
+        log.debug(sectorizacion)
         slot_momento_actual = crear_momento_actual(turno, f_distribucion, parametros)
-
-        # sectorizacion_modificada = None
-        # nuevos = None
-        # print(f"f_mod_sectores({len(f_mod_sectores)}) = {f_mod_sectores}")
-        # if len(f_mod_sectores) <= 1:
-        #     sectorizacion_modificada = crear_sectorizacion(
-        #         f_mod_sectores, f_sector_vol, turno, lista_sectores
-        #     )
-        #     nuevos = crear_lista_nuevos_sectores_abiertos(
-        #         slot_momento_actual,
-        #         sectorizacion,
-        #         sectorizacion_modificada,
-        #         lista_sectores,
-        #     )
-        # if f_mod_recursos:
-        #     modificar_controladores(controladores, f_mod_recursos, turno, parametros)
-
         abiertos = crear_lista_sectores_abiertos(sectorizacion, lista_sectores)
         volumenes = crear_hashmap_sectores_volumenes(abiertos, f_sector_vol)
         distribucion = crear_solucion_inicial(
@@ -267,7 +240,7 @@ def crear_lista_sectores(
     sectores: list[Sector] = []
     # i = 2 para saltarse el encabezado de la tabla SectoresNucleos...
     for idx, line in enumerate(lines[2:]):
-        # print(f"{idx}: {line}")
+        # log.info("{idx}: {line}")
         # Se separa cada fila del CSV SectoresNucles
         cols = line.split(";")
         if len(cols) < 2:
@@ -285,7 +258,7 @@ def crear_lista_sectores(
         # Si el Nucleo tiene "RUTA" en la columna 2 crea una instancia tipo RUTA,
         # sino crea una "APP" por defecto
         if kind == "ruta":
-            # print(f"IDS[idx]: {IDS[idx]}")
+            # log.info("IDS[idx]: {IDS[idx]}")
             sectores.append(Sector(cols[0], IDS[idx], False, True, 0, elems))
         elif kind == "app":
             sectores.append(Sector(cols[0], IDS[idx], True, False, 0, elems))
@@ -353,17 +326,18 @@ def crear_turno(lines: list[str], parametros: Parametros) -> Turno:
 
 
 def crear_sectorizacion(
-    lines: list[str], conf_lines: list[str], turno: Turno, sectores: list[Sector]
+    apertura_sec: list[str], conf_lines: list[str], turno: Turno, sectores: list[Sector]
 ) -> list[set[str]]:
     temp = [[STRING_DESCANSO] for _ in range(turno.get_tl()[1])]
-    print(f"\n\n\ncrear_sectorizacion() con {len(temp)}, {turno.get_tl()}")
     print(f"Turno: {turno}")
-    for raw in lines[1:]:
+    log.info("Lines: {%s}", apertura_sec)
+    # Se recorre todo "AperturaSectorizaciones_{entrada_id}.csv"
+    for raw in apertura_sec[1:]:  # Evitamos encabezado
         cols = raw.split(";")
         if len(cols) < 6:
             continue
-        tipo = cols[1].upper()
-        print(f"cols={cols}")
+        tipo = cols[1].upper()  # CONFiguracion o SECTOR
+        log.info("filas={%s}", cols)
         if tipo == "SECTOR":
             introducir_sector(cols, temp, turno, sectores, False)
         elif tipo == "CONF":
@@ -372,13 +346,13 @@ def crear_sectorizacion(
             introducir_sector(cols, temp, turno, sectores, True)
     result = []
     for _idx, slot in enumerate(temp):
-        # print(f"slot {idx+1} = {slot}")
+        # log.info("slot {idx+1} = {slot}")
         result.append(set(x for x in slot if x != STRING_DESCANSO))
     return result
 
 
 def introducir_lista_sectores(
-    line: list[str],
+    apertura_sec: list[str],
     conf_lines: list[str],
     sectorizacion: list[list[str]],
     turno: Turno,
@@ -393,29 +367,29 @@ def introducir_lista_sectores(
         turno (Turno): _description_
         sectores (list[Sector]): _description_
     """
-    print("=====" * 20)
-    print("introducir_lista_sectores()")
-    ids = encontrar_configuracion(line, conf_lines, sectores)
-    print(f"ids = {type(ids)}")
+    log.debug("=====" * 20)
+    log.debug("introducir_lista_sectores()")
+    ids = encontrar_configuracion(apertura_sec, conf_lines, sectores)
     ini_tl = turno.get_inicio_tl()
-    length = obtener_longitud(line[4], line[5])
-    print(f"Inicio de turno: {ini_tl}, Len = {length} slots de 5 min")
+    length = obtener_longitud(apertura_sec[4], apertura_sec[5])
+    log.info("Inicio de turno: {%s}, Len = {%s} slots de 5 min", ini_tl, length)
     if length < 0:
-        length = obtener_longitud(line[4], "24:00:00") + obtener_longitud(
-            "00:00:00", line[5]
+        length = obtener_longitud(apertura_sec[4], "24:00:00") + obtener_longitud(
+            "00:00:00", apertura_sec[5]
         )
-    offset = obtener_longitud(ini_tl, line[4])
-    print(f"Offset = {offset}")
+    offset = obtener_longitud(ini_tl, apertura_sec[4])
     if offset < 0:
         offset = obtener_longitud(ini_tl, "24:00:00") + obtener_longitud(
-            "00:00:00", line[4]
+            "00:00:00", apertura_sec[4]
         )
-    for i in range(offset, offset + length):
+    # El fuerte de esta funcion: modificar el objeto Sector
+    for i in range(offset, offset + length):  # Se recorre slot x slot
+        # Va poblando el vector [ [111], [111], [111]....] por los ids de los sectores
+        # Termina el bucle con los S slots y en cada slot un array con los N sectores
         if i == len(sectorizacion):
             sectorizacion.append(list(ids))
         elif 0 <= i < len(sectorizacion):
             sectorizacion[i].extend(ids)
-    print("^^^^^" * 20)
 
 
 def introducir_sector(
@@ -425,12 +399,11 @@ def introducir_sector(
     sectores: list[Sector],
     nocturno: bool,
 ) -> None:
-    print("+++" * 25)
-    print("inside introducir_sector()")
+    log.info("inside introducir_sector()")
     sector_id = ""
-    print(f"sectores  {len(sectores)}")
+    log.info("sectores  {len(%s)}", sectores)
     for sector in sectores:
-        print(f"sector: {sector}")
+        log.info("sector: {%s}", sector)
         if line[3].lower() == sector.nombre.lower():
             sector_id = sector.id
             if nocturno:
@@ -460,8 +433,8 @@ def encontrar_configuracion(
     config_name = line[3]
     nucleo = line[0]
     ids: list[str] = []
-    print(f"nucleo = {nucleo}")
-    print(f"conf = {config_name}")
+    # log.info("nucleo = {nucleo}")
+    # log.info("conf = {config_name}")
     for raw in conf_lines[1:]:
         cols = raw.split(";")
         if (
@@ -470,7 +443,7 @@ def encontrar_configuracion(
             and cols[0].lower() == config_name.lower()
         ):
             sector = find_sector_by_name(cols[1], sectores)
-            print(f"{cols[1]} is {sector.id}")
+            # log.info("{cols[1]} is {sector.id}")
             if sector.id not in ids:
                 ids.append(sector.id)
     return ids
@@ -479,8 +452,6 @@ def encontrar_configuracion(
 def obtener_longitud(start: str, end: str) -> int:
     sh, sm = _hour_minute(start)
     eh, em = _hour_minute(end)
-    print(f"horas: {(eh - sh)}, min: {(eh - sh) * 60}")
-    print(f"minutos: {(em - sm)}")
     return ((eh - sh) * 60 + (em - sm)) // 5
 
 

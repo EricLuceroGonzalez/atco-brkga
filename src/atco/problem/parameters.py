@@ -91,8 +91,6 @@ class Parametros:
     ) -> Parametros:
         props = load_properties(problem_parameters)
         opts = load_properties(options)
-        print("options")
-        print(options)
         return cls(
             _float(props, "porcentajeDeDescansoDuranteDia"),
             _float(props, "porcentajeDeDescansoDuranteNoche"),

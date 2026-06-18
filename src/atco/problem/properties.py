@@ -44,7 +44,6 @@ def load_properties(path: str | Path) -> dict[str, str]:
 
     if current_key is not None:
         result[current_key] = _unescape_property(current_value.strip())
-    print(result)
     return result
 
 

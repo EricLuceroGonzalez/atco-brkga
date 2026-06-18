@@ -21,7 +21,7 @@ import json
 import pickle
 from pathlib import Path
 
-from atco.domain.models import Controlador, Propiedades, Solucion
+from atco.domain.models import Controlador, Solucion
 
 # =============================================================================
 # Pickle (round-trip exacto, formato binario)

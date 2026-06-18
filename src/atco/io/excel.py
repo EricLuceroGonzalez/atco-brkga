@@ -1,4 +1,5 @@
 import hashlib
+import logging
 from pathlib import Path
 
 import openpyxl
@@ -9,16 +10,10 @@ from atco.domain.models import Solucion
 COLORES_FIJOS = {
     "111": "aaadad",  # Rojo claro si 111 representa alguna penalización o retén
 }
+log = logging.getLogger(__name__)
 
 
 def _write_solution_xlsx_gantt(path: Path, solution: Solucion) -> None:
-    # try:
-    #     import openpyxl
-    #     from openpyxl.styles import Font, PatternFill, Alignment
-    # except ImportError:
-    #     print("Advertencia: openpyxl no está instalado. No se generará el Excel.")
-    #     return
-
     wb = openpyxl.Workbook()
     ws = wb.active
     ws.title = "Horario_Visual"
@@ -77,25 +72,16 @@ def _write_solution_xlsx_gantt(path: Path, solution: Solucion) -> None:
             controlador.ptd,
             controlador.con,
             controlador.turno_asignado,
-            # (
-            #     controlador.baja_alta.value
-            #     if hasattr(controlador.baja_alta, "value")
-            #     else str(controlador.baja_alta)
-            # ),
-            # controlador.slot_alta,
-            # controlador.slot_baja,
         ]
 
         slots_individuales = [turno_str[i : i + 3] for i in range(0, len(turno_str), 3)]
         row_data.extend(slots_individuales)
-        print("row_data")
-        print(row_data)
         ws.append(row_data)
 
         current_row = ws.max_row
 
         for idx, slot_val in enumerate(slots_individuales):
-            col_excel = 10 + idx
+            col_excel = 7 + idx
             celda = ws.cell(row=current_row, column=col_excel)
 
             # Llamamos a la función inteligente que te da el color hasheado o fijo
@@ -103,7 +89,7 @@ def _write_solution_xlsx_gantt(path: Path, solution: Solucion) -> None:
             celda.alignment = Alignment(horizontal="center")
 
     # Congelar paneles
-    ws.freeze_panes = "J2"
+    ws.freeze_panes = "G1"
 
     wb.save(path)
 

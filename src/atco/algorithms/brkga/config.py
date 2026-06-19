@@ -30,7 +30,7 @@ class StoppingCriteria:
     max_generations: int | None = 200
     max_evaluations: int | None = None
     max_seconds: float | None = 300.0
-    stagnation_generations: int | None = 30
+    stagnation_generations: int | None = 1000
 
     def __post_init__(self) -> None:
         if all(

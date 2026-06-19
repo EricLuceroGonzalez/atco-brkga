@@ -149,10 +149,11 @@ def construir_solucion_heuristica(
                 continue  # posición descubierta
 
             if prioridad is not None:
-                # Tiebreaker dirigido por el cromosoma del BRKGA.
-                candidatos.sort(key=lambda i: (slots_trabajados[i], -prioridad[i]))
+                # Cromosoma del BRKGA como criterio primario; carga como
+                # tiebreaker para preservar algo de balance natural.
+                candidatos.sort(key=lambda i: (-prioridad[i], slots_trabajados[i]))
             else:
-                # Tiebreaker aleatorio (greedy puro).
+                # Greedy puro: menos cargado, shuffle como tiebreaker.
                 rng.shuffle(candidatos)
                 candidatos.sort(key=lambda i: slots_trabajados[i])
 

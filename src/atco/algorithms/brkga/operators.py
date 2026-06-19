@@ -6,14 +6,14 @@ import numpy as np
 
 
 def random_chromosome(rng: np.random.Generator, num_genes: int) -> np.ndarray:
-    """Genera un cromosoma aleatorio con valores en [0, 1].
+    """Genera un cromosoma aleatorio con valores en [0, 1).
 
     Args:
         rng: Generador NumPy.
         num_genes: Longitud `L` del cromosoma.
 
     Returns:
-        Vector NumPy de shape `(num_genes,)` con valores en [0, 1].
+        Vector NumPy de shape `(num_genes,)` con valores en [0, 1).
     """
     return rng.random(num_genes)
 

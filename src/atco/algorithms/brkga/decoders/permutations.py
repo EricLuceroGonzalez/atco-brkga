@@ -68,6 +68,10 @@ class PermutationDecoder(DecoderBase):
                 no coincide con `n_controladores`.
         """
         self.validate_chromosome(chromosome)
+        import sys
+
+        sys.stderr.write(f"[decoder] chromosome[:3]={chromosome[:3].tolist()}\n")
+        sys.stderr.flush()
         n_real = len(entrada.get_controladores())
         if n_real != self.n_controladores:
             raise ValueError(
@@ -80,3 +84,45 @@ class PermutationDecoder(DecoderBase):
             rng=random.Random(self._RNG_SEED_INTERNO),
             prioridad=chromosome.tolist(),
         )
+
+
+def chromosome_from_solucion(
+    solucion: Solucion,
+    n_controladores: int,
+    longitud_t: int,
+) -> np.ndarray:
+    """Deriva un cromosoma a partir de una solución heurística.
+
+    La prioridad de cada controlador se establece como inversamente
+    proporcional a su carga: `prioridad[i] = 1 − slots_trabajados[i] / T`.
+    Controladores menos cargados obtienen prioridad alta, lo que sesga
+    al BRKGA a reasignarles en futuras generaciones (continuidad del
+    objetivo de balance).
+
+    Esta codificación no es exactamente inversa al decoder — múltiples
+    soluciones pueden mapear al mismo cromosoma. Sirve como **warm-start
+    razonable**, no como reconstrucción perfecta.
+
+    Args:
+        solucion: Solución de la que extraer las prioridades.
+        n_controladores: Número de controladores que debe tener el
+            cromosoma resultante.
+        longitud_t: Número total de slots del turno (T).
+
+    Returns:
+        Vector NumPy de shape `(n_controladores,)` con valores en [0, 1].
+
+    Raises:
+        ValueError: Si `solucion.controladores` no tiene `n_controladores`.
+    """
+    if len(solucion.controladores) != n_controladores:
+        raise ValueError(
+            f"Solucion tiene {len(solucion.controladores)} controladores "
+            f"pero el cromosoma espera {n_controladores}"
+        )
+    chrom = np.array(
+        [1.0 - (c.slots_trabajados / longitud_t) for c in solucion.controladores],
+        dtype=float,
+    )
+    # Clamp por si slots_trabajados > longitud_t en algún edge case
+    return np.clip(chrom, 0.0, 1.0)

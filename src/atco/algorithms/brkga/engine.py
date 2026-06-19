@@ -82,6 +82,7 @@ class BRKGAEngine:
         self,
         entrada: Entrada,
         parametros: Parametros,
+        seed_chromosomes: list[np.ndarray] | None = None,
     ) -> RunResult:
         """Ejecuta el BRKGA hasta que se cumpla algún criterio de parada.
 
@@ -93,7 +94,11 @@ class BRKGAEngine:
         n_genes = self.decoder.num_genes
         start_time = time.monotonic()
 
-        population = self._initial_population(rng, n_genes, entrada, parametros)
+        population = self._initial_population(
+            rng, n_genes, entrada, parametros, seed_chromosomes
+        )
+        log.debug("Pop = %s", population)
+        log.debug("Pop length = %s", len(population.individuals))
         evaluations = len(population.individuals)
         best = population.best
         seed_fitness = best.fitness
@@ -102,7 +107,7 @@ class BRKGAEngine:
         generation = 0
 
         log.info(
-            "BRKGA arranca | pop=%d élite=%d mutantes=%d cross=%d ρ_e=%.2f | "
+            "✅ BRKGA arranca | pop=%d élite=%d mutantes=%d cross=%d rho_e=%.2f | "
             "seed_fitness=%.4f",
             self.config.population_size,
             self.config.n_elite,
@@ -181,11 +186,36 @@ class BRKGAEngine:
         n_genes: int,
         entrada: Entrada,
         parametros: Parametros,
+        seed_chromosomes: list[np.ndarray] | None,
     ) -> Population:
-        individuals = [
-            self._evaluate(random_chromosome(rng, n_genes), entrada, parametros)
-            for _ in range(self.config.population_size)
-        ]
+        individuals: list[Individual] = []
+        seed_chromosomes = seed_chromosomes or []
+        for chromosome in seed_chromosomes:
+            if chromosome.shape != (n_genes,):
+                raise ValueError(
+                    f"seed_chromosome con shape {chromosome.shape} "
+                    f"(esperado ({n_genes},))"
+                )
+            individuals.append(self._evaluate(chromosome, entrada, parametros))
+        n_restantes = self.config.population_size - len(individuals)
+        if n_restantes < 0:
+            raise ValueError(
+                f"Demasiados seed_chromosomes ({len(seed_chromosomes)}) "
+                f"para population_size={self.config.population_size}"
+            )
+        for _ in range(n_restantes):
+            individuals.append(
+                self._evaluate(random_chromosome(rng, n_genes), entrada, parametros)
+            )
+        valores = sorted([ind.fitness for ind in individuals])
+        log.info(
+            "Pop inicial | N=%d | best=%.4f avg=%.4f worst=%.4f | distintos=%d",
+            len(individuals),
+            min(valores),
+            sum(valores) / len(valores),
+            max(valores),
+            len(set(round(v, 6) for v in valores)),
+        )
         return Population(individuals=individuals)
 
     def _next_generation(
@@ -215,7 +245,14 @@ class BRKGAEngine:
                 parent_elite, parent_non_elite, self.config.rho_elite, rng
             )
             next_individuals.append(self._evaluate(child, entrada, parametros))
-
+        valores = sorted([ind.fitness for ind in next_individuals])
+        log.info(
+            "Pop nueva  | best=%.4f avg=%.4f worst=%.4f | distintos=%d",
+            min(valores),
+            sum(valores) / len(valores),
+            max(valores),
+            len(set(round(v, 6) for v in valores)),
+        )
         return Population(individuals=next_individuals)
 
     def _evaluate(

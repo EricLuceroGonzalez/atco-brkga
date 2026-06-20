@@ -263,7 +263,11 @@ class BRKGAEngine:
     ) -> Individual:
         solucion = self.decoder.decode(chromosome, entrada, parametros)
         result = evaluar_fitness(solucion, entrada, parametros, self.fitness_config)
-        return Individual(chromosome=chromosome, fitness=result.valor)
+        return Individual(
+            chromosome=chromosome,
+            fitness=result.valor,
+            fitness_result=result,
+        )
 
     def _record(
         self,
@@ -272,6 +276,12 @@ class BRKGAEngine:
         state: RunState,
     ) -> ConvergenceRecord:
         vals = population.fitness_values
+        best_ind = min(population.individuals, key=lambda i: i.fitness)
+        components = None
+        violadas = None
+        if best_ind.fitness_result is not None:
+            components = dict(best_ind.fitness_result.componentes)
+            violadas = list(best_ind.fitness_result.restricciones_violadas)
         return ConvergenceRecord(
             generation=generation,
             best_fitness=min(vals),
@@ -280,4 +290,6 @@ class BRKGAEngine:
             diversity=diversidad_poblacion(vals),
             elapsed_seconds=state.elapsed_seconds(),
             evaluations=state.evaluations,
+            best_components=components,
+            best_restricciones_violadas=violadas,
         )

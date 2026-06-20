@@ -7,6 +7,8 @@ from dataclasses import dataclass, field
 
 import numpy as np
 
+from atco.fitness import FitnessResult
+
 
 @dataclass
 class Individual:
@@ -19,6 +21,7 @@ class Individual:
 
     chromosome: np.ndarray
     fitness: float
+    fitness_result: FitnessResult | None = None
 
 
 @dataclass
@@ -64,3 +67,5 @@ class ConvergenceRecord:
     diversity: float
     elapsed_seconds: float
     evaluations: int
+    best_components: dict[str, float] | None = None
+    best_restricciones_violadas: list[str] | None = None

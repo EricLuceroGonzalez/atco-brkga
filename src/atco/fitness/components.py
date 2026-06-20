@@ -7,9 +7,6 @@ la combinación ponderada las hace `objective.evaluar_fitness`.
 
 from __future__ import annotations
 
-import inspect
-from collections.abc import Callable
-
 from atco.domain.constants import STRING_DESCANSO, STRING_NO_TURNO
 from atco.domain.models import Solucion
 from atco.problem.instance import Entrada

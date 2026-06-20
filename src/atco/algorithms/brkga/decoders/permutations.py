@@ -14,36 +14,37 @@ from atco.seeds import construir_solucion_heuristica
 
 
 class PermutationDecoder(DecoderBase):
-    """Decoder de permutación implícita basado en prioridades por controlador.
+    """Decoder de permutación implícita basado en prioridades por controlador y por sector.
 
-    El cromosoma tiene `N` genes, uno por controlador. El valor
-    `chromosome[i] ∈ [0, 1]` es la prioridad global del controlador `i`
-    para la fase 2 (fresh-pick) del greedy. Se aplica como tiebreaker
-    tras ordenar por `slots_trabajados`: mayor `chromosome[i]` gana el
-    empate.
+    El cromosoma tiene `L = N + |S|` genes:
+        - Los primeros `N` son prioridades por controlador (criterio primario
+          en la fase 2 del greedy).
+        - Los últimos `|S|` son prioridades por sector (orden de procesamiento
+          en cada slot).
 
-    El decoder es determinista dado un cromosoma: para el mismo
-    cromosoma y la misma entrada, produce la misma solución. La
-    aleatoriedad del shuffle de sectores se fija con un `rng` interno
-    de semilla constante.
+    Ambas dimensiones rompen simetrías del problema y dan al BRKGA leverage
+    para distinguir soluciones permutadas.
 
     Attributes:
-        n_controladores: Número de controladores que el decoder espera
-            (igual al número de genes del cromosoma).
+        n_controladores: Número de controladores que el decoder espera.
+        n_sectores: Número de sectores globales.
     """
 
     _RNG_SEED_INTERNO: int = 0
 
-    def __init__(self, n_controladores: int) -> None:
+    def __init__(self, n_controladores: int, n_sectores: int) -> None:
         if n_controladores <= 0:
             raise ValueError(
                 f"n_controladores debe ser positivo, recibido {n_controladores}"
             )
+        if n_sectores <= 0:
+            raise ValueError(f"n_sectores debe ser positivo, recibido {n_sectores}")
         self.n_controladores = n_controladores
+        self.n_sectores = n_sectores
 
     @property
     def num_genes(self) -> int:
-        return self.n_controladores
+        return self.n_controladores + self.n_sectores
 
     def decode(
         self,
@@ -54,35 +55,49 @@ class PermutationDecoder(DecoderBase):
         """Decodifica un cromosoma a una `Solucion` factible.
 
         Args:
-            chromosome: Vector de prioridades, shape (`n_controladores`,).
+            chromosome: Vector de shape `(n_controladores + n_sectores,)`.
             entrada: Instancia del problema.
             parametros: Parámetros del dominio.
 
         Returns:
-            `Solucion` resultante de aplicar el greedy con `chromosome`
-            como tiebreaker en la fase 2.
+            `Solucion` resultante de aplicar el greedy con las dos
+            dimensiones del cromosoma como guía.
 
         Raises:
-            ValueError: Si el cromosoma no cumple el contrato (shape o
-                rango), o si el número de controladores de la entrada
-                no coincide con `n_controladores`.
+            ValueError: Si la entrada no encaja con las dimensiones del
+                decoder.
         """
         self.validate_chromosome(chromosome)
-        import sys
 
-        sys.stderr.write(f"[decoder] chromosome[:3]={chromosome[:3].tolist()}\n")
-        sys.stderr.flush()
         n_real = len(entrada.get_controladores())
         if n_real != self.n_controladores:
             raise ValueError(
                 f"Entrada tiene {n_real} controladores pero el decoder "
                 f"espera {self.n_controladores}"
             )
+
+        all_sectores = sorted(
+            entrada.get_lista_sectores(),
+            key=lambda s: s.id,
+        )
+        if len(all_sectores) != self.n_sectores:
+            raise ValueError(
+                f"Entrada tiene {len(all_sectores)} sectores pero el decoder "
+                f"espera {self.n_sectores}"
+            )
+
+        priority_atcos = chromosome[: self.n_controladores].tolist()
+        sector_genes = chromosome[self.n_controladores :]
+        priority_sectores: dict[str, float] = {
+            s.id: float(sector_genes[i]) for i, s in enumerate(all_sectores)
+        }
+
         return construir_solucion_heuristica(
             entrada=entrada,
             parametros=parametros,
             rng=random.Random(self._RNG_SEED_INTERNO),
-            prioridad=chromosome.tolist(),
+            prioridad=priority_atcos,
+            prioridad_sectores=priority_sectores,
         )
 
 
@@ -90,39 +105,16 @@ def chromosome_from_solucion(
     solucion: Solucion,
     n_controladores: int,
     longitud_t: int,
+    n_sectores: int,
 ) -> np.ndarray:
-    """Deriva un cromosoma a partir de una solución heurística.
-
-    La prioridad de cada controlador se establece como inversamente
-    proporcional a su carga: `prioridad[i] = 1 − slots_trabajados[i] / T`.
-    Controladores menos cargados obtienen prioridad alta, lo que sesga
-    al BRKGA a reasignarles en futuras generaciones (continuidad del
-    objetivo de balance).
-
-    Esta codificación no es exactamente inversa al decoder — múltiples
-    soluciones pueden mapear al mismo cromosoma. Sirve como **warm-start
-    razonable**, no como reconstrucción perfecta.
-
-    Args:
-        solucion: Solución de la que extraer las prioridades.
-        n_controladores: Número de controladores que debe tener el
-            cromosoma resultante.
-        longitud_t: Número total de slots del turno (T).
-
-    Returns:
-        Vector NumPy de shape `(n_controladores,)` con valores en [0, 1].
-
-    Raises:
-        ValueError: Si `solucion.controladores` no tiene `n_controladores`.
-    """
+    """..."""
     if len(solucion.controladores) != n_controladores:
-        raise ValueError(
-            f"Solucion tiene {len(solucion.controladores)} controladores "
-            f"pero el cromosoma espera {n_controladores}"
-        )
-    chrom = np.array(
+        raise ValueError(...)
+    atco_part = np.array(
         [1.0 - (c.slots_trabajados / longitud_t) for c in solucion.controladores],
         dtype=float,
     )
-    # Clamp por si slots_trabajados > longitud_t en algún edge case
-    return np.clip(chrom, 0.0, 1.0)
+    atco_part = np.clip(atco_part, 0.0, 1.0)
+    # Sin información para derivar prioridad de sectores: aleatorio
+    sector_part = np.random.default_rng(0).random(n_sectores)
+    return np.concatenate([atco_part, sector_part])

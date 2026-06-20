@@ -27,6 +27,7 @@ def construir_solucion_heuristica(
     parametros: Parametros,
     rng: random.Random | None = None,
     prioridad: list[float] | None = None,
+    prioridad_sectores: dict[str, float] | None = None,
 ) -> Solucion:
     """Construye una solución factible por heurística greedy al ATCo menos-cargado.
 
@@ -110,9 +111,14 @@ def construir_solucion_heuristica(
     # 1. menos cargado y 2. asegurando pareja ejecutivo/planificador.
     for t in range(n_slots):
         sectores_t = list(entrada.get_sectores_abiertos_en(t))
-        rng.shuffle(sectores_t)
+        if prioridad_sectores is not None:
+            # Orden dirigido por el cromosoma del BRKGA.
+            sectores_t.sort(key=lambda s: -prioridad_sectores.get(s.id, 0.0))
+        else:
+            # Aleatorio
+            rng.shuffle(sectores_t)
 
-        # ── FASE 1: extender bloques activos ─────────────────────────
+        # Primer bucle
         pendientes: list[tuple[Sector, str]] = []
         for sector_t in sectores_t:
             for posicion in ("EJ", "PL"):
@@ -136,7 +142,7 @@ def construir_solucion_heuristica(
                 else:
                     pendientes.append((sector_t, posicion))
 
-        # ── FASE 2: rellenar pendientes con el menos cargado ─────────
+        # Segundo bucle para rellenar con el atco menos cargado
         for sector_t, posicion in pendientes:
             candidatos = [
                 i
@@ -166,7 +172,6 @@ def construir_solucion_heuristica(
             if consecutivos[i_elegido] >= maximo_consecutivo:
                 descanso_pendiente[i_elegido] = minimo_consecutivo
 
-        # ── BOOKKEEPING fin-de-slot ──────────────────────────────────
         # Quienes no fueron asignados en este slot descansan: reseteamos
         # su contador de consecutivos y descontamos el descanso pendiente.
         for i in range(n_atcos):

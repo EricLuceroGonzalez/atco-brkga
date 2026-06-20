@@ -151,7 +151,7 @@ def cobertura_insatisfecha(
 
 
 def fragmentacion(solucion: Solucion) -> tuple[int, int]:
-    """Cuenta transiciones trabajo↔descanso dentro de cada ventana de turno.
+    """Cuenta transiciones trabajo/descanso dentro de cada ventana de turno.
 
     Returns:
         Tupla `(crudo, cota)`:

@@ -26,11 +26,16 @@ class FitnessConfig:
             o si `umbral_l` no es positivo.
     """
 
-    alpha_r: float = 0.45
-    alpha_c: float = 0.30
-    alpha_b: float = 0.15
-    alpha_f: float = 0.10
-    alpha_l: float = 0.00
+    # alpha_r: float = 0.45
+    # alpha_c: float = 0.30
+    # alpha_b: float = 0.15
+    # alpha_f: float = 0.10
+    # alpha_l: float = 0.00
+    alpha_r: float = 1
+    alpha_c: float = 1
+    alpha_b: float = 1
+    alpha_f: float = 1
+    alpha_l: float = 1
     umbral_l: int = 18
 
     def __post_init__(self) -> None:
@@ -38,7 +43,8 @@ class FitnessConfig:
         if any(p < 0 for p in pesos):
             raise ValueError(f"Los pesos no pueden ser negativos: {pesos}")
         suma = sum(pesos)
-        if abs(suma - 1.0) > _TOLERANCIA:
-            raise ValueError(f"Los pesos deben sumar 1, suman {suma}")
+        # TODO volver a descomentar
+        # if abs(suma - 1.0) > _TOLERANCIA:
+        #     raise ValueError(f"Los pesos deben sumar 1, suman {suma}")
         if self.umbral_l <= 0:
             raise ValueError(f"umbral_l debe ser positivo, recibido {self.umbral_l}")

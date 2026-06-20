@@ -50,7 +50,7 @@ def evaluar_fitness(
 
     Compone R (restricciones), C (cobertura insatisfecha), B (desbalance),
     F (fragmentación) y L (descansos largos), normaliza cada una a [0, 1]
-    y las combina con los pesos `α` de `config`.
+    y las combina con los pesos `a` de `config`.
 
     Args:
         solucion: Solución a evaluar.
@@ -90,13 +90,19 @@ def evaluar_fitness(
 
     return FitnessResult(
         valor=valor,
-        componentes={"R": r_norm, "C": c_norm, "B": b_norm, "F": f_norm, "L": l_norm},
+        componentes={
+            "Restricciones": r_norm,
+            "Cobertura": c_norm,
+            "Balance": b_norm,
+            "Fragmentos": f_norm,
+            "Descansos largos": l_norm,
+        },
         crudos={
-            "R": float(r_crudo),
-            "C": float(c_crudo),
-            "B": float(b_crudo),
-            "F": float(f_crudo),
-            "L": float(l_crudo),
+            "Restricciones": float(r_crudo),
+            "Cobertura": float(c_crudo),
+            "Balance": float(b_crudo),
+            "Fragmentos": float(f_crudo),
+            "Descansos largos": float(l_crudo),
         },
         restricciones_violadas=violadas,
     )

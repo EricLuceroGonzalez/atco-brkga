@@ -87,10 +87,12 @@ def main() -> None:
     )
 
     n = len(entrada.get_controladores())
+    n_sectores = len(entrada.get_lista_sectores())
     log.info("Instancia: %s | N=%d controladores", args.entrada_id, n)
 
     # Motor
-    decoder = PermutationDecoder(n_controladores=n)
+
+    decoder = PermutationDecoder(n_controladores=n, n_sectores=n_sectores)
     config = BRKGAConfig(
         population_size=args.pop_size,
         elite_fraction=args.elite_frac,
@@ -116,7 +118,9 @@ def main() -> None:
         )
         longitud_t = len(sol_k.turnos[0]) // 3
         seed_chromosomes.append(
-            chromosome_from_solucion(sol_k, n_controladores=n, longitud_t=longitud_t)
+            chromosome_from_solucion(
+                sol_k, n_controladores=n, longitud_t=longitud_t, n_sectores=n_sectores
+            )
         )
     log.info("Warm-start: inyectados %d cromosomas heurísticos", len(seed_chromosomes))
 

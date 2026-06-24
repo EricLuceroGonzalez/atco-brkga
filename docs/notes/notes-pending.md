@@ -3,7 +3,6 @@
 <!-- - 🅿️ -->
 - 🅿️ Verificar si es conveniente: - Si $|\text{cand}| = 1$: solo EJ, PL queda descubierto (penalizado por fitness).
 - 🅿️ Verificar qué es `solucion.turnos` (deberia ser `cadenas`)
-- 🅿️ Implementer el `logging`
 - 🅿️ Verificar en checks
    
     ```python
@@ -12,9 +11,6 @@
     t = 1
     ```
 
-- 🅿️ Verificar el rol de `estudio_estadillos`
-- 🅿️ Verificar LA sectorización_modificada
-- 🅿️ Verificar las clases de los models.py. 
     - Eliminar eso de imaginario
     - Incluir el tiempo o slots de trabajo/descanso
 - 🅿️ Verificar la import de `from .fitness import Fitness` en _instance.py_
@@ -25,5 +21,9 @@
 
 ## Hecho
 
+<!-- - ✅  -->
+- ✅ Verificar `sectorización_modificada`. Esto no se usará. Corresponde al problema táctico.
+- ✅ Verificar las clases de los models.py. 
+- ✅ `estudio_estadillos` es para comparar con los horarios reales hechos por los planificadores.
+- ✅ Implementer el `logging`
 - ✅ Importación de la función `listar()` en `instance.py`
-- ✅ 

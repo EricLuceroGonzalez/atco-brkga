@@ -1089,3 +1089,272 @@ Found 1 error.
 
 ===== 2026-06-18 23:05:49 — ruff check =====
 All checks passed!
+
+===== 2026-06-20 17:05:11 — ruff check =====
+SIM103 Return the condition directly
+  --> src/atco/algorithms/brkga/config.py:86:9
+   |
+84 |           ):
+85 |               return True
+86 | /         if (
+87 | |             self.stagnation_generations is not None
+88 | |             and estado.gens_sin_mejora >= self.stagnation_generations
+89 | |         ):
+90 | |             return True
+91 | |         return False
+   | |____________________^
+   |
+help: Inline condition
+
+N806 Variable `M` in function should be lowercase
+   --> src/atco/algorithms/brkga/decoders/bin_midpoint.py:121:9
+    |
+119 |             )
+120 |
+121 |         M = len(self.alfabeto)
+    |         ^
+122 |         T = self.longitud_t
+123 |         controladores_clonados = [c.clone() for c in entrada.get_controladores()]
+    |
+
+N806 Variable `T` in function should be lowercase
+   --> src/atco/algorithms/brkga/decoders/bin_midpoint.py:122:9
+    |
+121 |         M = len(self.alfabeto)
+122 |         T = self.longitud_t
+    |         ^
+123 |         controladores_clonados = [c.clone() for c in entrada.get_controladores()]
+124 |         cadenas: list[str] = []
+    |
+
+N806 Variable `M` in function should be lowercase
+   --> src/atco/algorithms/brkga/decoders/bin_midpoint.py:176:5
+    |
+174 |     """
+175 |     indice = {tok: i for i, tok in enumerate(alfabeto)}
+176 |     M = len(alfabeto)
+    |     ^
+177 |     N = len(solucion.turnos)
+178 |     chromosome = np.zeros(N * longitud_t, dtype=float)
+    |
+
+N806 Variable `N` in function should be lowercase
+   --> src/atco/algorithms/brkga/decoders/bin_midpoint.py:177:5
+    |
+175 |     indice = {tok: i for i, tok in enumerate(alfabeto)}
+176 |     M = len(alfabeto)
+177 |     N = len(solucion.turnos)
+    |     ^
+178 |     chromosome = np.zeros(N * longitud_t, dtype=float)
+179 |     for c, cadena in enumerate(solucion.turnos):
+    |
+
+F401 [*] `dataclasses.field` imported but unused
+ --> src/atco/algorithms/brkga/engine.py:7:36
+  |
+5 | import logging
+6 | import time
+7 | from dataclasses import dataclass, field
+  |                                    ^^^^^
+8 |
+9 | import numpy as np
+  |
+help: Remove unused import: `dataclasses.field`
+
+F841 Local variable `suma` is assigned to but never used
+  --> src/atco/fitness/config.py:45:9
+   |
+43 |         if any(p < 0 for p in pesos):
+44 |             raise ValueError(f"Los pesos no pueden ser negativos: {pesos}")
+45 |         suma = sum(pesos)
+   |         ^^^^
+46 |         # TODO volver a descomentar
+47 |         # if abs(suma - 1.0) > _TOLERANCIA:
+   |
+help: Remove assignment to unused variable `suma`
+
+Found 7 errors.
+[*] 1 fixable with the `--fix` option (2 hidden fixes can be enabled with the `--unsafe-fixes` option).
+
+===== 2026-06-20 17:05:20 — ruff check =====
+SIM103 Return the condition directly
+  --> src/atco/algorithms/brkga/config.py:86:9
+   |
+84 |           ):
+85 |               return True
+86 | /         if (
+87 | |             self.stagnation_generations is not None
+88 | |             and estado.gens_sin_mejora >= self.stagnation_generations
+89 | |         ):
+90 | |             return True
+91 | |         return False
+   | |____________________^
+   |
+help: Inline condition
+
+N806 Variable `M` in function should be lowercase
+   --> src/atco/algorithms/brkga/decoders/bin_midpoint.py:121:9
+    |
+119 |             )
+120 |
+121 |         M = len(self.alfabeto)
+    |         ^
+122 |         T = self.longitud_t
+123 |         controladores_clonados = [c.clone() for c in entrada.get_controladores()]
+    |
+
+N806 Variable `T` in function should be lowercase
+   --> src/atco/algorithms/brkga/decoders/bin_midpoint.py:122:9
+    |
+121 |         M = len(self.alfabeto)
+122 |         T = self.longitud_t
+    |         ^
+123 |         controladores_clonados = [c.clone() for c in entrada.get_controladores()]
+124 |         cadenas: list[str] = []
+    |
+
+N806 Variable `M` in function should be lowercase
+   --> src/atco/algorithms/brkga/decoders/bin_midpoint.py:176:5
+    |
+174 |     """
+175 |     indice = {tok: i for i, tok in enumerate(alfabeto)}
+176 |     M = len(alfabeto)
+    |     ^
+177 |     N = len(solucion.turnos)
+178 |     chromosome = np.zeros(N * longitud_t, dtype=float)
+    |
+
+N806 Variable `N` in function should be lowercase
+   --> src/atco/algorithms/brkga/decoders/bin_midpoint.py:177:5
+    |
+175 |     indice = {tok: i for i, tok in enumerate(alfabeto)}
+176 |     M = len(alfabeto)
+177 |     N = len(solucion.turnos)
+    |     ^
+178 |     chromosome = np.zeros(N * longitud_t, dtype=float)
+179 |     for c, cadena in enumerate(solucion.turnos):
+    |
+
+F401 [*] `dataclasses.field` imported but unused
+ --> src/atco/algorithms/brkga/engine.py:7:36
+  |
+5 | import logging
+6 | import time
+7 | from dataclasses import dataclass, field
+  |                                    ^^^^^
+8 |
+9 | import numpy as np
+  |
+help: Remove unused import: `dataclasses.field`
+
+F841 Local variable `suma` is assigned to but never used
+  --> src/atco/fitness/config.py:45:9
+   |
+43 |         if any(p < 0 for p in pesos):
+44 |             raise ValueError(f"Los pesos no pueden ser negativos: {pesos}")
+45 |         suma = sum(pesos)
+   |         ^^^^
+46 |         # TODO volver a descomentar
+47 |         # if abs(suma - 1.0) > _TOLERANCIA:
+   |
+help: Remove assignment to unused variable `suma`
+
+Found 7 errors.
+[*] 1 fixable with the `--fix` option (2 hidden fixes can be enabled with the `--unsafe-fixes` option).
+
+===== 2026-06-20 17:11:40 — ruff check =====
+SIM103 Return the condition directly
+  --> src/atco/algorithms/brkga/config.py:86:9
+   |
+84 |           ):
+85 |               return True
+86 | /         if (
+87 | |             self.stagnation_generations is not None
+88 | |             and estado.gens_sin_mejora >= self.stagnation_generations
+89 | |         ):
+90 | |             return True
+91 | |         return False
+   | |____________________^
+   |
+help: Inline condition
+
+F821 Undefined name `T`
+   --> src/atco/algorithms/brkga/decoders/bin_midpoint.py:129:28
+    |
+127 |             tokens: list[str] = []
+128 |             trabajados = 0
+129 |             for t in range(T):
+    |                            ^
+130 |                 gen = float(chromosome[c * n_turno + t])
+131 |                 # Clamp por si gen == 1.0 exacto (evita IndexError)
+    |
+
+N806 Variable `N` in function should be lowercase
+   --> src/atco/algorithms/brkga/decoders/bin_midpoint.py:177:5
+    |
+175 |     indice = {tok: i for i, tok in enumerate(alfabeto)}
+176 |     n_alfabeto = len(alfabeto)
+177 |     N = len(solucion.turnos)
+    |     ^
+178 |     chromosome = np.zeros(N * longitud_t, dtype=float)
+179 |     for c, cadena in enumerate(solucion.turnos):
+    |
+
+Found 3 errors.
+No fixes available (1 hidden fix can be enabled with the `--unsafe-fixes` option).
+
+===== 2026-06-21 03:34:17 — ruff check =====
+   Building atco @ file:///Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga
+      Built atco @ file:///Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga
+Uninstalled 1 package in 1ms
+Installed 1 package in 1ms
+SIM103 Return the condition directly
+  --> src/atco/algorithms/brkga/config.py:86:9
+   |
+84 |           ):
+85 |               return True
+86 | /         if (
+87 | |             self.stagnation_generations is not None
+88 | |             and estado.gens_sin_mejora >= self.stagnation_generations
+89 | |         ):
+90 | |             return True
+91 | |         return False
+   | |____________________^
+   |
+help: Inline condition
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> src/atco/algorithms/brkga/decoders/bin_midpoint.py:26:1
+   |
+24 |   """
+25 |
+26 | / from __future__ import annotations
+27 | |
+28 | | import logging
+29 | | import numpy as np
+30 | |
+31 | | from atco.algorithms.brkga.decoders.base import DecoderBase
+32 | | from atco.domain.constants import STRING_DESCANSO, STRING_NO_TURNO
+33 | | from atco.domain.models import Solucion
+34 | | from atco.problem.instance import Entrada
+35 | | from atco.problem.parameters import Parametros
+   | |______________________________________________^
+36 |
+37 |   log = logging.getLogger(__name__)
+   |
+help: Organize imports
+
+F841 Local variable `suma` is assigned to but never used
+  --> src/atco/fitness/config.py:45:9
+   |
+43 |         if any(p < 0 for p in pesos):
+44 |             raise ValueError(f"Los pesos no pueden ser negativos: {pesos}")
+45 |         suma = sum(pesos)
+   |         ^^^^
+46 |         # TODO volver a descomentar
+47 |         # if abs(suma - 1.0) > _TOLERANCIA:
+   |
+help: Remove assignment to unused variable `suma`
+
+Found 3 errors.
+[*] 1 fixable with the `--fix` option (2 hidden fixes can be enabled with the `--unsafe-fixes` option).

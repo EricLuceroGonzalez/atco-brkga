@@ -377,3 +377,426 @@
 2026-06-17 02:27:21,446 [INFO] 3: comprobar_descanso_minimo_consecutivo
 2026-06-17 02:27:21,446 [INFO] 4: comprobar_trabajo_posicion_minimo_consecutivo_no_regex
 2026-06-17 02:27:21,446 [INFO] 5: comprobar_num_maximo_sectores
+2026-06-19 09:00:10,402 [ERROR] root: Traceback (most recent call last):
+2026-06-19 09:00:10,404 [ERROR] root: File "/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/experiments/03_brkga_atcoinstance.py", line 58, in <module>
+2026-06-19 09:00:10,404 [ERROR] root: main()
+2026-06-19 09:00:10,404 [ERROR] root: File "/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/experiments/03_brkga_atcoinstance.py", line 18, in main
+2026-06-19 09:00:10,404 [ERROR] root: p = Parametros.from_files(
+2026-06-19 09:00:10,404 [ERROR] root: ^
+2026-06-19 09:00:10,404 [ERROR] root: ^
+2026-06-19 09:00:10,404 [ERROR] root: ^
+2026-06-19 09:00:10,404 [ERROR] root: ^
+2026-06-19 09:00:10,404 [ERROR] root: ^
+2026-06-19 09:00:10,404 [ERROR] root: ^
+2026-06-19 09:00:10,404 [ERROR] root: ^
+2026-06-19 09:00:10,404 [ERROR] root: ^
+2026-06-19 09:00:10,404 [ERROR] root: ^
+2026-06-19 09:00:10,404 [ERROR] root: ^
+2026-06-19 09:00:10,404 [ERROR] root: ^
+2026-06-19 09:00:10,404 [ERROR] root: ^
+2026-06-19 09:00:10,404 [ERROR] root: ^
+2026-06-19 09:00:10,404 [ERROR] root: ^
+2026-06-19 09:00:10,404 [ERROR] root: ^
+2026-06-19 09:00:10,404 [ERROR] root: ^
+2026-06-19 09:00:10,404 [ERROR] root: ^
+2026-06-19 09:00:10,404 [ERROR] root: ^
+2026-06-19 09:00:10,404 [ERROR] root: ^
+2026-06-19 09:00:10,404 [ERROR] root: ^
+2026-06-19 09:00:10,404 [ERROR] root: ^
+2026-06-19 09:00:10,404 [ERROR] root: ^
+2026-06-19 09:00:10,404 [ERROR] root: File "/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/src/atco/problem/parameters.py", line 92, in from_files
+2026-06-19 09:00:10,404 [ERROR] root: props = load_properties(problem_parameters)
+2026-06-19 09:00:10,404 [ERROR] root: ^
+2026-06-19 09:00:10,404 [ERROR] root: ^
+2026-06-19 09:00:10,404 [ERROR] root: ^
+2026-06-19 09:00:10,404 [ERROR] root: ^
+2026-06-19 09:00:10,404 [ERROR] root: ^
+2026-06-19 09:00:10,404 [ERROR] root: ^
+2026-06-19 09:00:10,404 [ERROR] root: ^
+2026-06-19 09:00:10,404 [ERROR] root: ^
+2026-06-19 09:00:10,404 [ERROR] root: ^
+2026-06-19 09:00:10,404 [ERROR] root: ^
+2026-06-19 09:00:10,404 [ERROR] root: ^
+2026-06-19 09:00:10,404 [ERROR] root: ^
+2026-06-19 09:00:10,404 [ERROR] root: ^
+2026-06-19 09:00:10,404 [ERROR] root: ^
+2026-06-19 09:00:10,404 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: File "/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/src/atco/problem/properties.py", line 23, in load_properties
+2026-06-19 09:00:10,405 [ERROR] root: Path(path).read_text(encoding="utf-8", errors="replace").splitlines()
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: File "/Users/ericlucero/.local/share/uv/python/cpython-3.11.15-macos-aarch64-none/lib/python3.11/pathlib.py", line 1058, in read_text
+2026-06-19 09:00:10,405 [ERROR] root: with self.open(mode='r', encoding=encoding, errors=errors) as f:
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,405 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: File "/Users/ericlucero/.local/share/uv/python/cpython-3.11.15-macos-aarch64-none/lib/python3.11/pathlib.py", line 1044, in open
+2026-06-19 09:00:10,406 [ERROR] root: return io.open(self, mode, buffering, encoding, errors, newline)
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: ^
+2026-06-19 09:00:10,406 [ERROR] root: FileNotFoundError
+2026-06-19 09:00:10,406 [ERROR] root: :
+2026-06-19 09:00:10,406 [ERROR] root: [Errno 2] No such file or directory: '/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/entrada/parametros.properties'
+2026-06-19 09:00:42,553 [INFO] atco.problem.instance: case_dir = {/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/entrada/Casos/madN_M1}
+2026-06-19 09:00:42,553 [INFO] atco.problem.instance: path = {madN_M1}, entorno = {Madrid}, entorno_id = {madN_M1-2019-02-12}
+2026-06-19 09:00:42,557 [INFO] root: Turno: Turno(nombre='Manana', inicio_tl='06:30:00', fin_tl='14:45:00', inicio_tc='06:30:00', fin_tc='14:45:00', parametros=Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des_min=15, tiempo_des_por_turno=30, tiempo_pos_min=15, tiempo_pos_opt=45, tiempo_trab_opt=90, num_sctrs_max=3, porcent_pos_max=0.6, porcent_pos_min=0.4, tamano_slots=5, pesos_objetivos=PesosObjetivos(peso_obj1=0.52, peso_obj2=0.27, peso_obj3=0.15, peso_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5)), tc=[0, 99], tl=[0, 99], slots_des_tc=25, slots_des_tl=25)
+2026-06-19 09:00:42,557 [INFO] atco.problem.instance: Lines: {['NUCLEO;TIPO;_SECTORNOCTURNO;NOMBRE;INICIO;FIN', 'Madrid Ruta 1;CONF;0;8A;06:30:00;14:45:00']}
+2026-06-19 09:00:42,557 [INFO] atco.problem.instance: filas={['Madrid Ruta 1', 'CONF', '0', '8A', '06:30:00', '14:45:00']}
+2026-06-19 09:00:42,557 [INFO] atco.problem.instance: Inicio de turno: {06:30:00}, Len = {99} slots de 5 min
+2026-06-19 09:00:42,558 [INFO] atco.problem.instance: len sectorizacion: 99
+2026-06-19 09:00:42,559 [ERROR] root: Traceback (most recent call last):
+2026-06-19 09:00:42,559 [ERROR] root: File "/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/experiments/03_brkga_atcoinstance.py", line 58, in <module>
+2026-06-19 09:00:42,559 [ERROR] root: main()
+2026-06-19 09:00:42,559 [ERROR] root: File "/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/experiments/03_brkga_atcoinstance.py", line 34, in main
+2026-06-19 09:00:42,559 [ERROR] root: s = len(e.get_lista_sectores_abiertos())
+2026-06-19 09:00:42,559 [ERROR] root: ^
+2026-06-19 09:00:42,559 [ERROR] root: ^
+2026-06-19 09:00:42,559 [ERROR] root: ^
+2026-06-19 09:00:42,559 [ERROR] root: ^
+2026-06-19 09:00:42,559 [ERROR] root: ^
+2026-06-19 09:00:42,559 [ERROR] root: ^
+2026-06-19 09:00:42,560 [ERROR] root: ^
+2026-06-19 09:00:42,560 [ERROR] root: ^
+2026-06-19 09:00:42,560 [ERROR] root: ^
+2026-06-19 09:00:42,560 [ERROR] root: ^
+2026-06-19 09:00:42,560 [ERROR] root: ^
+2026-06-19 09:00:42,560 [ERROR] root: ^
+2026-06-19 09:00:42,560 [ERROR] root: ^
+2026-06-19 09:00:42,560 [ERROR] root: ^
+2026-06-19 09:00:42,560 [ERROR] root: ^
+2026-06-19 09:00:42,560 [ERROR] root: ^
+2026-06-19 09:00:42,560 [ERROR] root: ^
+2026-06-19 09:00:42,560 [ERROR] root: ^
+2026-06-19 09:00:42,560 [ERROR] root: ^
+2026-06-19 09:00:42,560 [ERROR] root: ^
+2026-06-19 09:00:42,560 [ERROR] root: ^
+2026-06-19 09:00:42,560 [ERROR] root: ^
+2026-06-19 09:00:42,560 [ERROR] root: ^
+2026-06-19 09:00:42,560 [ERROR] root: ^
+2026-06-19 09:00:42,560 [ERROR] root: ^
+2026-06-19 09:00:42,560 [ERROR] root: ^
+2026-06-19 09:00:42,560 [ERROR] root: ^
+2026-06-19 09:00:42,560 [ERROR] root: ^
+2026-06-19 09:00:42,560 [ERROR] root: ^
+2026-06-19 09:00:42,560 [ERROR] root: AttributeError
+2026-06-19 09:00:42,560 [ERROR] root: :
+2026-06-19 09:00:42,560 [ERROR] root: 'Entrada' object has no attribute 'get_lista_sectores_abiertos'
+2026-06-19 09:00:42,560 [ERROR] root: . Did you mean: '
+2026-06-19 09:00:42,560 [ERROR] root: lista_sectores_abiertos
+2026-06-19 09:00:42,560 [ERROR] root: '?
+2026-06-19 09:01:03,871 [INFO] atco.problem.instance: case_dir = {/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/entrada/Casos/madN_M1}
+2026-06-19 09:01:03,871 [INFO] atco.problem.instance: path = {madN_M1}, entorno = {Madrid}, entorno_id = {madN_M1-2019-02-12}
+2026-06-19 09:01:03,875 [INFO] root: Turno: Turno(nombre='Manana', inicio_tl='06:30:00', fin_tl='14:45:00', inicio_tc='06:30:00', fin_tc='14:45:00', parametros=Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des_min=15, tiempo_des_por_turno=30, tiempo_pos_min=15, tiempo_pos_opt=45, tiempo_trab_opt=90, num_sctrs_max=3, porcent_pos_max=0.6, porcent_pos_min=0.4, tamano_slots=5, pesos_objetivos=PesosObjetivos(peso_obj1=0.52, peso_obj2=0.27, peso_obj3=0.15, peso_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5)), tc=[0, 99], tl=[0, 99], slots_des_tc=25, slots_des_tl=25)
+2026-06-19 09:01:03,875 [INFO] atco.problem.instance: Lines: {['NUCLEO;TIPO;_SECTORNOCTURNO;NOMBRE;INICIO;FIN', 'Madrid Ruta 1;CONF;0;8A;06:30:00;14:45:00']}
+2026-06-19 09:01:03,875 [INFO] atco.problem.instance: filas={['Madrid Ruta 1', 'CONF', '0', '8A', '06:30:00', '14:45:00']}
+2026-06-19 09:01:03,875 [INFO] atco.problem.instance: Inicio de turno: {06:30:00}, Len = {99} slots de 5 min
+2026-06-19 09:01:03,876 [INFO] atco.problem.instance: len sectorizacion: 99
+2026-06-19 09:01:03,959 [INFO] atco.algorithms.brkga.engine: Pop inicial | N=30 | best=1.0458 avg=1.2102 worst=1.2863 | distintos=5
+2026-06-19 09:01:03,960 [INFO] atco.algorithms.brkga.engine: ✅ BRKGA arranca | pop=30 élite=6 mutantes=9 cross=15 rho_e=0.60 | seed_fitness=1.0458
+2026-06-19 09:01:04,019 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0458 avg=1.1588 worst=1.2863 | distintos=5
+2026-06-19 09:01:04,078 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0458 avg=1.1258 worst=1.2825 | distintos=4
+2026-06-19 09:01:04,137 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0458 avg=1.1260 worst=1.2863 | distintos=5
+2026-06-19 09:01:04,196 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0458 avg=1.1265 worst=1.2863 | distintos=5
+2026-06-19 09:01:04,254 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0458 avg=1.1210 worst=1.2863 | distintos=4
+2026-06-19 09:01:04,313 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1381 worst=1.2863 | distintos=6
+2026-06-19 09:01:04,313 [INFO] atco.algorithms.brkga.engine: Gen 6 | mejora: 1.0458 → 1.0155 (Δ=0.0303)
+2026-06-19 09:01:04,371 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1112 worst=1.2863 | distintos=5
+2026-06-19 09:01:04,430 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1206 worst=1.2863 | distintos=5
+2026-06-19 09:01:04,489 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1063 worst=1.2863 | distintos=5
+2026-06-19 09:01:04,547 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1023 worst=1.2863 | distintos=6
+2026-06-19 09:01:04,606 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1146 worst=1.2863 | distintos=6
+2026-06-19 09:01:04,664 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.0990 worst=1.2863 | distintos=6
+2026-06-19 09:01:04,723 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.0830 worst=1.2863 | distintos=6
+2026-06-19 09:01:04,781 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.0931 worst=1.2863 | distintos=5
+2026-06-19 09:01:04,841 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.0716 worst=1.2863 | distintos=4
+2026-06-19 09:01:04,918 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.0900 worst=1.2825 | distintos=5
+2026-06-19 09:01:04,976 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.0999 worst=1.2863 | distintos=6
+2026-06-19 09:01:05,035 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.0932 worst=1.2863 | distintos=6
+2026-06-19 09:01:05,093 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.0872 worst=1.2825 | distintos=6
+2026-06-19 09:01:05,151 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.0884 worst=1.2825 | distintos=5
+2026-06-19 09:01:05,209 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.0831 worst=1.2863 | distintos=6
+2026-06-19 09:01:05,212 [INFO] atco.algorithms.brkga.engine: BRKGA terminó | gens=21 evals=534 best=1.0155 mejora=2.90% tiempo=1.3s
+2026-06-19 09:01:05,212 [INFO] root: Semilla : 1.045767
+2026-06-19 09:01:05,212 [INFO] root: Mejor  : 1.015464
+2026-06-19 09:01:05,212 [INFO] root: Mejora : 2.90%
+2026-06-19 09:02:42,486 [INFO] atco.problem.instance: case_dir = {/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/entrada/Casos/madN_M1}
+2026-06-19 09:02:42,486 [INFO] atco.problem.instance: path = {madN_M1}, entorno = {Madrid}, entorno_id = {madN_M1-2019-02-12}
+2026-06-19 09:02:42,491 [INFO] root: Turno: Turno(nombre='Manana', inicio_tl='06:30:00', fin_tl='14:45:00', inicio_tc='06:30:00', fin_tc='14:45:00', parametros=Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des_min=15, tiempo_des_por_turno=30, tiempo_pos_min=15, tiempo_pos_opt=45, tiempo_trab_opt=90, num_sctrs_max=3, porcent_pos_max=0.6, porcent_pos_min=0.4, tamano_slots=5, pesos_objetivos=PesosObjetivos(peso_obj1=0.52, peso_obj2=0.27, peso_obj3=0.15, peso_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5)), tc=[0, 99], tl=[0, 99], slots_des_tc=25, slots_des_tl=25)
+2026-06-19 09:02:42,491 [INFO] atco.problem.instance: Lines: {['NUCLEO;TIPO;_SECTORNOCTURNO;NOMBRE;INICIO;FIN', 'Madrid Ruta 1;CONF;0;8A;06:30:00;14:45:00']}
+2026-06-19 09:02:42,491 [INFO] atco.problem.instance: filas={['Madrid Ruta 1', 'CONF', '0', '8A', '06:30:00', '14:45:00']}
+2026-06-19 09:02:42,491 [INFO] atco.problem.instance: Inicio de turno: {06:30:00}, Len = {99} slots de 5 min
+2026-06-19 09:02:42,491 [INFO] atco.problem.instance: len sectorizacion: 99
+2026-06-19 09:02:42,745 [INFO] atco.algorithms.brkga.engine: Pop inicial | N=100 | best=1.0458 avg=1.1752 worst=1.2863 | distintos=5
+2026-06-19 09:02:42,745 [INFO] atco.algorithms.brkga.engine: ✅ BRKGA arranca | pop=100 élite=20 mutantes=30 cross=50 rho_e=0.60 | seed_fitness=1.0458
+2026-06-19 09:02:42,938 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0458 avg=1.1250 worst=1.2863 | distintos=6
+2026-06-19 09:02:43,132 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0458 avg=1.1237 worst=1.2863 | distintos=5
+2026-06-19 09:02:43,325 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0458 avg=1.1091 worst=1.2863 | distintos=5
+2026-06-19 09:02:43,519 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0458 avg=1.1124 worst=1.2863 | distintos=5
+2026-06-19 09:02:43,711 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1104 worst=1.2863 | distintos=6
+2026-06-19 09:02:43,711 [INFO] atco.algorithms.brkga.engine: Gen 5 | mejora: 1.0458 → 1.0155 (Δ=0.0303)
+2026-06-19 09:02:43,903 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1395 worst=1.2863 | distintos=6
+2026-06-19 09:02:44,095 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1232 worst=1.2863 | distintos=7
+2026-06-19 09:02:44,286 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1193 worst=1.2863 | distintos=6
+2026-06-19 09:02:44,478 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1220 worst=1.2863 | distintos=6
+2026-06-19 09:02:44,670 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1094 worst=1.2863 | distintos=6
+2026-06-19 09:02:44,861 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1151 worst=1.2863 | distintos=6
+2026-06-19 09:02:45,053 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1145 worst=1.2863 | distintos=6
+2026-06-19 09:02:45,244 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1026 worst=1.2863 | distintos=6
+2026-06-19 09:02:45,446 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.0983 worst=1.2863 | distintos=6
+2026-06-19 09:02:45,676 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.0892 worst=1.2863 | distintos=7
+2026-06-19 09:02:45,869 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.0880 worst=1.2863 | distintos=8
+2026-06-19 09:02:46,060 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1017 worst=1.2863 | distintos=8
+2026-06-19 09:02:46,251 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.0922 worst=1.2863 | distintos=7
+2026-06-19 09:02:46,443 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1016 worst=1.2863 | distintos=6
+2026-06-19 09:02:46,634 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.0977 worst=1.2863 | distintos=6
+2026-06-19 09:02:46,637 [INFO] atco.algorithms.brkga.engine: BRKGA terminó | gens=20 evals=1700 best=1.0155 mejora=2.90% tiempo=4.1s
+2026-06-19 09:02:46,637 [INFO] root: Semilla : 1.045767
+2026-06-19 09:02:46,637 [INFO] root: Mejor  : 1.015464
+2026-06-19 09:02:46,637 [INFO] root: Mejora : 2.90%
+2026-06-19 09:36:27,464 [INFO] atco.problem.instance: case_dir = {/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/entrada/Casos/madN_M1}
+2026-06-19 09:36:27,464 [INFO] atco.problem.instance: path = {madN_M1}, entorno = {Madrid}, entorno_id = {madN_M1-2019-02-12}
+2026-06-19 09:36:27,469 [INFO] root: Turno: Turno(nombre='Manana', inicio_tl='06:30:00', fin_tl='14:45:00', inicio_tc='06:30:00', fin_tc='14:45:00', parametros=Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des_min=15, tiempo_des_por_turno=30, tiempo_pos_min=15, tiempo_pos_opt=45, tiempo_trab_opt=90, num_sctrs_max=3, porcent_pos_max=0.6, porcent_pos_min=0.4, tamano_slots=5, pesos_objetivos=PesosObjetivos(peso_obj1=0.52, peso_obj2=0.27, peso_obj3=0.15, peso_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5)), tc=[0, 99], tl=[0, 99], slots_des_tc=25, slots_des_tl=25)
+2026-06-19 09:36:27,469 [INFO] atco.problem.instance: Lines: {['NUCLEO;TIPO;_SECTORNOCTURNO;NOMBRE;INICIO;FIN', 'Madrid Ruta 1;CONF;0;8A;06:30:00;14:45:00']}
+2026-06-19 09:36:27,469 [INFO] atco.problem.instance: filas={['Madrid Ruta 1', 'CONF', '0', '8A', '06:30:00', '14:45:00']}
+2026-06-19 09:36:27,469 [INFO] atco.problem.instance: Inicio de turno: {06:30:00}, Len = {99} slots de 5 min
+2026-06-19 09:36:27,469 [INFO] atco.problem.instance: len sectorizacion: 99
+2026-06-19 09:36:27,730 [INFO] atco.algorithms.brkga.engine: Pop inicial | N=100 | best=1.0458 avg=1.1752 worst=1.2863 | distintos=5
+2026-06-19 09:36:27,730 [INFO] atco.algorithms.brkga.engine: ✅ BRKGA arranca | pop=100 élite=20 mutantes=30 cross=50 rho_e=0.60 | seed_fitness=1.0458
+2026-06-19 09:36:27,926 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0458 avg=1.1250 worst=1.2863 | distintos=6
+2026-06-19 09:36:28,121 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0458 avg=1.1237 worst=1.2863 | distintos=5
+2026-06-19 09:36:28,316 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0458 avg=1.1091 worst=1.2863 | distintos=5
+2026-06-19 09:36:28,511 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0458 avg=1.1124 worst=1.2863 | distintos=5
+2026-06-19 09:36:28,705 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1104 worst=1.2863 | distintos=6
+2026-06-19 09:36:28,705 [INFO] atco.algorithms.brkga.engine: Gen 5 | mejora: 1.0458 → 1.0155 (Δ=0.0303)
+2026-06-19 09:36:28,899 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1395 worst=1.2863 | distintos=6
+2026-06-19 09:36:29,092 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1232 worst=1.2863 | distintos=7
+2026-06-19 09:36:29,285 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1193 worst=1.2863 | distintos=6
+2026-06-19 09:36:29,479 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1220 worst=1.2863 | distintos=6
+2026-06-19 09:36:29,672 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1094 worst=1.2863 | distintos=6
+2026-06-19 09:36:29,866 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1151 worst=1.2863 | distintos=6
+2026-06-19 09:36:30,059 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1145 worst=1.2863 | distintos=6
+2026-06-19 09:36:30,252 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1026 worst=1.2863 | distintos=6
+2026-06-19 09:36:30,446 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.0983 worst=1.2863 | distintos=6
+2026-06-19 09:36:30,640 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.0892 worst=1.2863 | distintos=7
+2026-06-19 09:36:30,833 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.0880 worst=1.2863 | distintos=8
+2026-06-19 09:36:31,028 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1017 worst=1.2863 | distintos=8
+2026-06-19 09:36:31,222 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.0922 worst=1.2863 | distintos=7
+2026-06-19 09:36:31,415 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1016 worst=1.2863 | distintos=6
+2026-06-19 09:36:31,608 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.0977 worst=1.2863 | distintos=6
+2026-06-19 09:36:31,610 [INFO] atco.algorithms.brkga.engine: BRKGA terminó | gens=20 evals=1700 best=1.0155 mejora=2.90% tiempo=4.1s
+2026-06-19 09:36:31,610 [INFO] root: Semilla : 1.045767
+2026-06-19 09:36:31,610 [INFO] root: Mejor  : 1.015464
+2026-06-19 09:36:31,610 [INFO] root: Mejora : 2.90%
+2026-06-19 09:36:39,490 [INFO] atco.problem.instance: case_dir = {/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/entrada/Casos/madN_M1}
+2026-06-19 09:36:39,490 [INFO] atco.problem.instance: path = {madN_M1}, entorno = {Madrid}, entorno_id = {madN_M1-2019-02-12}
+2026-06-19 09:36:39,494 [INFO] root: Turno: Turno(nombre='Manana', inicio_tl='06:30:00', fin_tl='14:45:00', inicio_tc='06:30:00', fin_tc='14:45:00', parametros=Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des_min=15, tiempo_des_por_turno=30, tiempo_pos_min=15, tiempo_pos_opt=45, tiempo_trab_opt=90, num_sctrs_max=3, porcent_pos_max=0.6, porcent_pos_min=0.4, tamano_slots=5, pesos_objetivos=PesosObjetivos(peso_obj1=0.52, peso_obj2=0.27, peso_obj3=0.15, peso_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5)), tc=[0, 99], tl=[0, 99], slots_des_tc=25, slots_des_tl=25)
+2026-06-19 09:36:39,494 [INFO] atco.problem.instance: Lines: {['NUCLEO;TIPO;_SECTORNOCTURNO;NOMBRE;INICIO;FIN', 'Madrid Ruta 1;CONF;0;8A;06:30:00;14:45:00']}
+2026-06-19 09:36:39,494 [INFO] atco.problem.instance: filas={['Madrid Ruta 1', 'CONF', '0', '8A', '06:30:00', '14:45:00']}
+2026-06-19 09:36:39,495 [INFO] atco.problem.instance: Inicio de turno: {06:30:00}, Len = {99} slots de 5 min
+2026-06-19 09:36:39,495 [INFO] atco.problem.instance: len sectorizacion: 99
+2026-06-19 09:36:39,749 [INFO] atco.algorithms.brkga.engine: Pop inicial | N=100 | best=1.0458 avg=1.1752 worst=1.2863 | distintos=5
+2026-06-19 09:36:39,749 [INFO] atco.algorithms.brkga.engine: ✅ BRKGA arranca | pop=100 élite=20 mutantes=30 cross=50 rho_e=0.60 | seed_fitness=1.0458
+2026-06-19 09:36:39,943 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0458 avg=1.1250 worst=1.2863 | distintos=6
+2026-06-19 09:36:40,136 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0458 avg=1.1237 worst=1.2863 | distintos=5
+2026-06-19 09:36:40,329 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0458 avg=1.1091 worst=1.2863 | distintos=5
+2026-06-19 09:36:40,522 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0458 avg=1.1124 worst=1.2863 | distintos=5
+2026-06-19 09:36:40,714 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1104 worst=1.2863 | distintos=6
+2026-06-19 09:36:40,714 [INFO] atco.algorithms.brkga.engine: Gen 5 | mejora: 1.0458 → 1.0155 (Δ=0.0303)
+2026-06-19 09:36:40,907 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1395 worst=1.2863 | distintos=6
+2026-06-19 09:36:41,098 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1232 worst=1.2863 | distintos=7
+2026-06-19 09:36:41,292 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1193 worst=1.2863 | distintos=6
+2026-06-19 09:36:41,485 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1220 worst=1.2863 | distintos=6
+2026-06-19 09:36:41,677 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1094 worst=1.2863 | distintos=6
+2026-06-19 09:36:41,871 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1151 worst=1.2863 | distintos=6
+2026-06-19 09:36:42,063 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1145 worst=1.2863 | distintos=6
+2026-06-19 09:36:42,255 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1026 worst=1.2863 | distintos=6
+2026-06-19 09:36:42,449 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.0983 worst=1.2863 | distintos=6
+2026-06-19 09:36:42,641 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.0892 worst=1.2863 | distintos=7
+2026-06-19 09:36:42,835 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.0880 worst=1.2863 | distintos=8
+2026-06-19 09:36:43,028 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1017 worst=1.2863 | distintos=8
+2026-06-19 09:36:43,222 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.0922 worst=1.2863 | distintos=7
+2026-06-19 09:36:43,427 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1016 worst=1.2863 | distintos=6
+2026-06-19 09:36:43,622 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.0977 worst=1.2863 | distintos=6
+2026-06-19 09:36:43,624 [INFO] atco.algorithms.brkga.engine: BRKGA terminó | gens=20 evals=1700 best=1.0155 mejora=2.90% tiempo=4.1s
+2026-06-19 09:36:43,625 [INFO] root: Semilla : 1.045767
+2026-06-19 09:36:43,625 [INFO] root: Mejor  : 1.015464
+2026-06-19 09:36:43,625 [INFO] root: Mejora : 2.90%

@@ -146,7 +146,6 @@ def cobertura_insatisfecha(
                 crudo += 1  # Falta ejecutivo
             if sector.id.lower() not in tokens_t:
                 crudo += 1  # Falta planificador
-                crudo += 1
     return crudo, cota
 
 

@@ -65,5 +65,25 @@ class DecoderBase(ABC):
                 f"Cromosoma debe tener shape ({self.num_genes},), "
                 f"recibido {chromosome.shape}"
             )
-        if not ((chromosome >= 0.0).all() and (chromosome <= 1.0).all()):
-            raise ValueError("Cromosoma contiene valores fuera de [0, 1]")
+        if not ((chromosome >= 0.0).all() and (chromosome < 1.0).all()):
+            raise ValueError("Cromosoma contiene valores fuera de [0, 1)")
+
+    def validate_controllers(self, entrada: Entrada, instance_atcos):
+        n_real = len(entrada.get_controladores())
+        if n_real != instance_atcos:
+            raise ValueError(
+                f"Entrada tiene {n_real} controladores pero el decoder "
+                f"espera {instance_atcos}"
+            )
+
+    def validate_sectores(self, entrada: Entrada, instance_sectors):
+        all_sectores = sorted(
+            entrada.get_lista_sectores(),
+            key=lambda s: s.id,
+        )
+        if len(all_sectores) != instance_sectors:
+            raise ValueError(
+                f"Entrada tiene {len(all_sectores)} sectores pero el decoder "
+                f"espera {instance_sectors}"
+            )
+        return all_sectores

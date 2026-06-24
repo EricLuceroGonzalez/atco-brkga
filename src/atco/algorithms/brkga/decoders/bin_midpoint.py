@@ -1,11 +1,11 @@
 """Decoder bin-midpoint: traduce cada gen del cromosoma a un token de la matriz.
 
 A diferencia del `PermutationDecoder` (constructivo), este decoder asigna
-**un gen por celda** de la matriz N×T y traduce su valor directamente a un
+**un gen por celda** de la matriz N×n_slots y traduce su valor directamente a un
 token del alfabeto mediante el esquema bin-midpoint clásico:
 
-    chromosome[c*T + t] ∈ [0, 1)
-    token_idx = floor(chromosome[c*T + t] · |alfabeto|)
+    chromosome[c*n_slots + t] ∈ [0, 1)
+    token_idx = floor(chromosome[c*n_slots + t] · |alfabeto|)
     token = alfabeto[token_idx]
 
 El alfabeto contiene `STRING_NO_TURNO`, `STRING_DESCANSO` y los IDs de
@@ -13,7 +13,7 @@ todos los sectores en mayúsculas (EJ) y minúsculas (PL).
 
 Ventajas:
     * Codificación inversa exacta: `decode(encode(sol)) == sol`.
-    * Espacio de búsqueda completo: cualquier matriz N×T es alcanzable.
+    * Espacio de búsqueda completo: cualquier matriz N×n_slots es alcanzable.
 
 Desventajas:
     * El cromosoma no respeta restricciones del dominio (ventana de
@@ -25,6 +25,7 @@ Pensado como alternativa de comparación frente al `PermutationDecoder`.
 
 from __future__ import annotations
 
+import logging
 import numpy as np
 
 from atco.algorithms.brkga.decoders.base import DecoderBase
@@ -32,6 +33,8 @@ from atco.domain.constants import STRING_DESCANSO, STRING_NO_TURNO
 from atco.domain.models import Solucion
 from atco.problem.instance import Entrada
 from atco.problem.parameters import Parametros
+
+log = logging.getLogger(__name__)
 
 
 def construir_alfabeto(entrada: Entrada) -> list[str]:
@@ -58,11 +61,11 @@ def construir_alfabeto(entrada: Entrada) -> list[str]:
 
 
 class BinMidpointDecoder(DecoderBase):
-    """Decoder de codificación bin-midpoint con cromosoma de longitud N·T.
+    """Decoder de codificación bin-midpoint con cromosoma de longitud N·n_turno.
 
     Attributes:
         n_controladores: Número de filas (N) de la matriz de turnos.
-        longitud_t: Número de slots (T) por fila.
+        longitud_t: Número de slots (n_turno) por fila.
         alfabeto: Lista determinista de tokens; ver `construir_alfabeto`.
     """
 
@@ -97,7 +100,7 @@ class BinMidpointDecoder(DecoderBase):
         """Decodifica un cromosoma como matriz directa de tokens.
 
         Args:
-            chromosome: Vector de shape `(N · T,)` con valores en [0, 1].
+            chromosome: Vector de shape `(N · n_turno,)` con valores en [0, 1].
             entrada: Instancia del problema (se usa para clonar controladores).
             parametros: No se consulta. Aceptado por contrato.
 
@@ -118,18 +121,18 @@ class BinMidpointDecoder(DecoderBase):
                 f"espera {self.n_controladores}"
             )
 
-        M = len(self.alfabeto)
-        T = self.longitud_t
+        n_alfabeto = len(self.alfabeto)
+        n_slots = self.longitud_t
         controladores_clonados = [c.clone() for c in entrada.get_controladores()]
         cadenas: list[str] = []
 
         for c in range(self.n_controladores):
             tokens: list[str] = []
             trabajados = 0
-            for t in range(T):
-                gen = float(chromosome[c * T + t])
+            for t in range(n_slots):
+                gen = float(chromosome[c * n_slots + t])
                 # Clamp por si gen == 1.0 exacto (evita IndexError)
-                token_idx = max(0, min(int(gen * M), M - 1))
+                token_idx = max(0, min(int(gen * n_alfabeto), n_alfabeto - 1))
                 token = self.alfabeto[token_idx]
                 tokens.append(token)
                 if token not in (STRING_DESCANSO, STRING_NO_TURNO):
@@ -155,7 +158,7 @@ def encode_solucion(
     Para cada celda (c, t) de la matriz, el gen es el centro del bin del
     token presente:
 
-        chromosome[c·T + t] = (alfabeto.index(token) + 0.5) / |alfabeto|
+        chromosome[c·n_slots + t] = (alfabeto.index(token) + 0.5) / |alfabeto|
 
     Garantiza round-trip exacto: `BinMidpointDecoder.decode(encode(sol))`
     reconstruye la misma `Solucion` (mismos `turnos` y misma derivación
@@ -163,19 +166,19 @@ def encode_solucion(
 
     Args:
         solucion: Solución a codificar.
-        longitud_t: T del turno (slots por fila).
+        longitud_t: n_slots del turno (slots por fila).
         alfabeto: Mismo alfabeto que usará el decoder.
 
     Returns:
-        Vector NumPy de shape `(N · T,)` con genes en (0, 1).
+        Vector NumPy de shape `(N · n_slots,)` con genes en (0, 1).
 
     Raises:
         ValueError: Si alguna celda contiene un token no presente en `alfabeto`.
     """
     indice = {tok: i for i, tok in enumerate(alfabeto)}
-    M = len(alfabeto)
-    N = len(solucion.turnos)
-    chromosome = np.zeros(N * longitud_t, dtype=float)
+    n_alfabeto = len(alfabeto)
+    n_turnos = len(solucion.turnos)
+    chromosome = np.zeros(n_turnos * longitud_t, dtype=float)
     for c, cadena in enumerate(solucion.turnos):
         for t in range(longitud_t):
             tok = cadena[t * 3 : (t + 1) * 3]
@@ -183,5 +186,5 @@ def encode_solucion(
                 raise ValueError(
                     f"Token {tok!r} en (c={c}, t={t}) no está en el alfabeto"
                 )
-            chromosome[c * longitud_t + t] = (indice[tok] + 0.5) / M
+            chromosome[c * longitud_t + t] = (indice[tok] + 0.5) / n_alfabeto
     return chromosome

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import logging
 import random
 
 import numpy as np
@@ -32,7 +33,11 @@ class PermutationDecoder(DecoderBase):
 
     _RNG_SEED_INTERNO: int = 0
 
+    # TODO(diseño): _RNG_SEED_INTERNO fijo asegura determinismo pero introduce sesgo de desempate. Considerar `seed = hash(tuple(chromosome))` para preservar determinismo sin sesgo sistemático.
+
     def __init__(self, n_controladores: int, n_sectores: int) -> None:
+
+        self.log = logging.getLogger(__name__)
         if n_controladores <= 0:
             raise ValueError(
                 f"n_controladores debe ser positivo, recibido {n_controladores}"
@@ -68,23 +73,10 @@ class PermutationDecoder(DecoderBase):
                 decoder.
         """
         self.validate_chromosome(chromosome)
-
-        n_real = len(entrada.get_controladores())
-        if n_real != self.n_controladores:
-            raise ValueError(
-                f"Entrada tiene {n_real} controladores pero el decoder "
-                f"espera {self.n_controladores}"
-            )
-
-        all_sectores = sorted(
-            entrada.get_lista_sectores(),
-            key=lambda s: s.id,
-        )
-        if len(all_sectores) != self.n_sectores:
-            raise ValueError(
-                f"Entrada tiene {len(all_sectores)} sectores pero el decoder "
-                f"espera {self.n_sectores}"
-            )
+        self.validate_controllers(entrada, self.n_controladores)
+        all_sectores = self.validate_sectores(entrada, self.n_sectores)
+        # TODO(diseño): prioridad_sectores es global. Para escenarios con apertura variable de sectores, evaluar cromosoma de tamaño N + |S|·T.
+        # TODO(invariante): validate_sectores DEBE devolver sectores en orden
 
         priority_atcos = chromosome[: self.n_controladores].tolist()
         sector_genes = chromosome[self.n_controladores :]
@@ -92,11 +84,14 @@ class PermutationDecoder(DecoderBase):
             s.id: float(sector_genes[i]) for i, s in enumerate(all_sectores)
         }
 
+        self.log.debug("Decoder")
+        self.log.debug("🟣 priority_sectores")
+        self.log.debug(priority_sectores)
         return construir_solucion_heuristica(
             entrada=entrada,
             parametros=parametros,
             rng=random.Random(self._RNG_SEED_INTERNO),
-            prioridad=priority_atcos,
+            prioridad_atco=priority_atcos,
             prioridad_sectores=priority_sectores,
         )
 
@@ -108,6 +103,10 @@ def chromosome_from_solucion(
     n_sectores: int,
 ) -> np.ndarray:
     """..."""
+
+    # TODO(docs): chromosome_from_solucion NO es inverso de decode (la parte de sectores es ruido). Documentar explícitamente y referenciar codec.codificar() para round-trip exacto.
+    #                   determinista (e.g. sorted by .id) para que decode sea
+    #                   reproducible entre ejecuciones.
     if len(solucion.controladores) != n_controladores:
         raise ValueError(...)
     atco_part = np.array(

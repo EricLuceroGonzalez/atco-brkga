@@ -26,7 +26,7 @@ def construir_solucion_heuristica(
     entrada: Entrada,
     parametros: Parametros,
     rng: random.Random | None = None,
-    prioridad: list[float] | None = None,
+    prioridad_atco: list[float] | None = None,
     prioridad_sectores: dict[str, float] | None = None,
 ) -> Solucion:
     """Construye una solución factible por heurística greedy al ATCo menos-cargado.
@@ -60,7 +60,7 @@ def construir_solucion_heuristica(
             usa, pero versiones futuras pueden consultarlo.
         rng: Generador aleatorio para reproducibilidad. Si es ``None``,
             se instancia un ``random.Random()`` nuevo (no reproducible).
-        prioridad: Vector opcional de prioridades por controlador,
+        prioridad_atco: Vector opcional de prioridades por controlador,
             normalmente `chromosome` del BRKGA. Si se proporciona, se
             usa como **tiebreaker** tras ordenar por `slots_trabajados`
             (mayor prioridad gana el empate). Si es None, se usa shuffle
@@ -77,11 +77,15 @@ def construir_solucion_heuristica(
     """
     if rng is None:
         rng = random.Random()
-    log.debug("✅ dentro de construir_solucion_heuristica()")
     atcos: list[Controlador] = [c.clone() for c in entrada.get_controladores()]
     sectorizacion: list[set[str]] = entrada.get_sectorizacion()
     n_atcos: int = len(atcos)  # Cantidad de atcos
     n_slots: int = len(sectorizacion)  # Cantidad de atcos
+    log.debug(
+        "✅ dentro de construir_solucion_heuristica() N = %d, T = %d",
+        n_atcos,
+        n_slots,
+    )
 
     if n_atcos == 0:
         raise ValueError("entrada.get_controladores() está vacío")
@@ -99,20 +103,30 @@ def construir_solucion_heuristica(
     # Caches de licencia para evaluación por par (ATCo, sector).
     ruta_ids, nucleo_a_sectores = _cachear_licencias(entrada)
 
+    log.debug("✅ ruta_ids: %s", ruta_ids)
+    log.debug("✅ nucleo_a_sectores: %s", nucleo_a_sectores)
+
     # Carga acumulada por controlador, paralelo a `atcos`.
-    # Inicializar el contador de carga
+    # Inicializar el contador de carga de trabajo (cada idx del vector es un atco)
     slots_trabajados: list[int] = [0] * n_atcos
     consecutivos: list[int] = [0] * n_atcos  # slots seguidos trabajando
     descanso_pendiente: list[int] = [0] * n_atcos  # slots de descanso obligatorio
 
     maximo_consecutivo: int = parametros.tiempo_trab_max // parametros.tamano_slots
+    # TODO introducir el optimo_consecutivo
+    # TODO revisar si esto es minimo consecutivo o no consecutivo
     minimo_consecutivo: int = parametros.tiempo_des_por_turno // parametros.tamano_slots
+    log.debug("✅ Tiempo tiempo_des_por_turno: %d", parametros.tiempo_des_por_turno)
     # Recorrido cronológico, asignando sectores al ATCo
     # 1. menos cargado y 2. asegurando pareja ejecutivo/planificador.
     for t in range(n_slots):
         sectores_t = list(entrada.get_sectores_abiertos_en(t))
+        log.debug("✅ Slot # %d", t)
+        log.debug("trabs: %s", list(slots_trabajados))
+        log.debug("consc: %s", list(consecutivos))
+        log.debug("desca: %s", list(descanso_pendiente))
         if prioridad_sectores is not None:
-            # Orden dirigido por el cromosoma del BRKGA.
+            # Sectores ordenados según el vector de llaves aleatorias
             sectores_t.sort(key=lambda s: -prioridad_sectores.get(s.id, 0.0))
         else:
             # Aleatorio
@@ -121,29 +135,52 @@ def construir_solucion_heuristica(
         # Primer bucle
         pendientes: list[tuple[Sector, str]] = []
         for sector_t in sectores_t:
+            # TODO: Cuando t = 24 se atienden solo 6 sectores.
+            # TODO: Desestimar las dos horas continuas de trabajo
+            # Para cada sector en slot se recorren las posiciones EJ y PL
             for posicion in ("EJ", "PL"):
+                # Se crean los ids en mayúscula y minúscula
                 token = sector_t.id.upper() if posicion == "EJ" else sector_t.id.lower()
                 if t == 0:
+                    log.debug(
+                        "✅ t = %d,  pos = %s, sec = %s", t, posicion, sector_t.nombre
+                    )
                     pendientes.append((sector_t, posicion))
                     continue
+                # Se verifica el atco en sector anterior en este slot para este sector
                 i_prev = _atco_en_slot_anterior(matriz, t - 1, token)
-                puede = (
+
+                if i_prev is not None:
+                    log.debug("✅ i_prev = %d en %s", i_prev, token)
+                if i_prev is None:
+                    log.debug("✅ i_prev = NO HAY ANTERIOR en %s", token)
+                atco_puede = (
                     i_prev is not None
                     and _puede_continuar(i_prev, t, matriz)
                     and descanso_pendiente[i_prev] == 0
                     and consecutivos[i_prev] < maximo_consecutivo
                 )
-                if puede:
+                if atco_puede:
                     matriz[i_prev][t] = token
                     slots_trabajados[i_prev] += 1
                     consecutivos[i_prev] += 1
                     if consecutivos[i_prev] >= maximo_consecutivo:
                         descanso_pendiente[i_prev] = minimo_consecutivo
+                    log.debug(
+                        "     ✅ i_prev puede en [%d][%d]: %s [trab: %d, cons: %d]",
+                        i_prev,
+                        t,
+                        token,
+                        slots_trabajados[i_prev],
+                        consecutivos[i_prev],
+                    )
                 else:
                     pendientes.append((sector_t, posicion))
 
-        # Segundo bucle para rellenar con el atco menos cargado
+        log.debug("✅ Pendientes (%d)", len(pendientes))
+        # Segundo bucle: Se elige a los pendientes para rellenar con el atco menos cargado
         for sector_t, posicion in pendientes:
+            log.debug("✅ Sector: (%s)", sector_t.id)
             candidatos = [
                 i
                 for i in range(n_atcos)
@@ -151,21 +188,24 @@ def construir_solucion_heuristica(
                 and descanso_pendiente[i] == 0
                 and _tiene_licencia(atcos[i], sector_t.id, ruta_ids, nucleo_a_sectores)
             ]
+            log.debug("✅ Pos: (%s), candidatos = %d", posicion, len(candidatos))
             if not candidatos:
-                continue  # posición descubierta
+                continue  # posición descubierta (sector sin atco en este slot)
 
-            if prioridad is not None:
+            if prioridad_atco is not None:
                 # Cromosoma del BRKGA como criterio primario; carga como
                 # tiebreaker para preservar algo de balance natural.
-                candidatos.sort(key=lambda i: (-prioridad[i], slots_trabajados[i]))
+                candidatos.sort(key=lambda i: (-prioridad_atco[i], slots_trabajados[i]))
             else:
                 # Greedy puro: menos cargado, shuffle como tiebreaker.
                 rng.shuffle(candidatos)
                 candidatos.sort(key=lambda i: slots_trabajados[i])
-
-            i_elegido = candidatos[0]
+            # Si no hay `prioridad_atco` se elige el que menos trabajo tiene
+            # Si hay `prioridad_atco` se elige el primero en el orden prioritario
+            i_elegido = candidatos[0]  # posición de la fila en matriz
 
             token = sector_t.id.upper() if posicion == "EJ" else sector_t.id.lower()
+            log.debug("✅ Elegido: (%d) en %d, sector: %s", i_elegido, t, token)
             matriz[i_elegido][t] = token
             slots_trabajados[i_elegido] += 1
             consecutivos[i_elegido] += 1

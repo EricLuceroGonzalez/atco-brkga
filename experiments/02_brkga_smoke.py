@@ -130,7 +130,7 @@ def main() -> None:
     # Persistencia
     json_path = out_dir / "convergence.json"
     dump_run_result(result, json_path)
-    log.info("Convergencia → %s", json_path)
+    log.info("Convergencia -> %s", json_path)
 
     png_path = out_dir / "convergence.png"
     plot_convergence(
@@ -138,11 +138,11 @@ def main() -> None:
         png_path,
         title=f"BRKGA | {args.entrada_id} | pop={args.pop_size} ρ_e={args.rho_elite}",
     )
-    log.info("Gráfico → %s", png_path)
+    log.info("Gráfico -> %s", png_path)
 
     xlsx_path = out_dir / "best_solution.xlsx"
     _write_solution_xlsx_gantt(solution=result.best_solution, path=xlsx_path)
-    log.info("Mejor solución → %s", xlsx_path)
+    log.info("Mejor solución -> %s", xlsx_path)
 
     # Resumen final en log
     log.info("-" * 80)

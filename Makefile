@@ -11,7 +11,7 @@ reset:
 	@$(MAKE) doctor
 
 doctor:
-	@echo "→ Comprobando entorno..."
+	@echo "-> Comprobando entorno..."
 	@grep -q "^package = false" pyproject.toml && echo "⚠️  ATENCIÓN: package = false sigue ahí" || echo "✓ package config correcta"
 	@uv pip list | grep -q "^atco" && echo "✓ atco instalado en el venv" || echo "✗ atco NO instalado — revisa pyproject.toml"
 	@uv run python -c "import atco; print('✓ import atco funciona:', atco.__file__)" 2>/dev/null || echo "✗ import atco falla"

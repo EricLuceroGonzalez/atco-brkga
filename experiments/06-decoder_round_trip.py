@@ -104,7 +104,7 @@ def test_codecs_round_trip(
     print(f"    N = {n_ctrls}  |  T = {n_slots}  |  |S| = {n_sectores}")
     out_ini = output_dir / "01_inicial.xlsx"
     _write_solution_xlsx_gantt(out_ini, sol_ini)
-    print(f"    → {out_ini.name}")
+    print(f"    -> {out_ini.name}")
 
     # ---- 2. PermutationDecoder (no es inverso exacto) ----------------
     print("\n[2] PermutationDecoder")
@@ -129,13 +129,13 @@ def test_codecs_round_trip(
         "    NOTA: PermutationDecoder no es inverso exacto por diseño "
         "(tramo de sectores = ruido)."
     )
-    print(f"    → {out_perm.name}")
+    print(f"    -> {out_perm.name}")
 
     # ---- 3. codec bin-midpoint (inverso exacto) ----------------------
     print("\n[3] codec.codificar (bin-midpoint)")
     x_bm, vocabulario = codificar(sol_ini)
     _imprimir_cromosoma("bin-midpoint", x_bm)
-    print(f"    vocabulario: {len(vocabulario)} tokens → {vocabulario}")
+    print(f"    vocabulario: {len(vocabulario)} tokens -> {vocabulario}")
 
     sol_bm = decodificar(
         cromosoma=x_bm,
@@ -148,7 +148,7 @@ def test_codecs_round_trip(
     pct_bm = 100.0 * iguales / total if total else 0.0
     marca = "✓ round-trip exacto" if pct_bm == 100.0 else "✗ revisar codec/vocabulario"
     print(f"    similitud con original: {iguales}/{total} ({pct_bm:.1f} %)  {marca}")
-    print(f"    → {out_bm.name}")
+    print(f"    -> {out_bm.name}")
 
     # ---- Resumen ----------------------------------------------------
     print("\n" + "─" * 50)

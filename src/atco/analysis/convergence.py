@@ -101,3 +101,147 @@ def _get(record: object, key: str) -> object:
     if isinstance(record, dict):
         return record[key]
     return getattr(record, key)
+
+
+def plot_components_evolution(
+    history: list[ConvergenceRecord] | list[dict],
+    out_path: Path,
+    title: str | None = None,
+) -> None:
+    """Evolución de cada componente del fitness del mejor individuo por generación.
+
+    Útil para diagnosticar qué término del fitness ponderado está
+    dominando y cuál ya está minimizado. Si una curva se aplana en
+    valor bajo mientras otra sigue alta, el motor está atacando lo
+    primero pero no consigue mover lo segundo.
+
+    Args:
+        history: Lista de records de convergencia.
+        out_path: PNG destino.
+        title: Título opcional.
+    """
+    import matplotlib.pyplot as plt
+
+    out_path = Path(out_path)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+
+    gens = [_get(r, "generation") for r in history]
+    series: dict[str, list[float]] = {}
+    for r in history:
+        comps = _get(r, "best_components")
+        if not comps:
+            continue
+        for k, v in comps.items():
+            series.setdefault(k, []).append(v)
+
+    if not series:
+        raise ValueError(
+            "No hay datos de componentes en el historial. Verifica que el "
+            "engine esté poblando `best_components`."
+        )
+
+    fig, ax = plt.subplots(figsize=(10, 6))
+    for nombre, valores in series.items():
+        ax.plot(gens[: len(valores)], valores, label=nombre, linewidth=1.7)
+    ax.set_xlabel("generación")
+    ax.set_ylabel("valor del componente (best individual)")
+    ax.grid(True, alpha=0.3)
+    ax.legend(loc="best")
+    if title:
+        ax.set_title(title)
+    fig.tight_layout()
+    fig.savefig(out_path, dpi=120)
+    plt.close(fig)
+
+
+def plot_violaciones_por_generacion(
+    history: list[ConvergenceRecord] | list[dict],
+    out_path: Path,
+    title: str | None = None,
+) -> None:
+    """Número de restricciones violadas por el best individual a lo largo del run.
+
+    Es una visión de "cuántas reglas operativas seguimos rompiendo"
+    a medida que evolucionan las generaciones. Idealmente baja monótonamente.
+
+    Args:
+        history: Lista de records de convergencia.
+        out_path: PNG destino.
+        title: Título opcional.
+    """
+    import matplotlib.pyplot as plt
+
+    out_path = Path(out_path)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+
+    gens: list[int] = []
+    n_violadas: list[int] = []
+    for r in history:
+        violaciones = _get(r, "best_restricciones_violadas")
+        if violaciones is None:
+            continue
+        gens.append(_get(r, "generation"))
+        n_violadas.append(len(violaciones))
+
+    fig, ax = plt.subplots(figsize=(9, 5))
+    ax.step(gens, n_violadas, where="post", linewidth=2, color="tab:red")
+    ax.set_xlabel("generación")
+    ax.set_ylabel("nº de restricciones violadas por el mejor")
+    ax.grid(True, alpha=0.3)
+    if title:
+        ax.set_title(title)
+    fig.tight_layout()
+    fig.savefig(out_path, dpi=120)
+    plt.close(fig)
+
+
+def plot_violaciones_final_breakdown(
+    restricciones_violadas: list[str],
+    out_path: Path,
+    title: str | None = None,
+) -> None:
+    """Bar chart de qué restricciones específicas viola la solución final.
+
+    Args:
+        restricciones_violadas: Lista de nombres de restricciones violadas
+            (campo `result.best_fitness_result.restricciones_violadas`).
+        out_path: PNG destino.
+        title: Título opcional.
+    """
+    import matplotlib.pyplot as plt
+
+    out_path = Path(out_path)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+
+    if not restricciones_violadas:
+        # Crea un gráfico vacío con mensaje
+        fig, ax = plt.subplots(figsize=(8, 4))
+        ax.text(
+            0.5,
+            0.5,
+            "Sin restricciones violadas",
+            ha="center",
+            va="center",
+            fontsize=14,
+            color="green",
+            transform=ax.transAxes,
+        )
+        ax.set_axis_off()
+        if title:
+            ax.set_title(title)
+        fig.savefig(out_path, dpi=120)
+        plt.close(fig)
+        return
+
+    fig, ax = plt.subplots(figsize=(9, max(4, 0.4 * len(restricciones_violadas))))
+    y_pos = list(range(len(restricciones_violadas)))
+    ax.barh(y_pos, [1] * len(restricciones_violadas), color="tab:red")
+    ax.set_yticks(y_pos)
+    ax.set_yticklabels(restricciones_violadas, fontsize=9)
+    ax.set_xlabel("(violada)")
+    ax.set_xticks([])
+    if title:
+        ax.set_title(title)
+    fig.tight_layout()
+    fig.savefig(out_path, dpi=120)
+    plt.close(fig)

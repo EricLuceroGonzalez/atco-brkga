@@ -5,9 +5,9 @@
 Tras la reunión con los directores de tesis, queda claro que el repositorio actual mezcla decisiones del estudiante anterior con cambios míos hechos sobre una base que no controlo del todo. La estrategia correcta es **partir de cero**, conservando solo las piezas verificadas y reutilizables, y construir desde ahí un proyecto académico mantenible durante los tres años de tesis. La metaheurística defendida será BRKGA; se elimina el SA y se reformulan la función objetivo y todo lo que dependía de ella.
 
 **Lo que se conserva** (acordado contigo):
-- `domain/models.py` → clases `Solucion`, `Controlador`, `Sector`, `Nucleo`, `Turno`, `Propiedades`.
-- `domain/constants.py` → `STRING_DESCANSO`, `STRING_NO_TURNO`, `LONGITUD_CADENAS`.
-- `problem/restrictions/` → las 14 `comprobar_*` de `restrictions.py` (~900 líneas testeadas).
+- `domain/models.py` -> clases `Solucion`, `Controlador`, `Sector`, `Nucleo`, `Turno`, `Propiedades`.
+- `domain/constants.py` -> `STRING_DESCANSO`, `STRING_NO_TURNO`, `LONGITUD_CADENAS`.
+- `problem/restrictions/` -> las 14 `comprobar_*` de `restrictions.py` (~900 líneas testeadas).
 - `problem/instance.py` (ex-`entrada.py`) + `problem/parameters.py` + `problem/properties.py`.
 - `io/` (ex-`tools/`): persistencia .pkl/.json/.xlsx.
 - `resources/` y `entrada/` tal cual.
@@ -433,7 +433,7 @@ Cada bloque es una sesión de trabajo razonable (~2-4 h). No saltes pasos; cada 
 3. Tests parametrizados de las 14 `comprobar_*`: cada una con un caso pasante y uno fallante.
 
 ### Bloque 3 · Nueva función objetivo (sesión 3-4) — lo importante para la tesis
-1. Diseñar el contrato en `fitness/components.py`: cada Fi como función pura `Solucion → float`.
+1. Diseñar el contrato en `fitness/components.py`: cada Fi como función pura `Solucion -> float`.
 2. `fitness/objective.py`: composición ponderada con los pesos como parámetros explícitos (no globales).
 3. `fitness/selector.py`: dispatcher por nombre, configurable desde `.properties`.
 4. Tests con vectores de referencia: para `madN_M1` debes obtener X tras N iteraciones.
@@ -487,11 +487,11 @@ Cada bloque es una sesión de trabajo razonable (~2-4 h). No saltes pasos; cada 
 
 ## Lo que se reescribe completamente desde cero
 
-1. **`src/atco/fitness/*`** — tu nueva métrica multi-objetivo. Esta es la pieza académica clave: el contrato es `Solucion → float`, los pesos vienen de fuera, y cada componente Fi es testeable y trazable. **No portes nada del `fitness.py` viejo; cualquier cosa que necesites la reconstruyes con conocimiento causal.**
+1. **`src/atco/fitness/*`** — tu nueva métrica multi-objetivo. Esta es la pieza académica clave: el contrato es `Solucion -> float`, los pesos vienen de fuera, y cada componente Fi es testeable y trazable. **No portes nada del `fitness.py` viejo; cualquier cosa que necesites la reconstruyes con conocimiento causal.**
 2. **`src/atco/algorithms/brkga/*`** — motor limpio, sin `populations: list[Population]` ni multi-pop heredado. Una sola población, una sola decisión de tamaño, semillas via `seed_chromosomes` opcional.
 3. **`src/atco/problem/encoding.py`** — bin-midpoint con doctests del round-trip.
 4. **`src/atco/cli/*`** — argparse con subcomandos `run` y `analyze`; entry point oficial `python -m atco` y script `atco` instalado vía `pyproject.toml`.
-5. **`src/atco/analysis/*`** — convergencia, stats, comparativas. Vista mínima de inicio: `plot_convergence(json)` → PNG.
+5. **`src/atco/analysis/*`** — convergencia, stats, comparativas. Vista mínima de inicio: `plot_convergence(json)` -> PNG.
 
 ---
 

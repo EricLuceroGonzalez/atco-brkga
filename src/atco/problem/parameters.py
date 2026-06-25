@@ -9,12 +9,12 @@ from .properties import load_properties
 # CORRESPONDENCIA CON CÓDIGO JAVA
 # =============================================================================
 # Archivos Java (todos en src/main/estructurasDatos/):
-#   - Parametros.java          → clase Parametros (parámetros del problema)
-#   - ParametrosAlgoritmo.java → clase ParametrosAlgoritmo + SAParameters
+#   - Parametros.java          -> clase Parametros (parámetros del problema)
+#   - ParametrosAlgoritmo.java -> clase ParametrosAlgoritmo + SAParameters
 #                                (en Java los parámetros SA son atributos directos
 #                                 de ParametrosAlgoritmo; aquí se separan en SAParameters)
-#   - PesosObjetivos.java      → clase PesosObjetivos
-#   - Opciones.java            → absorbido en Parametros.from_files() (tamanoSlots)
+#   - PesosObjetivos.java      -> clase PesosObjetivos
+#   - Opciones.java            -> absorbido en Parametros.from_files() (tamanoSlots)
 #
 # NOTA: VNSParameters está implementado pero no se usa en el flujo SA.
 # =============================================================================
@@ -92,16 +92,16 @@ class Parametros:
         props = load_properties(problem_parameters)
         opts = load_properties(options)
         return cls(
-            _float(props, "porcentajeDeDescansoDuranteDia"),
+            _float(props, "porcentajeDeDescansoDuranteDia"),  # porcent_descanso_dia
             _float(props, "porcentajeDeDescansoDuranteNoche"),
             _int(props, "tiempoDeTrabajoMaximo"),
-            _int(props, "tiempoDeTrabajoMinimo"),
+            _int(props, "tiempoDeTrabajoMinimo"),  # tiempo_trab_min
             _int(props, "tiempoDeDescansoMinimo"),
-            _int(props, "tiempoDeDescansoNoContinuoMinimo"),
+            _int(props, "tiempoDeDescansoNoContinuoMinimo"),  # tiempo_des_por_turno
             _int(props, "tiempoDeTrabajoEnPosicionMinimo"),
-            _int(props, "tiempoDeTrabajoEnPosicionOptimo"),
+            _int(props, "tiempoDeTrabajoEnPosicionOptimo"),  # tiempo_pos_opt
             _int(props, "tiempoDeTrabajoOptimo"),
-            _int(props, "numeroDeSectoresDistintosMaximo"),
+            _int(props, "numeroDeSectoresDistintosMaximo"),  # num_sctrs_max
             _float(props, "porcentajeDeTrabajoMaximoEnPosicion"),
             _float(props, "porcentajeDeTrabajoMinimoEnPosicion"),
             _int(opts, "tamanoDeSlots"),

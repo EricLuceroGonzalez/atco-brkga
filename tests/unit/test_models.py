@@ -171,8 +171,8 @@ def test_nucleo_constructor_sectores_default_vacio() -> None:
 @pytest.mark.parametrize(
     ("inicio_tl", "fin_tl", "inicio_tc", "fin_tc", "esperado"),
     [
-        # Madrid turno mañana: TL 10:30→18:30 (8h) y TC 12:30→18:30 (6h)
-        # Con slot_size=5 min → [tl_inicio=0, tl_fin=96, tc_inicio=24, tc_fin=96]
+        # Madrid turno mañana: TL 10:30->18:30 (8h) y TC 12:30->18:30 (6h)
+        # Con slot_size=5 min -> [tl_inicio=0, tl_fin=96, tc_inicio=24, tc_fin=96]
         ("10:30", "18:30", "12:30", "18:30", [0, 96, 24, 96]),
     ],
 )

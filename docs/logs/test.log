@@ -926,3 +926,557 @@ FAILED tests/unit/test_fitness.py::TestFitnessConfig::test_pesos_que_no_suman_un
 FAILED tests/unit/test_fitness.py::TestEvaluarFitness::test_componentes_tiene_las_cinco_claves
 FAILED tests/unit/test_fitness.py::TestEvaluarFitness::test_alpha_l_cero_anula_componente_l_en_valor
 ======================== 14 failed, 92 passed in 1.41s =========================
+
+===== 2026-06-25 03:06:29 — pytest =====
+   Building atco @ file:///Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga
+      Built atco @ file:///Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga
+Uninstalled 1 package in 1ms
+Installed 1 package in 1ms
+============================= test session starts ==============================
+platform darwin -- Python 3.11.15, pytest-9.1.1, pluggy-1.6.0 -- /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga
+configfile: pyproject.toml
+testpaths: tests
+plugins: anyio-4.14.0, cov-7.1.0
+collecting ... collected 286 items / 1 error
+
+==================================== ERRORS ====================================
+_________________ ERROR collecting tests/unit/test_fitness.py __________________
+ImportError while importing test module '/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/tests/unit/test_fitness.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+../../../../.local/share/uv/python/cpython-3.11.15-macos-aarch64-none/lib/python3.11/importlib/__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/unit/test_fitness.py:12: in <module>
+    from atco.fitness.components import (
+E   ImportError: cannot import name 'descansos_largos' from 'atco.fitness.components' (/Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/src/atco/fitness/components.py)
+=========================== short test summary info ============================
+ERROR tests/unit/test_fitness.py
+!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+=============================== 1 error in 0.23s ===============================
+
+===== 2026-06-25 03:07:28 — pytest =====
+============================= test session starts ==============================
+platform darwin -- Python 3.11.15, pytest-9.1.1, pluggy-1.6.0 -- /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/ericlucero/Documents/Academic/Python_Fun/atco-brkga
+configfile: pyproject.toml
+testpaths: tests
+plugins: anyio-4.14.0, cov-7.1.0
+collecting ... collected 286 items
+
+tests/fitness/test_acreditacion.py::TestAcreditacionCasosBase::test_sin_controladores_sin_sectores PASSED [  0%]
+tests/fitness/test_acreditacion.py::TestAcreditacionCasosBase::test_sin_elementales_definidos PASSED [  0%]
+tests/fitness/test_acreditacion.py::TestAcreditacionCasosBase::test_un_controlador_un_sector_un_elemental PASSED [  1%]
+tests/fitness/test_acreditacion.py::TestAcreditacionCasosBase::test_un_controlador_descansando_no_cubre_nada PASSED [  1%]
+tests/fitness/test_acreditacion.py::TestConvencionRol::test_ej_y_pl_aportan_mismos_elementales PASSED [  1%]
+tests/fitness/test_acreditacion.py::TestConvencionRol::test_alternar_ej_y_pl_no_duplica_elemental PASSED [  2%]
+tests/fitness/test_acreditacion.py::TestAcumulacion::test_trabajar_mismo_sector_repetido_cuenta_una_vez PASSED [  2%]
+tests/fitness/test_acreditacion.py::TestAcumulacion::test_sector_con_varios_elementales PASSED [  2%]
+tests/fitness/test_acreditacion.py::TestAcumulacion::test_dos_sectores_un_controlador_distintos_elementales PASSED [  3%]
+tests/fitness/test_acreditacion.py::TestAcumulacion::test_dos_sectores_con_elemental_compartido PASSED [  3%]
+tests/fitness/test_acreditacion.py::TestMultiplesControladores::test_dos_controladores_cubriendo_lo_mismo PASSED [  3%]
+tests/fitness/test_acreditacion.py::TestMultiplesControladores::test_dos_controladores_cubriendo_sectores_distintos PASSED [  4%]
+tests/fitness/test_acreditacion.py::TestMultiplesControladores::test_uno_trabaja_otro_descansa PASSED [  4%]
+tests/fitness/test_acreditacion.py::TestSectoresCerrados::test_sector_existente_pero_nunca_abre_no_cuenta PASSED [  4%]
+tests/fitness/test_acreditacion.py::TestPropiedadesInvariantes::test_crudo_acotado_inferiormente_por_cero[turnos0] PASSED [  5%]
+tests/fitness/test_acreditacion.py::TestPropiedadesInvariantes::test_crudo_acotado_inferiormente_por_cero[turnos1] PASSED [  5%]
+tests/fitness/test_acreditacion.py::TestPropiedadesInvariantes::test_crudo_acotado_inferiormente_por_cero[turnos2] PASSED [  5%]
+tests/fitness/test_acreditacion.py::TestPropiedadesInvariantes::test_crudo_acotado_inferiormente_por_cero[turnos3] PASSED [  6%]
+tests/fitness/test_acreditacion.py::TestPropiedadesInvariantes::test_crudo_acotado_superiormente_por_v_max PASSED [  6%]
+tests/fitness/test_balance_carga.py::TestBalanceCargaBase::test_sin_controladores PASSED [  6%]
+tests/fitness/test_balance_carga.py::TestBalanceCargaBase::test_un_unico_controlador PASSED [  7%]
+tests/fitness/test_balance_carga.py::TestBalanceCargaBase::test_todos_con_carga_cero PASSED [  7%]
+tests/fitness/test_balance_carga.py::TestExtremos::test_balance_perfecto_dos_controladores PASSED [  8%]
+tests/fitness/test_balance_carga.py::TestExtremos::test_balance_perfecto_cuatro_controladores PASSED [  8%]
+tests/fitness/test_balance_carga.py::TestExtremos::test_desbalance_maximo_dos_controladores PASSED [  8%]
+tests/fitness/test_balance_carga.py::TestExtremos::test_desbalance_maximo_cuatro_controladores PASSED [  9%]
+tests/fitness/test_balance_carga.py::TestSensibilidad::test_outlier_unico_apenas_mueve_sigma PASSED [  9%]
+tests/fitness/test_balance_carga.py::TestSensibilidad::test_desbalance_sistematico_mueve_sigma PASSED [  9%]
+tests/fitness/test_balance_carga.py::TestInactivos::test_un_controlador_inactivo_baja_la_media PASSED [ 10%]
+tests/fitness/test_balance_carga.py::TestPropiedadesInvariantes::test_sigma_no_supera_sigma_max[cargas0] PASSED [ 10%]
+tests/fitness/test_balance_carga.py::TestPropiedadesInvariantes::test_sigma_no_supera_sigma_max[cargas1] PASSED [ 10%]
+tests/fitness/test_balance_carga.py::TestPropiedadesInvariantes::test_sigma_no_supera_sigma_max[cargas2] PASSED [ 11%]
+tests/fitness/test_balance_carga.py::TestPropiedadesInvariantes::test_sigma_no_supera_sigma_max[cargas3] PASSED [ 11%]
+tests/fitness/test_balance_carga.py::TestPropiedadesInvariantes::test_sigma_no_supera_sigma_max[cargas4] PASSED [ 11%]
+tests/fitness/test_balance_carga.py::TestPropiedadesInvariantes::test_cargas_iguales_dan_sigma_cero[cargas0] PASSED [ 12%]
+tests/fitness/test_balance_carga.py::TestPropiedadesInvariantes::test_cargas_iguales_dan_sigma_cero[cargas1] PASSED [ 12%]
+tests/fitness/test_balance_carga.py::TestPropiedadesInvariantes::test_cargas_iguales_dan_sigma_cero[cargas2] PASSED [ 12%]
+tests/fitness/test_cobertura_insatisfecha.py::TestCoberturaCasosBase::test_sin_sectores_ni_filas PASSED [ 13%]
+tests/fitness/test_cobertura_insatisfecha.py::TestCoberturaCasosBase::test_sin_sectores_abiertos_en_ningun_slot PASSED [ 13%]
+tests/fitness/test_cobertura_insatisfecha.py::TestCoberturaCasosBase::test_un_sector_cubierto_completo PASSED [ 13%]
+tests/fitness/test_cobertura_insatisfecha.py::TestCoberturaCasosBase::test_un_sector_sin_ningun_ATCo PASSED [ 14%]
+tests/fitness/test_cobertura_insatisfecha.py::TestRegresionBugPlanificador::test_falta_solo_planificador PASSED [ 14%]
+tests/fitness/test_cobertura_insatisfecha.py::TestRegresionBugPlanificador::test_falta_solo_ejecutivo PASSED [ 15%]
+tests/fitness/test_cobertura_insatisfecha.py::TestRegresionBugPlanificador::test_simetria_ej_pl PASSED [ 15%]
+tests/fitness/test_cobertura_insatisfecha.py::TestCoberturaCasosCompuestos::test_varios_sectores_un_slot PASSED [ 15%]
+tests/fitness/test_cobertura_insatisfecha.py::TestCoberturaCasosCompuestos::test_sector_repetido_en_varios_slots PASSED [ 16%]
+tests/fitness/test_cobertura_insatisfecha.py::TestCoberturaCasosCompuestos::test_slots_sin_sectores_no_inflan_demanda PASSED [ 16%]
+tests/fitness/test_cobertura_insatisfecha.py::TestPropiedadesInvariantes::test_huecos_no_supera_demanda[turnos0-sectores_t00] PASSED [ 16%]
+tests/fitness/test_cobertura_insatisfecha.py::TestPropiedadesInvariantes::test_huecos_no_supera_demanda[turnos1-sectores_t01] PASSED [ 17%]
+tests/fitness/test_cobertura_insatisfecha.py::TestPropiedadesInvariantes::test_huecos_no_supera_demanda[turnos2-sectores_t02] PASSED [ 17%]
+tests/fitness/test_cobertura_insatisfecha.py::TestPropiedadesInvariantes::test_huecos_no_supera_demanda[turnos3-sectores_t03] PASSED [ 17%]
+tests/fitness/test_cobertura_insatisfecha.py::TestPropiedadesInvariantes::test_todos_descansando_huecos_igual_demanda[1] PASSED [ 18%]
+tests/fitness/test_cobertura_insatisfecha.py::TestPropiedadesInvariantes::test_todos_descansando_huecos_igual_demanda[2] PASSED [ 18%]
+tests/fitness/test_cobertura_insatisfecha.py::TestPropiedadesInvariantes::test_todos_descansando_huecos_igual_demanda[5] PASSED [ 18%]
+tests/fitness/test_cobertura_insatisfecha.py::TestPropiedadesInvariantes::test_todos_descansando_huecos_igual_demanda[10] PASSED [ 19%]
+tests/fitness/test_condiciones_laborales.py::TestTiempoOptimoPosicion::test_solucion_vacia PASSED [ 19%]
+tests/fitness/test_condiciones_laborales.py::TestTiempoOptimoPosicion::test_intervalo_exacto_al_optimo_no_penaliza PASSED [ 19%]
+tests/fitness/test_condiciones_laborales.py::TestTiempoOptimoPosicion::test_intervalo_mas_corto_que_optimo PASSED [ 20%]
+tests/fitness/test_condiciones_laborales.py::TestTiempoOptimoPosicion::test_intervalo_mas_largo_que_optimo PASSED [ 20%]
+tests/fitness/test_condiciones_laborales.py::TestTiempoOptimoPosicion::test_cambio_de_token_corta_intervalo PASSED [ 20%]
+tests/fitness/test_condiciones_laborales.py::TestTiempoOptimoPosicion::test_division_por_n_atcos PASSED [ 21%]
+tests/fitness/test_condiciones_laborales.py::TestTiempoOptimoPosicion::test_solo_descanso_no_penaliza PASSED [ 21%]
+tests/fitness/test_condiciones_laborales.py::TestTiempoOptimoPosicion::test_cota_segun_formula_tello PASSED [ 22%]
+tests/fitness/test_condiciones_laborales.py::TestTiempoOptimoTrabajo::test_solucion_vacia PASSED [ 22%]
+tests/fitness/test_condiciones_laborales.py::TestTiempoOptimoTrabajo::test_intervalo_exacto_al_optimo PASSED [ 22%]
+tests/fitness/test_condiciones_laborales.py::TestTiempoOptimoTrabajo::test_cambios_de_sector_no_cortan_intervalo PASSED [ 23%]
+tests/fitness/test_condiciones_laborales.py::TestTiempoOptimoTrabajo::test_descanso_corta_intervalo PASSED [ 23%]
+tests/fitness/test_condiciones_laborales.py::TestTiempoOptimoTrabajo::test_cota_segun_formula_tello PASSED [ 23%]
+tests/fitness/test_condiciones_laborales.py::TestPorcentajeEjecutivo::test_solucion_vacia PASSED [ 24%]
+tests/fitness/test_condiciones_laborales.py::TestPorcentajeEjecutivo::test_pct_exactamente_50_no_penaliza PASSED [ 24%]
+tests/fitness/test_condiciones_laborales.py::TestPorcentajeEjecutivo::test_pct_dentro_del_rango_no_penaliza PASSED [ 24%]
+tests/fitness/test_condiciones_laborales.py::TestPorcentajeEjecutivo::test_todo_ejecutivo_penalizacion_maxima PASSED [ 25%]
+tests/fitness/test_condiciones_laborales.py::TestPorcentajeEjecutivo::test_todo_planificador_penalizacion_maxima PASSED [ 25%]
+tests/fitness/test_condiciones_laborales.py::TestPorcentajeEjecutivo::test_pct_30_penaliza_diferencia_a_borde PASSED [ 25%]
+tests/fitness/test_condiciones_laborales.py::TestPorcentajeEjecutivo::test_pct_70_penaliza_diferencia_a_borde PASSED [ 26%]
+tests/fitness/test_condiciones_laborales.py::TestPorcentajeEjecutivo::test_controlador_sin_trabajo_excluido PASSED [ 26%]
+tests/fitness/test_condiciones_laborales.py::TestPorcentajeEjecutivo::test_dos_controladores_uno_perfecto_uno_malo PASSED [ 26%]
+tests/fitness/test_condiciones_laborales.py::TestPorcentajeEjecutivo::test_descansos_no_cuentan_en_el_porcentaje PASSED [ 27%]
+tests/fitness/test_condiciones_laborales.py::TestPropiedadesInvariantes::test_crudo_y_cota_no_negativos[aabaabaabaabaabaabaabaabaabaab] PASSED [ 27%]
+tests/fitness/test_condiciones_laborales.py::TestPropiedadesInvariantes::test_crudo_y_cota_no_negativos[AABAABAABAABAABaabaabaabaabaab] PASSED [ 27%]
+tests/fitness/test_condiciones_laborales.py::TestPropiedadesInvariantes::test_crudo_y_cota_no_negativos[aabaabaab111111111111AACAACAAC] PASSED [ 28%]
+tests/fitness/test_condiciones_laborales.py::TestPropiedadesInvariantes::test_crudo_y_cota_no_negativos[111111111111111111111111111111] PASSED [ 28%]
+tests/fitness/test_condiciones_laborales.py::TestPropiedadesInvariantes::test_crudo_y_cota_no_negativos[AABAABAABAABAABAABAABAABAABaacaacaacaacaacaacaacaacaac] PASSED [ 29%]
+tests/fitness/test_condiciones_laborales.py::TestPropiedadesInvariantes::test_porcentaje_ejecutivo_crudo_no_supera_cota[aabaabaabaabaabaabaabaabaabaabaabaabaabaabaabaabaabaab] PASSED [ 29%]
+tests/fitness/test_condiciones_laborales.py::TestPropiedadesInvariantes::test_porcentaje_ejecutivo_crudo_no_supera_cota[AABAABAABAABAABaabaabaabaabaab] PASSED [ 29%]
+tests/fitness/test_condiciones_laborales.py::TestPropiedadesInvariantes::test_porcentaje_ejecutivo_crudo_no_supera_cota[aabaabaabaabaabaab111111111aacaacaacaacaacaac] PASSED [ 30%]
+tests/fitness/test_fragmentacion_y_descansos.py::TestFragmentacion::test_solucion_vacia PASSED [ 30%]
+tests/fitness/test_fragmentacion_y_descansos.py::TestFragmentacion::test_fila_toda_fuera_de_turno_no_cuenta PASSED [ 30%]
+tests/fitness/test_fragmentacion_y_descansos.py::TestFragmentacion::test_fila_completamente_trabajando_un_solo_bloque PASSED [ 31%]
+tests/fitness/test_fragmentacion_y_descansos.py::TestFragmentacion::test_fila_completamente_descansando_un_solo_bloque PASSED [ 31%]
+tests/fitness/test_fragmentacion_y_descansos.py::TestFragmentacion::test_dos_bloques_trabajo_descanso PASSED [ 31%]
+tests/fitness/test_fragmentacion_y_descansos.py::TestFragmentacion::test_alternancia_maxima PASSED [ 32%]
+tests/fitness/test_fragmentacion_y_descansos.py::TestFragmentacion::test_cambios_de_sector_no_son_cambios_de_estado PASSED [ 32%]
+tests/fitness/test_fragmentacion_y_descansos.py::TestFragmentacion::test_no_turno_inicio_y_fin_no_inflan_ventana PASSED [ 32%]
+tests/fitness/test_fragmentacion_y_descansos.py::TestFragmentacion::test_dos_filas_se_suman PASSED [ 33%]
+tests/fitness/test_fragmentacion_y_descansos.py::TestIntervalosDescanso::test_solucion_vacia PASSED [ 33%]
+tests/fitness/test_fragmentacion_y_descansos.py::TestIntervalosDescanso::test_fila_fuera_de_turno_no_cuenta PASSED [ 33%]
+tests/fitness/test_fragmentacion_y_descansos.py::TestIntervalosDescanso::test_fila_sin_descansos PASSED [ 34%]
+tests/fitness/test_fragmentacion_y_descansos.py::TestIntervalosDescanso::test_fila_un_solo_descanso PASSED [ 34%]
+tests/fitness/test_fragmentacion_y_descansos.py::TestIntervalosDescanso::test_fila_tres_descansos_separados PASSED [ 34%]
+tests/fitness/test_fragmentacion_y_descansos.py::TestIntervalosDescanso::test_fila_toda_descanso_un_bloque PASSED [ 35%]
+tests/fitness/test_fragmentacion_y_descansos.py::TestIntervalosDescanso::test_no_turno_no_cuenta_como_descanso PASSED [ 35%]
+tests/fitness/test_fragmentacion_y_descansos.py::TestIntervalosDescanso::test_dos_filas_se_suman PASSED [ 36%]
+tests/fitness/test_fragmentacion_y_descansos.py::TestIntervalosDescanso::test_v_max_segun_formula_tello PASSED [ 36%]
+tests/fitness/test_fragmentacion_y_descansos.py::TestPropiedadesInvariantes::test_crudo_acotado_por_v_min_y_v_max[aabaabaabaabaabaabaabaabaabaab] PASSED [ 36%]
+tests/fitness/test_fragmentacion_y_descansos.py::TestPropiedadesInvariantes::test_crudo_acotado_por_v_min_y_v_max[111111111111111111111111111111] PASSED [ 37%]
+tests/fitness/test_fragmentacion_y_descansos.py::TestPropiedadesInvariantes::test_crudo_acotado_por_v_min_y_v_max[aabaabaab111111111111aacaacaac] PASSED [ 37%]
+tests/fitness/test_fragmentacion_y_descansos.py::TestPropiedadesInvariantes::test_crudo_acotado_por_v_min_y_v_max[000aabaabaabaabaabaabaabaab000] PASSED [ 37%]
+tests/fitness/test_fragmentacion_y_descansos.py::TestPropiedadesInvariantes::test_crudo_acotado_por_v_min_y_v_max[aab111aab111aab] PASSED [ 38%]
+tests/fitness/test_fragmentacion_y_descansos.py::TestPropiedadesInvariantes::test_bloques_descanso_no_supera_bloques_totales PASSED [ 38%]
+tests/fitness/test_intervalos.py::TestIntervalosMismaPosicion::test_cadena_vacia PASSED [ 38%]
+tests/fitness/test_intervalos.py::TestIntervalosMismaPosicion::test_todo_descanso PASSED [ 39%]
+tests/fitness/test_intervalos.py::TestIntervalosMismaPosicion::test_todo_no_turno PASSED [ 39%]
+tests/fitness/test_intervalos.py::TestIntervalosMismaPosicion::test_un_solo_intervalo_unico_token PASSED [ 39%]
+tests/fitness/test_intervalos.py::TestIntervalosMismaPosicion::test_dos_tokens_distintos_contiguos PASSED [ 40%]
+tests/fitness/test_intervalos.py::TestIntervalosMismaPosicion::test_descanso_corta_intervalo PASSED [ 40%]
+tests/fitness/test_intervalos.py::TestIntervalosMismaPosicion::test_no_turno_corta_intervalo PASSED [ 40%]
+tests/fitness/test_intervalos.py::TestIntervalosMismaPosicion::test_no_turno_borde_inicio_y_fin PASSED [ 41%]
+tests/fitness/test_intervalos.py::TestIntervalosMismaPosicion::test_ej_y_pl_se_consideran_tokens_distintos PASSED [ 41%]
+tests/fitness/test_intervalos.py::TestIntervalosMismaPosicion::test_caso_compuesto_de_docstring PASSED [ 41%]
+tests/fitness/test_intervalos.py::TestIntervalosMismaPosicion::test_intervalo_se_cierra_al_final_de_la_cadena PASSED [ 42%]
+tests/fitness/test_intervalos.py::TestIntervalosTrabajo::test_cadena_vacia PASSED [ 42%]
+tests/fitness/test_intervalos.py::TestIntervalosTrabajo::test_todo_descanso PASSED [ 43%]
+tests/fitness/test_intervalos.py::TestIntervalosTrabajo::test_todo_no_turno PASSED [ 43%]
+tests/fitness/test_intervalos.py::TestIntervalosTrabajo::test_un_intervalo_unico_token PASSED [ 43%]
+tests/fitness/test_intervalos.py::TestIntervalosTrabajo::test_cambios_de_sector_no_cortan PASSED [ 44%]
+tests/fitness/test_intervalos.py::TestIntervalosTrabajo::test_cambios_ej_pl_no_cortan PASSED [ 44%]
+tests/fitness/test_intervalos.py::TestIntervalosTrabajo::test_descanso_corta PASSED [ 44%]
+tests/fitness/test_intervalos.py::TestIntervalosTrabajo::test_no_turno_corta PASSED [ 45%]
+tests/fitness/test_intervalos.py::TestIntervalosTrabajo::test_no_turno_borde PASSED [ 45%]
+tests/fitness/test_intervalos.py::TestIntervalosTrabajo::test_caso_compuesto_de_docstring PASSED [ 45%]
+tests/fitness/test_intervalos.py::TestIntervalosTrabajo::test_intervalo_se_cierra_al_final_de_la_cadena PASSED [ 46%]
+tests/fitness/test_intervalos.py::TestPropiedadesCruzadas::test_intervalos_misma_posicion_son_subdivision_de_trabajo[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-10] PASSED [ 46%]
+tests/fitness/test_intervalos.py::TestPropiedadesCruzadas::test_intervalos_misma_posicion_son_subdivision_de_trabajo[aaaaab111aaaAAA-5] PASSED [ 46%]
+tests/fitness/test_intervalos.py::TestPropiedadesCruzadas::test_intervalos_misma_posicion_son_subdivision_de_trabajo[000aaa111AAB000aaa-6] PASSED [ 47%]
+tests/fitness/test_intervalos.py::TestPropiedadesCruzadas::test_intervalos_misma_posicion_son_subdivision_de_trabajo[111111111AAAAAAAAA111111111-9] PASSED [ 47%]
+tests/fitness/test_intervalos.py::TestPropiedadesCruzadas::test_suma_duraciones_misma_posicion_igual_trabajo[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-10] PASSED [ 47%]
+tests/fitness/test_intervalos.py::TestPropiedadesCruzadas::test_suma_duraciones_misma_posicion_igual_trabajo[aaaaab111aaaAAA-5] PASSED [ 48%]
+tests/fitness/test_intervalos.py::TestPropiedadesCruzadas::test_suma_duraciones_misma_posicion_igual_trabajo[000aaa111AAB000aaa-6] PASSED [ 48%]
+tests/fitness/test_objective.py::TestNormalizadores::test_cobertura_perfecta_es_1 PASSED [ 48%]
+tests/fitness/test_objective.py::TestNormalizadores::test_cobertura_total_descubierta_es_0 PASSED [ 49%]
+tests/fitness/test_objective.py::TestNormalizadores::test_cobertura_sin_demanda_es_1 PASSED [ 49%]
+tests/fitness/test_objective.py::TestNormalizadores::test_desviacion_clamp_inferior PASSED [ 50%]
+tests/fitness/test_objective.py::TestNormalizadores::test_desviacion_clamp_superior PASSED [ 50%]
+tests/fitness/test_objective.py::TestNormalizadores::test_acreditacion_min_da_cero PASSED [ 50%]
+tests/fitness/test_objective.py::TestNormalizadores::test_acreditacion_max_da_uno PASSED [ 51%]
+tests/fitness/test_objective.py::TestNormalizadores::test_fragmentacion_min_da_uno PASSED [ 51%]
+tests/fitness/test_objective.py::TestNormalizadores::test_intervalos_descanso_min_da_uno PASSED [ 51%]
+tests/fitness/test_objective.py::TestAritmeticaOrquestador::test_solucion_perfecta_factible_da_fitness_uno PASSED [ 52%]
+tests/fitness/test_objective.py::TestAritmeticaOrquestador::test_solucion_peor_caso_factible_da_fitness_cero PASSED [ 52%]
+tests/fitness/test_objective.py::TestAritmeticaOrquestador::test_solucion_mixta_pesos_aplicados PASSED [ 52%]
+tests/fitness/test_objective.py::TestAritmeticaOrquestador::test_penalty_se_resta_del_valor PASSED [ 53%]
+tests/fitness/test_objective.py::TestEstructuraResultado::test_componentes_tiene_8_claves PASSED [ 53%]
+tests/fitness/test_objective.py::TestEstructuraResultado::test_grupos_tiene_5_claves PASSED [ 53%]
+tests/fitness/test_objective.py::TestEstructuraResultado::test_violaciones_tiene_las_14_claves PASSED [ 54%]
+tests/fitness/test_objective.py::TestEstructuraResultado::test_penalty_por_restriccion_alineado_con_violaciones PASSED [ 54%]
+tests/fitness/test_objective.py::TestEstructuraResultado::test_componentes_todos_en_0_1 PASSED [ 54%]
+tests/fitness/test_objective.py::TestEstructuraResultado::test_float_dunder_devuelve_valor PASSED [ 55%]
+tests/fitness/test_objective.py::TestConfigPersonalizada::test_pesos_personalizados PASSED [ 55%]
+tests/fitness/test_objective.py::TestConfigPersonalizada::test_penalizacion_desactivada PASSED [ 55%]
+tests/fitness/test_objective.py::TestValidacionPesos::test_pesos_grupo_no_suman_1_falla PASSED [ 56%]
+tests/fitness/test_objective.py::TestValidacionPesos::test_sub_pesos_laboral_no_suman_1_falla PASSED [ 56%]
+tests/fitness/test_objective.py::TestValidacionPesos::test_peso_negativo_falla PASSED [ 56%]
+tests/fitness/test_objective.py::TestPesosROC::test_pesos_roc_n1_es_uno PASSED [ 57%]
+tests/fitness/test_objective.py::TestPesosROC::test_pesos_roc_n5_suma_uno PASSED [ 57%]
+tests/fitness/test_objective.py::TestPesosROC::test_pesos_roc_son_decrecientes PASSED [ 58%]
+tests/fitness/test_objective.py::TestPesosROC::test_pesos_roc_n5_valores_conocidos PASSED [ 58%]
+tests/fitness/test_objective.py::TestPesosROC::test_pesos_roc_n_invalido_falla PASSED [ 58%]
+tests/fitness/test_objective.py::TestPesosROC::test_pesos_roc_suma_uno_para_cualquier_n[1] PASSED [ 59%]
+tests/fitness/test_objective.py::TestPesosROC::test_pesos_roc_suma_uno_para_cualquier_n[2] PASSED [ 59%]
+tests/fitness/test_objective.py::TestPesosROC::test_pesos_roc_suma_uno_para_cualquier_n[3] PASSED [ 59%]
+tests/fitness/test_objective.py::TestPesosROC::test_pesos_roc_suma_uno_para_cualquier_n[5] PASSED [ 60%]
+tests/fitness/test_objective.py::TestPesosROC::test_pesos_roc_suma_uno_para_cualquier_n[7] PASSED [ 60%]
+tests/fitness/test_objective.py::TestPesosROC::test_pesos_roc_suma_uno_para_cualquier_n[10] PASSED [ 60%]
+tests/fitness/test_objective.py::TestPesosROC::test_pesos_roc_suma_uno_para_cualquier_n[20] PASSED [ 61%]
+tests/fitness/test_objective.py::TestPesosIguales::test_pesos_iguales_n3 PASSED [ 61%]
+tests/fitness/test_objective.py::TestPesosIguales::test_pesos_iguales_suma_uno PASSED [ 61%]
+tests/fitness/test_objective.py::TestPesosIguales::test_pesos_iguales_n_invalido PASSED [ 62%]
+tests/fitness/test_objective.py::TestPesosFitnessConOrden::test_orden_default PASSED [ 62%]
+tests/fitness/test_objective.py::TestPesosFitnessConOrden::test_orden_alternativo_intercambia_pesos PASSED [ 62%]
+tests/fitness/test_objective.py::TestPesosFitnessConOrden::test_orden_con_nombre_invalido_falla PASSED [ 63%]
+tests/fitness/test_objective.py::TestPesosFitnessConOrden::test_orden_con_longitud_incorrecta_falla PASSED [ 63%]
+tests/fitness/test_objective.py::TestPesosFitnessConOrden::test_orden_con_grupo_repetido_falla PASSED [ 63%]
+tests/fitness/test_penalizacion.py::TestPesosValidacion::test_default_es_uniforme PASSED [ 64%]
+tests/fitness/test_penalizacion.py::TestPesosValidacion::test_coeficiente_negativo_falla PASSED [ 64%]
+tests/fitness/test_penalizacion.py::TestPesosValidacion::test_peso_individual_negativo_falla PASSED [ 65%]
+tests/fitness/test_penalizacion.py::TestPesosValidacion::test_pesos_incompletos_falla PASSED [ 65%]
+tests/fitness/test_penalizacion.py::TestCalcularPenalizacion::test_solucion_factible_penalty_cero PASSED [ 65%]
+tests/fitness/test_penalizacion.py::TestCalcularPenalizacion::test_una_violacion_con_default PASSED [ 66%]
+tests/fitness/test_penalizacion.py::TestCalcularPenalizacion::test_violaciones_fraccionales_se_propagan PASSED [ 66%]
+tests/fitness/test_penalizacion.py::TestCalcularPenalizacion::test_pesos_individuales_se_aplican PASSED [ 66%]
+tests/fitness/test_penalizacion.py::TestCalcularPenalizacion::test_coeficiente_global_anulado_neutraliza_penalty PASSED [ 67%]
+tests/fitness/test_penalizacion.py::TestCalcularPenalizacion::test_violaciones_multiples_suman_lineal PASSED [ 67%]
+tests/fitness/test_penalizacion.py::TestDesglosePenalizacion::test_solucion_factible_todo_ceros PASSED [ 67%]
+tests/fitness/test_penalizacion.py::TestDesglosePenalizacion::test_suma_del_desglose_igual_penalty_total PASSED [ 68%]
+tests/fitness/test_penalizacion.py::TestDesglosePenalizacion::test_pesos_individuales_se_reflejan_en_desglose PASSED [ 68%]
+tests/integration/test_brkga_smoke.py::test_brkga_converge_o_al_menos_no_empeora FAILED [ 68%]
+tests/integration/test_brkga_smoke.py::test_brkga_record_de_convergencia_es_coherente FAILED [ 69%]
+tests/integration/test_instance.py::test_leer_entrada_caso_carga_sin_errores PASSED [ 69%]
+tests/unit/test_brkga_config.py::TestStoppingCriteria::test_defaults_son_validos PASSED [ 69%]
+tests/unit/test_brkga_config.py::TestStoppingCriteria::test_todos_none_lanza_error PASSED [ 70%]
+tests/unit/test_brkga_config.py::TestStoppingCriteria::test_valores_no_positivos_lanzan_error PASSED [ 70%]
+tests/unit/test_brkga_config.py::TestStoppingCriteria::test_should_stop_max_generations PASSED [ 70%]
+tests/unit/test_brkga_config.py::TestStoppingCriteria::test_should_stop_stagnation PASSED [ 71%]
+tests/unit/test_brkga_config.py::TestStoppingCriteria::test_should_stop_or_de_varios_criterios PASSED [ 71%]
+tests/unit/test_brkga_config.py::TestBRKGAConfig::test_defaults_son_validos PASSED [ 72%]
+tests/unit/test_brkga_config.py::TestBRKGAConfig::test_population_size_minimo PASSED [ 72%]
+tests/unit/test_brkga_config.py::TestBRKGAConfig::test_elite_fraction_fuera_de_rango PASSED [ 72%]
+tests/unit/test_brkga_config.py::TestBRKGAConfig::test_mutant_fraction_fuera_de_rango PASSED [ 73%]
+tests/unit/test_brkga_config.py::TestBRKGAConfig::test_rho_elite_fuera_de_rango PASSED [ 73%]
+tests/unit/test_brkga_config.py::TestBRKGAConfig::test_suma_de_clases_iguala_poblacion PASSED [ 73%]
+tests/unit/test_brkga_decoders.py::TestDecoderBase::test_validate_chromosome_acepta_longitud_correcta PASSED [ 74%]
+tests/unit/test_brkga_decoders.py::TestDecoderBase::test_validate_chromosome_rechaza_longitud_incorrecta PASSED [ 74%]
+tests/unit/test_brkga_decoders.py::TestDecoderBase::test_validate_chromosome_rechaza_valores_fuera_de_rango PASSED [ 74%]
+tests/unit/test_brkga_decoders.py::TestDecoderBase::test_no_se_puede_instanciar_directamente PASSED [ 75%]
+tests/unit/test_brkga_decoders.py::TestPermutationDecoder::test_num_genes_es_n_controladores FAILED [ 75%]
+tests/unit/test_brkga_decoders.py::TestPermutationDecoder::test_decoder_rechaza_n_no_positivo FAILED [ 75%]
+tests/unit/test_brkga_decoders.py::TestPermutationDecoder::test_decoder_produce_solucion_valida FAILED [ 76%]
+tests/unit/test_brkga_decoders.py::TestPermutationDecoder::test_decoder_es_determinista_con_mismo_cromosoma FAILED [ 76%]
+tests/unit/test_brkga_decoders.py::TestPermutationDecoder::test_decoder_responde_al_cromosoma FAILED [ 76%]
+tests/unit/test_brkga_decoders.py::TestPermutationDecoder::test_decoder_rechaza_entrada_con_n_distinto FAILED [ 77%]
+tests/unit/test_brkga_decoders.py::TestPermutationDecoder::test_decoder_rechaza_cromosoma_con_shape_incorrecta FAILED [ 77%]
+tests/unit/test_brkga_decoders.py::TestGreedyConPrioridad::test_prioridad_none_es_compatible_con_comportamiento_antiguo PASSED [ 77%]
+tests/unit/test_brkga_decoders.py::TestGreedyConPrioridad::test_prioridad_dirige_eleccion_en_empates_de_carga FAILED [ 78%]
+tests/unit/test_brkga_operators.py::TestRandomChromosome::test_shape_correcta PASSED [ 78%]
+tests/unit/test_brkga_operators.py::TestRandomChromosome::test_valores_en_rango_unitario PASSED [ 79%]
+tests/unit/test_brkga_operators.py::TestRandomChromosome::test_reproducibilidad PASSED [ 79%]
+tests/unit/test_brkga_operators.py::TestBiasedCrossover::test_shapes_distintos_lanzan_error PASSED [ 79%]
+tests/unit/test_brkga_operators.py::TestBiasedCrossover::test_rho_uno_hereda_todo_del_elite PASSED [ 80%]
+tests/unit/test_brkga_operators.py::TestBiasedCrossover::test_rho_cero_hereda_todo_del_no_elite PASSED [ 80%]
+tests/unit/test_brkga_operators.py::TestBiasedCrossover::test_rho_medio_mezcla_genes PASSED [ 80%]
+tests/unit/test_brkga_operators.py::TestDiversidad::test_lista_vacia_o_corta_devuelve_cero PASSED [ 81%]
+tests/unit/test_brkga_operators.py::TestDiversidad::test_todos_iguales_devuelve_cero PASSED [ 81%]
+tests/unit/test_brkga_operators.py::TestDiversidad::test_diversidad_positiva_con_valores_distintos PASSED [ 81%]
+tests/unit/test_models.py::TestVentanaDisponibilidad::test_default_es_completa PASSED [ 82%]
+tests/unit/test_models.py::TestVentanaDisponibilidad::test_inicio_negativo_lanza_value_error PASSED [ 82%]
+tests/unit/test_models.py::TestVentanaDisponibilidad::test_ventana_invertida_lanza_value_error PASSED [ 82%]
+tests/unit/test_models.py::TestVentanaDisponibilidad::test_ventana_vacia_lanza_value_error PASSED [ 83%]
+tests/unit/test_models.py::TestVentanaDisponibilidad::test_contiene_dentro_de_la_ventana PASSED [ 83%]
+tests/unit/test_models.py::TestVentanaDisponibilidad::test_contiene_con_fin_none_no_limita_por_arriba PASSED [ 83%]
+tests/unit/test_models.py::test_controlador_constructor_minimo PASSED    [ 84%]
+tests/unit/test_models.py::test_controlador_clone_es_independiente PASSED [ 84%]
+tests/unit/test_models.py::test_controlador_getters_setters_round_trip PASSED [ 84%]
+tests/unit/test_models.py::test_controlador_slots_trabajados_default_cero PASSED [ 85%]
+tests/unit/test_models.py::test_controlador_slots_trabajados_se_clona PASSED [ 85%]
+tests/unit/test_models.py::test_sector_constructor PASSED                [ 86%]
+tests/unit/test_models.py::test_sector_igualdad_y_hash_por_id PASSED     [ 86%]
+tests/unit/test_models.py::test_nucleo_constructor_sectores_default_vacio PASSED [ 86%]
+tests/unit/test_models.py::test_turno_turnos_slots[10:30-18:30-12:30-18:30-esperado0] PASSED [ 87%]
+tests/unit/test_models.py::test_solucion_constructor PASSED              [ 87%]
+tests/unit/test_models.py::test_solucion_clone_es_deep_en_controladores PASSED [ 87%]
+tests/unit/test_models.py::test_solucion_shallow_clone_comparte_controladores PASSED [ 88%]
+tests/unit/test_restrictions.py::test_pesos_tienen_longitud_14 PASSED    [ 88%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_nucleo_trabajo] PASSED [ 88%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_tipo_sector] PASSED [ 89%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_porcentaje_descanso] PASSED [ 89%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_sectores_abiertos_noche] PASSED [ 89%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_trabajo_maximo_consecutivo] PASSED [ 90%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_controlador_turno_corto] PASSED [ 90%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_ventana_trabajo_descanso] PASSED [ 90%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_cambio_posicion] PASSED [ 91%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_trabajo_minimo_consecutivo] PASSED [ 91%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_descanso_minimo_consecutivo] PASSED [ 91%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_trabajo_posicion_minimo_consecutivo_no_regex] PASSED [ 92%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_num_maximo_sectores] PASSED [ 92%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_controlador_asignado] PASSED [ 93%]
+tests/unit/test_restrictions.py::test_smoke_check_devuelve_numero[comprobar_turno_vacio] PASSED [ 93%]
+tests/unit/test_restrictions.py::test_acumulador_paralelo_devuelve_no_negativo PASSED [ 93%]
+tests/unit/test_restrictions.py::test_acumulador_sin_pesos_invariantes PASSED [ 94%]
+tests/unit/test_restrictions.py::test_acumulador_por_restricciones_publica_vector_global PASSED [ 94%]
+tests/unit/test_restrictions.py::test_turno_vacio_cuenta_solo_con_descanso_sin_trabajo PASSED [ 94%]
+tests/unit/test_restrictions.py::test_controlador_asignado_cuenta_huerfanos_y_no_asignados PASSED [ 95%]
+tests/unit/test_restrictions.py::test_es_factible_solucion_trivial_factible FAILED [ 95%]
+tests/unit/test_restrictions.py::test_contar_violaciones_devuelve_dict_completo FAILED [ 95%]
+tests/unit/test_seeds.py::test_generador_cubre_la_mayoria_de_la_sectorizacion PASSED [ 96%]
+tests/unit/test_seeds.py::test_generador_respeta_licencia_con PASSED     [ 96%]
+tests/unit/test_seeds.py::test_generador_respeta_ventana_de_turno PASSED [ 96%]
+tests/unit/test_seeds.py::test_generador_publica_biyeccion_atco_turno PASSED [ 97%]
+tests/unit/test_seeds.py::test_generador_publica_slots_trabajados_consistente PASSED [ 97%]
+tests/unit/test_seeds.py::test_generador_es_diverso_entre_llamadas PASSED [ 97%]
+tests/unit/test_seeds.py::test_generador_es_reproducible_con_misma_semilla PASSED [ 98%]
+tests/unit/test_seeds.py::test_generador_falla_con_controladores_vacios PASSED [ 98%]
+tests/unit/test_seeds.py::test_generador_asigna_ejecutivo_y_planificador_cuando_hay_dos_candidatos PASSED [ 98%]
+tests/unit/test_seeds.py::test_generador_nunca_pone_mismo_atco_como_ej_y_pl PASSED [ 99%]
+tests/unit/test_seeds.py::test_ningun_atco_supera_el_cap_de_trabajo_consecutivo PASSED [ 99%]
+tests/unit/test_seeds.py::test_descanso_minimo_tras_alcanzar_el_cap PASSED [100%]
+
+=================================== FAILURES ===================================
+__________________ test_brkga_converge_o_al_menos_no_empeora ___________________
+
+entrada_mad_n_m1 = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, disponibilidad=Venta...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
+parametros = Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des...o_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5))
+
+    def test_brkga_converge_o_al_menos_no_empeora(
+        entrada_mad_n_m1: Entrada, parametros: Parametros
+    ) -> None:
+        """Tras N generaciones, el mejor fitness no debe ser peor que la semilla."""
+        n = len(entrada_mad_n_m1.get_controladores())
+>       decoder = PermutationDecoder(n_controladores=n)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: PermutationDecoder.__init__() missing 1 required positional argument: 'n_sectores'
+
+tests/integration/test_brkga_smoke.py:17: TypeError
+---------------------------- Captured stdout setup -----------------------------
+Turno: Turno(nombre='Manana', inicio_tl='06:30:00', fin_tl='14:45:00', inicio_tc='06:30:00', fin_tc='14:45:00', parametros=Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des_min=15, tiempo_des_por_turno=30, tiempo_pos_min=15, tiempo_pos_opt=45, tiempo_trab_opt=90, num_sctrs_max=3, porcent_pos_max=0.6, porcent_pos_min=0.4, tamano_slots=5, pesos_objetivos=PesosObjetivos(peso_obj1=0.52, peso_obj2=0.27, peso_obj3=0.15, peso_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5)), tc=[0, 99], tl=[0, 99], slots_des_tc=25, slots_des_tl=25)
+________________ test_brkga_record_de_convergencia_es_coherente ________________
+
+entrada_mad_n_m1 = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, disponibilidad=Venta...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
+parametros = Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des...o_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5))
+
+    def test_brkga_record_de_convergencia_es_coherente(
+        entrada_mad_n_m1: Entrada, parametros: Parametros
+    ) -> None:
+        """Cada record tiene best ≤ avg ≤ worst y métricas no negativas."""
+        n = len(entrada_mad_n_m1.get_controladores())
+>       decoder = PermutationDecoder(n_controladores=n)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: PermutationDecoder.__init__() missing 1 required positional argument: 'n_sectores'
+
+tests/integration/test_brkga_smoke.py:52: TypeError
+___________ TestPermutationDecoder.test_num_genes_es_n_controladores ___________
+
+self = <tests.unit.test_brkga_decoders.TestPermutationDecoder object at 0x10bef4550>
+entrada_mad_n_m1 = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, disponibilidad=Venta...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
+
+    def test_num_genes_es_n_controladores(self, entrada_mad_n_m1: Entrada) -> None:
+        n = len(entrada_mad_n_m1.get_controladores())
+>       decoder = PermutationDecoder(n_controladores=n)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: PermutationDecoder.__init__() missing 1 required positional argument: 'n_sectores'
+
+tests/unit/test_brkga_decoders.py:65: TypeError
+__________ TestPermutationDecoder.test_decoder_rechaza_n_no_positivo ___________
+
+self = <tests.unit.test_brkga_decoders.TestPermutationDecoder object at 0x10bef4890>
+
+    def test_decoder_rechaza_n_no_positivo(self) -> None:
+        with pytest.raises(ValueError, match="n_controladores"):
+>           PermutationDecoder(n_controladores=0)
+E           TypeError: PermutationDecoder.__init__() missing 1 required positional argument: 'n_sectores'
+
+tests/unit/test_brkga_decoders.py:70: TypeError
+_________ TestPermutationDecoder.test_decoder_produce_solucion_valida __________
+
+self = <tests.unit.test_brkga_decoders.TestPermutationDecoder object at 0x10bef4c50>
+entrada_mad_n_m1 = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, disponibilidad=Venta...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
+parametros = Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des...o_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5))
+
+    def test_decoder_produce_solucion_valida(
+        self, entrada_mad_n_m1: Entrada, parametros: Parametros
+    ) -> None:
+        n = len(entrada_mad_n_m1.get_controladores())
+>       decoder = PermutationDecoder(n_controladores=n)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: PermutationDecoder.__init__() missing 1 required positional argument: 'n_sectores'
+
+tests/unit/test_brkga_decoders.py:78: TypeError
+___ TestPermutationDecoder.test_decoder_es_determinista_con_mismo_cromosoma ____
+
+self = <tests.unit.test_brkga_decoders.TestPermutationDecoder object at 0x10bef5050>
+entrada_mad_n_m1 = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, disponibilidad=Venta...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
+parametros = Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des...o_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5))
+
+    def test_decoder_es_determinista_con_mismo_cromosoma(
+        self, entrada_mad_n_m1: Entrada, parametros: Parametros
+    ) -> None:
+        n = len(entrada_mad_n_m1.get_controladores())
+>       decoder = PermutationDecoder(n_controladores=n)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: PermutationDecoder.__init__() missing 1 required positional argument: 'n_sectores'
+
+tests/unit/test_brkga_decoders.py:89: TypeError
+__________ TestPermutationDecoder.test_decoder_responde_al_cromosoma ___________
+
+self = <tests.unit.test_brkga_decoders.TestPermutationDecoder object at 0x10bef5410>
+entrada_mad_n_m1 = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, disponibilidad=Venta...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
+parametros = Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des...o_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5))
+
+    def test_decoder_responde_al_cromosoma(
+        self, entrada_mad_n_m1: Entrada, parametros: Parametros
+    ) -> None:
+        """Cromosomas distintos deberían producir soluciones distintas
+        (al menos en alguna semilla razonable, no es invariante estricto)."""
+        n = len(entrada_mad_n_m1.get_controladores())
+>       decoder = PermutationDecoder(n_controladores=n)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: PermutationDecoder.__init__() missing 1 required positional argument: 'n_sectores'
+
+tests/unit/test_brkga_decoders.py:101: TypeError
+______ TestPermutationDecoder.test_decoder_rechaza_entrada_con_n_distinto ______
+
+self = <tests.unit.test_brkga_decoders.TestPermutationDecoder object at 0x10bef5990>
+entrada_mad_n_m1 = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, disponibilidad=Venta...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
+parametros = Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des...o_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5))
+
+    def test_decoder_rechaza_entrada_con_n_distinto(
+        self, entrada_mad_n_m1: Entrada, parametros: Parametros
+    ) -> None:
+        n = len(entrada_mad_n_m1.get_controladores())
+>       decoder = PermutationDecoder(n_controladores=n + 5)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: PermutationDecoder.__init__() missing 1 required positional argument: 'n_sectores'
+
+tests/unit/test_brkga_decoders.py:117: TypeError
+__ TestPermutationDecoder.test_decoder_rechaza_cromosoma_con_shape_incorrecta __
+
+self = <tests.unit.test_brkga_decoders.TestPermutationDecoder object at 0x10bef5f90>
+entrada_mad_n_m1 = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, disponibilidad=Venta...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
+parametros = Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des...o_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5))
+
+    def test_decoder_rechaza_cromosoma_con_shape_incorrecta(
+        self, entrada_mad_n_m1: Entrada, parametros: Parametros
+    ) -> None:
+        n = len(entrada_mad_n_m1.get_controladores())
+>       decoder = PermutationDecoder(n_controladores=n)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: PermutationDecoder.__init__() missing 1 required positional argument: 'n_sectores'
+
+tests/unit/test_brkga_decoders.py:126: TypeError
+__ TestGreedyConPrioridad.test_prioridad_dirige_eleccion_en_empates_de_carga ___
+
+self = <tests.unit.test_brkga_decoders.TestGreedyConPrioridad object at 0x10bef6c50>
+entrada_mad_n_m1 = Entrada(controladores=[Controlador(id=1, turno='MC', nucleo='Madrid Ruta 1', ptd=False, con=True, disponibilidad=Venta...Sector(nombre='LECMSAS', id='aaz', pdt=False, ruta=True, noche=0, sectores_elementales=[''])])], sectores_nocturnos=[])
+parametros = Parametros(porcent_descanso_dia=0.25, porcent_descanso_noche=0.33, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_des...o_obj4=0.06, peso_obj1_sub1=0.333, peso_obj1_sub2=0.333, peso_obj1_sub3=0.333, peso_obj3_sub1=0.5, peso_obj3_sub2=0.5))
+
+    def test_prioridad_dirige_eleccion_en_empates_de_carga(
+        self, entrada_mad_n_m1: Entrada, parametros: Parametros
+    ) -> None:
+        """Con prioridad fija, dos llamadas son idénticas (determinismo)."""
+        n = len(entrada_mad_n_m1.get_controladores())
+        prioridad = list(np.random.RandomState(11).random_sample(n))
+>       sol_a = construir_solucion_heuristica(
+            entrada_mad_n_m1,
+            parametros,
+            rng=random.Random(0),
+            prioridad=prioridad,
+        )
+E       TypeError: construir_solucion_heuristica() got an unexpected keyword argument 'prioridad'
+
+tests/unit/test_brkga_decoders.py:152: TypeError
+__________________ test_es_factible_solucion_trivial_factible __________________
+
+entrada_min = _EntradaMock(sectores_por_slot={}, lista_sectores=[], nucleos_abiertos=[], turno=_TurnoMock(tc=[0, 99], tl=[0, 99], nombre='Manana'))
+parametros_min = _ParametrosMock(tamano_slots=5, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_trab_opt=90, tiempo_des_min=30, tiempo_des_por_turno=30, tiempo_pos_opt=45, tiempo_pos_min=15, num_sctrs_max=4)
+
+    def test_es_factible_solucion_trivial_factible(entrada_min, parametros_min) -> None:
+        """Una solución vacía o de un solo controlador sin sectores abiertos es trivialmente factible."""
+        sol = _SolucionMock(turnos=["111" * 10])
+>       assert es_factible(sol, entrada_min, parametros_min) is True
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/test_restrictions.py:195: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/atco/problem/restrictions/checks.py:221: in es_factible
+    return not any(v > 0 for v in _checks(solucion, entrada, parametros))
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/atco/problem/restrictions/checks.py:175: in _checks
+    ensure_fast_cache(entrada)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+entrada = _EntradaMock(sectores_por_slot={}, lista_sectores=[], nucleos_abiertos=[], turno=_TurnoMock(tc=[0, 99], tl=[0, 99], nombre='Manana'))
+
+    def ensure_fast_cache(entrada: Entrada) -> None:
+        if hasattr(entrada, "_fast_sector_ids"):
+            return
+>       sectores = entrada.get_sectores_abiertos_todo_el_dia()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: '_EntradaMock' object has no attribute 'get_sectores_abiertos_todo_el_dia'
+
+src/atco/problem/restrictions/checks.py:656: AttributeError
+________________ test_contar_violaciones_devuelve_dict_completo ________________
+
+entrada_min = _EntradaMock(sectores_por_slot={}, lista_sectores=[], nucleos_abiertos=[], turno=_TurnoMock(tc=[0, 99], tl=[0, 99], nombre='Manana'))
+parametros_min = _ParametrosMock(tamano_slots=5, tiempo_trab_max=120, tiempo_trab_min=15, tiempo_trab_opt=90, tiempo_des_min=30, tiempo_des_por_turno=30, tiempo_pos_opt=45, tiempo_pos_min=15, num_sctrs_max=4)
+
+    def test_contar_violaciones_devuelve_dict_completo(entrada_min, parametros_min) -> None:
+        sol = _SolucionMock(turnos=["111" * 10])
+>       v = contar_violaciones(sol, entrada_min, parametros_min)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/test_restrictions.py:200: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/atco/problem/restrictions/checks.py:241: in contar_violaciones
+    valores = _checks(solucion, entrada, parametros)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/atco/problem/restrictions/checks.py:175: in _checks
+    ensure_fast_cache(entrada)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+entrada = _EntradaMock(sectores_por_slot={}, lista_sectores=[], nucleos_abiertos=[], turno=_TurnoMock(tc=[0, 99], tl=[0, 99], nombre='Manana'))
+
+    def ensure_fast_cache(entrada: Entrada) -> None:
+        if hasattr(entrada, "_fast_sector_ids"):
+            return
+>       sectores = entrada.get_sectores_abiertos_todo_el_dia()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: '_EntradaMock' object has no attribute 'get_sectores_abiertos_todo_el_dia'
+
+src/atco/problem/restrictions/checks.py:656: AttributeError
+=========================== short test summary info ============================
+FAILED tests/integration/test_brkga_smoke.py::test_brkga_converge_o_al_menos_no_empeora
+FAILED tests/integration/test_brkga_smoke.py::test_brkga_record_de_convergencia_es_coherente
+FAILED tests/unit/test_brkga_decoders.py::TestPermutationDecoder::test_num_genes_es_n_controladores
+FAILED tests/unit/test_brkga_decoders.py::TestPermutationDecoder::test_decoder_rechaza_n_no_positivo
+FAILED tests/unit/test_brkga_decoders.py::TestPermutationDecoder::test_decoder_produce_solucion_valida
+FAILED tests/unit/test_brkga_decoders.py::TestPermutationDecoder::test_decoder_es_determinista_con_mismo_cromosoma
+FAILED tests/unit/test_brkga_decoders.py::TestPermutationDecoder::test_decoder_responde_al_cromosoma
+FAILED tests/unit/test_brkga_decoders.py::TestPermutationDecoder::test_decoder_rechaza_entrada_con_n_distinto
+FAILED tests/unit/test_brkga_decoders.py::TestPermutationDecoder::test_decoder_rechaza_cromosoma_con_shape_incorrecta
+FAILED tests/unit/test_brkga_decoders.py::TestGreedyConPrioridad::test_prioridad_dirige_eleccion_en_empates_de_carga
+FAILED tests/unit/test_restrictions.py::test_es_factible_solucion_trivial_factible
+FAILED tests/unit/test_restrictions.py::test_contar_violaciones_devuelve_dict_completo
+======================== 12 failed, 274 passed in 1.11s ========================

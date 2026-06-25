@@ -1,5 +1,5 @@
 """Tests del Bloque 2: las 14 comprobar_* + los 3 acumuladores.
-
+EjecutaR: pipenv run pytest tests/fitness/test_restrictions.py -v
 Estrategia:
 - Smoke: cada función se invoca con la entrada real y se verifica
   que devuelve un número.
@@ -9,6 +9,7 @@ Estrategia:
 """
 
 from __future__ import annotations
+from dataclasses import dataclass
 
 import pytest
 
@@ -22,6 +23,9 @@ from atco.problem.restrictions.checks import (
     ensure_fast_cache,
     penalizacion_por_restricciones,
     restricciones_sin_pesos,
+    contar_violaciones,
+    es_factible,
+    NOMBRES_RESTRICCIONES,
 )
 from atco.problem.restrictions.weights import PESO_POR_RESTRICCION
 
@@ -42,6 +46,11 @@ ALL_CHECKS = [
     "comprobar_controlador_asignado",
     "comprobar_turno_vacio",
 ]
+
+
+@dataclass
+class _SolucionMock:
+    turnos: list[str]  # cobertura_insatisfecha sólo consulta esto
 
 
 # =============================================================================
@@ -178,3 +187,16 @@ def test_controlador_asignado_cuenta_huerfanos_y_no_asignados() -> None:
         longdescansos=0,
     )
     assert _checks_mod.comprobar_controlador_asignado(sol) == 3
+
+
+def test_es_factible_solucion_trivial_factible(entrada_min, parametros_min) -> None:
+    """Una solución vacía o de un solo controlador sin sectores abiertos es trivialmente factible."""
+    sol = _SolucionMock(turnos=["111" * 10])
+    assert es_factible(sol, entrada_min, parametros_min) is True
+
+
+def test_contar_violaciones_devuelve_dict_completo(entrada_min, parametros_min) -> None:
+    sol = _SolucionMock(turnos=["111" * 10])
+    v = contar_violaciones(sol, entrada_min, parametros_min)
+    assert set(v) == set(NOMBRES_RESTRICCIONES)
+    assert all(isinstance(val, (int, float)) for val in v.values())

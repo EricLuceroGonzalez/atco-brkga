@@ -2,7 +2,7 @@
 
 Carga el caso `madN_M1` (que vive en entrada/Casos/) y verifica
 invariantes mínimas. Si este test pasa, sabemos que toda la cadena
-de parsing CSV → dataclasses sobrevivió a la migración.
+de parsing CSV -> dataclasses sobrevivió a la migración.
 """
 
 from __future__ import annotations

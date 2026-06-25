@@ -170,10 +170,10 @@ class Entrada:
     def get_slot_momento_actual(self) -> int:
         return self.slot_momento_actual
 
-    def get_lista_nuevos_sectores_abiertos_tras_momento_actual(
-        self,
-    ) -> list[Sector] | None:
-        return self.lista_nuevos_sectores_abiertos_tras_momento_actual
+    # def get_lista_nuevos_sectores_abiertos_tras_momento_actual(
+    #     self,
+    # ) -> list[Sector] | None:
+    #     return self.lista_nuevos_sectores_abiertos_tras_momento_actual
 
     def get_mapa_afinidad(self) -> dict[str, set[str]]:
         return self.mapa_afinidad

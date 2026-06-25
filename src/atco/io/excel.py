@@ -40,6 +40,7 @@ def _write_solution_xlsx_gantt(path: Path, solution: Solucion) -> None:
         "Núcleo",
         "PTD",
         "CON",
+        "Slots_trabajo",
         "T_Asignado",
     ]
 
@@ -71,6 +72,7 @@ def _write_solution_xlsx_gantt(path: Path, solution: Solucion) -> None:
             controlador.nucleo,
             controlador.ptd,
             controlador.con,
+            controlador.slots_trabajados,
             controlador.turno_asignado,
         ]
 
@@ -81,15 +83,13 @@ def _write_solution_xlsx_gantt(path: Path, solution: Solucion) -> None:
         current_row = ws.max_row
 
         for idx, slot_val in enumerate(slots_individuales):
-            col_excel = 7 + idx
+            col_excel = 8 + idx
             celda = ws.cell(row=current_row, column=col_excel)
-
-            # Llamamos a la función inteligente que te da el color hasheado o fijo
             celda.fill = obtener_fill(slot_val)
             celda.alignment = Alignment(horizontal="center")
 
     # Congelar paneles
-    ws.freeze_panes = "G1"
+    ws.freeze_panes = "H1"
 
     wb.save(path)
 

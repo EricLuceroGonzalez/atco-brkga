@@ -21,27 +21,44 @@ from ...problem.restrictions.weights import (
 # =============================================================================
 # Archivo Java:
 #   - src/main/patrones/Restricciones.java
-#       → penalizacion_por_restricciones()  ≡  Restricciones.penalizacionPorRestricciones()
-#       → comprobar_restricciones_en_paralelo()  ≡  Restricciones.comprobarRestriccionesEnParalelo()
-#       → restricciones_sin_pesos()  (utilidad Python; sin equivalente directo)
-#       → Las 14 funciones de comprobación (comprobar_nucleo_trabajo, etc.)
+#       -> penalizacion_por_restricciones()  ≡  Restricciones.penalizacionPorRestricciones()
+#       -> comprobar_restricciones_en_paralelo()  ≡  Restricciones.comprobarRestriccionesEnParalelo()
+#       -> restricciones_sin_pesos()  (utilidad Python; sin equivalente directo)
+#       -> Las 14 funciones de comprobación (comprobar_nucleo_trabajo, etc.)
 #
 # Restricciones implementadas (por orden en PESO_POR_RESTRICCION):
-#   [0] comprobar_nucleo_trabajo          → R1: acreditación de núcleo
-#   [1] comprobar_tipo_sector             → R2: acreditación de tipo (CON/PTD)
-#   [2] comprobar_porcentaje_descanso     → R3: descanso mínimo diurno
-#   [3] comprobar_sectores_abiertos_noche → R4: cobertura nocturna
-# ?  [4] comprobar_trabajo_maximo_consecutivo → R4 primera - R5: trabajo continuo máximo
-# ! [5] comprobar_controlador_turno_corto → R6: tipo de turno (TC/TL)
-# ! [6] comprobar_ventana_trabajo_descanso → (R5) R7: ventana 2h30m
-# ! [7] comprobar_cambio_posicion         → (R6) R8: cambio de posición ejecutiva
-# ! [8] comprobar_trabajo_minimo_consecutivo → (R7) R9: trabajo continuo mínimo
-# ! [9] comprobar_descanso_minimo_consecutivo → (R8) R10: descanso mínimo
-# ! [10] comprobar_trabajo_posicion_minimo_consecutivo_no_regex → (R9) R11: permanencia en posición
-# ! [11] comprobar_num_maximo_sectores     → (R10) R12: límite de sectores distintos
-# ! [12] comprobar_controlador_asignado    → (R11) R13: asignación completa
-# ! [13] comprobar_turno_vacio             → (R12) R14: trabajo mínimo
+#   [0] comprobar_nucleo_trabajo          -> R1: acreditación de núcleo
+#   [1] comprobar_tipo_sector             -> R2: acreditación de tipo (CON/PTD)
+#   [2] comprobar_porcentaje_descanso     -> R3: descanso mínimo diurno
+#   [3] comprobar_sectores_abiertos_noche -> R4: cobertura nocturna
+# ?  [4] comprobar_trabajo_maximo_consecutivo -> R4 primera - R5: trabajo continuo máximo
+# ! [5] comprobar_controlador_turno_corto -> R6: tipo de turno (TC/TL)
+# ! [6] comprobar_ventana_trabajo_descanso -> (R5) R7: ventana 2h30m
+# ! [7] comprobar_cambio_posicion         -> (R6) R8: cambio de posición ejecutiva
+# ! [8] comprobar_trabajo_minimo_consecutivo -> (R7) R9: trabajo continuo mínimo
+# ! [9] comprobar_descanso_minimo_consecutivo -> (R8) R10: descanso mínimo
+# ! [10] comprobar_trabajo_posicion_minimo_consecutivo_no_regex -> (R9) R11: permanencia en posición
+# ! [11] comprobar_num_maximo_sectores     -> (R10) R12: límite de sectores distintos
+# ! [12] comprobar_controlador_asignado    -> (R11) R13: asignación completa
+# ! [13] comprobar_turno_vacio             -> (R12) R14: trabajo mínimo
 # =============================================================================
+NOMBRES_RESTRICCIONES: tuple[str, ...] = (
+    "comprobar_nucleo_trabajo",
+    "comprobar_tipo_sector",
+    "comprobar_porcentaje_descanso",
+    "comprobar_sectores_abiertos_noche",
+    "comprobar_trabajo_maximo_consecutivo",
+    "comprobar_controlador_turno_corto",
+    "comprobar_ventana_trabajo_descanso",
+    "comprobar_cambio_posicion",
+    "comprobar_trabajo_minimo_consecutivo",
+    "comprobar_descanso_minimo_consecutivo",
+    "comprobar_trabajo_posicion_minimo_consecutivo_no_regex",
+    "comprobar_num_maximo_sectores",
+    "comprobar_controlador_asignado",
+    "comprobar_turno_vacio",
+)
+N_RESTRICCIONES: int = len(NOMBRES_RESTRICCIONES)
 
 
 def penalizacion_por_restricciones(
@@ -180,6 +197,49 @@ def _checks(
         comprobar_controlador_asignado(individuo),
         comprobar_turno_vacio(individuo),
     ]
+
+
+def es_factible(
+    solucion: Solucion,
+    entrada: Entrada,
+    parametros: Parametros,
+) -> bool:
+    """True si la solución no viola ninguna restricción dura.
+
+    Útil para diagnóstico y para activar/desactivar la penalización en
+    modo "puro" sin recalcular el desglose completo. Si necesitas el
+    detalle, usa `contar_violaciones` (que devuelve también la
+    información de factibilidad implícita en `sum(values) == 0`).
+
+    Notas de rendimiento:
+        Actualmente reutiliza ``_checks`` y por tanto evalúa las 14
+        restricciones aunque la primera ya devuelva > 0. Si esto se
+        vuelve cuello de botella en el bucle del BRKGA, refactorizar
+        `_checks` para que devuelva un generador y aquí hacer
+        `any(v > 0 for v in _checks_gen(...))`.
+    """
+    return not any(v > 0 for v in _checks(solucion, entrada, parametros))
+
+
+def contar_violaciones(
+    solucion: Solucion,
+    entrada: Entrada,
+    parametros: Parametros,
+) -> dict[str, float]:
+    """Conteo crudo por restricción para tracking / graficado.
+
+    Las restricciones sin violaciones aparecen explícitamente con valor
+    `0.0` para que las series temporales tengan siempre las 14 claves
+    (útil al volcar a DataFrame o CSV).
+
+    Returns:
+        Dict ``{nombre_restriccion: valor_crudo}``. El valor es la
+        cantidad de violaciones detectadas — entero para las
+        restricciones binarias (R13, R14...) y float para las que
+        acumulan micro-penalizaciones (R5, R7, R8...).
+    """
+    valores = _checks(solucion, entrada, parametros)
+    return dict(zip(NOMBRES_RESTRICCIONES, valores, strict=True))
 
 
 def _is_rest(slot: str) -> bool:

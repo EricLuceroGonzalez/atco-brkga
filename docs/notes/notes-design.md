@@ -90,7 +90,7 @@ en que se intenta cubrir cada sector.
 
 Para cada par `(sector, posición)` con posición `∈ {EJ, PL}`:
 
-1. Se busca en la columna `t−1` el ATCo `i_prev` que tenía exactamente
+1. Se busca en la columna `t-1` el ATCo `i_prev` que tenía exactamente
 el mismo token (`_atco_en_slot_anterior`).
 2. Se valida que `i_prev` puede continuar: dentro de ventana
 (`_puede_continuar`), sin descanso pendiente, y consecutivos `< T_max`.
@@ -99,7 +99,7 @@ el mismo token (`_atco_en_slot_anterior`).
 `descanso_pendiente[i_prev]` ← D_min.
 4. Si no pasa, el par `(sector, posición)` se acumula en pendientes.
 
->Caso especial t = 0. No hay t−1, así que todo va directo a
+>Caso especial t = 0. No hay t-1, así que todo va directo a
 >pendientes. Este es el origen del cliff (§9).
 
 #### Fase 2 — relleno por menos-cargado
@@ -109,7 +109,7 @@ Para cada `(sector, posición)` en `pendientes`:
 1. Candidatos: ATCos con celda "111" (en ventana, no asignados aún en
 t), `descanso_pendiente == 0` y licencia válida.
 2. Orden:
-   - Si hay prioridad: ordenar por (`−prioridad[i], slots_trabajados[i]`).
+   - Si hay prioridad: ordenar por (`-prioridad[i], slots_trabajados[i]`).
    - Si no: rng.shuffle + sort estable por slots_trabajados[i].
 3. Asignar el primero. Actualizar slots_trabajados, consecutivos,
 descanso_pendiente.
@@ -150,8 +150,8 @@ delegando toda la construcción del horario en `construir_solucion_heuristica`.
 No toma decisiones de asignación slot-a-slot. Sólo separa el cromosoma en
 **dos vectores de prioridad** y los inyecta como guía al constructor greedy:
 
-- `prioridad_atco` → criterio primario en la Fase 2 (relleno) del greedy.
-- `prioridad_sectores` → orden de visita de los sectores en cada slot.
+- `prioridad_atco` -> criterio primario en la Fase 2 (relleno) del greedy.
+- `prioridad_sectores` -> orden de visita de los sectores en cada slot.
 
 Esto es el patrón clásico de Gonçalves & Resende: el cromosoma encapsula
 **permutaciones implícitas**, no decisiones de asignación. El espacio de
@@ -199,7 +199,7 @@ asignar antes y qué cubrir antes.
    - `priority_atcos = chromosome[:N].tolist()` — lista de floats por
      controlador.
    - `sector_genes = chromosome[N:]` — slice de numpy.
-3. **Mapeo sector → prioridad.** Se construye un `dict[str, float]`
+3. **Mapeo sector -> prioridad.** Se construye un `dict[str, float]`
    indexado por `sector.id`:
 
    ```python
@@ -268,17 +268,17 @@ Decisiones cerradas:
 |---|---|---|
 | $R$ | restricciones violadas (cardinalidad de 14) | $14$ |
 | $C$ | déficit de cobertura **EJ+PL por slot** sobre sectorización dinámica | $\sum_t 2|\mathcal{S}_t|$ |
-| $B$ | desbalance de carga (max−min `slots_trabajados`) | $T$ |
+| $B$ | desbalance de carga (max-min `slots_trabajados`) | $T$ |
 | $F$ | fragmentación trabajo↔descanso en ventana | $\sum_i (|\text{vent}_i|-1)$ |
 | $L$ | descansos largos $\geq u$, $u=18$ slots (off por defecto) | $N$ |
 
 Pesos por defecto: $\alpha_R=0.45,\ \alpha_C=0.30,\ \alpha_B=0.15,\ \alpha_F=0.10,\ \alpha_L=0.00$.
 
-`FitnessResult(valor, componentes, crudos, restricciones_violadas)` con `__float__ → valor`.
+`FitnessResult(valor, componentes, crudos, restricciones_violadas)` con `__float__ -> valor`.
 
 ## 4. Integración con BRKGA (pendiente)
 
-Métricas de **rendimiento** separadas del fitness, almacenadas en `RunResult` / `ConvergenceRecord`: tiempo wall-clock, n_evaluaciones, generaciones, mejora_relativa = (seed − final)/seed, robustez ($\bar f \pm \sigma$ sobre K corridas), tasa de éxito.
+Métricas de **rendimiento** separadas del fitness, almacenadas en `RunResult` / `ConvergenceRecord`: tiempo wall-clock, n_evaluaciones, generaciones, mejora_relativa = (seed - final)/seed, robustez ($\bar f \pm \sigma$ sobre K corridas), tasa de éxito.
 
 ### Esquemas de codificación implementados
 
@@ -287,7 +287,7 @@ Métricas de **rendimiento** separadas del fitness, almacenadas en `RunResult` /
 | `PermutationDecoder` | $L = N$ | Cada gen es la prioridad global del ATCo $i$ para la fase 2 del greedy. Se usa como **tiebreaker** tras ordenar por carga. | **Principal** |
 | `ParametricDecoder` | $L \approx 5$ | Cada gen mapea a un hiperparámetro del greedy (peso del balance, peso de continuidad, softness del cap, etc.). | Comparativa académica |
 
-Ambos comparten la ABC `DecoderBase` con contrato `decode(chromosome, entrada, parametros) → Solucion`.
+Ambos comparten la ABC `DecoderBase` con contrato `decode(chromosome, entrada, parametros) -> Solucion`.
 
 ### Política de parada
 

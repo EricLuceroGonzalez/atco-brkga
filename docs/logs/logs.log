@@ -678,7 +678,7 @@
 2026-06-19 09:01:04,196 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0458 avg=1.1265 worst=1.2863 | distintos=5
 2026-06-19 09:01:04,254 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0458 avg=1.1210 worst=1.2863 | distintos=4
 2026-06-19 09:01:04,313 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1381 worst=1.2863 | distintos=6
-2026-06-19 09:01:04,313 [INFO] atco.algorithms.brkga.engine: Gen 6 | mejora: 1.0458 → 1.0155 (Δ=0.0303)
+2026-06-19 09:01:04,313 [INFO] atco.algorithms.brkga.engine: Gen 6 | mejora: 1.0458 -> 1.0155 (Δ=0.0303)
 2026-06-19 09:01:04,371 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1112 worst=1.2863 | distintos=5
 2026-06-19 09:01:04,430 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1206 worst=1.2863 | distintos=5
 2026-06-19 09:01:04,489 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1063 worst=1.2863 | distintos=5
@@ -712,7 +712,7 @@
 2026-06-19 09:02:43,325 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0458 avg=1.1091 worst=1.2863 | distintos=5
 2026-06-19 09:02:43,519 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0458 avg=1.1124 worst=1.2863 | distintos=5
 2026-06-19 09:02:43,711 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1104 worst=1.2863 | distintos=6
-2026-06-19 09:02:43,711 [INFO] atco.algorithms.brkga.engine: Gen 5 | mejora: 1.0458 → 1.0155 (Δ=0.0303)
+2026-06-19 09:02:43,711 [INFO] atco.algorithms.brkga.engine: Gen 5 | mejora: 1.0458 -> 1.0155 (Δ=0.0303)
 2026-06-19 09:02:43,903 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1395 worst=1.2863 | distintos=6
 2026-06-19 09:02:44,095 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1232 worst=1.2863 | distintos=7
 2026-06-19 09:02:44,286 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1193 worst=1.2863 | distintos=6
@@ -746,7 +746,7 @@
 2026-06-19 09:36:28,316 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0458 avg=1.1091 worst=1.2863 | distintos=5
 2026-06-19 09:36:28,511 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0458 avg=1.1124 worst=1.2863 | distintos=5
 2026-06-19 09:36:28,705 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1104 worst=1.2863 | distintos=6
-2026-06-19 09:36:28,705 [INFO] atco.algorithms.brkga.engine: Gen 5 | mejora: 1.0458 → 1.0155 (Δ=0.0303)
+2026-06-19 09:36:28,705 [INFO] atco.algorithms.brkga.engine: Gen 5 | mejora: 1.0458 -> 1.0155 (Δ=0.0303)
 2026-06-19 09:36:28,899 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1395 worst=1.2863 | distintos=6
 2026-06-19 09:36:29,092 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1232 worst=1.2863 | distintos=7
 2026-06-19 09:36:29,285 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1193 worst=1.2863 | distintos=6
@@ -780,7 +780,7 @@
 2026-06-19 09:36:40,329 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0458 avg=1.1091 worst=1.2863 | distintos=5
 2026-06-19 09:36:40,522 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0458 avg=1.1124 worst=1.2863 | distintos=5
 2026-06-19 09:36:40,714 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1104 worst=1.2863 | distintos=6
-2026-06-19 09:36:40,714 [INFO] atco.algorithms.brkga.engine: Gen 5 | mejora: 1.0458 → 1.0155 (Δ=0.0303)
+2026-06-19 09:36:40,714 [INFO] atco.algorithms.brkga.engine: Gen 5 | mejora: 1.0458 -> 1.0155 (Δ=0.0303)
 2026-06-19 09:36:40,907 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1395 worst=1.2863 | distintos=6
 2026-06-19 09:36:41,098 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1232 worst=1.2863 | distintos=7
 2026-06-19 09:36:41,292 [INFO] atco.algorithms.brkga.engine: Pop nueva  | best=1.0155 avg=1.1193 worst=1.2863 | distintos=6

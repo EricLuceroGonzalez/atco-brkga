@@ -38,7 +38,9 @@ def construir_solucion_heuristica(
     parametros: Parametros,
     rng: random.Random | None = None,
     prioridad: list[float] | None = None,
+    # prioridad_atco: list[float] | None = None,
     prioridad_sectores: dict[str, float] | None = None,
+    offsets_atcos: list[int] | None = None,
 ) -> Solucion:
     """Construye una solución factible por heurística greedy en dos fases.
 
@@ -348,7 +350,7 @@ def _marcar_ventana_de_turno(
 
 
 def _cachear_licencias(entrada: Entrada) -> tuple[set[str], dict[str, set[str]]]:
-    """Precalcula búsquedas de licencia: ids de sectores ruta + mapa núcleo→sectores."""
+    """Precalcula búsquedas de licencia: ids de sectores ruta + mapa núcleo->sectores."""
     ruta_ids: set[str] = {s.id.lower() for s in entrada.get_lista_sectores() if s.ruta}
     nucleo_a_sectores: dict[str, set[str]] = {}
     for nucleo in entrada.get_nucleos_abiertos():

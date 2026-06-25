@@ -11,7 +11,7 @@ from atco.algorithms.brkga.decoders.base import DecoderBase
 from atco.domain.models import Solucion
 from atco.problem.instance import Entrada
 from atco.problem.parameters import Parametros
-from atco.seeds import construir_solucion_heuristica
+from atco.seeds.greedy_cohorte import construir_solucion_heuristica
 
 
 class PermutationDecoder(DecoderBase):
@@ -49,7 +49,7 @@ class PermutationDecoder(DecoderBase):
 
     @property
     def num_genes(self) -> int:
-        return self.n_controladores + self.n_sectores
+        return 2 * self.n_controladores + self.n_sectores
 
     def decode(
         self,
@@ -78,21 +78,36 @@ class PermutationDecoder(DecoderBase):
         # TODO(diseño): prioridad_sectores es global. Para escenarios con apertura variable de sectores, evaluar cromosoma de tamaño N + |S|·T.
         # TODO(invariante): validate_sectores DEBE devolver sectores en orden
 
-        priority_atcos = chromosome[: self.n_controladores].tolist()
-        sector_genes = chromosome[self.n_controladores :]
-        priority_sectores: dict[str, float] = {
+        N = self.n_controladores
+        S = self.n_sectores
+
+        priority_atcos = chromosome[:N].tolist()
+        # priority_atcos = chromosome[: self.n_controladores].tolist()
+        sector_genes = chromosome[N : N + S]
+        # sector_genes = chromosome[self.n_controladores :]
+        priority_sectores = {
             s.id: float(sector_genes[i]) for i, s in enumerate(all_sectores)
         }
 
         self.log.debug("Decoder")
         self.log.debug("🟣 priority_sectores")
         self.log.debug(priority_sectores)
+        semilla = hash(chromosome.tobytes()) & 0xFFFF_FFFF
+        rng = random.Random(semilla)
+        # ─── NUEVO: offsets por ATCo ─────────────────────────────────
+        # Cada gen ∈ [0, 1) se mapea al rango [0, T_opt + D_min) en slots
+        T_opt = parametros.tiempo_trab_opt // parametros.tamano_slots
+        D_min = parametros.tiempo_des_min // parametros.tamano_slots
+        L = T_opt + D_min  # longitud del ciclo natural
+        offsets_genes = chromosome[N + S : 2 * N + S]
+        offsets_atcos = [int(g * L) for g in offsets_genes]
         return construir_solucion_heuristica(
             entrada=entrada,
             parametros=parametros,
-            rng=random.Random(self._RNG_SEED_INTERNO),
-            prioridad_atco=priority_atcos,
+            rng=rng,
+            # prioridad_atco=priority_atcos,
             prioridad_sectores=priority_sectores,
+            offsets_atcos=offsets_atcos,
         )
 
 
@@ -115,5 +130,10 @@ def chromosome_from_solucion(
     )
     atco_part = np.clip(atco_part, 0.0, 1.0)
     # Sin información para derivar prioridad de sectores: aleatorio
-    sector_part = np.random.default_rng(0).random(n_sectores)
+    # sector_part = np.random.default_rng(0).random(n_sectores)
+    seed_sector = (
+        abs(hash(tuple(c.slots_trabajados for c in solucion.controladores)))
+        & 0xFFFF_FFFF
+    )
+    sector_part = np.random.default_rng(seed_sector).random(n_sectores)
     return np.concatenate([atco_part, sector_part])

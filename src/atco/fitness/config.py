@@ -60,123 +60,99 @@ def pesos_iguales(n: int) -> list[float]:
 
 
 # Pesos por defecto computados al cargar el módulo (una sola vez).
-_PESOS_GRUPOS_DEFAULT = pesos_roc(5)
-_PESOS_LABORAL_DEFAULT = pesos_iguales(3)
-_PESOS_ESTRUCTURA_DEFAULT = pesos_iguales(2)
+# Pesos por defecto computados con la fórmula ROC.
+_PESOS_OBJ_DEFAULT = pesos_roc(4)  # [25/48, 13/48, 7/48, 3/48]
+_SUB_OBJ1_DEFAULT = pesos_iguales(3)  # [1/3, 1/3, 1/3]
+_SUB_OBJ3_DEFAULT = pesos_iguales(2)  # [1/2, 1/2]
 
 
 @dataclass(frozen=True)
 class PesosFitness:
-    """Pesos de los 5 grupos + sub-pesos dentro de grupos.
+    """Pesos de los 4 objetivos de Tello cap. 6.3.3 + sub-objetivos.
 
-    Defaults computados al cargar el módulo mediante
-    :func:`pesos_roc` (grupos) y :func:`pesos_iguales` (sub-grupos).
-    El usuario puede sobreescribir cualquier peso individual o construir
-    una instancia con prioridades reordenadas usando
-    :meth:`PesosFitness.con_orden`.
+    Estructura:
+        Obj 1 (condiciones laborales): vn_1, vn_2, vn_3 con sub-pesos iguales
+        Obj 2 (compactación):          fragmentación
+        Obj 3 (descansos + acred.):    f₃.₁, f₃.₂ con sub-pesos iguales
+        Obj 4 (balance):               std_dev de carga
+
+    Defaults computados al cargar el módulo mediante `pesos_roc(4)` y
+    `pesos_iguales(n)`. El usuario puede sobreescribir individualmente o
+    reordenar prioridades con :meth:`PesosFitness.con_orden`.
     """
 
-    # Pesos de los 5 grupos (ROC, decrecientes en importancia)
-    w_cobertura: float = _PESOS_GRUPOS_DEFAULT[0]
-    w_laboral: float = _PESOS_GRUPOS_DEFAULT[1]
-    w_estructura: float = _PESOS_GRUPOS_DEFAULT[2]
-    w_acreditacion: float = _PESOS_GRUPOS_DEFAULT[3]
-    w_balance: float = _PESOS_GRUPOS_DEFAULT[4]
+    # 4 objetivos (ROC, decrecientes en importancia)
+    w_obj1: float = _PESOS_OBJ_DEFAULT[0]
+    w_obj2: float = _PESOS_OBJ_DEFAULT[1]
+    w_obj3: float = _PESOS_OBJ_DEFAULT[2]
+    w_obj4: float = _PESOS_OBJ_DEFAULT[3]
 
-    # Sub-pesos del grupo laboral (igualitarios por defecto)
-    mu_pos: float = _PESOS_LABORAL_DEFAULT[0]
-    mu_trab: float = _PESOS_LABORAL_DEFAULT[1]
-    mu_eje: float = _PESOS_LABORAL_DEFAULT[2]
+    # Sub-pesos Obj 1 (condiciones deseables: vn_1, vn_2, vn_3)
+    mu_1_1: float = _SUB_OBJ1_DEFAULT[0]  # tiempo óptimo en posición
+    mu_1_2: float = _SUB_OBJ1_DEFAULT[1]  # tiempo óptimo entre descansos
+    mu_1_3: float = _SUB_OBJ1_DEFAULT[2]  # porcentaje ejecutivo
 
-    # Sub-pesos del grupo estructura (igualitarios por defecto)
-    mu_frag: float = _PESOS_ESTRUCTURA_DEFAULT[0]
-    mu_desc: float = _PESOS_ESTRUCTURA_DEFAULT[1]
+    # Sub-pesos Obj 3 (descansos + acreditación)
+    mu_3_1: float = _SUB_OBJ3_DEFAULT[0]  # minimizar intervalos descanso
+    mu_3_2: float = _SUB_OBJ3_DEFAULT[1]  # maximizar acreditación
 
     def __post_init__(self) -> None:
-        suma = (
-            self.w_cobertura
-            + self.w_laboral
-            + self.w_estructura
-            + self.w_acreditacion
-            + self.w_balance
-        )
+        suma = self.w_obj1 + self.w_obj2 + self.w_obj3 + self.w_obj4
         if abs(suma - 1.0) > _TOL:
-            raise ValueError(f"Pesos de grupo deben sumar 1, suman {suma}")
+            raise ValueError(f"Pesos w_obj* deben sumar 1, suman {suma}")
 
-        sub_lab = self.mu_pos + self.mu_trab + self.mu_eje
-        if abs(sub_lab - 1.0) > _TOL:
-            raise ValueError(f"Sub-pesos laboral deben sumar 1, suman {sub_lab}")
+        sub1 = self.mu_1_1 + self.mu_1_2 + self.mu_1_3
+        if abs(sub1 - 1.0) > _TOL:
+            raise ValueError(f"Sub-pesos Obj 1 deben sumar 1, suman {sub1}")
 
-        sub_est = self.mu_frag + self.mu_desc
-        if abs(sub_est - 1.0) > _TOL:
-            raise ValueError(f"Sub-pesos estructura deben sumar 1, suman {sub_est}")
+        sub3 = self.mu_3_1 + self.mu_3_2
+        if abs(sub3 - 1.0) > _TOL:
+            raise ValueError(f"Sub-pesos Obj 3 deben sumar 1, suman {sub3}")
 
         if any(
             p < 0
             for p in (
-                self.w_cobertura,
-                self.w_laboral,
-                self.w_estructura,
-                self.w_acreditacion,
-                self.w_balance,
-                self.mu_pos,
-                self.mu_trab,
-                self.mu_eje,
-                self.mu_frag,
-                self.mu_desc,
+                self.w_obj1,
+                self.w_obj2,
+                self.w_obj3,
+                self.w_obj4,
+                self.mu_1_1,
+                self.mu_1_2,
+                self.mu_1_3,
+                self.mu_3_1,
+                self.mu_3_2,
             )
         ):
             raise ValueError("Todos los pesos deben ser no negativos")
 
     @classmethod
-    def con_orden(cls, orden_grupos: list[str]) -> "PesosFitness":
-        """Construye pesos ROC dados los grupos en orden de importancia decreciente.
-
-        Los sub-pesos quedan con sus defaults igualitarios.
+    def con_orden(cls, orden_objetivos: list[str]) -> "PesosFitness":
+        """Construye pesos ROC dada una lista de 4 objetivos en orden de prioridad.
 
         Args:
-            orden_grupos: Lista de exactamente 5 nombres válidos:
-                ``"cobertura"``, ``"laboral"``, ``"estructura"``,
-                ``"acreditacion"``, ``"balance"``. El primero es el más
-                importante.
+            orden_objetivos: Permutación de
+                ``["obj1", "obj2", "obj3", "obj4"]`` en orden decreciente
+                de importancia.
 
         Returns:
-            Instancia con ``w_{nombre}`` = ROC_i según la posición en la lista.
-
-        Raises:
-            ValueError: si la lista no tiene 5 elementos o si contiene
-                nombres no reconocidos.
-
-        Ejemplo:
-            >>> # Por defecto: cobertura > laboral > estructura > acreditacion > balance
-            >>> PesosFitness.con_orden(
-            ...     ["cobertura", "acreditacion", "laboral", "estructura", "balance"]
-            ... )
-            # → w_cobertura ≈ 0.457, w_acreditacion ≈ 0.257, ...
+            ``PesosFitness`` con los pesos asignados según ese orden.
+            Los sub-pesos quedan con los defaults igualitarios.
         """
-        validos = {
-            "cobertura",
-            "laboral",
-            "estructura",
-            "acreditacion",
-            "balance",
-        }
-        if len(orden_grupos) != 5:
-            raise ValueError(f"Esperados 5 grupos, recibidos {len(orden_grupos)}")
-        if set(orden_grupos) != validos:
-            faltantes = validos - set(orden_grupos)
-            extras = set(orden_grupos) - validos
+        validos = {"obj1", "obj2", "obj3", "obj4"}
+        if len(orden_objetivos) != 4:
+            raise ValueError(f"Esperados 4 objetivos, recibidos {len(orden_objetivos)}")
+        if set(orden_objetivos) != validos:
             raise ValueError(
-                f"orden_grupos inválido. Faltantes: {faltantes}. Extras: {extras}"
+                f"orden_objetivos inválido. Esperados: {validos}, "
+                f"recibidos: {set(orden_objetivos)}"
             )
 
-        pesos = dict(zip(orden_grupos, pesos_roc(len(orden_grupos))))
+        pesos = dict(zip(orden_objetivos, pesos_roc(4)))
         return cls(
-            w_cobertura=pesos["cobertura"],
-            w_laboral=pesos["laboral"],
-            w_estructura=pesos["estructura"],
-            w_acreditacion=pesos["acreditacion"],
-            w_balance=pesos["balance"],
+            w_obj1=pesos["obj1"],
+            w_obj2=pesos["obj2"],
+            w_obj3=pesos["obj3"],
+            w_obj4=pesos["obj4"],
         )
 
 
@@ -184,12 +160,31 @@ class PesosFitness:
 class UmbralesFitness:
     """Umbrales operativos en minutos para los componentes de condiciones laborales."""
 
-    pos_opt_min: int = 45  # vn₁: óptimo en misma posición
-    pos_min_min: int = 15  # vn₁: mínimo legal en posición
-    trab_opt_min: int = 90  # vn₂: óptimo entre descansos
-    trab_min_min: int = 15  # vn₂: mínimo trabajo sin violación
-    pct_ejecutivo_min: float = 0.40  # vn₃: cota inferior banda EJ
-    pct_ejecutivo_max: float = 0.60  # vn₃: cota superior banda EJ
+    pos_opt_min: int = 45  # vn_1: óptimo en misma posición
+    pos_min_min: int = 15  # vn_1: mínimo legal en posición
+    trab_opt_min: int = 90  # vn_2: óptimo entre descansos
+    trab_min_min: int = 15  # vn_2: mínimo trabajo sin violación
+    pct_ejecutivo_min: float = 0.40  # vn_3: cota inferior banda EJ
+    pct_ejecutivo_max: float = 0.60  # vn_3: cota superior banda EJ
+
+
+@dataclass(frozen=True)
+class PesosBloques:
+    """Pesos del meta-balance entre factibilidad y rendimiento.
+
+    Tu tribunal exige peso_factibilidad = 0.7, peso_rendimiento = 0.3 para
+    forzar al solver a priorizar soluciones factibles. La suma debe ser 1.
+    """
+
+    peso_factibilidad: float = 0.7
+    peso_rendimiento: float = 0.3
+
+    def __post_init__(self) -> None:
+        suma = self.peso_factibilidad + self.peso_rendimiento
+        if abs(suma - 1.0) > _TOL:
+            raise ValueError(f"Pesos de bloque deben sumar 1, suman {suma}")
+        if self.peso_factibilidad < 0 or self.peso_rendimiento < 0:
+            raise ValueError("Pesos no pueden ser negativos")
 
 
 @dataclass(frozen=True)
@@ -198,17 +193,22 @@ class FitnessConfig:
 
     Componentes positivos (maximización, ∈ [0, 1]):
       - cobertura
-      - laboral = (vn₁, vn₂, vn₃) ponderados
+      - laboral = (vn_1, vn_2, vn_3) ponderados
       - estructura = (frag, desc) ponderados
       - acreditacion
       - balance
-
-    Penalty (a restar):
-      - configurable por PesosPenalizacion (paso 3)
+    Estructura:
+      - ``pesos``: pesos ROC de los 4 objetivos de Tello sec 6.3.3 (Bloque B).
+      - ``pesos_bloques``: meta-balance alpha/(1-alpha) entre factibilidad y
+        rendimiento (defecto 0.7 / 0.3).
+      - ``umbrales``: minutos óptimos / mínimos para vn_1, vn_2, vn_3.
+      - ``pesos_penalizacion``: pesos por restricción + coeficiente
+        global usados por ``calcular_factibilidad_normalizada``.
     """
 
     pesos: PesosFitness = field(default_factory=PesosFitness)
     umbrales: UmbralesFitness = field(default_factory=UmbralesFitness)
+    pesos_bloques: PesosBloques = field(default_factory=PesosBloques)
     pesos_penalizacion: PesosPenalizacion = field(default_factory=PesosPenalizacion)
 
     # tratamiento_infactible: Literal["rechazar", "penalizar"] = "rechazar"

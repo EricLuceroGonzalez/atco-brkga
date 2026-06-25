@@ -21,7 +21,7 @@ class DecoderBase(ABC):
 
     Subclases deben implementar:
         - `num_genes`: la longitud `L` del cromosoma que esperan.
-        - `decode`: la función `[0, 1]^L → Solucion`.
+        - `decode`: la función `[0, 1]^L -> Solucion`.
     """
 
     @property

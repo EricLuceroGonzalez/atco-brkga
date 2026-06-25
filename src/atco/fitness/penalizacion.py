@@ -17,7 +17,7 @@ from atco.problem.restrictions.checks import NOMBRES_RESTRICCIONES, N_RESTRICCIO
 
 
 def _pesos_uniformes() -> dict[str, float]:
-    """Peso 1.0 para las 14 restricciones (alineado con Tello §6.3.3.1)."""
+    """Peso 1.0 para las 14 restricciones (alineado con Tello sec 6.3.3.1)."""
     return {nombre: 1.0 for nombre in NOMBRES_RESTRICCIONES}
 
 
@@ -32,7 +32,7 @@ class PesosPenalizacion:
             [0, 1] y un total ponderado típico de 1, un coeficiente de
             0.01 hace que 100 violaciones reduzcan el fitness en 1.0 (es
             decir, eliminen toda la calidad del horario).
-        pesos_por_restriccion: Diccionario ``nombre_restriccion → peso``.
+        pesos_por_restriccion: Diccionario ``nombre_restriccion -> peso``.
             Permite priorizar la corrección de unas restricciones sobre
             otras. Por defecto todas pesan 1.0 (uniformemente).
     """
@@ -92,3 +92,30 @@ def desglose_penalizacion(
         * pesos.pesos_por_restriccion[nombre]
         for nombre in NOMBRES_RESTRICCIONES
     }
+
+
+def calcular_factibilidad_normalizada(
+    violaciones: dict[str, float],
+    pesos: PesosPenalizacion,
+    n_controladores: int,
+    es_turno_noche: bool,
+) -> tuple[float, float, float]:
+    """Convierte el conteo de violaciones en factibilidad ∈ [0, 1].
+
+    Sigue el esquema de Tello sec 6.3.3 con cap operacional heurístico:
+
+        r_max = κ · N,  κ = 20 si noche, 18 otherwise
+        f_fact = max(0, (r_max - r) / r_max)
+
+    Returns:
+        ``(f_factibilidad, r, r_max)``. El primer valor es lo que entra al
+        bloque A; los otros dos se conservan para tracking.
+    """
+    r = sum(
+        violaciones[nombre] * pesos.pesos_por_restriccion[nombre]
+        for nombre in NOMBRES_RESTRICCIONES
+    )
+    kappa = 20.0 if es_turno_noche else 18.0
+    r_max = kappa * max(1, n_controladores)
+    f_fact = max(0.0, (r_max - r) / r_max)
+    return f_fact, r, r_max

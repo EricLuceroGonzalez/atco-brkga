@@ -239,7 +239,7 @@ def codificar_turnos(
         if c < len(turnos):
             turno = turnos[c]
         else:
-            # Fila extra que no existía en `turnos` → toda fuera de turno.
+            # Fila extra que no existía en `turnos` -> toda fuera de turno.
             turno = STRING_NO_TURNO * T
         # Normalizar/truncar a T slots con padding NO_TURNO.
         slots_actuales = len(turno) // LONGITUD_CADENAS

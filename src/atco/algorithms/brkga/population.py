@@ -69,3 +69,41 @@ class ConvergenceRecord:
     evaluations: int
     best_components: dict[str, float] | None = None
     best_restricciones_violadas: list[str] | None = None
+    best_objetivos: dict[str, float] | None = None
+    best_violaciones: dict[str, float] | None = None
+    best_r: float | None = None
+    best_f_factibilidad: float | None = None
+    best_f_rendimiento: float | None = None
+
+
+def record_from_best(
+    best: Individual,
+    population: Population,
+    state: RunState,
+    diversity: float,
+) -> ConvergenceRecord:
+    """Construye un `ConvergenceRecord` poblando todos los campos opcionales
+    desde `best.fitness_result` si está disponible.
+
+    Centraliza el desempaquetado para que el engine no tenga que conocer
+    la estructura interna de `FitnessResult`.
+    """
+    fits = population.fitness_values
+    fr = best.fitness_result
+
+    return ConvergenceRecord(
+        generation=state.generation,
+        best_fitness=best.fitness,
+        avg_fitness=float(sum(fits) / len(fits)) if fits else float("nan"),
+        worst_fitness=max(fits) if fits else float("nan"),
+        diversity=diversity,
+        elapsed_seconds=state.elapsed_seconds(),
+        evaluations=state.evaluations,
+        best_components=dict(fr.componentes) if fr else None,
+        best_restricciones_violadas=list(fr.restricciones_violadas) if fr else None,
+        best_objetivos=dict(getattr(fr, "objetivos", {})) if fr else None,
+        best_violaciones=dict(getattr(fr, "violaciones", {})) if fr else None,
+        best_r=getattr(fr, "r_actual", None) if fr else None,
+        best_f_factibilidad=getattr(fr, "f_factibilidad", None) if fr else None,
+        best_f_rendimiento=getattr(fr, "f_rendimiento", None) if fr else None,
+    )

@@ -20,6 +20,7 @@ from atco.algorithms.brkga.population import (
     Individual,
     Population,
     RunState,
+    record_from_best,
 )
 from atco.domain.models import Solucion
 from atco.fitness import FitnessConfig, FitnessResult, evaluar_fitness
@@ -106,7 +107,7 @@ class BRKGAEngine:
         history: list[ConvergenceRecord] = []
         generation = 0
 
-        log.info(
+        log.debug(
             "✅ BRKGA arranca | pop=%d élite=%d mutantes=%d cross=%d rho_e=%.2f | "
             "seed_fitness=%.4f",
             self.config.population_size,
@@ -136,8 +137,8 @@ class BRKGAEngine:
 
             new_best = population.best
             if new_best.fitness < best.fitness - 1e-9:
-                log.info(
-                    "Gen %d | mejora: %.4f → %.4f (Δ=%.4f)",
+                log.debug(
+                    "Gen %d | mejora: %.4f -> %.4f (Δ=%.4f)",
                     generation + 1,
                     best.fitness,
                     new_best.fitness,
@@ -156,7 +157,7 @@ class BRKGAEngine:
             best_solution, entrada, parametros, self.fitness_config
         )
 
-        log.info(
+        log.debug(
             "BRKGA terminó | gens=%d evals=%d best=%.4f mejora=%.2f%% tiempo=%.1fs",
             generation,
             evaluations,
@@ -208,7 +209,7 @@ class BRKGAEngine:
                 self._evaluate(random_chromosome(rng, n_genes), entrada, parametros)
             )
         valores = sorted([ind.fitness for ind in individuals])
-        log.info(
+        log.debug(
             "Pop inicial | N=%d | best=%.4f avg=%.4f worst=%.4f | distintos=%d",
             len(individuals),
             min(valores),
@@ -246,7 +247,7 @@ class BRKGAEngine:
             )
             next_individuals.append(self._evaluate(child, entrada, parametros))
         valores = sorted([ind.fitness for ind in next_individuals])
-        log.info(
+        log.debug(
             "Pop nueva  | best=%.4f avg=%.4f worst=%.4f | distintos=%d",
             min(valores),
             sum(valores) / len(valores),
@@ -275,21 +276,31 @@ class BRKGAEngine:
         population: Population,
         state: RunState,
     ) -> ConvergenceRecord:
-        vals = population.fitness_values
         best_ind = min(population.individuals, key=lambda i: i.fitness)
-        components = None
-        violadas = None
-        if best_ind.fitness_result is not None:
-            components = dict(best_ind.fitness_result.componentes)
-            violadas = list(best_ind.fitness_result.restricciones_violadas)
-        return ConvergenceRecord(
-            generation=generation,
-            best_fitness=min(vals),
-            avg_fitness=sum(vals) / len(vals),
-            worst_fitness=max(vals),
-            diversity=diversidad_poblacion(vals),
-            elapsed_seconds=state.elapsed_seconds(),
-            evaluations=state.evaluations,
-            best_components=components,
-            best_restricciones_violadas=violadas,
-        )
+        diversity = diversidad_poblacion(population.fitness_values)
+        return record_from_best(best_ind, population, state, diversity)
+
+    # def _record(
+    #     self,
+    #     generation: int,
+    #     population: Population,
+    #     state: RunState,
+    # ) -> ConvergenceRecord:
+    #     vals = population.fitness_values
+    #     best_ind = min(population.individuals, key=lambda i: i.fitness)
+    #     components = None
+    #     violadas = None
+    #     if best_ind.fitness_result is not None:
+    #         components = dict(best_ind.fitness_result.componentes)
+    #         violadas = list(best_ind.fitness_result.restricciones_violadas)
+    #     return ConvergenceRecord(
+    #         generation=generation,
+    #         best_fitness=min(vals),
+    #         avg_fitness=sum(vals) / len(vals),
+    #         worst_fitness=max(vals),
+    #         diversity=diversidad_poblacion(vals),
+    #         elapsed_seconds=state.elapsed_seconds(),
+    #         evaluations=state.evaluations,
+    #         best_components=components,
+    #         best_restricciones_violadas=violadas,
+    #     )

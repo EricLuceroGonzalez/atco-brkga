@@ -11,7 +11,7 @@ recibe ``(entrada, parametros, rng)`` y devuelve una ``Solucion``.
 Garantías esperadas de cada generador (ver
 ``docs/thesis/notes-design.md`` §2.2 para el contrato detallado):
 
-* Licencia respetada (CON → sólo sectores ruta, núcleo del ATCo).
+* Licencia respetada (CON -> sólo sectores ruta, núcleo del ATCo).
 * Ventana de turno respetada (TC vs TL).
 * Biyección controlador ↔ fila del horario.
 

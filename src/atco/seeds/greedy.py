@@ -28,6 +28,7 @@ def construir_solucion_heuristica(
     rng: random.Random | None = None,
     prioridad_atco: list[float] | None = None,
     prioridad_sectores: dict[str, float] | None = None,
+    offsets_atcos: list[int] | None = None,
 ) -> Solucion:
     """Construye una solución factible por heurística greedy al ATCo menos-cargado.
 
@@ -228,6 +229,17 @@ def construir_solucion_heuristica(
         controlador.turno_asignado = c_idx
         controlador.slots_trabajados = slots_trabajados[c_idx]
     log.debug("ATCos = %s", [i.slots_trabajados for i in atcos])
+    # Al final de construir_solucion_heuristica, antes de retornar:
+    tokens_validos_lower = {s.id.lower() for s in entrada.get_lista_sectores()}
+    for k, fila in enumerate(matriz):
+        for t, tok in enumerate(fila):
+            if tok in (STRING_DESCANSO, STRING_NO_TURNO):
+                continue
+            if tok.lower() not in tokens_validos_lower:
+                raise RuntimeError(
+                    f"Token desconocido '{tok}' en fila={k}, slot={t}. "
+                    f"No pertenece a entrada.get_lista_sectores()."
+                )
     return Solucion(
         turnos=turnos_strings,
         controladores=atcos,
@@ -440,3 +452,33 @@ def _puede_continuar(i: int, t: int, matriz: list[list[str]]) -> bool:
     continuar: fuera de turno, fuera de disponibilidad, o ya asignado.
     """
     return matriz[i][t] == STRING_DESCANSO
+
+
+def _pre_escalonar_cohortes(
+    n_atcos: int,
+    t_opt: int,
+    d_min: int,
+    descanso_pendiente: list[int],
+    offsets_atcos: list[int] | None = None,  # ← NUEVO
+) -> int:
+    """Reparte los ATCos en cohortes desfasadas para evitar el cliff.
+
+    Si `offsets_atcos` se proporciona (cromosoma del BRKGA), se usan esos
+    offsets explícitamente. Si es None, se aplica el round-robin
+    determinista por defecto.
+    """
+    if n_atcos == 0:
+        return 0
+    L = t_opt + d_min
+    k = max(1, L // d_min) if d_min > 0 else 1
+    stagger = L // k
+
+    if offsets_atcos is None:
+        # Round-robin determinista
+        for i in range(n_atcos):
+            descanso_pendiente[i] = (i % k) * stagger
+    else:
+        # Offsets del cromosoma
+        for i in range(n_atcos):
+            descanso_pendiente[i] = offsets_atcos[i] % L  # clamp defensivo
+    return k

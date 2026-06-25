@@ -91,8 +91,8 @@ def cobertura_insatisfecha(
     a lo largo del día según la configuración operativa.
 
     Convención de tokens:
-      - ``sector.id.upper()`` → posición ejecutivo (EJ).
-      - ``sector.id.lower()`` → posición planificador (PL).
+      - ``sector.id.upper()`` -> posición ejecutivo (EJ).
+      - ``sector.id.lower()`` -> posición planificador (PL).
 
     Args:
         solucion: Horario a evaluar (matriz codificada como cadenas de
@@ -158,10 +158,10 @@ def fragmentacion(solucion: Solucion) -> tuple[int, int, int]:
             ventana de la fila k.
           - ``v_min``: nº de filas con ventana no vacía (mínimo absoluto:
             cada fila aporta al menos 1 bloque).
-          - ``v_max``: Σ_k (b_k − a_k), alternancia máxima slot a slot.
+          - ``v_max``: Σ_k (b_k - a_k), alternancia máxima slot a slot.
 
         La normalización a [0, 1] del orquestador será
-        ``(v_max − crudo) / (v_max − v_min)`` (más compacto ⟹ mejor).
+        ``(v_max - crudo) / (v_max - v_min)`` (más compacto ⟹ mejor).
     """
     T = _longitud_t(solucion)
     crudo = 0
@@ -188,12 +188,72 @@ def fragmentacion(solucion: Solucion) -> tuple[int, int, int]:
     return crudo, v_min, v_max
 
 
+def similitud_estadillos(
+    solucion: Solucion,
+    momento_actual: int = 0,
+) -> tuple[float, float]:
+    """f₂ Tello §6.3.3.2 — Compactación tipo estadillo.
+
+    Cuenta para cada celda (k, j) desde `momento_actual` cuántas veces el
+    token coincide con su vecino derecho y/o inferior:
+      - vecino derecho exactamente igual (case-sensitive): +1.5
+      - vecino derecho equivalente case-insensitive:        +1.0
+      - vecino inferior equivalente case-insensitive:        +1.0
+
+    La idea de Tello es premiar matrices con bloques visuales agrupados:
+    mismas asignaciones consecutivas en tiempo y entre filas se leen mejor
+    en un estadillo impreso. La diferencia entre exacto (1.5) y
+    case-insensitive (1.0) recompensa además que un sector se cubra
+    continuamente en la misma posición (EJ o PL), no cambiando de rol.
+
+    Args:
+        solucion: Horario a evaluar.
+        momento_actual: Slot de arranque de la evaluación. En la Fase 3 de
+            Tello suele ser 0 (turnos completos); si reutilizas la
+            función en optimización a partir de un punto de corte, pásalo
+            aquí.
+
+    Returns:
+        ``(v, v_max)``:
+          - ``v``: suma ponderada de coincidencias (Eq. 6.20 de la tesis).
+          - ``v_max``: cota teórica suponiendo coincidencia exacta en
+            todos los vecinos derechos (Eq. 6.21):
+            ``(N - 1) · 1.5 · (T - momento_actual - 1) · 2``.
+        El orquestador normaliza con ``f2 = v / v_max`` (eq. 6.22).
+    """
+    N = len(solucion.turnos)
+    T = _longitud_t(solucion)
+    if N < 2 or T < 2 or momento_actual >= T - 1:
+        return (0.0, 0.0)
+
+    v = 0.0
+    for k in range(N):
+        cadena_k = solucion.turnos[k]
+        for j in range(momento_actual, T):
+            actual = _slot(cadena_k, j)
+
+            # Vecino derecho
+            if j < T - 1:
+                derecha = _slot(cadena_k, j + 1)
+                if actual.lower() == derecha.lower():
+                    v += 1.5 if actual == derecha else 1.0
+
+            # Vecino inferior
+            if k < N - 1:
+                abajo = _slot(solucion.turnos[k + 1], j)
+                if actual.lower() == abajo.lower():
+                    v += 1.0
+
+    v_max = (N - 1) * 1.5 * ((T - momento_actual) - 1) * 2
+    return (v, v_max)
+
+
 def intervalos_descanso(solucion: Solucion) -> tuple[int, int, int]:
     """Cuenta bloques de descanso por fila dentro de la ventana de turno.
 
     Un *bloque de descanso* es una racha maximal de slots ``"111"``
     dentro de la ventana operativa de cada controlador. La intuición de
-    Tello §6.3.3.3.1: minimizar el número de descansos individuales
+    Tello sec 6.3.3.3.1: minimizar el número de descansos individuales
     fomenta agruparlos en pocos descansos largos, reduciendo "cambios
     de sala" y mejorando la legibilidad del estadillo.
 
@@ -211,7 +271,7 @@ def intervalos_descanso(solucion: Solucion) -> tuple[int, int, int]:
         ``(crudo, v_min, v_max)``:
           - ``crudo``: Σ_k D_k, nº total de bloques de descanso.
           - ``v_min``: nº de filas con ventana no vacía (cada controlador
-            activo debería tener al menos un descanso → mínimo 1 por
+            activo debería tener al menos un descanso -> mínimo 1 por
             fila).
           - ``v_max``: ``T · n_activos // 6`` siguiendo Tello (6 slots =
             mínimo trabajo + mínimo descanso, máximo teórico de
@@ -245,12 +305,12 @@ def intervalos_descanso(solucion: Solucion) -> tuple[int, int, int]:
 def balance_carga(solucion: Solucion) -> tuple[float, float]:
     """Desviación estándar (poblacional) de la carga de trabajo entre controladores.
 
-    Sustituye a ``desbalance_carga`` (que usaba ``max − min``). La σ refleja
+    Sustituye a ``desbalance_carga`` (que usaba ``max - min``). La σ refleja
     mejor la dispersión global cuando hay más de 2 controladores: un único
     atípico estira el rango pero apenas mueve la σ; en cambio, una
     desigualdad sistemática entre la mayoría sí la mueve.
 
-    La cota teórica de Tello §6.3.3.4 es:
+    La cota teórica de Tello sec 6.3.3.4 es:
 
         σ_max = media(cargas)
 
@@ -280,7 +340,7 @@ def balance_carga(solucion: Solucion) -> tuple[float, float]:
     media = sum(cargas) / n
 
     if media == 0:
-        # Nadie trabaja → todos iguales en cero → balance trivial.
+        # Nadie trabaja -> todos iguales en cero -> balance trivial.
         return (0.0, 0.0)
 
     varianza = sum((c - media) ** 2 for c in cargas) / n
@@ -327,7 +387,7 @@ def acreditacion(
         (``objective.evaluar_fitness``) usando una fórmula tipo
         ``(crudo - v_min) / (v_max - v_min)`` con cap en ``crudo ≥ v_min``.
     """
-    # Lookup sector_id → conjunto de sus elementales
+    # Lookup sector_id -> conjunto de sus elementales
     sector_to_elementales: dict[str, set[str]] = {
         s.id.lower(): set(s.sectores_elementales) for s in entrada.get_lista_sectores()
     }
@@ -372,7 +432,7 @@ def tiempo_optimo_posicion(
     """Suma promediada de desviaciones del tiempo óptimo en la misma posición.
 
     Para cada controlador y cada bloque de slots consecutivos en el
-    mismo (sector + posición), mide |``pos_opt_min`` − duración|. Suma
+    mismo (sector + posición), mide |``pos_opt_min`` - duración|. Suma
     sobre todos los intervalos y divide entre el número de controladores.
 
     Args:
@@ -385,10 +445,10 @@ def tiempo_optimo_posicion(
         ``(crudo, cota)``:
           - ``crudo``: media (por controlador) de la suma de desviaciones
             absolutas, en minutos.
-          - ``cota``: cota máxima teórica de Tello §6.3.3.1.a:
-            ``|pos_opt − pos_min| · 8 · (T / 30)``.
+          - ``cota``: cota máxima teórica de Tello sec 6.3.3.1.a:
+            ``|pos_opt - pos_min| · 8 · (T / 30)``.
         Para maximización, el orquestador calcula
-        ``f = (cota − crudo) / cota``.
+        ``f = (cota - crudo) / cota``.
     """
     if not solucion.turnos:
         return (0.0, 0.0)
@@ -418,7 +478,7 @@ def tiempo_optimo_trabajo(
 
     Para cada controlador y cada bloque de trabajo continuo (cualquier
     sector/posición, hasta el siguiente descanso o fin de ventana), mide
-    |``trab_opt_min`` − duración|. Suma sobre intervalos y divide entre N.
+    |``trab_opt_min`` - duración|. Suma sobre intervalos y divide entre N.
 
     Args:
         solucion: Horario a evaluar.
@@ -427,8 +487,8 @@ def tiempo_optimo_trabajo(
         trab_min_min: Trabajo mínimo sin violación, en minutos (15).
 
     Returns:
-        ``(crudo, cota)`` con cota Tello §6.3.3.1.b:
-        ``|trab_opt − trab_min| · (T / 6)``.
+        ``(crudo, cota)`` con cota Tello sec 6.3.3.1.b:
+        ``|trab_opt - trab_min| · (T / 6)``.
     """
     if not solucion.turnos:
         return (0.0, 0.0)
@@ -470,8 +530,8 @@ def porcentaje_ejecutivo(
     Returns:
         ``(crudo, cota)``:
           - ``crudo``: Σ_k δ_k, con
-            δ_k = max(0, pct_min − pEje_k, pEje_k − pct_max).
-          - ``cota``: ``max(pct_min, 1 − pct_max) · n_activos``,
+            δ_k = max(0, pct_min - pEje_k, pEje_k - pct_max).
+          - ``cota``: ``max(pct_min, 1 - pct_max) · n_activos``,
             penalización máxima posible.
     """
     if not solucion.turnos:
@@ -554,7 +614,7 @@ def _intervalos_misma_posicion(cadena: str, T: int) -> list[tuple[int, int, str]
             inicio = t
             token_actual = tok
         elif tok != token_actual:
-            # Cambio de token → cierra el anterior y abre uno nuevo
+            # Cambio de token -> cierra el anterior y abre uno nuevo
             intervalos.append((inicio, t, token_actual))
             inicio = t
             token_actual = tok

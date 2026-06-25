@@ -154,6 +154,37 @@ def plot_components_evolution(
     plt.close(fig)
 
 
+def plot_objetivos_evolution(history, out_path, title=None):
+    import matplotlib.pyplot as plt
+
+    nombres_orden = [
+        "obj1_condiciones_laborales",
+        "obj2_estadillos",
+        "obj3_descansos_acred",
+        "obj4_balance",
+    ]
+    gens = [_get(r, "generation") for r in history]
+    series = {n: [] for n in nombres_orden}
+    for r in history:
+        objs = _get(r, "best_objetivos") or {}
+        for n in nombres_orden:
+            series[n].append(objs.get(n, float("nan")))
+
+    fig, ax = plt.subplots(figsize=(10, 5))
+    for n in nombres_orden:
+        ax.plot(gens, series[n], label=n, lw=2)
+    ax.set_xlabel("generación")
+    ax.set_ylabel("valor del objetivo ∈ [0, 1]")
+    ax.set_ylim(0, 1.05)
+    ax.grid(True, alpha=0.3)
+    ax.legend(loc="best")
+    if title:
+        ax.set_title(title)
+    fig.tight_layout()
+    fig.savefig(out_path, dpi=120)
+    plt.close(fig)
+
+
 def plot_violaciones_por_generacion(
     history: list[ConvergenceRecord] | list[dict],
     out_path: Path,
@@ -242,6 +273,55 @@ def plot_violaciones_final_breakdown(
     ax.set_xticks([])
     if title:
         ax.set_title(title)
+    fig.tight_layout()
+    fig.savefig(out_path, dpi=120)
+    plt.close(fig)
+
+
+def plot_violaciones_magnitud(history, out_path, title=None):
+    import matplotlib.pyplot as plt
+
+    gens = [_get(r, "generation") for r in history]
+    series: dict[str, list[float]] = {}
+    for r in history:
+        viol = _get(r, "best_violaciones") or {}
+        for n, v in viol.items():
+            series.setdefault(n, []).append(v)
+
+    if not series:
+        return
+
+    fig, ax = plt.subplots(figsize=(11, 6))
+    for nombre, valores in series.items():
+        if max(valores) > 0:
+            ax.plot(gens[: len(valores)], valores, label=nombre, lw=1.5)
+    ax.set_xlabel("generación")
+    ax.set_ylabel("magnitud de violación (cuenta cruda)")
+    ax.grid(True, alpha=0.3)
+    ax.legend(loc="best", fontsize=8)
+    if title:
+        ax.set_title(title)
+    fig.tight_layout()
+    fig.savefig(out_path, dpi=120)
+    plt.close(fig)
+
+
+def plot_r_evolution(history, out_path, title=None):
+    """r ponderada y f_factibilidad por generación."""
+    import matplotlib.pyplot as plt
+
+    gens = [_get(r, "generation") for r in history]
+    r_vals = [_get(r, "best_r") for r in history]
+    f_fact = [_get(r, "best_f_factibilidad") for r in history]
+    fig, ax1 = plt.subplots(figsize=(10, 5))
+    ax1.plot(gens, r_vals, "r-", lw=2, label="r (suma ponderada)")
+    ax1.set_xlabel("generación")
+    ax1.set_ylabel("r", color="r")
+    ax2 = ax1.twinx()
+    ax2.plot(gens, f_fact, "g-", lw=2, label="f_factibilidad")
+    ax2.set_ylabel("f_factibilidad ∈ [0, 1]", color="g")
+    if title:
+        ax1.set_title(title)
     fig.tight_layout()
     fig.savefig(out_path, dpi=120)
     plt.close(fig)

@@ -11,7 +11,9 @@ from atco.algorithms.brkga.decoders.base import DecoderBase
 from atco.domain.models import Solucion
 from atco.problem.instance import Entrada
 from atco.problem.parameters import Parametros
-from atco.seeds.greedy_cohorte import construir_solucion_heuristica
+from atco.seeds.greedy import construir_solucion_heuristica
+
+# from atco.seeds.greedy_cohorte import construir_solucion_heuristica
 
 
 class PermutationDecoder(DecoderBase):
@@ -49,7 +51,7 @@ class PermutationDecoder(DecoderBase):
 
     @property
     def num_genes(self) -> int:
-        return 2 * self.n_controladores + self.n_sectores
+        return self.n_controladores + self.n_sectores
 
     def decode(
         self,
@@ -72,6 +74,9 @@ class PermutationDecoder(DecoderBase):
             ValueError: Si la entrada no encaja con las dimensiones del
                 decoder.
         """
+        print(
+            f"self.n_controladores: {self.n_controladores}, self.n_sectores: {self.n_sectores}, genes: {self.num_genes}",
+        )
         self.validate_chromosome(chromosome)
         self.validate_controllers(entrada, self.n_controladores)
         all_sectores = self.validate_sectores(entrada, self.n_sectores)
@@ -95,7 +100,7 @@ class PermutationDecoder(DecoderBase):
         semilla = hash(chromosome.tobytes()) & 0xFFFF_FFFF
         rng = random.Random(semilla)
         # ─── NUEVO: offsets por ATCo ─────────────────────────────────
-        # Cada gen ∈ [0, 1) se mapea al rango [0, T_opt + D_min) en slots
+        # Cada gen in [0, 1) se mapea al rango [0, T_opt + D_min) en slots
         T_opt = parametros.tiempo_trab_opt // parametros.tamano_slots
         D_min = parametros.tiempo_des_min // parametros.tamano_slots
         L = T_opt + D_min  # longitud del ciclo natural
@@ -105,7 +110,7 @@ class PermutationDecoder(DecoderBase):
             entrada=entrada,
             parametros=parametros,
             rng=rng,
-            # prioridad_atco=priority_atcos,
+            prioridad_atco=priority_atcos,
             prioridad_sectores=priority_sectores,
             offsets_atcos=offsets_atcos,
         )

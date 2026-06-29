@@ -78,6 +78,7 @@ def construir_solucion_heuristica(
     """
     if rng is None:
         rng = random.Random()
+
     atcos: list[Controlador] = [c.clone() for c in entrada.get_controladores()]
     sectorizacion: list[set[str]] = entrada.get_sectorizacion()
     n_atcos: int = len(atcos)  # Cantidad de atcos
@@ -459,7 +460,7 @@ def _pre_escalonar_cohortes(
     t_opt: int,
     d_min: int,
     descanso_pendiente: list[int],
-    offsets_atcos: list[int] | None = None,  # ← NUEVO
+    offsets_atcos: list[int] | None = None,  # <- NUEVO
 ) -> int:
     """Reparte los ATCos en cohortes desfasadas para evitar el cliff.
 

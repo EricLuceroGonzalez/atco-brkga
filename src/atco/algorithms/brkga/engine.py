@@ -59,7 +59,8 @@ class RunResult:
         """Mejora relativa del mejor frente a la semilla inicial."""
         if self.seed_fitness == 0:
             return 0.0
-        return (self.seed_fitness - self.best_individual.fitness) / self.seed_fitness
+        return (self.best_individual.fitness - self.seed_fitness) / self.seed_fitness
+        # return (self.seed_fitness - self.best_individual.fitness) / self.seed_fitness
 
 
 class BRKGAEngine:
@@ -136,7 +137,7 @@ class BRKGAEngine:
             evaluations += self.config.n_mutants + self.config.n_crossover
 
             new_best = population.best
-            if new_best.fitness < best.fitness - 1e-9:
+            if new_best.fitness > best.fitness + 1e-9:
                 log.debug(
                     "Gen %d | mejora: %.4f -> %.4f (Δ=%.4f)",
                     generation + 1,
@@ -163,7 +164,7 @@ class BRKGAEngine:
             evaluations,
             best.fitness,
             (
-                ((seed_fitness - best.fitness) / seed_fitness * 100)
+                ((best.fitness - seed_fitness) / seed_fitness * 100)
                 if seed_fitness
                 else 0.0
             ),
@@ -212,9 +213,9 @@ class BRKGAEngine:
         log.debug(
             "Pop inicial | N=%d | best=%.4f avg=%.4f worst=%.4f | distintos=%d",
             len(individuals),
-            min(valores),
-            sum(valores) / len(valores),
             max(valores),
+            sum(valores) / len(valores),
+            min(valores),
             len(set(round(v, 6) for v in valores)),
         )
         return Population(individuals=individuals)
@@ -276,7 +277,7 @@ class BRKGAEngine:
         population: Population,
         state: RunState,
     ) -> ConvergenceRecord:
-        best_ind = min(population.individuals, key=lambda i: i.fitness)
+        best_ind = max(population.individuals, key=lambda i: i.fitness)
         diversity = diversidad_poblacion(population.fitness_values)
         return record_from_best(best_ind, population, state, diversity)
 

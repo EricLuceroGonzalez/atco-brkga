@@ -14,9 +14,9 @@ por diseño (el tramo de sectores del cromosoma es ruido); el test
 reporta el porcentaje de slots coincidentes como medida de coherencia.
 
 Salidas:
-    output_dir/01_inicial.xlsx          ← horario greedy de partida
-    output_dir/02_permutation.xlsx      ← horario tras decode permutación
-    output_dir/03_bin_midpoint.xlsx     ← horario tras decode bin-midpoint
+    output_dir/01_inicial.xlsx          <- horario greedy de partida
+    output_dir/02_permutation.xlsx      <- horario tras decode permutación
+    output_dir/03_bin_midpoint.xlsx     <- horario tras decode bin-midpoint
 """
 
 from __future__ import annotations

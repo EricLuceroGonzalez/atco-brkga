@@ -4,7 +4,7 @@ A diferencia del `PermutationDecoder` (constructivo), este decoder asigna
 **un gen por celda** de la matriz N×n_slots y traduce su valor directamente a un
 token del alfabeto mediante el esquema bin-midpoint clásico:
 
-    chromosome[c*n_slots + t] ∈ [0, 1)
+    chromosome[c*n_slots + t] in [0, 1)
     token_idx = floor(chromosome[c*n_slots + t] · |alfabeto|)
     token = alfabeto[token_idx]
 
@@ -54,7 +54,9 @@ def construir_alfabeto(entrada: Entrada) -> list[str]:
         Lista de tokens de 3 caracteres en orden canónico.
     """
     alfabeto: list[str] = [STRING_NO_TURNO, STRING_DESCANSO]
-    for sector in sorted(entrada.get_lista_sectores(), key=lambda s: s.id):
+    for sector in sorted(
+        entrada.get_sectores_abiertos_todo_el_dia(), key=lambda s: s.id
+    ):
         alfabeto.append(sector.id.upper())
         alfabeto.append(sector.id.lower())
     return alfabeto

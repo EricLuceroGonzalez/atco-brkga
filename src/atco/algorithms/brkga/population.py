@@ -32,11 +32,12 @@ class Population:
 
     def sorted_by_fitness(self) -> list[Individual]:
         """Devuelve la población ordenada por fitness ascendente (mejor primero)."""
-        return sorted(self.individuals, key=lambda ind: ind.fitness)
+        return sorted(self.individuals, key=lambda ind: ind.fitness, reverse=True)
 
     @property
     def best(self) -> Individual:
-        return min(self.individuals, key=lambda ind: ind.fitness)
+        """Minimiza los valores que entrega population.best en engine.py"""
+        return max(self.individuals, key=lambda ind: ind.fitness)
 
     @property
     def fitness_values(self) -> list[float]:
@@ -95,7 +96,7 @@ def record_from_best(
         generation=state.generation,
         best_fitness=best.fitness,
         avg_fitness=float(sum(fits) / len(fits)) if fits else float("nan"),
-        worst_fitness=max(fits) if fits else float("nan"),
+        worst_fitness=min(fits) if fits else float("nan"),
         diversity=diversity,
         elapsed_seconds=state.elapsed_seconds(),
         evaluations=state.evaluations,

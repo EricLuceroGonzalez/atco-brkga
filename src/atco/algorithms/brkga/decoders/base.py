@@ -77,13 +77,14 @@ class DecoderBase(ABC):
             )
 
     def validate_sectores(self, entrada: Entrada, instance_sectors):
-        all_sectores = sorted(
-            entrada.get_lista_sectores(),
+        abiertos = sorted(
+            entrada.get_sectores_abiertos_todo_el_dia(),
             key=lambda s: s.id,
         )
-        if len(all_sectores) != instance_sectors:
+
+        if len(abiertos) != instance_sectors:
             raise ValueError(
-                f"Entrada tiene {len(all_sectores)} sectores pero el decoder "
+                f"Entrada tiene {len(abiertos)} sectores pero el decoder "
                 f"espera {instance_sectors}"
             )
-        return all_sectores
+        return abiertos

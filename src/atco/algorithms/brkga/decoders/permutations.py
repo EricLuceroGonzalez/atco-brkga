@@ -74,9 +74,6 @@ class PermutationDecoder(DecoderBase):
             ValueError: Si la entrada no encaja con las dimensiones del
                 decoder.
         """
-        print(
-            f"self.n_controladores: {self.n_controladores}, self.n_sectores: {self.n_sectores}, genes: {self.num_genes}",
-        )
         self.validate_chromosome(chromosome)
         self.validate_controllers(entrada, self.n_controladores)
         all_sectores = self.validate_sectores(entrada, self.n_sectores)

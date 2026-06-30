@@ -100,7 +100,7 @@ def test_codecs_round_trip(
     sol_ini = construir_solucion_heuristica(entrada, parametros)
     n_ctrls = len(sol_ini.controladores)
     n_slots = len(entrada.get_sectorizacion())
-    n_sectores = len(entrada.get_lista_sectores())
+    n_sectores = len(entrada.get_sectores_abiertos_todo_el_dia())
     print(f"    N = {n_ctrls}  |  T = {n_slots}  |  |S| = {n_sectores}")
     out_ini = output_dir / "01_inicial.xlsx"
     _write_solution_xlsx_gantt(out_ini, sol_ini)

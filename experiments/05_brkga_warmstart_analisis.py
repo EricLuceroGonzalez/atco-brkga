@@ -71,7 +71,9 @@ from atco.io.excel import _write_solution_xlsx_gantt
 from atco.io.logging_setup import setup_logging
 from atco.problem.instance import Entrada
 from atco.problem.parameters import Parametros
-from atco.seeds.greedy_cohorte import construir_solucion_heuristica
+
+# from atco.seeds.greedy_cohorte import construir_solucion_heuristica
+from atco.seeds.greedy import construir_solucion_heuristica
 from atco.domain.constants import LONGITUD_CADENAS
 
 # ============================================================================
@@ -136,7 +138,7 @@ def _calcular_shape(entrada: Entrada, sol_referencia) -> _Shape:
     return _Shape(
         n=len(entrada.get_controladores()),
         T=len(sol_referencia.turnos[0]) // 3,
-        n_sectores=len(entrada.get_lista_sectores()),
+        n_sectores=len(entrada.get_sectores_abiertos_todo_el_dia()),
         alfabeto=construir_alfabeto(entrada),
     )
 

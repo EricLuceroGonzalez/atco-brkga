@@ -163,6 +163,9 @@ def construir_solucion_heuristica(
                     and consecutivos[i_prev] < maximo_consecutivo
                 )
                 if atco_puede:
+                    if prioridad_atco is not None and prioridad_atco[i_prev] < 0.3:
+                        pendientes.append((sector_t, posicion))
+                        continue
                     matriz[i_prev][t] = token
                     slots_trabajados[i_prev] += 1
                     consecutivos[i_prev] += 1

@@ -13,12 +13,18 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 
-from atco.problem.restrictions.checks import NOMBRES_RESTRICCIONES, N_RESTRICCIONES
+from atco.problem.restrictions.checks import NOMBRES_RESTRICCIONES
+from atco.problem.restrictions.weights import PESO_POR_RESTRICCION
 
 
 def _pesos_uniformes() -> dict[str, float]:
     """Peso 1.0 para las 14 restricciones (alineado con Tello sec 6.3.3.1)."""
     return {nombre: 1.0 for nombre in NOMBRES_RESTRICCIONES}
+
+
+def _pesos_restricciones() -> dict[str, float]:
+    """Pesos por restriccion (sec 6.3.3)."""
+    return dict(zip(NOMBRES_RESTRICCIONES, PESO_POR_RESTRICCION, strict=True))
 
 
 @dataclass(frozen=True)
@@ -38,7 +44,10 @@ class PesosPenalizacion:
     """
 
     coeficiente_global: float = 0.01
-    pesos_por_restriccion: dict[str, float] = field(default_factory=_pesos_uniformes)
+    pesos_por_restriccion: dict[str, float] = field(
+        default_factory=_pesos_restricciones
+    )
+    # pesos_por_restriccion: dict[str, float] = field(default_factory=_pesos_uniformes)
 
     def __post_init__(self) -> None:
         if self.coeficiente_global < 0:
@@ -100,7 +109,7 @@ def calcular_factibilidad_normalizada(
     n_controladores: int,
     es_turno_noche: bool,
 ) -> tuple[float, float, float]:
-    """Convierte el conteo de violaciones en factibilidad ∈ [0, 1].
+    """Convierte el conteo de violaciones en factibilidad in [0, 1].
 
     Sigue el esquema de Tello sec 6.3.3 con cap operacional heurístico:
 

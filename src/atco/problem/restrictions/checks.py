@@ -72,7 +72,7 @@ def penalizacion_por_restricciones(
     1. Publica el vector de violaciones detalladas en la global
        :data:`restricciones_no_cumplidas` (índice por restricción, ver
        la tabla de la cabecera del módulo). Útil para diagnóstico
-       posterior — el caller puede leer ese vector justo después.
+       posterior - el caller puede leer ese vector justo después.
     2. Mantiene un **quirk del Java original**: la restricción [6]
        (ventana trabajo/descanso) se suma sin aplicar
        ``PESO_POR_RESTRICCION[6]``. Esto difiere de
@@ -234,7 +234,7 @@ def contar_violaciones(
 
     Returns:
         Dict ``{nombre_restriccion: valor_crudo}``. El valor es la
-        cantidad de violaciones detectadas — entero para las
+        cantidad de violaciones detectadas - entero para las
         restricciones binarias (R13, R14...) y float para las que
         acumulan micro-penalizaciones (R5, R7, R8...).
     """
@@ -509,7 +509,9 @@ def comprobar_cambio_posicion(
     for turno in turnos:
         x = 0.0
         slots = list(_slots(turno))
-        for current, nxt in pairwise(slots):  # ← era zip(slots, slots[1:], strict=True)
+        for current, nxt in pairwise(
+            slots
+        ):  # <- era zip(slots, slots[1:], strict=True)
             if (
                 current not in REST_SLOTS
                 and nxt not in REST_SLOTS

@@ -28,7 +28,8 @@ def construir_solucion_heuristica(
     rng: random.Random | None = None,
     prioridad_atco: list[float] | None = None,
     prioridad_sectores: dict[str, float] | None = None,
-    offsets_atcos: list[int] | None = None,
+    prioridad_rotacion: list[float] | None = None,
+    # offsets_atcos: list[int] | None = None,
 ) -> Solucion:
     """Construye una solución factible por heurística greedy al ATCo menos-cargado.
 
@@ -114,11 +115,35 @@ def construir_solucion_heuristica(
     consecutivos: list[int] = [0] * n_atcos  # slots seguidos trabajando
     descanso_pendiente: list[int] = [0] * n_atcos  # slots de descanso obligatorio
 
+    # ── NUEVO: contadores de tiempo en posición ─────────────────────────
+    # `slots_en_posicion[i]` cuenta cuántos slots seguidos lleva el ATCo
+    # `i` en su (sector, posición) actual. Se resetea cuando rota o descansa.
+    slots_en_posicion: list[int] = [0] * n_atcos
+    # `target_pos_slots[i]` es el umbral aleatorio (centrado en
+    # `optimo_posicion`) tras el cual se fuerza a la fase 2 para que rote.
+    # Se sortea al entrar en una nueva posición.
+    target_pos_slots: list[int] = [0] * n_atcos
+
     maximo_consecutivo: int = parametros.tiempo_trab_max // parametros.tamano_slots
-    # TODO introducir el optimo_consecutivo
-    # TODO revisar si esto es minimo consecutivo o no consecutivo
     minimo_consecutivo: int = parametros.tiempo_des_por_turno // parametros.tamano_slots
+    optimo_posicion: int = (
+        parametros.tiempo_pos_opt // parametros.tamano_slots
+    )  # 45/5 = 9
     log.debug("✅ Tiempo tiempo_des_por_turno: %d", parametros.tiempo_des_por_turno)
+
+    # Jitter alrededor del óptimo. ±2 slots = ±10 min. Configurable.
+    JITTER_POSICION: int = 2
+    UMBRAL_ROTACION_CROMOSOMA: float = 0.3
+
+    def _sortear_target_posicion() -> int:
+        """Devuelve un umbral aleatorio centrado en `optimo_posicion`.
+
+        Permite variabilidad entre bloques: ATCos distintos rotan a tiempos
+        ligeramente diferentes y semillas con `rng` distinto producen
+        soluciones estructuralmente diferentes.
+        """
+        return optimo_posicion + rng.randint(-JITTER_POSICION, JITTER_POSICION)
+
     # Recorrido cronológico, asignando sectores al ATCo
     # 1. menos cargado y 2. asegurando pareja ejecutivo/planificador.
     for t in range(n_slots):
@@ -136,6 +161,7 @@ def construir_solucion_heuristica(
 
         # Primer bucle
         pendientes: list[tuple[Sector, str]] = []
+        rotados_de: dict[tuple[str, str], set[int]] = {}
         for sector_t in sectores_t:
             # TODO: Cuando t = 24 se atienden solo 6 sectores.
             # TODO: Desestimar las dos horas continuas de trabajo
@@ -162,13 +188,41 @@ def construir_solucion_heuristica(
                     and descanso_pendiente[i_prev] == 0
                     and consecutivos[i_prev] < maximo_consecutivo
                 )
+                if atco_puede and i_prev is not None:
+                    # Razón 1: ha pasado el óptimo de tiempo en esta posición
+                    target = target_pos_slots[i_prev]
+                    if target > 0 and slots_en_posicion[i_prev] >= target:
+                        atco_puede = False
+                        rotados_de.setdefault((sector_t.id, posicion), set()).add(
+                            i_prev
+                        )
+                        log.debug(
+                            "    🔀 i_prev=%d sale por óptimo (slots_pos=%d >= target=%d)",
+                            i_prev,
+                            slots_en_posicion[i_prev],
+                            target,
+                        )
+                    # Razón 2: el cromosoma le ha asignado baja prioridad de
+                    # continuidad → forzar rotación temprana
+                    elif (
+                        prioridad_rotacion is not None
+                        and prioridad_rotacion[i_prev] < UMBRAL_ROTACION_CROMOSOMA
+                    ):
+                        atco_puede = False
+                        rotados_de.setdefault((sector_t.id, posicion), set()).add(
+                            i_prev
+                        )
+                        log.debug(
+                            "    🔀 i_prev=%d sale por cromosoma (prioridad_rotacion=%.3f < %.3f)",
+                            i_prev,
+                            prioridad_rotacion[i_prev],
+                            UMBRAL_ROTACION_CROMOSOMA,
+                        )
                 if atco_puede:
-                    if prioridad_atco is not None and prioridad_atco[i_prev] < 0.3:
-                        pendientes.append((sector_t, posicion))
-                        continue
                     matriz[i_prev][t] = token
                     slots_trabajados[i_prev] += 1
                     consecutivos[i_prev] += 1
+                    slots_en_posicion[i_prev] += 1
                     if consecutivos[i_prev] >= maximo_consecutivo:
                         descanso_pendiente[i_prev] = minimo_consecutivo
                     log.debug(
@@ -186,11 +240,13 @@ def construir_solucion_heuristica(
         # Segundo bucle: Se elige a los pendientes para rellenar con el atco menos cargado
         for sector_t, posicion in pendientes:
             log.debug("✅ Sector: (%s)", sector_t.id)
+            excluidos = rotados_de.get((sector_t.id, posicion), set())
             candidatos = [
                 i
                 for i in range(n_atcos)
                 if matriz[i][t] == STRING_DESCANSO
                 and descanso_pendiente[i] == 0
+                and i not in excluidos
                 and _tiene_licencia(atcos[i], sector_t.id, ruta_ids, nucleo_a_sectores)
             ]
             log.debug("✅ Pos: (%s), candidatos = %d", posicion, len(candidatos))
@@ -200,7 +256,8 @@ def construir_solucion_heuristica(
             if prioridad_atco is not None:
                 # Cromosoma del BRKGA como criterio primario; carga como
                 # tiebreaker para preservar algo de balance natural.
-                candidatos.sort(key=lambda i: (-prioridad_atco[i], slots_trabajados[i]))
+                # candidatos.sort(key=lambda i: (-prioridad_atco[i], slots_trabajados[i]))
+                candidatos.sort(key=lambda i: (slots_trabajados[i], -prioridad_atco[i]))
             else:
                 # Greedy puro: menos cargado, shuffle como tiebreaker.
                 rng.shuffle(candidatos)
@@ -214,6 +271,8 @@ def construir_solucion_heuristica(
             matriz[i_elegido][t] = token
             slots_trabajados[i_elegido] += 1
             consecutivos[i_elegido] += 1
+            slots_en_posicion[i_elegido] = 1
+            target_pos_slots[i_elegido] = _sortear_target_posicion()
             if consecutivos[i_elegido] >= maximo_consecutivo:
                 descanso_pendiente[i_elegido] = minimo_consecutivo
 
@@ -223,6 +282,8 @@ def construir_solucion_heuristica(
             cell = matriz[i][t]
             if cell in (STRING_DESCANSO, STRING_NO_TURNO):
                 consecutivos[i] = 0
+                slots_en_posicion[i] = 0
+                target_pos_slots[i] = 0
                 if descanso_pendiente[i] > 0:
                     descanso_pendiente[i] -= 1
             # si i_pl is None: PL queda descubierto (lo registra el fitness)

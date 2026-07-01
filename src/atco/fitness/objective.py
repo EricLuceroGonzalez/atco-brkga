@@ -7,7 +7,7 @@ from dataclasses import dataclass
 from atco.domain.models import Solucion
 from atco.fitness.components import (
     # fragmentacion,
-    similitud_estadillos,
+    compacto,
     acreditacion,
     balance_carga,
     cobertura_insatisfecha,
@@ -26,12 +26,12 @@ from atco.problem.parameters import Parametros
 from atco.problem.restrictions.checks import contar_violaciones
 
 # ============================================================================
-# Normalizadores privados — todos a [0, 1] con MAXIMIZACIÓN
+# Normalizadores privados - todos a [0, 1] con MAXIMIZACIÓN
 # ============================================================================
 
 
-def _norm_estadillos(v: float, v_max: float) -> float:
-    """f₂ Tello §6.3.3.2: f2 = v / v_max ∈ [0, 1]."""
+def _norm_compacto(v: float, v_max: float) -> float:
+    """f₂ Tello §6.3.3.2: f2 = v / v_max in [0, 1]."""
     if v_max == 0:
         return 1.0
     return max(0.0, min(1.0, v / v_max))
@@ -82,7 +82,7 @@ class FitnessResult:
     """Desglose del fitness con dos bloques (factibilidad + rendimiento).
 
     Convenciones:
-      - ``valor`` ∈ [0, 1], a maximizar. Igual a
+      - ``valor`` in [0, 1], a maximizar. Igual a
         ``alpha · f_factibilidad + (1-alpha) · f_rendimiento``.
       - Los 4 objetivos en ``objetivos`` siguen la nomenclatura de Tello sec 6.3.3.
       - La cobertura insatisfecha se reporta como ``cobertura_ratio`` para
@@ -120,11 +120,11 @@ def evaluar_fitness(
     parametros: Parametros,
     config: FitnessConfig | None = None,
 ) -> FitnessResult:
-    """Evalúa el fitness como ``alpha · f_fact + (1-alpha) · f_rend``, ambos ∈ [0, 1].
+    """Evalúa el fitness como ``alpha · f_fact + (1-alpha) · f_rend``, ambos in [0, 1].
 
     Arquitectura:
       - **Bloque A** (factibilidad): normalización Tello de las 14
-        restricciones con cap ``κ · N`` (κ ∈ {18, 20} según turno).
+        restricciones con cap ``κ · N`` (κ in {18, 20} según turno).
       - **Bloque B** (rendimiento): 4 objetivos de Tello sec 6.3.3 con pesos
         ROC, todos normalizados a [0, 1].
 
@@ -134,7 +134,7 @@ def evaluar_fitness(
     if config is None:
         config = FitnessConfig()
 
-    # ─── Bloque B — Rendimiento (Tello sec 6.3.3) ───────────────────────
+    # ─── Bloque B - Rendimiento (Tello sec 6.3.3) ───────────────────────
     f_rendimiento, objetivos, componentes, crudos = _calcular_bloque_rendimiento(
         solucion,
         entrada,
@@ -142,7 +142,7 @@ def evaluar_fitness(
         config,
     )
 
-    # ─── Bloque A — Factibilidad ─────────────────────────────────────
+    # ─── Bloque A - Factibilidad ─────────────────────────────────────
     violaciones = contar_violaciones(solucion, entrada, parametros)
     restricciones_violadas = [
         nombre for nombre, conteo in violaciones.items() if conteo > 0
@@ -169,6 +169,10 @@ def evaluar_fitness(
     # ─── Combinación final: alpha · f_fact + (1-alpha) · f_rend ──────────────
     pb = config.pesos_bloques
     valor = pb.peso_factibilidad * f_factibilidad + pb.peso_rendimiento * f_rendimiento
+    # valor = (
+    #     pb.peso_factibilidad * (1.0 - f_factibilidad)
+    #     + pb.peso_rendimiento * f_rendimiento
+    # )
 
     return FitnessResult(
         valor=valor,
@@ -212,7 +216,7 @@ def _calcular_bloque_rendimiento(
     p = config.pesos
     u = config.umbrales
 
-    # ─── Obj 1 — Condiciones laborales (vn_1, vn_2, vn_3) ────────────────
+    # ─── Obj 1 - Condiciones laborales (vn_1, vn_2, vn_3) ────────────────
     pos_crudo, pos_cota = tiempo_optimo_posicion(
         solucion,
         parametros,
@@ -238,13 +242,13 @@ def _calcular_bloque_rendimiento(
 
     obj1 = p.mu_1_1 * f_vn1 + p.mu_1_2 * f_vn2 + p.mu_1_3 * f_vn3
 
-    # ─── Obj 2 — Compactación (fragmentación) ─────────────────────────
+    # ─── Obj 2 - Compactación (fragmentación) ─────────────────────────
     # frag_crudo, frag_vmin, frag_vmax = fragmentacion(solucion)
     # obj2 = _norm_fragmentacion(frag_crudo, frag_vmin, frag_vmax)
-    sim_v, sim_vmax = similitud_estadillos(solucion, momento_actual=0)
-    obj2 = _norm_estadillos(sim_v, sim_vmax)
+    sim_v, sim_vmax = compacto(solucion, momento_actual=0)
+    obj2 = _norm_compacto(sim_v, sim_vmax)
 
-    # ─── Obj 3 — Intervalos de descanso + Acreditación ────────────────
+    # ─── Obj 3 - Intervalos de descanso + Acreditación ────────────────
     desc_crudo, desc_vmin, desc_vmax = intervalos_descanso(solucion)
     f_3_1 = _norm_intervalos_descanso(desc_crudo, desc_vmin, desc_vmax)
 
@@ -253,7 +257,7 @@ def _calcular_bloque_rendimiento(
 
     obj3 = p.mu_3_1 * f_3_1 + p.mu_3_2 * f_3_2
 
-    # ─── Obj 4 — Balance de carga ─────────────────────────────────────
+    # ─── Obj 4 - Balance de carga ─────────────────────────────────────
     bal_sigma, bal_sigma_max = balance_carga(solucion)
     obj4 = _norm_desviacion_t(bal_sigma, bal_sigma_max)
 
@@ -266,7 +270,7 @@ def _calcular_bloque_rendimiento(
     objetivos = {
         "obj1_condiciones_laborales": obj1,
         # "obj2_compactacion": obj2,
-        "obj2_similitud_estadillos": obj2,
+        "obj2_compacto": obj2,
         "obj3_descansos_y_acreditacion": obj3,
         "obj4_balance_carga": obj4,
     }
@@ -275,7 +279,7 @@ def _calcular_bloque_rendimiento(
         "vn2_tiempo_optimo_trabajo": f_vn2,
         "vn3_porcentaje_ejecutivo": f_vn3,
         # "fragmentacion": obj2,
-        "similitud_estadillos": obj2,
+        "compacto": obj2,
         "intervalos_descanso": f_3_1,
         "acreditacion": f_3_2,
         "balance_carga": obj4,
@@ -290,8 +294,8 @@ def _calcular_bloque_rendimiento(
         # "fragmentacion_crudo": float(frag_crudo),
         # "fragmentacion_vmin": float(frag_vmin),
         # "fragmentacion_vmax": float(frag_vmax),
-        "similitud_estadillos_v": sim_v,
-        "similitud_estadillos_vmax": sim_vmax,
+        "compacto_v": sim_v,
+        "compacto_vmax": sim_vmax,
         "intervalos_descanso_crudo": float(desc_crudo),
         "intervalos_descanso_vmin": float(desc_vmin),
         "intervalos_descanso_vmax": float(desc_vmax),

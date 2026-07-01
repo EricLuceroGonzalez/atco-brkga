@@ -191,7 +191,7 @@ class PesosBloques:
 class FitnessConfig:
     """Configuración completa de la función objetivo.
 
-    Componentes positivos (maximización, ∈ [0, 1]):
+    Componentes positivos (maximización, in [0, 1]):
       - cobertura
       - laboral = (vn_1, vn_2, vn_3) ponderados
       - estructura = (frag, desc) ponderados

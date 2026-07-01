@@ -143,7 +143,7 @@ class Entrada:
     def get_sectores_abiertos_en(self, t: int) -> list[Sector]:
         """Sectores abiertos en el slot `t` (sectorización dinámica).
 
-        Refleja la configuración del espacio aéreo en cada instante:
+        Refleja la configuración del espacio aéreo en cada instante (slot):
         el número de sectores abiertos varía a lo largo del día.
         """
         ids_t = self.sectorizacion[t]
@@ -156,8 +156,7 @@ class Entrada:
         """Unión de sectores que están abiertos en algún momento del día.
 
         No usa una vista por slot: agrega todos los sectores cuyo id
-        aparezca en algún elemento de `self.sectorizacion`. Útil para
-        cotas globales y comprobaciones de invariante.
+        aparezca en algún elemento de `self.sectorizacion`.
         """
         ids_union: set[str] = set()
         for ids_t in self.sectorizacion:

@@ -51,7 +51,7 @@ class PermutationDecoder(DecoderBase):
 
     @property
     def num_genes(self) -> int:
-        return self.n_controladores + self.n_sectores
+        return 2 * self.n_controladores + self.n_sectores
 
     def decode(
         self,
@@ -90,7 +90,7 @@ class PermutationDecoder(DecoderBase):
         priority_sectores = {
             s.id: float(sector_genes[i]) for i, s in enumerate(all_sectores)
         }
-
+        priority_rotation = chromosome[N + S : 2 * N + S].tolist()
         self.log.debug("Decoder")
         self.log.debug("🟣 priority_sectores")
         self.log.debug(priority_sectores)
@@ -102,14 +102,15 @@ class PermutationDecoder(DecoderBase):
         D_min = parametros.tiempo_des_min // parametros.tamano_slots
         L = T_opt + D_min  # longitud del ciclo natural
         offsets_genes = chromosome[N + S : 2 * N + S]
-        offsets_atcos = [int(g * L) for g in offsets_genes]
+        prioridad_rotacion = (priority_rotation,)
+        # offsets_atcos = [int(g * L) for g in offsets_genes]
         return construir_solucion_heuristica(
             entrada=entrada,
             parametros=parametros,
             rng=rng,
             prioridad_atco=priority_atcos,
             prioridad_sectores=priority_sectores,
-            offsets_atcos=offsets_atcos,
+            # offsets_atcos=offsets_atcos,
         )
 
 
@@ -119,13 +120,30 @@ def chromosome_from_solucion(
     longitud_t: int,
     n_sectores: int,
 ) -> np.ndarray:
-    """..."""
+    """Deriva un cromosoma "razonable" a partir de una Solucion existente.
+
+    No es una codificación inversa exacta (ver docstring del módulo): la
+    parte de sectores y la de rotación se generan con ruido determinista,
+    no se reconstruyen desde la solución. Sirve como warm-start.
+
+    Genes:
+        [0, N)      prioridad_atco: inversamente proporcional a la carga.
+        [N, N+S)    prioridad_sectores: aleatorio determinista por semilla.
+        [N+S, 2N+S) prioridad_rotacion: sesgado alto (>= 0.3) para que el
+                     warm-start no fuerce rotación temprana por defecto,
+                     preservando el comportamiento de continuidad del
+                     greedy original que produjo `solucion`.
+    """
 
     # TODO(docs): chromosome_from_solucion NO es inverso de decode (la parte de sectores es ruido). Documentar explícitamente y referenciar codec.codificar() para round-trip exacto.
     #                   determinista (e.g. sorted by .id) para que decode sea
     #                   reproducible entre ejecuciones.
     if len(solucion.controladores) != n_controladores:
-        raise ValueError(...)
+        raise ValueError(
+            f"Solucion tiene {len(solucion.controladores)} controladores, "
+            f"esperados {n_controladores}"
+        )
+
     atco_part = np.array(
         [1.0 - (c.slots_trabajados / longitud_t) for c in solucion.controladores],
         dtype=float,
@@ -138,4 +156,12 @@ def chromosome_from_solucion(
         & 0xFFFF_FFFF
     )
     sector_part = np.random.default_rng(seed_sector).random(n_sectores)
-    return np.concatenate([atco_part, sector_part])
+    # rotación sesgada a [0.3, 1.0) para no forzar rotación
+    # temprana en el warm-start - el greedy que generó `solucion` no
+    # tenía rotación activa, así que mantenemos continuidad por defecto.
+    seed_rotacion = (seed_sector + 1) & 0xFFFF_FFFF
+    rotation_part = 0.3 + 0.7 * np.random.default_rng(seed_rotacion).random(
+        n_controladores
+    )
+
+    return np.concatenate([atco_part, sector_part, rotation_part])

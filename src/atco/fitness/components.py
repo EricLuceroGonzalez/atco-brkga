@@ -141,7 +141,7 @@ def fragmentacion(solucion: Solucion) -> tuple[int, int, int]:
 
     Un *bloque* es una racha maximal de slots consecutivos en el mismo
     estado (trabajo o descanso). Un horario más compacto tiene menos
-    bloques por fila — idealmente uno solo de trabajo y otro de descanso.
+    bloques por fila - idealmente uno solo de trabajo y otro de descanso.
 
     Esta versión sustituye a la anterior, que contaba transiciones
     (cambios entre slots adyacentes). Ambas son linealmente equivalentes
@@ -188,11 +188,11 @@ def fragmentacion(solucion: Solucion) -> tuple[int, int, int]:
     return crudo, v_min, v_max
 
 
-def similitud_estadillos(
+def compacto(
     solucion: Solucion,
     momento_actual: int = 0,
 ) -> tuple[float, float]:
-    """f₂ Tello §6.3.3.2 — Compactación tipo estadillo.
+    """f₂ Tello §6.3.3.2 - Compactación tipo estadillo.
 
     Cuenta para cada celda (k, j) desde `momento_actual` cuántas veces el
     token coincide con su vecino derecho y/o inferior:
@@ -362,12 +362,12 @@ def acreditacion(
 
     Sólo cuentan los elementales pertenecientes a **sectores que se abren
     en algún slot del turno** (operacionalmente disponibles). Trabajar un
-    sector cerrado no contribuye a la acreditación — la elección de
+    sector cerrado no contribuye a la acreditación - la elección de
     cubrir un sector fuera de su ventana operacional es un problema de
     restricciones, no de acreditación.
 
     Convención: EJ (token en mayúsculas) y PL (token en minúsculas) del
-    mismo sector aportan los mismos elementales — el elemental
+    mismo sector aportan los mismos elementales - el elemental
     pertenece al sector, no al rol.
 
     Args:
@@ -576,8 +576,8 @@ def _intervalos_misma_posicion(cadena: str, T: int) -> list[tuple[int, int, str]
 
     Un *intervalo de misma posición* es una racha de slots consecutivos donde
     el controlador trabaja **exactamente el mismo token** (mismo sector y
-    misma posición ejecutivo/planificador). Cualquier cambio de token —
-    cambio de sector, cambio de rol, o entrada en descanso/fuera-de-turno —
+    misma posición ejecutivo/planificador). Cualquier cambio de token -
+    cambio de sector, cambio de rol, o entrada en descanso/fuera-de-turno -
     cierra el intervalo.
 
     Args:
@@ -587,7 +587,7 @@ def _intervalos_misma_posicion(cadena: str, T: int) -> list[tuple[int, int, str]
     Returns:
         Lista de tuplas ``(slot_inicio, slot_fin_exclusivo, token)`` ordenadas
         cronológicamente. El intervalo es ``[slot_inicio, slot_fin_exclusivo)``
-        — es decir, su duración en slots es ``slot_fin_exclusivo - slot_inicio``.
+        - es decir, su duración en slots es ``slot_fin_exclusivo - slot_inicio``.
         Los slots de descanso (``"111"``) y fuera-de-turno (``"000"``) **no**
         aparecen en la lista.
 
@@ -631,7 +631,7 @@ def _intervalos_trabajo(cadena: str, T: int) -> list[tuple[int, int]]:
     """Devuelve los intervalos maximales de trabajo (cualquier sector/posición).
 
     Un *intervalo de trabajo* es una racha de slots consecutivos donde el
-    controlador está trabajando **algo** — independientemente del sector o
+    controlador está trabajando **algo** - independientemente del sector o
     rol. Los cambios entre sectores distintos o entre EJ/PL **no** cortan
     el intervalo; sólo el descanso (``"111"``) o el fuera-de-turno (``"000"``)
     lo cierran.
